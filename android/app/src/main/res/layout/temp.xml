@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:auto_start="true"
+            tools:visibility="gone">
+
+            <include
+                android:id="@+id/root_view_v1"
+                layout="@layout/shimmer_skeleton_effect" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/root_earning"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical">
+            <!--Top Container-->
+            <RelativeLayout
+                android:id="@+id/bac_button_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageView
+                    android:id="@+id/profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_profile"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_toEndOf="@+id/profile"
+                    android:textStyle="bold"
+                    android:text="@string/my_earnings_v2_profile"
+                    android:textColor="@color/black_v2"
+                    android:textSize="20sp"
+                    tools:ignore="RelativeOverlap" />
+
+                <RelativeLayout
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+                    <ImageView
+                        android:id="@+id/iv_notification_icon_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_notification_v2"
+                        android:visibility="visible" />
+
+                    <RelativeLayout
+                        android:id="@+id/notification_container_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/notification_light"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_notification_v2" />
+
+                        <ImageView
+                            android:id="@+id/img_read"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_alignTop="@+id/notification_light"
+                            android:layout_alignEnd="@+id/notification_light"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_ellipse_unread" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/bac_button_container"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/container_one_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:layout_marginTop="8dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <LinearLayout
+                            android:id="@+id/SliderDots"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/view_pager"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/container_two_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:layout_below="@+id/container_one_viewpager">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewpage_inner"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:visibility="visible" />
+
+                        <me.relex.circleindicator.CircleIndicator3
+                            android:id="@+id/indicator"
+                            android:layout_below="@+id/viewpage_inner"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            app:ci_drawable="@drawable/active_dot"
+                            app:ci_drawable_unselected="@drawable/non_active_dot"
+                            app:ci_gravity="center"
+                            app:ci_height="5dp"
+                            app:ci_margin="5dp"
+                            app:ci_orientation="horizontal"
+                            app:ci_width="5dp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rv_parent_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <RelativeLayout
+                            android:id="@+id/rv_container_earning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <LinearLayout
+                                android:id="@+id/view_all_container2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ripple_effect"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:minHeight="48dp"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tv_trans_earning_heading"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/ripple_effect"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:textStyle="bold"
+                                    android:paddingTop="8dp"
+                                    android:text="@string/earning_calculation"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp" />
+
+                                <LinearLayout
+                                    android:id="@+id/view_all_container_click2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/upload_text_color"
+                                    android:gravity="center"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:id="@+id/tv_trans_earning_view_all"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:paddingStart="16dp"
+                                        android:paddingTop="7dp"
+                                        android:paddingEnd="16dp"
+                                        android:paddingBottom="5dp"
+                                        android:text="@string/view_details_earn"
+                                        android:textColor="@color/default_200"
+                                        android:textSize="12sp"
+                                        tools:ignore="TooDeepLayout" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/rv_container2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/view_all_container2"
+                                android:orientation="vertical">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rv_earning"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rv_container_history"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible">
+
+                            <RelativeLayout
+                                android:id="@+id/view_all_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ripple_effect"
+                                android:clickable="true"
+                                android:minHeight="48dp"
+                                android:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/tv_trans_hitstory_heading"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ripple_effect"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:textStyle="bold"
+                                    android:paddingTop="8dp"
+                                    android:text="@string/transaction_history"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp" />
+
+                                <LinearLayout
+                                    android:id="@+id/view_all_container_click"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@drawable/upload_text_color"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:id="@+id/tv_trans_hitstory_view_all"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:paddingStart="16dp"
+                                        android:paddingTop="7dp"
+                                        android:paddingEnd="16dp"
+                                        android:paddingBottom="5dp"
+                                        android:text="@string/view_all"
+                                        android:textColor="@color/default_200"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/rv_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/view_all_container"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rv_transc_history"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    android:visibility="visible"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                                <TextView
+                                    android:id="@+id/tv_info_rv_data"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="@string/no_history_available"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="18sp"
+                                    android:visibility="visible" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/cashout_card_root"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/white"
+                                android:orientation="vertical"
+                                android:visibility="gone"
+                                tools:visibility="visible">
+
+                                <LinearLayout
+                                    android:id="@+id/cashoutTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/blue_cashout_6_corner"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:orientation="horizontal"
+                                    android:padding="4dp">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.7"
+                                        android:padding="10dp"
+                                        android:src="@drawable/ic_progress_circle" />
+
+                                    <TextView
+                                        android:id="@+id/cashOut_config_txt"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="2.8"
+
+                                        android:textColor="@color/white"
+                                        android:textSize="12sp"
+                                        tools:text="Eligible for Cashout in 20 days!" />
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5"
+                                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                        app:tint="@color/white" />
+                                </LinearLayout>
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/cash_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/blue_background_corner"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/img_grey"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:elevation="2dp"
+                                        android:src="@drawable/blue_background_corner_grey"
+                                        android:visibility="gone"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                                    <LinearLayout
+                                        android:id="@+id/secure_layout"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="22dp"
+                                        android:layout_marginLeft="22dp"
+                                        android:layout_marginTop="24dp"
+                                        android:layout_marginBottom="20dp"
+                                        android:orientation="vertical"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <TextView
+                                            android:id="@+id/canhout"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textStyle="bold"
+                                            android:text="@string/cashout_available"
+                                            android:textColor="@color/white"
+                                            android:textSize="12sp" />
+
+                                        <ImageView
+                                            android:id="@+id/secure_img"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginTop="10dp"
+                                            android:src="@drawable/ioo_secure" />
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:id="@+id/set_price"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="20dp"
+                                        android:layout_marginEnd="40dp"
+                                        android:layout_toEndOf="@+id/secure_layout"
+                                        android:background="#00000000"
+                                        android:textStyle="bold"
+                                        android:maxLength="8"
+                                        android:maxLines="1"
+                                        android:paddingEnd="10dp"
+                                        android:text="₹ 36000"
+                                        android:textColor="@color/white"
+                                        android:textSize="30sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <ImageView
+                                        android:id="@+id/forward_img"
+                                        android:layout_width="8dp"
+                                        android:layout_height="14dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="40dp"
+                                        android:layout_marginEnd="18dp"
+                                        android:src="@drawable/ic_forward_white"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_internal_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+                            <include
+                                android:id="@+id/internal_shimmer"
+                                layout="@layout/shimmer_internal_item" />
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
+

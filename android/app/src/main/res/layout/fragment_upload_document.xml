@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.documentupload.UploadDocumentFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:id="@+id/bac_button_container"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ripple_effect"
+                    android:backgroundTint="@null"
+                    android:clickable="true"
+                    android:contentDescription="@string/press_the_back_button"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_back_arrow_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_toEndOf="@+id/iv_back_button"
+                    android:textStyle="bold"
+                    android:padding="4dp"
+                    android:text="@string/upload_document"
+                    android:textColor="@color/text_heading"
+                    android:textSize="20sp"
+                    android:translationY="2dp" />
+
+            </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_below="@+id/bac_button_container"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:id="@+id/adhaar_card_root"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp"
+                                tools:ignore="DisableBaselineAlignment">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:text="@string/aadhar_card_details"
+                                        android:textColor="@color/black_v2"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:id="@+id/adhar_img"
+                                        android:layout_width="104dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_front_aadhar" />
+                                    <ImageView
+                                        android:layout_marginTop="4dp"
+                                        android:id="@+id/adhar_img_b"
+                                        android:layout_width="104dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_aadhar_back" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+
+                                            android:text="@string/status"
+                                            android:textColor="@color/black_v2"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_success_aadhar_front"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_bg_success"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:visibility="gone"
+                                            android:text="@string/success"
+                                            android:textColor="@color/green"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_waiting_aadhar_front"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_waiting"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:visibility="gone"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/waiting"
+                                            android:textColor="@color/tv_waiting_bg"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_missing_aadhar_front"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_missing"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="8dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/missing"
+                                            android:textColor="@color/tv_missing_bg"
+                                            android:textSize="10sp"
+                                            app:drawableStartCompat="@drawable/ic_alert_icon"
+                                            tools:ignore="SmallSp" />
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:id="@+id/ic_upload_case_front"
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_upload" />
+
+                                    <ImageView
+                                        android:id="@+id/ic_verified_case_front"
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_verifed_case"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_view_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/container"
+                                android:layout_alignParentBottom="true"
+                                android:background="#FEF1EB"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/view_now"
+                                    android:textColor="@color/default_200"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/upload_adhaar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/container"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/default_200">
+
+
+                                <TextView
+                                    android:id="@+id/upload_text_View"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/upload_now"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:id="@+id/pan_card_root"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/container_pan_card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:text="@string/pan_card"
+                                        android:textColor="@color/black_v2"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:id="@+id/pan_img"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_pandcard_3x" />
+                                    <ImageView
+                                        android:visibility="invisible"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_pandcard_3x" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+
+                                            android:text="@string/status"
+                                            android:textColor="@color/black_v2"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_success_pancard"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_bg_success"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:visibility="gone"
+                                            android:text="@string/success"
+                                            android:textColor="@color/green"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_waiting_pancard"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_waiting"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:visibility="gone"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/waiting"
+                                            android:textColor="@color/tv_waiting_bg"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_missing_pancard"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_missing"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="8dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/missing"
+                                            android:textColor="@color/tv_missing_bg"
+                                            android:textSize="10sp"
+                                            app:drawableStartCompat="@drawable/ic_alert_icon"
+                                            tools:ignore="SmallSp" />
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:id="@+id/pan_upload_img"
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_upload" />
+
+                                    <ImageView
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_verifed_case"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llcontainer_view_one"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/container_pan_card"
+                                android:layout_alignParentBottom="true"
+                                android:background="#FEF1EB">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/view_now"
+                                    android:textColor="@color/default_200"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/upload_panCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/container_pan_card"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/default_200">
+                                <ProgressBar
+                                    android:id="@+id/prog_upload_text_View_pan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:visibility="gone"
+                                    app:indicatorColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <TextView
+                                    android:id="@+id/upload_text_View_pan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/upload_now"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        app:cardElevation="2dp"
+                        app:cardUseCompatPadding="true">
+
+                        <RelativeLayout
+                            android:id="@+id/dl_card_root"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/container_dl_card"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:text="@string/dl_card"
+                                        android:textColor="@color/black_v2"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:id="@+id/dl_img_A"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_dl_4x"/>
+                                    <ImageView
+                                        android:id="@+id/dl_img_B"
+                                        android:visibility="visible"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/driving_back" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+
+                                            android:text="@string/status"
+                                            android:textColor="@color/black_v2"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/dl_success_pancard"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_bg_success"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:visibility="gone"
+                                            android:text="@string/success"
+                                            android:textColor="@color/green"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/dl_waiting_pancard"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_waiting"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:visibility="gone"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/waiting"
+                                            android:textColor="@color/tv_waiting_bg"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/dl_missing_tv"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_missing"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="8dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/missing"
+                                            android:textColor="@color/tv_missing_bg"
+                                            android:textSize="10sp"
+                                            app:drawableStartCompat="@drawable/ic_alert_icon"
+                                            tools:ignore="SmallSp" />
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:id="@+id/dl_upload_img"
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_upload" />
+
+                                    <ImageView
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_verifed_case"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llcontainer_view_one_dl"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/container_dl_card"
+                                android:layout_alignParentBottom="true"
+                                android:background="#FEF1EB">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/view_now"
+                                    android:textColor="@color/default_200"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/upload_dlCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/container_dl_card"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/default_200">
+                                <ProgressBar
+                                    android:id="@+id/prog_upload_text_View_dl"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:visibility="gone"
+                                    app:indicatorColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <TextView
+                                    android:id="@+id/upload_text_View_dl"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/upload_now"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

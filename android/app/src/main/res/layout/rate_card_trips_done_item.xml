@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_66dp"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_17dp"
+        android:background="@drawable/card_background_grey">
+
+
+        <ImageView
+            android:id="@+id/iv_company_logo"
+            android:layout_width="@dimen/dimen_16dp"
+            android:layout_height="@dimen/dimen_16dp"
+            android:layout_marginStart="@dimen/dimen_12dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:src="@drawable/mitra_icon" />
+
+        <TextView
+            android:id="@+id/tv_trips_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_9dp"
+            android:layout_toEndOf="@+id/iv_company_logo"
+
+            android:text="@string/_60_trips"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_16sp" />
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="7dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="@dimen/dimen_17dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:layout_toEndOf="@+id/tv_trips_completed"
+            android:src="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/iv_company_logo_2"
+            android:layout_width="@dimen/dimen_18dp"
+            android:layout_height="@dimen/dimen_18dp"
+            android:layout_marginStart="@dimen/dimen_18dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/iv_add"
+            android:src="@drawable/mitra_icon" />
+
+        <TextView
+            android:id="@+id/tv_trips_completed_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_9dp"
+            android:layout_toEndOf="@+id/iv_company_logo_2"
+            android:autoSizeMaxTextSize="16sp"
+            android:autoSizeMinTextSize="15.5sp"
+            android:autoSizeStepGranularity="0.5sp"
+            android:autoSizeTextType="uniform"
+
+            android:text="@string/_60_trips"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_16sp" />
+
+        <ImageView
+            android:id="@+id/iv_cash1"
+            android:layout_width="@dimen/dimen_19dp"
+            android:layout_height="@dimen/dimen_17dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone"
+            android:layout_toStartOf="@+id/tv_amt_earned"
+            android:src="@drawable/cash_icon" />
+
+        <TextView
+            android:id="@+id/tv_amt_earned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:layout_marginEnd="@dimen/dimen_12dp"
+            android:text="@string/_250"
+            android:textColor="@color/default_200"
+            android:textSize="@dimen/dimen_14dp" />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_amt_earned"
+        android:layout_marginStart="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_14dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_cash_icon"
+            android:layout_width="@dimen/dimen_12dp"
+            android:layout_height="@dimen/dimen_12dp"
+            android:src="@drawable/cash_icon" />
+
+        <TextView
+            android:id="@+id/tv_x_trips_to_earn_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_6dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:layout_marginEnd="@dimen/dimen_12dp"
+            android:text="@string/take_11_more_trips_from_sfx_to_earn_250"
+            android:textColor="@color/grey3"
+            android:textSize="@dimen/font_10sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="9sp"
+            android:autoSizeMaxTextSize="10sp"
+            android:autoSizeStepGranularity="0.5sp"/>
+
+    </LinearLayout>
+    </RelativeLayout>
+</layout>

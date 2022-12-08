@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.vahan.mitra_playstore",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 56,
+      "versionName": "1.56",
+      "outputFile": "Mitra-Playstore-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

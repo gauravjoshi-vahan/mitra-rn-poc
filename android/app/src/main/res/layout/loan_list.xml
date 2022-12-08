@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_1"
+            layout="@layout/fragment_loan_result"
+            android:visibility="gone" />
+
+       <include
+           android:id="@+id/layout_2"
+           layout="@layout/apply_loan_result"
+           android:visibility="visible">
+
+       </include>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

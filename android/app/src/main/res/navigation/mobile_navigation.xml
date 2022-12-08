@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home_fragment">
+
+    <fragment
+        android:id="@+id/nav_earn_fragment"
+        android:name="com.vahan.mitra_playstore.view.earn.view.ui.EarnFragmentV2"
+        android:label="Earning"
+        tools:layout="@layout/fragment_earn_v2">
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_fragment_history"
+            app:destination="@id/nav_fragment_history"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"/>
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_error_fragment"
+            app:destination="@id/nav_error_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_cross_util_fragment"
+            app:destination="@id/nav_cross_util_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_borrow_fragment"
+        android:name="com.vahan.mitra_playstore.view.loan.view.ui.fragment.BorrowFragment"
+        android:label="Earning"
+        tools:layout="@layout/fragment_borrow" />
+
+    <fragment
+        android:id="@+id/nav_insurance_fragment"
+        android:name="com.vahan.mitra_playstore.view.insurance.ui.InsuranceFragment"
+        android:label="Earning"
+        tools:layout="@layout/fragment_insurance" />
+
+    <fragment
+        android:id="@+id/nav_profile_fragment"
+        android:name="com.vahan.mitra_playstore.view.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_nav_profile_fragment_to_nav_support_ticket_fragment"
+            app:destination="@id/nav_support_ticket_fragment"
+            app:enterAnim="@anim/enter_animation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_upload_fragment"
+        android:name="com.vahan.mitra_playstore.view.documentupload.ui.UploadDocumentFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_upload_document">
+        <action
+            android:id="@+id/action_nav_upload_fragment_to_nav_view_fragment"
+            app:destination="@id/nav_view_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_view_fragment"
+        android:name="com.vahan.mitra_playstore.view.documentupload.ui.UploadScreenFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_upload_screen" />
+
+    <fragment
+        android:id="@+id/transaction_layout"
+        android:name="com.vahan.mitra_playstore.view.earn.view.ui.CashOutTransactionFragment"
+        android:label="CashOut Money"
+        tools:layout="@layout/cashout_money_screen" />
+
+
+    <fragment
+        android:id="@+id/nav_fragment_add"
+        android:name="com.vahan.mitra_playstore.view.bankinfo.view.AddBankFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_add_bank" />
+
+    <fragment
+        android:id="@+id/nav_fragment_history"
+        android:name="com.vahan.mitra_playstore.view.history.HistoryFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_history" />
+
+
+    <fragment
+        android:id="@+id/nav_fragment_view"
+        android:name="com.vahan.mitra_playstore.view.history.HistoryViewFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_history_view" />
+    <fragment
+        android:id="@+id/nav_fragment_notification"
+        android:name="com.vahan.mitra_playstore.view.notification.NotificationFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/nav_fragment_insurance_info"
+        android:name="com.vahan.mitra_playstore.view.insurance.ui.InsuranceInfoFragment"
+        android:label="Insurance"
+        tools:layout="@layout/fragment_insurance_info" />
+    <fragment
+        android:id="@+id/nav_fragment_payment_sucessful"
+        android:name="com.vahan.mitra_playstore.view.payment.PaymentSucessfulFragment"
+        android:label="payment successful"
+        tools:layout="@layout/fragment_payment_sucessful">
+        <action
+            android:id="@+id/action_nav_fragment_payment_sucessful_to_nav_earn_fragment"
+            app:destination="@id/nav_earn_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_addBank_view"
+        android:name="com.vahan.mitra_playstore.view.bankinfo.view.ViewFragment"
+        android:label="payment successful"
+        tools:layout="@layout/fragment_view" />
+
+    <fragment
+        android:id="@+id/nav_view_upload"
+        android:name="com.vahan.mitra_playstore.view.documentupload.ui.ViewUploadFragment"
+        android:label="payment successful"
+        tools:layout="@layout/fragment_view_upload" />
+
+    <fragment
+        android:id="@+id/nav_help_support"
+        android:name="com.vahan.mitra_playstore.view.helpandsupport.HelpAndSupportFragment"
+        android:label="payment successful"
+        tools:layout="@layout/fragment_help_and_support" />
+
+    <fragment
+        android:id="@+id/nav_payslip"
+        android:name="com.vahan.mitra_playstore.view.payslip.view.ui.fragment.PayslipFragment"
+        android:label="payment successful"
+        tools:layout="@layout/fragment_payslip" />
+    <fragment
+        android:id="@+id/nav_payslip_view"
+        android:name="com.vahan.mitra_playstore.view.payslip.view.ui.fragment.PaySlipViewFragment"
+        android:label="View Payslip"
+        tools:layout="@layout/fragment_pay_slip_view" />
+    <fragment
+        android:id="@+id/nav_loan_application_fragment"
+        android:name="com.vahan.mitra_playstore.view.loan.view.ui.fragment.LoanApplicationFragment"
+        android:label="Loan"
+        tools:layout="@layout/fragment_loan_application" />
+    <fragment
+        android:id="@+id/nav_loan_tenure_fragment"
+        android:name="com.vahan.mitra_playstore.view.loan.view.ui.fragment.TenureSelectionFragment"
+        android:label="Loan"
+        tools:layout="@layout/fragment_tenure_selection" />
+    <fragment
+        android:id="@+id/nav_loan_info_fragment"
+        android:name="com.vahan.mitra_playstore.view.loan.view.ui.fragment.LoanInfoFragment"
+        android:label="Loan"
+        tools:layout="@layout/fragment_loan_info" />
+    <fragment
+        android:id="@+id/nav_loan_result_fragment"
+        android:name="com.vahan.mitra_playstore.view.loan.view.ui.fragment.LoanResultFragment"
+        android:label="Loan"
+        tools:layout="@layout/loan_list" />
+    <fragment
+        android:id="@+id/nav_error_fragment"
+        android:name="com.vahan.mitra_playstore.view.errorview.ErrorFragment"
+        android:label="Error"
+        tools:layout="@layout/fragment_error" />
+    <fragment
+        android:id="@+id/nav_bank_detail_saved"
+        android:name="com.vahan.mitra_playstore.view.bankinfo.view.BankDetailSavedFragment"
+        android:label="bank"
+        tools:layout="@layout/fragment_bank_account_added" />
+
+    <fragment
+        android:id="@+id/cashout_purpose_fragment"
+        android:name="com.vahan.mitra_playstore.view.earn.view.ui.CashoutPurposeFragment"
+        android:label="Cashout Purpose Fragment"
+        tools:layout="@layout/fragment_cashout_purpose" />
+
+
+    <fragment
+        android:id="@+id/nav_referral_home_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.ReferralHomeFragment"
+        android:label="Referral Fragment"
+        tools:layout="@layout/fragment_referral_home" />
+
+    <fragment
+        android:id="@+id/nav_invite_friends_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.ReferralInviteFriendsFragment"
+        android:label="Invite Friends Fragment"
+        tools:layout="@layout/fragment_invite_friends" />
+
+    <fragment
+        android:id="@+id/nav_referral_status_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.ReferralStatusFragment"
+        android:label="Organic user Fragment"
+        tools:layout="@layout/fragment_referral_status" />
+
+    <fragment
+        android:id="@+id/nav_referral_non_status_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.NonInvitedDataFragment"
+        android:label="Organic user Fragment"
+        tools:layout="@layout/fragment_non_invited_data" />
+
+    <fragment
+        android:id="@+id/nav_referral_rsp_status_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.ReferralStatusRespFragment"
+        android:label="Organic user Fragment"
+        tools:layout="@layout/fragment_referral_status_resp" />
+
+    <fragment
+        android:id="@+id/nav_know_more_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.KnowMoreFragment"
+        android:label="Know More Fragment"
+        tools:layout="@layout/fragment_know_more" />
+
+    <fragment
+        android:id="@+id/nav_rate_card_new"
+        android:name="com.vahan.mitra_playstore.view.ratecard.ui.RateCardFragment"
+        android:label="Rate Card New Fragment"
+        tools:layout="@layout/fragment_rate_card_new" />
+
+    <fragment
+        android:id="@+id/nav_cross_util_fragment"
+        android:name="com.vahan.mitra_playstore.view.crossutilsslot.fragment.CrossUtilFragment"
+        android:label="Cross Util Fragment"
+        tools:layout="@layout/fragment_cross_util" />
+
+    <fragment
+        android:id="@+id/weekly_earnings_fragment"
+        android:name="com.vahan.mitra_playstore.view.weeklyearnings.ui.fragments.WeeklyEarningsFragment"
+        android:label="Rate Card New Fragment"
+        tools:layout="@layout/fragment_weekly_earnings" />
+
+    <fragment
+        android:id="@+id/terms_and_condition_fragment"
+        android:name="com.vahan.mitra_playstore.view.ratecard.ui.TermsAndCondFragment"
+        android:label="Terms And Cond Fragment"
+        tools:layout="@layout/fragment_terms_and_cond" />
+
+    <fragment
+        android:id="@+id/daily_orders_fragment"
+        android:name="com.vahan.mitra_playstore.view.weeklyearnings.ui.fragments.DailyOrdersFragment"
+        android:label="Daily Orders Fragment"
+        tools:layout="@layout/fragment_daily_orders" />
+
+    <fragment
+        android:id="@+id/nav_support_ticket_fragment"
+        android:name="com.vahan.mitra_playstore.view.supporttickets.ui.fragments.SupportTicket"
+        android:label="Support Ticket"
+        tools:layout="@layout/fragment_support_ticket" />
+
+    <fragment
+        android:id="@+id/nav_home_fragment"
+        android:name="com.vahan.mitra_playstore.view.earn.view.ui.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+    <action
+        android:id="@+id/action_nav_home_fragment_to_nav_upload_document"
+        app:destination="@id/nav_upload_fragment"
+        app:enterAnim="@anim/enter_animation"
+        app:exitAnim="@anim/exit_animation"/>
+        <action
+            android:id="@+id/action_nav_home_fragment_to_nav_profile_fragment"
+            app:destination="@id/nav_profile_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+        <action
+            android:id="@+id/action_nav_home_fragment_to_nav_add_fragment"
+            app:destination="@id/nav_fragment_add"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+        <action
+            android:id="@+id/action_nav_home_fragment_to_nav_fragment_history"
+            app:destination="@id/nav_fragment_history"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation"/>
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_error_fragment"
+            app:destination="@id/nav_error_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_cross_util_fragment"
+            app:destination="@id/nav_cross_util_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+        <action
+            android:id="@+id/action_nav_earn_fragment_to_nav_profile_fragment"
+            app:destination="@id/nav_profile_fragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_why_saving_fragment"
+        android:name="com.vahan.mitra_playstore.view.experiments.savingcalculator.view.ui.fragments.WhySavingFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_why_saving">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_selected_plan_fragment"
+        android:name="com.vahan.mitra_playstore.view.experiments.savingcalculator.view.ui.fragments.SelectedPlanFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_selected_plan">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_applied_fragment"
+        android:name="com.vahan.mitra_playstore.view.experiments.savingcalculator.view.ui.fragments.AppliedFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_applied">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_starter_fragment"
+        android:name="com.vahan.mitra_playstore.view.experiments.savingcalculator.view.ui.fragments.StarterFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_starter"/>
+
+    <fragment
+        android:id="@+id/nav_referral_code_fragment"
+        android:name="com.vahan.mitra_playstore.view.refer.view.ui.ReferralCodeFragment"
+        android:label="Referral Code"
+        tools:layout="@layout/fragment_referral_code"/>
+
+    <fragment
+        android:id="@+id/nav_help_support_fragment"
+        android:name="com.vahan.mitra_playstore.view.profile.HelpAndSupportFragment"
+        android:label="Help and Support"
+        tools:layout="@layout/fragment_help_and_settings"/>
+
+
+
+    <fragment
+        android:id="@+id/nav_fragment_generic_image_mode"
+        android:name="com.vahan.mitra_playstore.view.profilepic.ui.fragments.GenericImageUploadMode"
+        android:label="Image Upload Mode"
+        tools:layout="@layout/fragment_generic_image_upload_mode" />
+
+    <fragment
+        android:id="@+id/nav_fragment_weekly_goal"
+        android:name="com.vahan.mitra_playstore.view.experiments.weeklygoal.ui.fragments.WeeklyGoalFragment"
+        android:label="Earning History"
+        tools:layout="@layout/fragment_weekly_goal" />
+
+    <fragment
+        android:id="@+id/nav_fragment_graph"
+        android:name="com.vahan.mitra_playstore.view.experiments.earningHistory.view.fragments.EarningHistoryFragment"
+        android:label="Earning History"
+        tools:layout="@layout/fragment_earning_history" />
+
+
+</navigation>

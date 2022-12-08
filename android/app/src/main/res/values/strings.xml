@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Mitra</string>
+
+    <!--    registration layout -->
+    <string name="reg_heading_first">Enter your mobile number to Log In</string>
+    <string name="reg_heading_sub_heading_highlight">We couldn’t find account with this number. Please enter mobile number registered with your employer.</string>
+    <string name="reg_heading_second">Only use mobile number registered with your employer</string>
+    <string name="et_hint_otp">Enter Number</string>
+    <string name="et_hint_otp_number">Enter Otp received on 9599525080</string>
+    <string name="bottom_navigation_home">Earn</string>
+    <string name="bottom_navigation_borrow">Borrow</string>
+    <string name="bottom_navigation_insure">Insure</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="congratulation">Congratulation</string>
+    <string name="congratulation_sub">You are just two steps away from receiving your first salary </string>
+    <string name="title_loan">Module Title</string>
+    <string name="aadhaar_card_front_tv">Aadhaar Card Front</string>
+    <string name="aadhaar_card_front_tv_pan">PAN Card</string>
+    <string name="upload_picture_tv">Upload picture of front side of your Aadhaar card</string>
+    <string name="upload_picture_tv_back">Upload picture of  back side of your Aadhaar card</string>
+    <string name="upload_picture_tv_pan">Upload picture of PAN Card</string>
+    <string name="didn_otp">Didn’t receive OTP?</string>
+    <string name="account_details">Account Details</string>
+    <string name="account_number">Account Number</string>
+    <string name="re_enter_account_number">Re-enter account Number</string>
+    <string name="ifsc">IFSC</string>
+    <string name="your_name_as_per_bank_account">Your name as per bank account</string>
+    <string name="this_information_will_be_securely_stored_with_us_as_per_mitra_s_terms_of_service_and_privacy_policy">This information will be securely stored with us as per Mitra’s Terms of Service and Privacy Policy</string>
+    <string name="confirm_bank_account">Confirm Bank Account</string>
+    <string name="log_in">Log In</string>
+    <string name="language_selection">Select Language</string>
+    <string name="notification">Notifications</string>
+    <string name="profile">My Profile</string>
+    <string name="vishal_bharadwaj">Vishal Bharadwaj</string>
+    <string name="_91_9599432523">+91-9599432523</string>
+    <string name="job_details">Job Details</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="employer">Employer</string>
+    <string name="bha0356">BHA0356</string>
+    <string name="doj">Date of Joining</string>
+    <string name="_23_jan_2021">23-JAN-2021</string>
+    <string name="settings">Settings</string>
+    <string name="help_and_settings">Help &amp; Settings</string>
+    <string name="bank_account_details">Bank Account Details</string>
+    <string name="my_documents">My Documents</string>
+    <string name="my_salary_slip">My Salary Slip</string>
+    <string name="language">Language</string>
+    <string name="tv_heading">English</string>
+    <string name="help_and_support">Help and Support</string>
+    <string name="log_out">Log out</string>
+
+    <string name="privacy_policy"><u>Privacy Policy</u></string>
+    <string name="app_version_1_3">App version 1.3</string>
+    <string name="send_otp">Send Otp</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="upload_document">Upload Documents</string>
+    <string name="start_uploading_documents">Start uploading documents</string>
+
+    <string name="done">Done</string>
+    <string name="select_a_document_to_verify">Select a document to verify</string>
+    <string name="aadhar_front">Aadhar Front</string>
+    <string name="aadhar_back">Aadhar Back</string>
+    <string name="loading">Loading...</string>
+    <string name="my_earning">My Earnings</string>
+    <string name="your_income">Current Earnings</string>
+    <string name="_21_april">21-April</string>
+    <string name="_1_april_to_30_april">1 - April to 30 April</string>
+    <string name="_3_days_left">3 days Left</string>
+    <string name="rs_25_320">RS 25,320</string>
+    <string name="salary_details">Your Salary is due in 2 days.</string>
+    <string name="without_any_delay_you_get_your_money_on_time">To receive your salary on time, please complete following steps.</string>
+    <string name="verify_document">Verify Document</string>
+    <string name="we_need_this_to_verify_your_indentify">Upload Document</string>
+    <string name="upload">Upload</string>
+    <string name="add_bank_account_details">Add Bank Account Details</string>
+    <string name="you_ll_recevie_your_salary_in_the_account">Add Bank account</string>
+    <string name="hindi">Hindi</string>
+    <string name="english">English</string>
+    <string name="support">Support</string>
+    <string name="mitra_is_always_here_to_help">Mitra is always here to help you</string>
+    <string name="call_person">Call us on +91-9876543210 any time between 9 AM - 7 PM, Monday to Friday.</string>
+    <string name="congratulation_name">Congratulation</string>
+    <string name="pending_document">Pending Document</string>
+    <string name="wait">Please wait</string>
+    <string name="bank_account">Bank Account</string>
+    <string name="bank_account_receving">You’re receiving salary in the following account</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="msg_token_fmt">MessageFormat</string>
+    <string name="view_breakup"><u>View Breakup</u></string>
+    <string name="earning_breakup">Earnings breakup</string>
+    <string name="net_payout">Net Payout</string>
+    <string name="share_subject">BreakUpDetails</string>
+    <string name="share_using">share using</string>
+    <string name="term_condition">By clicking Log in, you’re agreeing to our <u><b>terms of service.</b></u></string>
+    <string name="term_and_conditions"><u>Terms &amp; Conditions</u></string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="bank_address">Bank Address</string>
+    <string name="aadhaar_card_back_tv">Aadhar Card Back</string>
+    <string name="validation_message">Please enter 10 digit number</string>
+    <string name="term_and_condition_link">https://vahan.ai/terms-of-use.html</string>
+    <string name="number_heading_text">Enter OTP recived on +91</string>
+
+
+    <!--    V2 Text-->
+    <string name="number_screen_heading_v2">Enter your mobile number</string>
+    <string name="number_screen_sub_heading_v2">Please enter the same mobile number registered with your employer</string>
+    <string name="mobile_number_v2">Mobile Number</string>
+    <string name="enter_otp_v2_heading">Enter OTP</string>
+    <string name="resend_otp_v2_first">Incorrect Mobile Number? Re-enter now</string>
+    <string name="resend_otp_v2_term_and_condition_first">By clicking Next, you agree with our</string>
+    <string name="resend_otp_v2_term_and_condition_Second">Terms &amp; Conditions</string>
+    <string name="resend_otp_v2_term_and_condition_third">Privacy Policy</string>
+    <string name="incorrect_mobile_number_re_enter_now_v2">Incorrect Mobile Number?</string>
+    <string name="incorrect_mobile_number_re_enter_now_v2_second">Re-enter now</string>
+    <string name="earnings_tc">Earnings</string>
+    <string name="home_tc">Home</string>
+    <string name="profile_tv_v2">Profile</string>
+    <string name="history_tv_v2">History</string>
+    <string name="earn_screen_tv_v2">2 Documents are missing!</string>
+    <string name="earn_screen_tv_v2_document">Upload documents to receive salary</string>
+    <string name="insurance_tv_v2">Insurance</string>
+    <string name="my_earnings_v2_profile">My Earnings</string>
+    <string name="cashout_available">Cashout Available!</string>
+    <string name="loan_tv_v2">Loan</string>
+
+    <string name="number_heading_tv">Please enter the 4 digit OTP Code sent on +91 </string>
+
+    <string name="downloading">Downloading...</string>
+    <string name="title_file_download">APK is downloading</string>
+    <string name="storage_access_required">Storage access is required to downloading the file.</string>
+    <string name="storage_permission_denied">Storage permission request was denied.</string>
+    <string name="ok">OK</string>
+    <string name="our_partners_mitra_splash_tv">OUR PARTNERS</string>
+    <string name="starting_text_91">+91</string>
+    <string name="enter_numbr_and_tv">and</string>
+    <string name="next_btn_tv">Next</string>
+    <string name="transaction_history_tv">Transaction History</string>
+    <string name="starter_one_1">Manage all your earnings with just one app!</string>
+    <string name="starter_one_sub">You can now manage all your earnings andn\nwithdrawals at ease</string>
+
+    <string name="starter_two_2">Cashout your money anytime!</string>
+    <string name="starter_two_sub">No more cash crunch - whenever you are in need of money, Mitra is there for you!</string>
+
+    <string name="starter_three_3">Insurance for you and your family!</string>
+    <string name="starter_three_sub">We care for you and your family by providing best health services and insurance schemes</string>
+
+    <string name="starter_four_4">Work with multiple companies &amp; Earn more!</string>
+    <string name="starter_four_sub">You can now work with multiple companies and get additional incentives form Mitra. Earn up to \n ₹ 55,000 /month</string>
+
+    <string name="state_bank_of_india_8033">State Bank of India .... 8033</string>
+    <string name="savings_account">Savings Account</string>
+    <string name="savings_plan">Start Saving Plan</string>
+    <string name="bottom_sheet_v1_tv">What is a Cashout and how to get it?</string>
+    <string name="bottom_sheet_v1_sub_tv">You would soon be able to cashout your earnings instantly without waiting for the end of the pay cycle!</string>
+    <string name="eligibility_tv">Eligibility</string>
+    <string name="we_will_notify_you_tv">We will notify you</string>
+    <string name="note_that">Note that</string>
+    <string name="you_need_to_be_on_mitra_payroll_for_3_months_or_more_to_avail_the_cashout_benefit">You need to be on Mitra payroll for 3 months or more to avail the\nCashout benefit</string>
+    <string name="we_do_not_charge_you_any_extra_fees_when_you_cashout_this_amount_it_is_a_part_of_your_payout_received_early">We do not charge you any extra fees when you cashout this amount. It is a part of your payout received early</string>
+    <string name="got_it">Got It</string>
+    <string name="no_hidden_charges_tv">NO HIDDEN CHARGES</string>
+    <string name="how_it_works">How it works?</string>
+    <string name="cashout_amount_is_nothing_but_a_portion_of_your_earnings_available_before_scheduled_payout_date_if_you_opt_to_recieve_this_amount_the_same_will_be_deducted_from_your_mitra_balance_you_will_not_be_charged_any_extra_amount_to_avail_this_cashout">Cashout amount is nothing but a portion of your earnings available before scheduled payout date. If you opt to recieve this amount, the same will be deducted from your Mitra balance. You will not be charged any extra amount to avail this Cashout!</string>
+    <string name="cashout_money">Cashout Money</string>
+    <string name="paying_kumar_hegde">Paying Kumar Hegde</string>
+    <string name="you_are_eligible_for_a_cashout_of_5_000_n_from_your_earnings">You are eligible for a Cashout of ₹ 5,000\n from your earnings</string>
+    <string name="confirm_cashout">Confirm Cashout</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="view_all">VIEW ALL</string>
+    <string name="no_history_available">No History Available !!</string>
+    <string name="click_here_to_view_all_transactions_including_earnings_deductions_fees_etc">Click here to view all transactions including earnings, deductions, fees etc</string>
+    <string name="skip_all">Skip all</string>
+    <string name="next">Next</string>
+    <string name="while_we_verify_your_bank_account_details">While we verify your bank account details</string>
+    <string name="delete_document">Delete document?</string>
+    <string name="you_are_trying_to_delete_a_document_that_has_been_verified_by_mitra">You are trying to delete a document that has been verified by Mitra.</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes_delete">Yes Delete</string>
+    <string name="for_your_new_job_at_bhartpe">For your new Job at BhartPe</string>
+    <string name="view_my_earning">View My Earning</string>
+    <string name="enter_ifsc_code">Enter IFSC Code</string>
+    <string name="please_enter_your_bank_s_ifsc_number">Please enter your bank’s IFSC number</string>
+    <string name="enter_account_holder_name">Enter Account holder\nname</string>
+    <string name="please_enter_your_name_as_printed_on_your_bank_passbook">Please enter your name as printed on your Bank Passbook</string>
+    <string name="account_name">Name of the Account Holder</string>
+    <string name="enter_account_number">Enter Account number</string>
+    <string name="please_enter_your_bank_account_number_as_printed_on_the_bank_passbook">Please enter your bank account number as printed on the Bank Passbook</string>
+    <string name="please_re_enter_your_bank_account_number_for_verification_purpose">Please re-enter your bank account number for verification purpose</string>
+    <string name="select_period">Select Period</string>
+    <string name="select_company">Select Company</string>
+    <string name="clear_all">Clear</string>
+    <string name="apply_all">Apply</string>
+    <string name="new_update_available">New update available!</string>
+    <string name="we_have_added_new_features_and_fixed_minor_bugs">We have added new features and fixed\nminor bugs.</string>
+    <string name="update_now">Update Now</string>
+    <string name="coming_soon">Coming Soon!</string>
+    <string name="you_will_soon_be_able_to_avail_loans">You will soon be able to avail loans</string>
+    <string name="yes_i_am_interested">Yes, I am Interested</string>
+    <string name="pending_actions">Pending Actions!</string>
+    <string name="add_now">Add Now</string>
+    <string name="earning_history">Earning History</string>
+    <string name="no_earning_history_available">No earning history available</string>
+    <string name="mitra_balance">Mitra Balance</string>
+    <string name="next_transfer_in_2_days">Next transfer in 2 days!</string>
+    <string name="need_help">Need Help?</string>
+    <string name="call_mitra_help_line">Call Mitra Help Line</string>
+    <string name="all">All</string>
+    <string name="money_in">Money In</string>
+    <string name="money_out">Money Out</string>
+    <string name="sort_by">Sort by</string>
+    <string name="latest_to_oldest">Latest to Oldest</string>
+    <string name="filter_by">Filter by</string>
+    <string name="macdonlods">McDonalds</string>
+    <string name="you_will_soon_be_able_to_money_from_us">You will soon be able to money from us.</string>
+    <string name="my_insurance">My Insurance</string>
+    <string name="coverage_details">Coverage Details</string>
+    <string name="name">Name</string>
+    <string name="premium">Premium</string>
+    <string name="sum_assured">Sum Assured</string>
+    <string name="due_from">Due from</string>
+    <string name="expire_on">Expire on</string>
+    <string name="policy_status">Policy status</string>
+    <string name="view_details">View Documentation</string>
+    <string name="help">Help</string>
+    <string name="claim_now">Claim Now</string>
+    <string name="notifications">Notifications</string>
+    <string name="no_new_notifications">No new notifications</string>
+    <string name="stay_tuned_you_ll_be_notified_about_important_information">Stay tuned, you\'ll be notified about important information!</string>
+    <string name="cashout_request_n_processed">Cashout request\n processed!</string>
+    <string name="view_payslip">View Payslip</string>
+    <string name="view_payslips">View Payslips</string>
+    <string name="view_referrl">Refer &amp; Earn</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="uploaded_documents">Uploaded Documents</string>
+    <string name="documents_missing">DOCUMENTS MISSING !!</string>
+    <string name="documents_bank_details_missing">DOCUMENTS AND BANK DETAILS MISSING !!</string>
+    <string name="not_verified">NOT VERIFIED</string>
+
+    <string name="waiting">WAITING!</string>
+    <string name="missing">MISSING!</string>
+    <string name="view_now">View Now</string>
+    <string name="upload_now">Upload Now</string>
+    <string name="pan_card">Pan Card</string>
+    <string name="dl_card">Driving License</string>
+    <string name="status">Status</string>
+    <string name="status_processing">Processing</string>
+    <string name="success">SUCCESS</string>
+    <string name="upload_pan_card">Upload PAN Card</string>
+    <string name="please_upload_your_pan_card_photo_if_you_need_help_uploading_the_same">Please upload your PAN Card photo. If you need help uploading the same:</string>
+    <string name="upload_driving_license">Upload Driving License</string>
+    <string name="upload_driving_license_desc">Please upload your Driving License photo. If you need help uploading the same:</string>
+    <string name="take_photo_or_upload">Take Photo or Upload</string>
+    <string name="delete">Delete</string>
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="account_information">Account information</string>
+    <string name="aadhar_card_details">Aadhar Card Details</string>
+    <string name="daily_order_payout">Daily Order Payout</string>
+    <string name="aadhar_document_missing">Aadhar Document Missing!</string>
+    <string name="upload_aadhar_to_recieve_salary">Upload Aadhar to recieve Salary</string>
+    <string name="get_started">Get Started</string>
+    <string name="view_all_start_coachmark">View all your insurance plans</string>
+    <string name="loan_coach_mark_second">You can avail loans at low interest rates</string>
+    <string name="personal_details_coach_marks">View your personal details</string>
+    <string name="alert_logout">Alert</string>
+    <string name="alert_logout_message">Are you sure you want to Logout</string>
+    <string name="alert_no">No</string>
+    <string name="alert_yes">Yes</string>
+    <string name="select_language_string">Select language</string>
+    <string name="select_language_string_sub_string">You can change this later from \nthe settings</string>
+    <string name="english_string">English</string>
+    <string name="english_string_sub_string">I prefer talking in English</string>
+    <string name="hindi_string">Hindi</string>
+    <string name="hindi_sub_string">मुझे हिंदी में बात करना पसंद है|</string>
+    <string name="reminder_string">Reminder</string>
+    <string name="reminder_substring">Please upload all the pending documents for us to process your salary on time</string>
+    <string name="notification_access">Notifications Access</string>
+    <string name="notification_access_substring">We need to access your app notifications to serve you better!</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="cashout_amount_mitra_app">You will be able to keep a track of when you can recieve your Cashout amount through the Mitra app</string>
+    <string name="tap_to_upload">Tap to upload</string>
+    <string name="tap_to_bank">Add Bank</string>
+    <string name="loan_tv_one">Quick, Easy\n&amp; Hassle free</string>
+    <string name="loan_tv_two">No Hidden\n&amp; Fees</string>
+    <string name="loan_tv_three"> Easy\n&amp; Hassle free</string>
+    <string name="loan_emi">Loan EMI</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="tenure">Tenure</string>
+    <string name="apply_now">Apply Now</string>
+    <string name="loan_heading_one">Please fill this form to proceed with your personal loan request</string>
+    <string name="interest">Interest</string>
+    <string name="why_do_you_need_money">Why do you need money?</string>
+    <string name="why_do_you_need_saving">Please confirm your Selection</string>
+    <string name="choose_a_reason_from_the_below_options_for_borrowing_money">Choose a reason from the below options for borrowing money</string>
+    <string name="choose_a_reason_from_the_below_options_for_saving_money">Choose a reason from the below options for saving money</string>
+    <string name="choose_a_reason_from_the_below_options_for_cashing_out">Choose a reason from the below options for cashing out</string>
+    <string name="how_much_money_do_you_need">How much money do you need?</string>
+    <string name="enter_amount_save">Enter the amount you wish to save</string>
+    <string name="accept_term_condition">I understand that the amount equivalent to the EMI will be deducted from my payout on a weekly basis, after the loan is disbursed. <u>I accept the Terms &amp; Conditions.</u></string>
+    <string name="transaction_on">TRANSACTION ON</string>
+    <string name="tenure_of">Select tenure for the loan of</string>
+    <string name="select_tenure">Select Tenure</string>
+    <string name="emi">Emi</string>
+    <string name="every_month">every month</string>
+    <string name="my_loans">My Loans</string>
+    <string name="hi_fixed">हिंदी</string>
+    <string name="next_lang">Next</string>
+    <string name="loan_status">Loan Status</string>
+    <string name="loan_type">Loan Details</string>
+    <string name="call_now">Call Now</string>
+    <string name="loan_summary">Loan Summary</string>
+    <string name="error_add_message">Unable to verify, please try again later!</string>
+    <string name="sort_error_toast_message">Please wait for sorted Item !!</string>
+    <string name="tnc_card_text">You are eligible for a Cashout of ₹ </string>
+    <string name="tnc_card_text_two">\n from your earnings</string>
+    <string name="earning_calculation">Earnings Calculations</string>
+    <string name="weekly_earnings">Weekly Earnings</string>
+    <string name="earning_calculation_below">Weekly Incentives will be credited at the end of the week</string>
+    <string name="target_weekly_orders">Target Weekly \nOrders</string>
+    <string name="minimum_guaranteed_pay">Weekly Incentives</string>
+    <string name="current_week_earnings">Current Week Earnings</string>
+    <string name="updated_till">"Updated till: "</string>
+    <string name="view_details_earn">VIEW DETAILS</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="no_internet">No Internet Connection</string>
+    <string name="something_went_wrong">Something went wrong!!</string>
+    <string name="oh_no_something_went_wrong">Oh no! Something went wrong!</string>
+    <string name="error_heading_second">We are already working to fix it. We’re doing our best and will be back soon!</string>
+    <string name="go_home"><u>Go Home</u></string>
+    <string name="authenticate_fingerprint" translatable="false">Authenticate Using Fingerprint</string>
+    <string name="device_has_pin_password" translatable="false">Device Has PIN/Password</string>
+    <string name="_36000">₹ 36000</string>
+    <string name="add_new_bank">Add New Bank Account </string>
+    <string name="verification_pending_msg">Please wait while your previous request is being processed</string>
+    <string name="bank_detail_saved">Bank Details Saved</string>
+    <string name="detail_saved">Your bank account details have been saved\nsuccessfully!</string>
+    <string name="exper_text">How was your experience?</string>
+    <string name="submit">Submit</string>
+    <string name="close">Close</string>
+    <string name="exper_text_next">Hope you’re enjoying the app. Please let us know your\nthoughts!</string>
+    <string name="user_feed">Type your own feedback here (optional)</string>
+    <string name="sharing_feedback">Thanks for sharing your valuable feedback</string>
+    <string name="rating_mandatory">Rating is must</string>
+
+    <string name="press_the_back_button">Press the back Button</string>
+    <string name="number" translatable="false">+91 9726374563</string>
+    <string name="value" translatable="false">₹ ----</string>
+    <string name="amount" translatable="false">Rs 600</string>
+    <string name="time" translatable="false">20-May-2020 | 7:05 PM</string>
+    <string name="totals_orders" translatable="false">Totals Orders</string>
+    <string name="no_records" translatable="false">No Records !!</string>
+    <string name="emi_text" translatable="false">EMI</string>
+    <string name="text" translatable="false">833</string>
+    <string name="watch_video" translatable="false">WATCH VIDEO</string>
+    <string name="remove_account" translatable="false">Remove Account</string>
+    <string name="rupee" translatable="false">₹</string>
+    <string name="_0" translatable="false">0</string>
+
+    <!--freshchat SDK-->
+    <string name="freshchat_file_provider_authority">com.vahan.mitra_playstore</string>
+    <string name="app_id" translatable="false">bc0459e9-8b5b-437f-a058-908cfed8978e</string>
+    <string name="domain" translatable="false">msdk.in.freshchat.com</string>
+    <string name="app_key" translatable="false">5d25c02c-8f3a-4aa4-b988-d7d3b2f82e5d</string>
+    <string name="freshchatDisableFrame" translatable="false">7c6a7b2c192991909941a18320b18381 </string>
+    <!-- *******************************-->
+    <string name="tools_label_duration">Duration</string>
+
+    <string name="freshchat_default_agent_name">Support</string>
+
+    <string name="freshchat_view_text">View</string>
+
+    <string name="freshchat_chat_deeplink">@string/freshchat_view_text</string>
+    <string name="freshchat_chat_deeplink_faq">View FAQ</string>
+    <string name="freshchat_chat_message_composer_hint">Type a message</string>
+    <string name="freshchat_chat_capture_from_camera">Take a picture</string>
+    <string name="freshchat_chat_select_from_gallery">Upload from gallery</string>
+
+    <string name="freshchat_channel_list_empty">Oops, no message channels here!</string>
+    <string name="freshchat_channel_disabled">Oops, this chat is no longer available</string>
+
+    <string name="freshchat_faqs_reload_and_redirect">FAQs updated. Redirecting...</string>
+    <string name="freshchat_faq_list_empty">Sorry! There are no FAQs available</string>
+    <string name="freshchat_faq_vote_successful">Thanks for your feedback!</string>
+    <string name="freshchat_faq_voting_prompt">Was this FAQ helpful?</string>
+    <string name="freshchat_faq_upvote">@string/freshchat_yes</string>
+    <string name="freshchat_faq_downvote">@string/freshchat_no</string>
+    <string name="freshchat_faq_video_loading">Loading video...  </string>
+    <string name="freshchat_faq_search_query_hint">Search FAQs</string>
+    <string name="freshchat_faq_failed_to_load">This FAQ is no longer available</string>
+    <string name="freshchat_faq_rich_media_content_cannot_be_displayed">Connect to internet to view the rich media content</string>
+
+    <string name="freshchat_yes">Yes</string>
+    <string name="freshchat_no">No</string>
+
+    <!--General-->
+    <string name="freshchat_loading">Loading</string>
+    <string name="freshchat_no_connection">No Connection</string>
+    <string name="freshchat_check_internet_connection">Please check your internet connection</string>
+    <string name="freshchat_retry">@string/freshchat_calendar_timeslots_retry</string>
+    <string name="freshchat_error_was_encountered">An error was encountered</string>
+
+    <!-- Hint for Input Fields -->
+
+
+    <!-- Content descriptions for accessibility -->
+    <string name="freshchat_content_description_send_message">Send message</string>
+    <string name="freshchat_content_description_attach_picture">Attach a picture</string>
+    <string name="freshchat_content_description_send_voice_message">Record a voice message</string>
+    <string name="freshchat_content_description_upload_status">Message upload Status</string>
+    <string name="freshchat_content_description_show_original_content">Show Original</string>
+    <string name="freshchat_content_description_hide_original_content">Hide Original</string>
+
+    <!-- Error messages -->
+    <string name="freshchat_error_send_message_when_no_internet">Oops, no internet connection! Message will be sent when you reconnect.</string>
+    <string name="freshchat_error_message_not_connected_to_internet">No internet connection!</string>
+    <string name="freshchat_error_message_faq_section_not_enabled">Uh-uh! FAQ section is unavailable</string>
+    <string name="freshchat_error_message_inbox_section_not_enabled">Uh-uh! Chat section is unavailable. </string>
+    <string name="freshchat_error_message_account_not_active">This section is no longer available</string>
+    <string name="freshchat_error_message_init_not_completed">Freshchat SDK not initialized. Please invoke Freshchat.init() first and invoke {{method_name}} again!</string>
+    <string name="freshchat_error_message_init_not_completed_method_name_placeholder">{{method_name}}</string>
+    <string name="freshchat_error_message_failed_to_launch_support_section">Oops! Failed to launch</string>
+    <string name="freshchat_error_message_token_failed">Oops! Something went wrong. Please relaunch the screen.</string>
+
+    <!-- Permission prompts and rationale -->
+    <string name="freshchat_chat_camera_permissions_granted">Permission to access camera granted</string>
+    <string name="freshchat_chat_camera_permissions_not_granted">Permission to access camera denied</string>
+    <string name="freshchat_chat_camera_permissions_rationale">Camera permission is required to take pictures</string>
+
+    <string name="freshchat_chat_voice_messaging_permissions_granted">The permissions necessary for voice messaging have been granted</string>
+    <string name="freshchat_chat_voice_messaging_permissions_not_granted">The permissions necessary for voice messaging have not been granted</string>
+    <string name="freshchat_chat_voice_messaging_permissions_rationale">Audio Recording permission and Write External Storage permission is required to capture and send voice messages</string>
+    <string name="freshchat_chat_voice_messaging_audio_recording_permission_rationale">Audio Recording permission is required to capture and send voice messages</string>
+    <string name="freshchat_chat_voice_messaging_write_storage_permission_rationale">Write External Storage permission is required to capture and send voice messages</string>
+
+    <string name="freshchat_voice_message_preview">[Voice ({{duration}})]</string>
+    <string name="freshchat_voice_message_preview_duration_tag">{{duration}}</string>
+    <string name="freshchat_speaker_phone_on">Audio will play through your ear piece</string>
+    <string name="freshchat_speaker_phone_off">"Audio will play through your phone's speaker"</string>
+    <string name="freshchat_voice_message_too_short">The message you are trying to send spans less than a second. Are you sure you want to send it ?</string>
+    <string name="freshchat_voice_message_too_long">Reached voice message max duration limit, please release to send the message, otherwise message will get discarded soon</string>
+
+    <string name="freshchat_contact_us">Message Us</string>
+    <string name="freshchat_faq_not_helpful_contact_us">Still looking for help? Talk to us</string>
+    <string name="freshchat_message_sending_failed">Message not sent. We\'ll try again</string>
+    <string name="freshchat_message_content_copied_to_clipboard">Message copied</string>
+    <string name="freshchat_chat_unknown_content_type">Message content not supported on this version. Please update the app</string>
+    <string name="freshchat_original_message_title">Original</string>
+
+    <string name="freshchat_error_no_matching_faq_categories_found">No matching FAQ categories found !</string>
+    <string name="freshchat_error_no_matching_faqs_found">No matching FAQs found !</string>
+
+    <string name="freshchat_unknown_message_fragment">Unable to show message. Please contact support.</string>
+
+    <!-- Activity Title -->
+    <string name="freshchat_activity_title_category_list">FAQs</string>
+    <string name="freshchat_activity_title_article_list">FAQs</string>
+    <string name="freshchat_activity_title_article_detail">FAQ</string>
+    <string name="freshchat_activity_title_channel_list">Conversations</string>
+
+    <!-- Menu title -->
+    <string name="freshchat_menu_item_search_faqs">Search</string>
+    <string name="freshchat_menu_item_contact_us">Message Us</string>
+    <string name="freshchat_menu_item_toggle_speaker">Toggle speakerphone</string>
+
+    <!-- Strings for Customer Satisfaction related UI Elements -->
+    <string name="freshchat_chat_resolution_survey_question"></string>
+    <string name="freshchat_chat_resolution_confirmation_prompt">Did we address your concerns?</string>
+    <string name="freshchat_chat_resolution_confirmation_prompt_positive">@string/freshchat_yes</string>
+    <string name="freshchat_chat_resolution_confirmation_prompt_negative">@string/freshchat_no</string>
+    <string name="freshchat_chat_resolution_suggestions_prompt">How could we have helped you better?</string>
+    <string name="freshchat_chat_resolution_user_comments_hint">Tell us</string>
+    <string name="freshchat_chat_rating_submit">Send</string>
+
+    <!--Strings for Typically Replies in-->
+    <string name="freshchat_typically_replies_within_a_minute">Typically replies within a minute</string>
+    <string name="freshchat_typically_replies_within_x_minutes">Typically replies within {{minutes}} minutes</string>
+    <string name="freshchat_typically_replies_within_an_hour">Typically replies within an hour</string>
+    <string name="freshchat_typically_replies_within_2_hours">Typically replies within 2 hours</string>
+    <string name="freshchat_typically_replies_within_few_hours">Typically replies within few hours</string>
+    <string name="freshchat_currently_replying_in_a_minute">Currently replying in a minute</string>
+    <string name="freshchat_currently_replying_in_x_minutes">Currently replying in {{minutes}} minutes</string>
+    <string name="freshchat_currently_replying_in_an_hour">Currently replying in an hour</string>
+    <string name="freshchat_currently_replying_in_2_hours">Currently replying in 2 hours</string>
+    <string name="freshchat_currently_replying_in_few_hours">Currently replying in few hours</string>
+    <string name="freshchat_placeholder_minutes">{{minutes}}</string>
+
+    <!--Strings for notifications-->
+    <string name="freshchat_conversation_notification_channel_name">Conversation messages</string>
+    <string name="freshchat_campaign_notification_channel_name">Campaign messages</string>
+    <string name="freshchat_support_message_notification_title">Mitra Support</string>
+    <string name="freshchat_promotional_message_notification_title">{{app_name}}</string>
+    <string name="freshchat_placeholder_app_name">{{app_name}}</string>
+
+    <!--Strings for Auto start prompt displayed to users on xiaomi devices -->
+    <string name="freshchat_xiaomi_auto_start_prompt_message">Please enable Autostart to receive notifications when the app is in the background</string>
+    <string name="freshchat_xiaomi_auto_start_prompt_positive">@android:string/ok</string>
+    <string name="freshchat_xiaomi_auto_start_prompt_negative">@android:string/cancel</string>
+
+    <!-- Allow customization of date formatter used for displaying date and time for messages -->
+    <string name="freshchat_chat_message_time_today">"hh:mm a"</string>
+    <string name="freshchat_chat_message_time_this_year_short">"MMM dd"</string>
+    <string name="freshchat_chat_message_time_this_year_long">"MMM dd',' hh:mm a"</string>
+    <string name="freshchat_chat_message_time_other_year">"MMM yyyy"</string>
+    <string name="freshchat_chat_calendar_date_format">"EEEE',' dd MMM yyyy"</string>
+    <string name="freshchat_chat_calendar_timeslot_format">"hh:mm a"</string>
+
+    <!--Strings for Business hour offline response-->
+    <string name="freshchat_all_members_away_message">We are away now</string>
+
+    <!--Strings for Drop down messages-->
+    <string name="freshchat_drop_down_hint_text">Click here to select</string>
+
+    <!--Strings for Carousel -->
+    <string name="freshchat_carousel_default_preview_text">Choose an option</string>
+
+    <!--Strings for Carousel Card default-->
+    <string name="freshchat_carousel_card_default_callback_btn_text">Select</string>
+    <string name="freshchat_carousel_card_default_view_btn_text">@string/freshchat_view_text</string>
+    <string name="freshchat_carousel_card_selected_text">Selected</string>
+
+    <!-- Strings used for Calendar integration -->
+    <string name="freshchat_calendar_find_slot">Find a slot</string>
+    <string name="freshchat_calendar_not_interested">Not interested</string>
+    <string name="freshchat_calendar_cancel_invite_message">Cancelled the invite</string>
+    <string name="freshchat_calendar_title">Schedule a meeting</string>
+    <string name="freshchat_calendar_duration">{{duration}} mins</string>
+    <string name="freshchat_calendar_duration_place_holder">{{duration}}</string>
+    <string name="freshchat_calendar_email_request_desc">Kindly provide us your email address to schedule a meeting with our team</string>
+    <string name="freshchat_calendar_email_hint">Enter your email address</string>
+    <string name="freshchat_calendar_next">Next</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_message">Are you sure you want to cancel this booking?</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_continue">Continue</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_cancel">Cancel Booking</string>
+    <string name="freshchat_calendar_show_more_time_slots">Show more</string>
+    <string name="freshchat_calendar_no_timeslots_found">No slots available</string>
+    <string name="freshchat_calendar_error_encountered">An error was encountered</string>
+    <string name="freshchat_calendar_timeslots_retry">Retry</string>
+    <string name="freshchat_calendar_cancel_invite">Cancel</string>
+    <string name="freshchat_calendar_today">Today</string>
+    <string name="freshchat_calendar_tomorrow">Tomorrow</string>
+    <string name="freshchat_calendar_part_of_day_morning">Morning</string>
+    <string name="freshchat_calendar_part_of_day_afternoon">Afternoon</string>
+    <string name="freshchat_calendar_part_of_day_evening">Evening</string>
+    <string name="freshchat_calendar_part_of_day_night">Night</string>
+    <string name="freshchat_calendar_confirm">Confirm</string>
+    <string name="freshchat_calendar_change_slot">Change Slot</string>
+    <string name="freshchat_calendar_meeting_with_our_team">Meeting with our team</string>
+    <string name="freshchat_calendar_meeting_state_scheduled">Scheduled</string>
+    <string name="freshchat_calendar_meeting_state_failed">Failed</string>
+    <string name="freshchat_calendar_meeting_state_pending">Awaiting Confirmation</string>
+    <string name="freshchat_calendar_invite_awaiting_confirmation">Awaiting time slot confirmation</string>
+    <string name="freshchat_calendar_meeting_banner_view_btn">@string/freshchat_view_text</string>
+
+    <!--Omni KBASE-->
+
+    <string name="freshchat_no_faq_categories">No FAQs to display</string>
+    <string name="freshchat_faq_name_placeholder">{{faq_name}}</string>
+    <string name="freshchat_no_faqs">No articles found for &lt;b&gt;\'%1$s\'&lt;/b&gt;</string>
+    <string name="freshchat_no_articles_found">No articles found</string>
+    <string name="freshchat_no_faq_found">No FAQ found</string>
+    <string name="freshchat_minimum_search_criteria">Enter 3 or more characters to search</string>
+    <string name="freshchat_pagination_error_with_retry">Failed to load. Tap to retry.</string>
+    <string name="freshchat_pagination_no_internet_with_retry">No internet connection. Tap to retry.</string>
+
+    <!--Bots-->
+    <string name="freshchat_bot_faq_feedback_title">Was this answer useful?</string>
+    <string name="freshchat_bot_faq_feedback_success">Thank you for your Feedback!</string>
+    <string name="i_accept_the_t_c"><![CDATA[I accept the T&C]]></string>
+    <string name="upgrade_your_mitra_header">Upgrade your Mitra\naccount and get\n<font fgcolor='#FFD34714'> <i>more</i></font> powerful\nfeatures ...</string>
+    <string name="dashboard_view_for_tracking_your_finances_which_update_daily_and_a_way_get_your_salary_in_advance">Dashboard view for tracking your finances which update daily and a way get your salary in advance.</string>
+    <string name="access_to_more_value_added_services_such_as_loans_savings_insurance_and_mitra_homes">Access to more Value Added Services such as Loans, Savings, Insurance and Mitra Homes.</string>
+    <string name="let_s_go">Let\'s Go</string>
+    <string name="upgrade_available">UPGRADE AVAILABLE</string>
+    <string name="status_of_the_jobs_applied_and_one_click_application_for_new_jobs_if_not_selected">Status of the jobs applied and one-click application for new jobs if not selected</string>
+    <string name="easy_ways_of_earning_extra_money_by_solving_puzzles_translating">Easy ways of earning extra money by solving puzzles / translating</string>
+    <string name="access_to_mitra_shots_your_best_entertainment_companion_while_on_the_go">Access to Mitra Shots, your best entertainment companion while on the go</string>
+    <string name="back_button" translatable="false">Back Button</string>
+    <string name="on_amount_referrals">Amount you will\nearn</string>
+
+
+    <string name="your_friend_completes_10_trips">Your friend\ncompletes 10 trips</string>
+    <string name="on_completing_referrals">On Completing\nReferrals</string>
+    <string name="amount_you_will_earn">Amount you\nwill earn</string>
+    <string name="invite_text">Invite your friends to join Mitra and earn ₹2000 for every new user you refer</string>
+    <string name="refer_friends_now">Refer Friends Now!</string>
+    <string name="enter_your_friend_s_phone_number_and_press_invite">Enter your friend’s phone number and press invite</string>
+    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="invite">Invite</string>
+    <string name="earn">Earn</string>
+    <string name="by_inviting_your">by inviting your</string>
+    <string name="friends_to_mitra">friends to Mitra!</string>
+    <string name="_1_referral_2000">1 Referral = ₹2000</string>
+    <string name="invite_your_friend">Invite your friend</string>
+    <string name="your_referral_status">Your Referral Status</string>
+    <string name="_5">5</string>
+    <string name="_10">10</string>
+    <string name="_15">15</string>
+    <string name="_10_000">₹10,000</string>
+    <string name="_20_000">₹20,000</string>
+    <string name="_30_000">₹30,000</string>
+    <string name="rupee_0">₹0</string>
+    <string name="rupees_earned">Rupees Earned</string>
+    <string name="_0_friends">0 Friends</string>
+    <string name="_10_trips_done">10 Trips done</string>
+    <string name="view_status">View Status</string>
+    <string name="referrals_invited_in_progress">Referrals Invited / In Progress</string>
+    <string name="_7">7</string>
+    <string name="t_and_c_apply">* T&amp;C Apply</string>
+    <string name="recent_referrals">Recent Referrals</string>
+    <string name="my_referrals">My Referrals</string>
+    <string name="what_is_referral">What is Referral</string>
+    <string name="how_does_it_work">How does it work?</string>
+    <string name="how_can_it_benefit_me">How can it benefit me?</string>
+    <string name="invite_friends_to_mitra">Invite Friends to Mitra</string>
+
+    <string name="refer_and_earn">Refer and Earn</string>
+    <string name="choose_from_your_contacts_list_below">Choose from your contacts list below!</string>
+    <string name="deselect_all">Deselect All</string>
+    <string name="invite_now">Invite Now</string>
+
+    <string name="_friends">" Referrals"</string>
+    <string name="_trips_done">" Trips done"</string>
+    <string name="_1_referral">"1 Referral = "</string>
+    <string name="invite_to_mitra">You can earn more by helping your friends and family get a job by inviting them to join Mitra </string>
+    <string name="str1">Invite your friend to join Mitra, and you can earn ₹</string>
+    <string name="str2">after your friend completes </string>
+    <string name="str3"> trips</string>
+    <string name="str4"> when you refer 5 friends</string>
+    <string name="str5"> for every new user you refer</string>
+    <string name="regex">[6-9]{1}[0-9]{9}</string>
+    <string name="limit_excedded">You can only invite 10 contacts at a time</string>
+    <string name="no_contact_is_selected">No contact is selected</string>
+    <string name="search_contacts_or_enter_number">Search contacts or enter number</string>
+    <string name="you_get_one">You get </string>
+    <string name="you_get_two">\nsoon after your \nfriend finishes </string>
+    <string name="you_get_three">trip !</string>
+    <string name="completed">Completed</string>
+    <string name="my_referral_status">My Referral Status</string>
+    <string name="no_referral_rewards">No Referrals</string>
+    <string name="you_have_not_invited_any_of_your_friends_yet">You have not invited any of your friends yet</string>
+    <string name="your_friend_will_be_contacted_soon">Your friend will be contacted soon</string>
+    <string name="friend">Friend already referred by you or someone else earlier</string>
+    <string name="tell_your_friend">Tell your friend to take more trips</string>
+    <string name="amount_earned">Amount Earned</string>
+    <string name="r_started">Referral Started</string>
+    <string name="j_mitra">Joined Mitra</string>
+    <string name="f_t_done">First Trip Done</string>
+    <string name="r_b_earned">Referral Bonus Earned</string>
+    <string name="i_sent">Thanks for referring</string>
+    <string name="tv_friend">Friend</string>
+    <string name="tv_friends">Friends</string>
+
+    <string name="mitra_is_access_your_current_location">Mitra is access your current location</string>
+    <string name="column" translatable="false">:</string>
+    <string name="space" translatable="false">&#160;</string>
+    <string name="percentage_s" translatable="false">%s</string>
+    <string name="percentage" translatable="false">%</string>
+
+    <!--InsuranceAdapter-->
+    <string name="expires">Expires : </string>
+
+    <!--ConnectivityUtils-->
+    <string name="connectivity_error">Connectivity Error</string>
+
+
+    <!--AddBankFragment-->
+    <string name="account_no_doent_match">Account number doesn\'t match</string>
+    <string name="enter_account_name">Enter account name</string>
+    <string name="invalid_ifsc">Invalid IFSC</string>
+    <string name="coma_">, </string>
+    <string name="bank_Details_added_successfully">Bank Details Added Successfully</string>
+    <string name="unable_to_verify_please_try_again_later">Unable to verify, please try again later!</string>
+    <string name="verification_is_in_process"> Verification is in progress!</string>
+
+    <!--BankDetailSavedFragment-->
+    <string name="bank_account_added">Bank Account Added</string>
+
+    <!--Symbols-->
+    <string name="plus" translatable="false">+</string>
+    <string name="dot" translatable="false">.</string>
+
+    <!--BankBottomSheet-->
+    <string name="transfer">Transfer </string>
+    <string name="cashout">Cashout </string>
+    <string name="percentage_fee_applicable">% FEE APPLICABLE </string>
+    <string name="fee_applicable">FEE APPLICABLE </string>
+
+    <!--FeedbackBottomSheet-->
+    <string name="date_format" translatable="false">yyyy-MM-dd HH:mm:ss.SSSSSS</string>
+    <string name="date_format2" translatable="false">EEE, d MMM yyyy HH:mm:ss z</string>
+    <string name="feedback_viewed" translatable="false">feedback_viewed</string>
+    <string name="feedback_posted" translatable="false">feedback_posted</string>
+    <string name="details" translatable="false">details</string>
+    <string name="ratings" translatable="false">ratings</string>
+    <string name="rating" translatable="false">rating</string>
+    <string name="feedbackMessage" translatable="false">feedbackMessage</string>
+    <string name="mobileNo" translatable="false">mobileNo</string>
+    <string name="created_on" translatable="false">created on</string>
+    <string name="_success">Success</string>
+    <string name="upload_aadhar_card">Upload Aadhaar Card</string>
+    <string name="please_upload_uour_aadhar_card">Please upload your Aadhaar Card photos. If you need help uploading the same:</string>
+    <string name="validation_failed_please_try_again_later">Please upload a valid image.</string>
+
+    <!--CaroselEffectSlider-->
+    <string name="history_page" translatable="false">HistoryPage</string>
+    <string name="http" translatable="false">http</string>
+    <string name="https" translatable="false">https</string>
+    <string name="link_not_found">Link not found</string>
+
+    <!--CashoutTransactionAdapter-->
+    <string name="cashout_transaction_fragment" translatable="false">Cashout-Transaction Fragment</string>
+    <string name="transfer_rupees">Transfer ₹ </string>
+    <string name="trnCndText1" translatable="false">You will be charged a  </string>
+    <string name="trnCndText2" translatable="false">% cashout fee of ₹</string>
+    <string name="trnCndText3" translatable="false">on this transaction</string>
+    <string name="trnCndText4" translatable="false">You will be charged </string>
+    <string name="trnCndText5" translatable="false"> cashout fee on this transaction</string>
+    <string name="trnCndText6" translatable="false">इस लेनदेन पर आपसे ₹</string>
+    <string name="trnCndText7" translatable="false">कैशआउट शुल्क लिया जाएगा</string>
+    <string name="cashout_request_is_processed">Cashout request is processed!</string>
+
+    <!--EarnFragmentV2-->
+    <string name="cashout_failed_please_try_again_later">Cashout failed, please try again later!</string>
+    <string name="data_not_available">Data Not Available</string>
+    <string name="you_have_already_availed_the_service">You have already availed the service</string>
+    <string name="documents_missing_">Documents missing!</string>
+    <string name="upload_document_">Upload Aadhaar &amp; PAN Card</string>
+    <string name="bank_details_missing">Bank Details missing!</string>
+    <string name="bank_details_missing2">BANK DETAILS MISSING!!</string>
+    <string name="add_bank_details_to_receive_payouts">Add bank details to receive payouts</string>
+    <string name="document" translatable="false">document</string>
+    <string name="bank" translatable="false">bank</string>
+
+    <!--ErrorFragment-->
+    <string name="please_try_after_sometime">Please try after sometime</string>
+    <string name="please_wait_for_sorted_items">Please wait for sorted Item !!</string>
+
+    <!--HistoryFragment-->
+    <string name="applied" translatable="false"> Applied</string>
+
+    <!--MainActivity-->
+    <string name="failure">failure</string>
+    <string name="An_update_has_just_been_downloaded">An update has just been downloaded.</string>
+    <string name="app_update_failed_please_try_again_on_the_next_app_launch">App Update failed, please try again on the next app launch.</string>
+
+    <!--EnterOtpActivity-->
+    <string name="please_enter_4_digit_otp">Please enter 4 digit OTP</string>
+    <string name="please_check_your_otp_and_try_again">Please check your otp and try again!</string>
+
+    <!--workmanager-->
+    <string name="updateLocation" translatable="false">updateLocation</string>
+
+    <!--ReferContactListAdapter-->
+    <string name="whatsapp_not_installed">WhatsApp not Installed</string>
+
+    <!--profile-->
+    <string name="complete_your_pending_actions">Complete your pending Actions !!</string>
+    <string name="please_select_the_language">Please Select the Language</string>
+    <string name="url_not_found">URL NOT FOUND !!</string>
+    <string name="download_completed">Download Completed</string>
+
+    <!--TenureSelectionFragment-->
+    <string name="to_be_deducted_weekly">to be deducted weekly</string>
+
+    <!--loan-->
+    <string name="loan_applied_successfully">Loan Applied Successfully</string>
+    <string name="please_enter_amount_greater_than_0">Please enter amount greater than 0</string>
+    <string name="cashout_question">What is cashout?</string>
+    <string name="cashout_question_one">Ride more, Cashout more!</string>
+    <string name="cashout_reason_one">Withdraw part of earnings before your payout day (Monday)</string>
+    <string name="cashout_reason_two">"Get money instantly in your bank account"</string>
+    <string name="cashout_reason_three">"Unlock more Cashout levels as you work more"</string>
+    <string name="got_it_key">Got it</string>
+    <string name="cashout_level_one_50">Cashout 50%</string>
+    <string name="complete_100_trips_v1">Complete 100 more Trips</string>
+    <string name="stay_active_3">Stay Active for 3 more days</string>
+    <string name="unlock_cashout_70">Unlock Cashout 70%</string>
+    <string name="complete_50_trips">Complete 50 more Trips</string>
+    <string name="stay_active_for_10_days">Stay Active for 10 more days</string>
+    <string name="unlock_cashout_90">Unlock Cashout 90%</string>
+    <string name="complete_20_trips">Complete 20 more Trips</string>
+    <string name="stay_active_for_20_days">Stay Active for 20 more days</string>
+    <string name="cd_continue">Continue</string>
+    <string name="cashout_more_as_you_earn_more">Cashout more as you earn more</string>
+    <string name="money_will_be_xtransferred_to_your_bank_from_your_mitra_earnings_with_a_fee">Money will be transferred to your bank from your Mitra earnings at fee</string>
+    <string name="selected_tier_one">Cashout 50%</string>
+    <string name="selected_tier_two">Cashout 70%</string>
+    <string name="selected_tier_three">Cashout 90%</string>
+    <string name="want_to_cashout_more_money">Want to Cashout More Money ?</string>
+    <string name="upload_aadhaar_pan_to_receive_payouts"><![CDATA[Upload Aadhaar & PAN to receive payouts]]></string>
+    <string name="in_progress">In Progress</string>
+    <string name="earn_money_upto_2100_for_every_milestone_that_your_friend_will_be_completing_in_the_first_15_days">Earn money upto ₹2100 for every milestone that your friend will be completing in the first 15 days</string>
+    <string name="invite_your_friend_and_get_them_onboarded">Invite your friend and get them onboarded</string>
+    <string name="your_friend_starts_taking_trips">Your friend starts taking trips</string>
+    <string name="get_bonus_for_the_trips_completed_in_15_days">Get bonus for the trips completed in 15 days</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="you_will_get_bonus_for_the_trips_your_friend_completes_in_the_first_15_days">You will get bonus for the trips your friend completes in the first 15 days.</string>
+    <string name="your_bonus_amount">Your Bonus amount</string>
+    <string name="no_of_trips">No. of trips</string>
+    <string name="bonus_earned">Bonus Earned</string>
+    <string name="total_earned">Total Earned</string>
+    <string name="_10_trips">10 Trips</string>
+    <string name="_20_trips">20 Trips</string>
+    <string name="_200">₹200</string>
+    <string name="_100">₹100</string>
+    <string name="_300">₹300</string>
+    <string name="_30_trips">30 Trips</string>
+    <string name="_600">₹600</string>
+    <string name="_1100">₹1100</string>
+    <string name="_500">₹500</string>
+    <string name="_50_trips">50 Trips</string>
+    <string name="_2100">₹2100</string>
+    <string name="_earned">" Earned"</string>
+    <string name="_1_000">₹1,000</string>
+    <string name="_100_trips">100 Trips</string>
+    <string name="trips_taken_by_your_friend_in_15_days">Trips taken by your friend in 15 days</string>
+    <string name="_20">20</string>
+    <string name="_30">30</string>
+    <string name="_50">50</string>
+    <string name="space_100">100</string>
+    <string name="referral_started">Referral Started</string>
+    <string name="_1_july_2022">1 July 2022</string>
+    <string name="invitation_sent">Invitation Sent</string>
+    <string name="first_trip_done">First Trip Done</string>
+    <string name="amount_you_will_earn2">Amount you will earn</string>
+    <string name="plus_rupee_100">+ ₹100</string>
+    <string name="plus_rupee_200">+ ₹200</string>
+    <string name="plus_rupee_300">+ ₹300</string>
+    <string name="plus_rupee_500">+ ₹500</string>
+    <string name="plus_rupee_1000">+ ₹1000</string>
+    <string name="invite_your_friend_to_join_mitra">Invite your friend to\nJoin Mitra</string>
+    <string name="your_friend_starts_taking_trips2">Your friend starts\ntaking trips</string>
+    <string name="_referral">" Referral"</string>
+    <string name="_trips">" Trips"</string>
+    <string name="trips_taken">"Trips taken"</string>
+    <string name="know_more"><u>Know more</u></string>
+    <string name="joined_mitra_whatsapp_msg">"Hello! Thanks for Joining Mitra! Start taking more orders in the first 15 days, and earn more money !!"</string>
+    <string name="get_bonus_for_the_trips_completed_by_your_friend_in_15_days">Get bonus for the trips\ncompleted by your friend\nin 15 days</string>
+    <string name="what_is_refer_and_earn">What is refer and earn?</string>
+    <string name="rate_card">Rate Card</string>
+    <string name="weekly">WEEKLY</string>
+    <string name="sfx">SFX</string>
+    <string name="earnings_per_pay">Earnings per pay</string>
+    <string name="on_reaching_targets">On reaching targets</string>
+    <string name="_60_trips">60 Trips</string>
+    <string name="_250">₹ 250</string>
+    <string name="take_11_more_trips_from_sfx_to_earn_250">Take 11 more trips from SFX to earn ₹ 250</string>
+    <string name="trips_completed">" Trips Done"</string>
+    <string name="easy_ways_of_earning_extra_money_by_solving_puzzles_captcha"> Easy Ways to Earn Extra Money by Solving Puzzles / Captcha!</string>
+    <string name="yay">YAY!</string>
+    <string name="you_are_now_eligible_for">You are now eligible for</string>
+    <string name="_50_cashout">50% Cashout</string>
+    <string name="_70_cashout">70% Cashout</string>
+    <string name="_90_cashout">90% Cashout</string>
+    <string name="take_more_trips_to_unlock" translatable="false">Take more trips to unlock</string>
+    <string name="weekly_earnings_txt">SFX Weekly Incentive</string>
+    <string name="error_msg">We are not accepting new referrals at the moment. Please try again after few days</string>
+    <string name="view_details_txt">View Details</string>
+    <string name="updated_till_txt">Updated till: 17 Mar 2022</string>
+    <string name="trips_done_txt">15 Trips Done</string>
+    <string name="your_here_txt">You\'re \n here</string>
+    <string name="_15_trips">15 Trips</string>
+    <string name="weekly_incentives_txt">* Weekly incentives will be credited at the end of the week</string>
+    <string name="your_upcoming_slots">Your Upcoming slots</string>
+    <string name="upcoming_slots">Upcoming Slots</string>
+    <string name="no_slot_available">No Slot Available</string>
+    <string name="weekly_earnings_dayDateTxt">Monday, 13 June 2022</string>
+    <string name="expand">Expand</string>
+    <string name="line" translatable="false">----</string>
+    <string name="weekly_earnings_orderCountTxt">"Order Count :  "</string>
+    <string name="weekly_earnings_orderPayoutTxt">Order Payout</string>
+    <string name="weekly_earnings_startDate">Jun 13</string>
+    <string name="hyphen" translatable="false">" - "</string>
+    <string name="weekly_earnings_pageHeaderTxt">Net Payout</string>
+    <string name="weekly_earnings_pageSubHeaderTxt">Earnings</string>
+    <string name="weekly_earnings_pageSubHeaderTxtDeductions">Deductions</string>
+    <string name="weekly_earnings_otherEarningsTxt">Other Earnings</string>
+    <string name="total">Total</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="view">View</string>
+    <string name="maximize_your_earnings_through_mitra_incentives">Maximize your earnings through Mitra incentives</string>
+    <string name="_60_acceptance_rate_at_uber">\u2022 60% acceptance rate at Uber</string>
+    <string name="round_dot" translatable="false">\u2022</string>
+    <string name="cashout_tv3">Yay ! Cashout more money now!</string>
+    <string name="cashout_tv2">Take more rides and Unlock 90% !</string>
+    <string name="_cashout"> Cashout</string>
+    <string name="complete">Complete </string>
+    <string name="complete2">Complete </string>
+    <string name="_100_trips_2">100 Trips</string>
+    <string name="_50_trips_2">50 Trips</string>
+    <string name="_20_days">20 days</string>
+    <string name="unlock_90_cashout">Unlock 90% Cashout</string>
+    <string name="_10_days">10 days</string>
+    <string name="unlock_70_cashout">Unlock 70% Cashout</string>
+    <string name="take_more_rides_and_unlock_70">Take more rides and Unlock 70% !</string>
+    <string name="tnc_txt2">" apply"</string>
+    <string name="continue_txt">CONTINUE</string>
+    <string name="app_version">App version</string>
+    <string name="work_for_mutliple_companies_together_with_mitra_earn_extra_money"><![CDATA[Work for mutliple companies together with Mitra & Earn Extra money]]></string>
+    <string name="know_your_slot_timings_and_open_you_client_app_directly_from_here">Know your slot timings and Open\nyou client app directly from here!</string>
+    <string name="ok_got_it">Ok, Got it</string>
+    <string name="slot_coach_mark_desc">Know your slot timings and Open you client app directly from here!</string>
+    <string name="cardview_coach_mark_desc">Click here to view all transactions including earnings,deductions, fees etc</string>
+    <string name="profile_coach_mark_desc">Click here to view or edit your profile details,know your Mitra Balance etc.</string>
+    <string name="daily_orders">Daily Orders</string>
+    <string name="zepto_orders_monday_13_june_2022">Zepto Orders - Monday 13 June 2022</string>
+    <string name="total_orders">Total Orders</string>
+    <string name="total_amount">Total amount</string>
+    <string name="order_amount">Order Amount</string>
+    <string name="distance_fee">Distance fee</string>
+    <string name="tip">Tip</string>
+    <string name="order_id_adwdw78">Order ID: ADWDW78</string>
+    <string name="last_mile_1_5_km">Last Mile - 1.5 KM</string>
+    <string name="_900">₹ 900</string>
+    <string name="payment_type">Payment Type</string>
+    <string name="online">Online</string>
+    <string name="first_mile_1_5_km">First Mile - 1.5 KM</string>
+    <string name="trip_time_7_03_am">Trip Time 7:03 AM</string>
+    <string name="utr_no" translatable="false">UTR NUMBER : </string>
+    <string name="ticket_history">Ticket History</string>
+    <string name="updated_at">Updated at :</string>
+    <string name="updated_at_value" translatable="false">05 Oct 2022 , 3:00 PM</string>
+    <string name="ticket_ID_label">Ticket ID</string>
+    <string name="created_on_label">Created on</string>
+    <string name="ticket_type_label">Ticket type</string>
+    <string name="no_tickets_yet">No Tickets Yet!</string>
+    <string name="no_tickets_yet_desc">You have not raised any support requests yet.</string>
+    <string name="go_back_to_home">Go back to Home</string>
+    <string name="update_now_home"><u>Update Now</u></string>
+    <string name="incentives">Incentives</string>
+    <string name="weekly_incentives_will_be_credited_at_the_end_of_the_week">Weekly Incentives will be credited at the end of the week</string>
+    <string name="you_can_cashout">You can Cashout</string>
+    <string name="aadhaar_card_missing">Aadhaar Card Missing!</string>
+    <string name="pan_card_missing">PAN Card Missing!</string>
+    <string name="aadhar_and_bank_card_missing">Aadhaar And Bank Details Are Missing!</string>
+    <string name="pan_and_bank_card_missing">PAN And Bank Details Are Missing!</string>
+    <string name="document_missing">Documents Are Missing!</string>
+    <string name="this_week_s_earnings">This Week\'s Earnings</string>
+
+    <string name="home_tab_coach_mark_desc">Click here to view all your Incentives,Transactions,Weekly Earnings etc.  </string>
+    <string name="earnings_tab_coach_mark_desc">Click here to view all your Incentives,Transactions,Weekly Earnings etc.  </string>
+    <string name="mitra_balance_coach_mark_desc">Click here to view your Mitra Balance </string>
+    <string name="view_bank_details">View Bank Details</string>
+    <string name="two_missings">2 Documents Missing!</string>
+    <string name="one_missings">1 Documents Missing!</string>
+    <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string name="faqs">FAQs</string>
+    <string name="chat_with_us">Chat with us</string>
+    <string name="talk_to_us">Talk to us</string>
+    <string name="complaint_status">Complaint Status</string>
+    <string name="or">Or</string>
+    <string name="share_code"><u>Share Referral Code</u></string>
+    <string name="generic_text_check_in">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check in</b></string>
+    <string name="generic_text_check_out">Hello! Your payout will be on hold, mark your attendance with Mitra now! <u>Check Out</u></string>
+    <string name="cashout_on_hold">Cashout on hold</string>
+    <string name="available_cashout">Available Cashout</string>
+
+    <string name="profile_img_upload_success">Profile picture set successfully!</string>
+    <string name="deposit_pending_cash">Deposit Pending Cash</string>
+    <string name="to_enable_cashout">to enable Cashout</string>
+    <string name="your">Your </string>
+    <string name="okay">Okay</string>
+    <string name="zepto_cash_deposit_pending">Zepto cash deposit pending</string>
+    <string name="add_a_referral_code">Add a referral code</string>
+    <string name="referral_code">Referral Code</string>
+    <string name="thanks_for_your_interest_n_we_will_reach_out_to_you_shortly"><b>Thanks for your Interest</b> \n we will reach out to you shortly</string>
+
+    <string name="profile_pic_page_header_txt">Upload Profile Pic</string>
+    <string name="bank_doc_upload_page_header_txt">Upload Bank Docs</string>
+    <string name="profile_pic_header_txt">Have a favourite selfie? Upload it now!</string>
+    <string name="profile_pic_tip_content_txt">Make sure your face is visible in your profile picture.</string>
+    <string name="bank_doc_upload_header_txt">Please upload a picture of your passbook/ cancelled cheque</string>
+    <string name="bank_doc_upload_tip_content_txt">Make sure the photo is clear and not blurry.</string>
+    <string name="click_to_upload">Click to upload</string>
+    <string name="invalid_image_type">Image type not valid</string>
+    <string name="img_upload_success">Image uploaded successfully!</string>
+
+
+
+</resources>

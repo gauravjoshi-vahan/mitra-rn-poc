@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        background="transparent_color">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_45dp"
+            android:layout_marginEnd="@dimen/dimen_45dp"
+            android:background="@drawable/card_background">
+
+            <ImageView
+                android:id="@+id/iv_cross"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/dimen_16dp"
+                android:src="@drawable/ic_cross_grey" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/scooter_animation"
+                android:layout_width="190dp"
+                android:layout_height="@dimen/dimen_138dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/scooter" />
+
+            <TextView
+                android:id="@+id/tv_yay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/scooter_animation"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textStyle="bold"
+                android:text="@string/yay"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_20dp" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_yay"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:text="@string/you_are_now_eligible_for"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/dimen_14dp" />
+
+            <ImageView
+                android:id="@+id/iv_cashout"
+                android:layout_width="@dimen/dimen_32dp"
+                android:layout_height="@dimen/dimen_32dp"
+                android:layout_below="@id/tv_2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_7dp"
+                android:src="@drawable/ic_cashout_blue" />
+
+            <TextView
+                android:id="@+id/tv_cashout_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_cashout"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:text="@string/_50_cashout"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_26dp" />
+
+            <TextView
+                android:id="@+id/tv_cashout_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_cashout_percentage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                android:layout_marginBottom="@dimen/dimen_18dp"
+                android:text="Take more trips to unlock 90% Cashout"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/dimen_12dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

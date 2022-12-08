@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/showLoaderContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:auto_start="true"
+                tools:visibility="visible">
+
+                <include
+                    android:id="@+id/root_view_v1"
+                    layout="@layout/shimmer_skeleton_effect" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/hideLoaderContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cardHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dimen_12dp"
+                        android:paddingBottom="@dimen/dimen_12dp">
+
+                        <ImageView
+                            android:id="@+id/backBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:backgroundTint="@null"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="@dimen/dimen_8dp"
+                            android:src="@drawable/ic_back_arrow_1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/weHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_toEndOf="@+id/backBtn"
+                            android:text="@string/weekly_earnings"
+                            android:textColor="@color/black_v2"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/backBtn" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/dateRangeLayoutParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_below="@+id/cardHeader"
+                        android:background="#FFF1EB">
+
+                        <LinearLayout
+                            android:id="@+id/dateRangeLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="55dp"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/lastWeekBtn"
+                                android:layout_width="@dimen/dimen_28dp"
+                                android:layout_height="@dimen/dimen_28dp"
+                                android:layout_marginEnd="10dp"
+                                android:backgroundTint="@null"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:rotation="180"
+                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/startDate"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:padding="8dp"/>
+
+                            <TextView
+                                android:id="@+id/startDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/weekly_earnings_startDate"
+                                android:textColor="@color/black_v2"
+                                android:textSize="@dimen/dimen_16dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/startEndHyphen"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/startEndHyphen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hyphen"
+                                android:textColor="@color/black_v2"
+                                android:textSize="@dimen/dimen_16dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/endDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/weekly_earnings_startDate"
+                                android:textColor="@color/black_v2"
+                                android:textSize="@dimen/dimen_16dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/startEndHyphen"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/nextWeekBtn"
+                                android:layout_width="@dimen/dimen_28dp"
+                                android:layout_height="@dimen/dimen_28dp"
+                                android:layout_marginStart="10dp"
+                                android:backgroundTint="@null"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/endDate"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:padding="@dimen/dimen_8dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/currentWeekEarnings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/dateRangeLayoutParent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_12dp"
+                            android:layout_marginBottom="@dimen/dimen_10dp"
+                            android:padding="@dimen/dimen_8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/weSubHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:text="@string/weekly_earnings_pageHeaderTxt"
+                                android:textColor="@color/black_v2"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_base_pay_amt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="3dp"
+                                android:text="@string/rupee"
+                                android:textColor="@color/default_200"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/totalEarningsTxt"
+                                app:layout_constraintEnd_toStartOf="@+id/totalEarningsTxt"
+                                app:layout_constraintTop_toTopOf="@+id/totalEarningsTxt" />
+
+                            <TextView
+                                android:id="@+id/totalEarningsTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:text="@string/_0"
+                                android:textColor="@color/default_200"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+
+                    <!--EARNINGS-->
+                    <RelativeLayout
+                        android:id="@+id/earningsParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/currentWeekEarnings">
+
+                        <!--Header-->
+                        <RelativeLayout
+                            android:id="@+id/earningsHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#FFF1EB">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/earningsConstraintLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/dimen_8dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+
+                                <TextView
+                                    android:id="@+id/earningsSubHeader"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/weekly_earnings_pageSubHeaderTxt"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/earningsCurrency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="3dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/rupee"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="@+id/earningsAmount"
+                                    app:layout_constraintEnd_toStartOf="@+id/earningsAmount"
+                                    app:layout_constraintTop_toTopOf="@+id/earningsAmount" />
+
+                                <TextView
+                                    android:id="@+id/earningsAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/_0"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/earning_dropdown"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/earning_dropdown"
+                                    android:layout_width="@dimen/dimen_12dp"
+                                    android:layout_height="@dimen/dimen_12dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="@dimen/dimen_14dp"
+                                    android:backgroundTint="@null"
+                                    android:clickable="false"
+                                    android:contentDescription="@string/expand"
+                                    android:focusable="false"
+                                    android:src="@drawable/ic_drop_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </RelativeLayout>
+
+                        <!--Body-->
+                        <RelativeLayout
+                            android:id="@+id/earningsBody"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/earningsHeader"
+                            android:visibility="gone">
+
+                            <RelativeLayout
+                                android:id="@+id/rvCompItemParent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_34dp"
+                                android:layout_marginEnd="@dimen/dimen_34dp"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvCompItem"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                    tools:itemCount="3"
+                                    tools:listitem="@layout/weekly_earnings_company_item" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/otherParentRL"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/rvCompItemParent"
+                                android:layout_marginStart="@dimen/dimen_30dp"
+                                android:layout_marginEnd="@dimen/dimen_30dp"
+                                android:visibility="gone"
+                                android:layout_marginBottom="@dimen/dimen_20dp">
+
+                                <LinearLayout
+                                    android:id="@+id/otherParent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/weekly_earnings_expansion_bg"
+                                    android:gravity="center"
+                                    android:minHeight="@dimen/dimen_50dp"
+                                    android:orientation="vertical"
+                                    android:weightSum="10">
+
+                                    <LinearLayout
+                                        android:id="@+id/otherEarningsHeader"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:weightSum="10">
+
+                                        <LinearLayout
+                                            android:id="@+id/otherEarningsHeaderLeft"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="6"
+                                            android:gravity="center_vertical">
+
+                                            <ImageView
+                                                android:id="@+id/compIcon"
+                                                android:layout_width="@dimen/dimen_20dp"
+                                                android:layout_height="@dimen/dimen_20dp"
+                                                android:layout_marginEnd="8dp"
+                                                android:src="@drawable/other" />
+
+                                            <TextView
+                                                android:id="@+id/itemCompName"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/opensanssemibold"
+                                                android:text="@string/weekly_earnings_otherEarningsTxt"
+                                                android:textColor="@color/black_v2"
+                                                android:textSize="@dimen/font_12sp" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/otherEarningsHeaderRight"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="4"
+                                            android:gravity="end"
+                                            android:orientation="horizontal"
+                                            android:weightSum="7">
+
+                                            <ImageView
+                                                android:id="@+id/moneyImg"
+                                                android:layout_width="@dimen/dimen_14dp"
+                                                android:layout_height="@dimen/dimen_12dp"
+                                                android:layout_gravity="center"
+                                                android:layout_weight="3"
+                                                android:src="@drawable/money" />
+
+                                            <TextView
+                                                android:id="@+id/oeAmount"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="@string/_250"
+                                                android:textColor="@color/black_v2"
+                                                android:textSize="@dimen/dimen_12dp"
+                                                android:textStyle="bold" />
+
+                                            <ImageView
+                                                android:id="@+id/expandBtn"
+                                                android:layout_width="@dimen/dimen_12dp"
+                                                android:layout_height="@dimen/dimen_12dp"
+                                                android:layout_gravity="center"
+                                                android:layout_weight="1"
+                                                android:backgroundTint="@null"
+                                                android:clickable="true"
+                                                android:focusable="true"
+                                                android:rotation="90"
+                                                android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/otherEarningsBody"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone">
+
+                                        <androidx.constraintlayout.widget.ConstraintLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/dimen_10dp">
+
+                                            <ImageView
+                                                android:id="@+id/headingSeparator"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="1dp"
+                                                android:layout_centerInParent="true"
+                                                android:src="@color/very_light_grey"
+                                                app:layout_constraintBottom_toTopOf="@+id/rvOtherItem"
+                                                app:layout_constraintEnd_toEndOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent" />
+
+                                            <androidx.recyclerview.widget.RecyclerView
+                                                android:id="@+id/rvOtherItem"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dimen_10dp"
+                                                android:visibility="visible"
+                                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                                app:layout_constraintTop_toBottomOf="@+id/headingSeparator"
+                                                tools:itemCount="3"
+                                                tools:listitem="@layout/weekly_earnings_other_item" />
+
+                                            <ImageView
+                                                android:id="@+id/bodySeparator"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="1dp"
+                                                android:layout_centerInParent="true"
+                                                android:layout_marginTop="@dimen/dimen_5dp"
+                                                android:src="@color/very_light_grey"
+                                                app:layout_constraintTop_toBottomOf="@+id/rvOtherItem" />
+
+                                            <TextView
+                                                android:id="@+id/totalTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dimen_10dp"
+                                                android:text="@string/total"
+                                                android:textColor="@color/black_v2"
+                                                android:textSize="14sp"
+                                                android:textStyle="bold"
+                                                app:layout_constraintStart_toStartOf="@+id/bodySeparator"
+                                                app:layout_constraintTop_toBottomOf="@+id/bodySeparator" />
+
+                                            <TextView
+                                                android:id="@+id/totalAmtCurrency"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dimen_10dp"
+                                                android:text="@string/rupee"
+                                                android:textColor="@color/black_v2"
+                                                android:textSize="14sp"
+                                                android:textStyle="bold"
+                                                app:layout_constraintEnd_toStartOf="@+id/totalAmt"
+                                                app:layout_constraintTop_toBottomOf="@+id/bodySeparator" />
+
+                                            <TextView
+                                                android:id="@+id/totalAmt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/dimen_10dp"
+                                                android:text="@string/_15"
+                                                android:textColor="@color/black_v2"
+                                                android:textSize="14sp"
+                                                android:textStyle="bold"
+                                                app:layout_constraintEnd_toEndOf="@+id/bodySeparator"
+                                                app:layout_constraintTop_toBottomOf="@+id/bodySeparator" />
+
+                                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/dayWiseParentLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/otherParentRL"
+                                android:layout_marginStart="@dimen/dimen_20dp"
+                                android:layout_marginEnd="@dimen/dimen_20dp"
+                                android:visibility="gone">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/dayWiseView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                    tools:itemCount="4"
+                                    tools:listitem="@layout/weekly_earnings_daywise" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <!--DEDUCTIONS-->
+                    <RelativeLayout
+                        android:id="@+id/deductionsParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/earningsParent">
+
+                        <!--Header-->
+                        <RelativeLayout
+                            android:id="@+id/deductionsHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#FFF1EB"
+                            android:layout_marginBottom="@dimen/dimen_20dp"
+                            android:layout_marginTop="@dimen/dimen_14dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/deductionsConstraintLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/dimen_8dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+
+                                <TextView
+                                    android:id="@+id/deductionsSubHeader"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/weekly_earnings_pageSubHeaderTxtDeductions"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/deductionsCurrency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="3dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/rupee"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="@+id/deductionsAmount"
+                                    app:layout_constraintEnd_toStartOf="@+id/deductionsAmount"
+                                    app:layout_constraintTop_toTopOf="@+id/deductionsAmount" />
+
+                                <TextView
+                                    android:id="@+id/deductionsAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
+                                    android:fontFamily="@font/opensansregular"
+                                    android:text="@string/_15"
+                                    android:textColor="@color/black_v2"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/deductions_dropdown"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/deductions_dropdown"
+                                    android:layout_width="@dimen/dimen_12dp"
+                                    android:layout_height="@dimen/dimen_12dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="@dimen/dimen_14dp"
+                                    android:backgroundTint="@null"
+                                    android:clickable="false"
+                                    android:contentDescription="@string/expand"
+                                    android:focusable="false"
+                                    android:src="@drawable/ic_drop_down"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </RelativeLayout>
+
+                        <!--Body-->
+                        <RelativeLayout
+                            android:id="@+id/deductionsBody"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deductionsHeader"
+                            android:layout_marginTop="@dimen/dimen_20dp"
+                            android:visibility="gone">
+
+                            <RelativeLayout
+                                android:id="@+id/deductionsBreakdownLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_30dp"
+                                android:layout_marginEnd="@dimen/dimen_30dp"
+                                android:visibility="visible">
+
+                                <include
+                                    android:id="@+id/deductionsView"
+                                    layout="@layout/weekly_earnings_deductions" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_alignParentBottom="true">
+
+           <RelativeLayout
+               android:id="@+id/payslipBtn"
+               style="@style/BtnStyle"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/dimen_50dp"
+               android:layout_gravity="center"
+               android:layout_marginStart="@dimen/dimen_20dp"
+               android:layout_marginTop="@dimen/dimen_20dp"
+               android:layout_marginEnd="@dimen/dimen_20dp"
+               android:backgroundTint="@null"
+               android:clickable="true"
+               android:focusable="true"
+               android:foreground="?android:attr/selectableItemBackground"
+               android:gravity="center"
+               android:visibility="gone"
+               android:layout_marginBottom="@dimen/dimen_20dp"
+               tools:visibility="visible">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_centerInParent="true"
+                   android:textAlignment="center">
+
+                   <ImageView
+                       android:id="@+id/psBtnImg"
+                       android:layout_width="@dimen/dimen_20dp"
+                       android:layout_height="@dimen/dimen_20dp"
+                       android:layout_marginEnd="@dimen/dimen_10dp"
+                       android:src="@drawable/charm_eye"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@+id/psBtnTxt"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <TextView
+                       android:id="@+id/psBtnTxt"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:layout_centerHorizontal="true"
+                       android:layout_weight="6"
+                       android:gravity="center"
+                       android:text="@string/view_payslip"
+                       android:textAlignment="center"
+                       android:textColor="@color/white"
+                       android:textSize="16sp"
+                       app:flow_horizontalAlign="center"
+                       app:flow_verticalAlign="center"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+           </RelativeLayout>
+
+           <RelativeLayout
+               android:id="@+id/showBtnLoader"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/dimen_50dp"
+               android:visibility="gone">
+
+               <com.facebook.shimmer.ShimmerFrameLayout
+                   android:id="@+id/btnShimmer"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/dimen_50dp"
+                   android:orientation="horizontal"
+                   android:visibility="gone"
+                   app:auto_start="true"
+                   tools:visibility="visible">
+
+                   <include
+                       android:id="@+id/shimmerInclude"
+                       layout="@layout/shimmer_viewpager_item" />
+               </com.facebook.shimmer.ShimmerFrameLayout>
+           </RelativeLayout>
+
+       </LinearLayout>
+
+    </RelativeLayout>
+</layout>

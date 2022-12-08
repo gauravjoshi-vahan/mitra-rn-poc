@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="@dimen/dimen_20dp">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/dayWiseParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/weekly_earnings_expansion_bg"
+        android:gravity="center"
+        android:minHeight="@dimen/dimen_50dp"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_8dp"
+        android:weightSum="10"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/otherEarningsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/otherEarningsHeaderLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/dayAndDateTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:text="@string/weekly_earnings_dayDateTxt"
+                    android:textColor="@color/black_v2"
+                    android:textSize="@dimen/dimen_12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/otherEarningsHeaderRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/contentRL"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/oeCurrency"
+                        android:layout_toStartOf="@+id/dayAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="@string/rupee"
+                        android:textColor="@color/black_v2"
+                        android:textSize="@dimen/font_16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/dayAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp"
+                        android:layout_toStartOf="@+id/dayWiseExpandBtn"
+                        android:text="@string/_15"
+
+                        android:textColor="@color/black_v2"
+                        android:textSize="@dimen/dimen_12dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/dayWiseExpandBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentEnd="true"
+                        android:backgroundTint="@null"
+                        android:clickable="false"
+                        android:contentDescription="@string/expand"
+                        android:focusable="false"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        app:tint="@color/black_v2" />
+
+                    <TextView
+                        android:id="@+id/hyphen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_10dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="@string/hyphen"
+                        android:textColor="@color/black_v2"
+                        android:textSize="@dimen/font_16sp"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/dayWiseEarningsBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dayWiseEarningsBody_cl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp">
+
+                <ImageView
+                    android:id="@+id/headingSeparator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:src="@color/very_light_grey"
+                    app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:contentDescription="@string/line" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/headingSeparator"
+                    app:layout_constraintTop_toBottomOf="@+id/headingSeparator"
+                    android:theme="@style/TabLayout_Theme"
+                    app:tabBackground="@drawable/default_tab_bg"
+                    app:tabIndicatorColor="@color/default_200"
+                    app:tabTextAppearance="@style/CustomTextAppearanceTab"
+                    app:tabSelectedTextColor="@color/default_200"
+                    app:tabTextColor="@color/default_200"
+                    app:tabMaxWidth="0dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTabItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/weekly_earnings_daywise_tab_content" />
+
+                <!--                <androidx.viewpager2.widget.ViewPager2-->
+                <!--                    android:id="@+id/pager"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="0dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/tabLayout"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/tabLayout"/>-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/bt_viewOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Orders"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen_12dp"
+                android:layout_below="@+id/dayWiseEarningsBody_cl"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:fontFamily="@font/opensanssemibold"
+                android:background="@drawable/button_border"
+                android:layout_marginStart="@dimen/dimen_65dp"
+                android:layout_marginEnd="@dimen/dimen_65dp"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

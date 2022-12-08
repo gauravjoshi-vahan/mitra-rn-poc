@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_8dp"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:backgroundTint="@color/default_200"
+            android:buttonTint="@color/default_200"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_22dp" />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_toRightOf="@+id/checkbox"
+            android:textStyle="bold"
+            android:text="Sunil Saini"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_14dp" />
+
+        <TextView
+            android:id="@+id/tv_phNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_toEndOf="@+id/checkbox"
+
+            android:paddingTop="@dimen/dimen_8dp"
+            android:text="Sunil Saini"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/dimen_10dp" />
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+        <ScrollView
+            android:id="@+id/scrollable"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9.8"
+            android:fillViewport="true">
+            <RelativeLayout
+                android:id="@+id/slotContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_20dp"
+                android:background="@color/white"
+                tools:context=".view.crossutilsslot.fragment.CrossUtilFragment">
+
+                <!-- Top View Container-->
+                <RelativeLayout
+                    android:id="@+id/rl_back_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_cross_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back_arrow_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_16dp"
+                        android:layout_toEndOf="@+id/iv_cross_back"
+                        android:fontFamily="@font/poppinsbold"
+                        android:text="@string/your_upcoming_slots"
+                        android:textColor="@color/black_v2"
+                        android:textSize="@dimen/font_18sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_below="@+id/rl_back_container"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_month_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dimen_20dp"
+                            android:layout_marginBottom="@dimen/dimen_10dp"
+                            android:fontFamily="@font/poppinsbold"
+                            tools:text="JULY "
+                            android:textColor="@color/black_v2"
+                            android:textSize="@dimen/dimen_16sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_month_name"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="7"
+                            tools:listitem="@layout/weekly_date_item" />
+
+                        <LinearLayout
+                            android:id="@+id/login_container"
+                            android:layout_below="@+id/rv_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_4dp"
+                            android:layout_marginTop="@dimen/dimen_8dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/tv_heading"
+                                android:textColor="@color/black_v2"
+                                android:text="Mark your attendance for the day"
+                                android:textSize="@dimen/dimen_16sp"
+                                android:fontFamily="@font/opensanssemibold"
+                                android:layout_width="0dp"
+                                android:layout_weight="1.7"
+                                android:layout_height="wrap_content"/>
+
+                            <RelativeLayout
+                                android:id="@+id/cta_open_app"
+                                android:layout_width="0dp"
+                                android:layout_marginStart="5dp"
+                                style="@style/BtnStyle"
+                                android:layout_weight="1.3"
+                                android:layout_gravity="center"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@null"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:layout_marginEnd="@dimen/dimen_6dp"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tv_cta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="@dimen/dimen_48dp"
+                                    android:minWidth="@dimen/dimen_88dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="Login Now"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:id="@+id/slot_view_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/login_container"
+                            android:layout_centerHorizontal="true">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_slot_avail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="@dimen/dimen_8dp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:itemCount="7"
+                                tools:listitem="@layout/slot_availability" />
+
+                        </FrameLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/nudgeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:background="@color/slot_number"
+            android:padding="@dimen/dimen_4dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/scrollable"
+            android:layout_weight="0.2">
+
+            <RelativeLayout
+                android:id="@+id/iv_scooter_container"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_width="@dimen/dimen_60dp"
+                android:layout_height="@dimen/dimen_50dp">
+
+                <ImageView
+                    android:id="@+id/iv_scooter"
+                    android:layout_width="@dimen/dimen_60dp"
+                    android:layout_height="@dimen/dimen_50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_nudge_icon" />
+
+                <TextView
+                    android:id="@+id/tv_earning_amount_nudge"
+                    android:layout_width="@dimen/dimen_50dp"
+                    android:layout_height="wrap_content"
+                    android:text="5000 more"
+                    android:textStyle="bold"
+                    android:padding="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:layout_marginStart="@dimen/dimen_2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:textColor="@color/black_v2"
+                    android:textSize="6dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_slot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dimen_15dp"
+                android:layout_toEndOf="@+id/iv_scooter_container"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="start"
+                android:text="@string/no_slot_available"
+                android:textAlignment="textStart"
+                android:textColor="@color/black_v2" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</layout>

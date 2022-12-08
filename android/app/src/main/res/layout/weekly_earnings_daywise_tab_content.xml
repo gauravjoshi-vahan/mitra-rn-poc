@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/orderCount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_30dp"
+            android:gravity="start"
+            android:visibility="visible">
+            <TextView
+                android:id="@+id/orderCountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/weekly_earnings_orderCountTxt"
+                android:textColor="@color/grey3"
+                android:textSize="@dimen/font_14sp" />
+
+            <TextView
+                android:id="@+id/orderCountValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/_10"
+                android:textColor="@color/grey3"
+                android:textSize="@dimen/font_14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/normalTxt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_30dp"
+            android:weightSum="10"
+            android:gravity="center"
+            android:layout_below="@+id/orderCount"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:layout_weight="7">
+
+                <TextView
+                    android:id="@+id/tabItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/weekly_earnings_orderPayoutTxt"
+                    android:textColor="@color/grey3"
+                    android:textSize="@dimen/font_14sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/rupeeSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/rupee"
+                    android:textColor="@color/grey3"
+                    android:textSize="@dimen/font_14sp" />
+
+                <TextView
+                    android:id="@+id/tabItemValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/_15"
+                    android:textColor="@color/grey3"
+                    android:textSize="@dimen/font_14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

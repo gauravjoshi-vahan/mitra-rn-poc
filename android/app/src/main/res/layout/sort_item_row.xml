@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RadioButton
+        android:id="@+id/rbSort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:buttonTint="@color/default_200"
+        android:checked="false"
+
+        android:text="  Date: Latest to oldest"
+        android:textColor="#555555"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

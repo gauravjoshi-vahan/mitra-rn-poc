@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="default_200">#D34714</color>
+    <color name="purple_200_fade">#80D34714</color>
+    <color name="gold_200_fade">#99C69A00</color>
+    <color name="gold_200">#C69A00</color>
+    <color name="purple_500">#0584ed</color>
+    <color name="purple_700">#3630d3</color>
+    <color name="interested_color">#346BE3</color>
+    <color name="background_icon">#1d5AE0</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#292929</color>
+    <color name="coach_mark_grey_bg">#A6000000</color>
+    <color name="black_v2">#111111</color>
+    <color name="light_color_heading">#888888</color>
+    <color name="grey">#888888</color>
+    <color name="dark_grey">#999999</color>
+    <color name="red">#888888</color>
+    <color name="white_searchview">#F9F9F9</color>
+    <color name="light_orange">#F1D5CB</color>
+    <color name="light_grey2">#F5F5F5</color>
+    <color name="light_pink">#D34B18</color>
+    <color name="hex">#817CEA</color>
+    <color name="white_shade">#FFEDED</color>
+    <color name="pink">#F9DCDC</color>
+    <color name="faded_grey">#A5A2F2</color>
+    <color name="grey5">#EBEBEB</color>
+
+    <color name="black_default">#000000</color>
+    <color name="in_force_color">#69B50D</color>
+    <color name="black_heading">#FFD6D6D6</color>
+    <color name="block_color">#E5E5E5</color>
+    <color name="grey2">#555555</color>
+    <color name="text_heading">#001729</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_referral">#E5E5E5</color>
+    <color name="border_text_color">#F2F2F2</color>
+    <color name="green">#00856b</color>
+    <color name="green_tv_referral">#18B064</color>
+    <color name="green_bg_referral">#BCF0D5</color>
+    <color name="error_color">#EE4747</color>
+    <color name="border_color">#eff1f4</color>
+    <color name="black_color">#8c8c8c</color>
+    <color name="card_color">#EFF1F4</color>
+    <color name="image_background">#1D5AE0</color>
+    <color name="black_heading_text">#292929</color>
+    <color name="disable_text">#ADADAD</color>
+    <color name="ic_update_color">#D347141A</color>
+    <color name="grey_text">#B7B7B7</color>
+    <color name="light_grey">#E6E6E6</color>
+    <color name="grey3">#666666</color>
+    <color name="grey4">#CCCCCC</color>
+    <color name="very_light_grey">#DDDDDD</color>
+    <color name="light_yellow">#EFE6C7</color>
+    <color name="light_blue">#BED8FF</color>
+    <color name="whatsapp_background">#26A366</color>
+
+    <color name="image_background_disable">#80B7B5ED</color>
+    <color name="unread_notification_background">#FFF1EB</color>
+
+
+    <color name="background_shimmer">#DDDDDD</color>
+    <color name="background_gross_payout">#F3F9EC</color>
+    <color name="background_deduction_payout">#FEF3F3</color>
+    <color name="background_profile">#D8D8D8</color>
+    <color name="edit_text_bg">#DDDDDD</color>
+    <color name="tv_waiting_bg">#E9A800</color>
+    <color name="tv_missing_bg">#FF5252</color>
+    <color name="history_flow_failed_color">#F5F5FD</color>
+    <color name="history_flow_successful_transfer_color">#F0F8F6</color>
+    <color name="history_flow_debit_transfer_color">#F0FCFE</color>
+    <color name="rating_star">#FFDF00</color>
+
+    //for freshchat
+    <!-- Message list item background color -->
+    <color name="freshchat_message_list_item_bg">@null</color>
+
+    <!-- Message reply view background color -->
+    <color name="freshchat_message_reply_view_bg">@color/freshchat_white</color>
+
+    <!-- Message reply edit text view text color -->
+    <color name="freshchat_message_reply_text">#252525</color>
+
+    <!-- Message reply edit text view hint text color -->
+    <color name="freshchat_message_reply_hint_text">#606060</color>
+
+    <!-- Message unread count bubble background in channel list screen -->
+    <color name="freshchat_channel_unread_count_bg">#D32F2F</color>
+
+    <!-- Notification accent color i.e Notification#color (small icon background) Note: Works only in Android 5.0+ -->
+    <color name="freshchat_notification_accent_color">@android:color/transparent</color>
+
+    <!-- Background color for voting view in FAQ Detail -->
+    <color name="freshchat_voting_view_bg">@color/freshchat_background_light</color>
+
+    <!-- Divider colors -->
+    <!-- Divider between each item in the article list -->
+    <color name="freshchat_article_list_divider">#C7C7C7</color>
+
+    <!-- Divider above the voting view in FAQ Detail -->
+    <color name="freshchat_voting_view_divider">#BBB</color>
+    <color name="freshchat_bot_faq_list_divider">#CCCCCC</color>
+
+    <!-- Divider between each message item in the message list -->
+    <color name="freshchat_message_list_divider">@null</color>
+
+    <!-- Divider between message list and reply view -->
+    <color name="freshchat_message_list_reply_view_divider">#D0D0D0</color>
+    <color name="freshchat_chat_resolution_prompt_divider">#BBB</color>
+
+    <color name="freshchat_grey_darkest">#707C92</color>
+    <color name="joined_mitra_color">#C69A00</color>
+    <color name="first_trip_color">#6589BE</color>
+    <color name="referral_bonus_earned_color">#18B064</color>
+
+    <!-- Misc Colors -->
+
+
+    <color name="freshchat_contact_us_btn_bg_normal">@color/default_200</color>
+    <color name="freshchat_contact_us_btn_bg_pressed">@color/default_200</color>
+    <color name="slot_number">#F8E3DC</color>
+    <color name="top_snake_bar_color">#D9D9D9</color>
+    <color name="placeholder_color">#F13333</color>
+    <color name="progress_color">#76A2FF</color>
+
+
+</resources>

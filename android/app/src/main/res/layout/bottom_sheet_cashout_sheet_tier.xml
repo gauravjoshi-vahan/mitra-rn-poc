@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background_blue">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:src="@drawable/ic_electric_icon"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_cashout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_icon"
+        android:gravity="center"
+        android:paddingTop="@dimen/dimen_8dp"
+        android:text="@string/cashout_question_one"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_20sp" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_cashout"
+        android:layout_marginTop="@dimen/dimen_6dp"
+        android:layout_marginEnd="@dimen/dimen_6dp"
+        android:layout_marginBottom="@dimen/dimen_6dp">
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_first_container"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="@dimen/dimen_180dp"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:src="@drawable/ic_green_tier_two" />-->
+
+        <RelativeLayout
+            android:id="@+id/iv_first_container"
+            android:layout_width="@dimen/dimen_70dp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl1_tick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/iv_tick1_animated"
+                    android:layout_width="@dimen/dimen_70dp"
+                    android:layout_height="@dimen/dimen_70dp"
+                    android:layout_marginTop="@dimen/dimen_14dp"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/green_tick" />
+
+                <ImageView
+                    android:id="@+id/iv_tick1_completed"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_30dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:src="@drawable/ic_tick1"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/seekbar_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl1_tick"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_seekbar1_line1"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_gravity="center"
+                    android:src="@color/white"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_seekbar1_line2"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:src="@color/white"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl2_tick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/seekbar_1">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/iv_tick2_animated"
+                    android:layout_width="@dimen/dimen_70dp"
+                    android:layout_height="@dimen/dimen_70dp"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/green_tick" />
+
+                <ImageView
+                    android:id="@+id/iv_tick2_completed"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:src="@drawable/ic_tick1"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/iv_tick2_locked"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:src="@drawable/ic_locked"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/seekbar_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl2_tick"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_seekbar2_line1"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/dimen_44dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:src="@color/white"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_seekbar2_line2"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@color/white"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl3_tick"
+                android:layout_width="match_parent"
+                android:layout_below="@id/seekbar_2"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/iv_tick3_animated"
+                    android:layout_width="@dimen/dimen_70dp"
+                    android:layout_height="@dimen/dimen_70dp"
+                    android:visibility="visible"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/green_tick" />
+
+                <ImageView
+                    android:id="@+id/iv_tick3_locked"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:src="@drawable/ic_locked"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_toEndOf="@+id/iv_first_container"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/level_one"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_unselected"
+                app:cardCornerRadius="@dimen/dimen_8dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_cashout_tier_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_11dp"
+                        android:layout_marginTop="@dimen/dimen_9dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:textStyle="bold"
+                        android:text="@string/cashout_level_one_50"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_text_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_one"
+                        android:layout_marginStart="@dimen/dimen_11dp"
+                        android:layout_marginTop="@dimen/dimen_7dp"
+                        android:layout_marginBottom="@dimen/dimen_9dp"
+                        android:drawablePadding="@dimen/dimen_4dp"
+                        android:text="@string/take_more_rides_and_unlock_70"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_vespa" />
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/level_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:background="@drawable/card_unselected">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_cashout_tier_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_11dp"
+                        android:layout_marginTop="@dimen/dimen_9dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:textStyle="bold"
+                        android:text="@string/unlock_70_cashout"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        tools:ignore="ContentDescription" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_two"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/tv_text_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_11dp"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_marginBottom="@dimen/dimen_11dp"
+                            android:drawablePadding="@dimen/dimen_8dp"
+                            android:text="@string/complete2"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:drawableStartCompat="@drawable/ic_vespa" />
+
+                        <TextView
+                            android:id="@+id/tv_text_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_7dp"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_toEndOf="@+id/tv_text_three"
+                            android:drawablePadding="@dimen/dimen_8dp"
+                            android:text="@string/_50_trips_2"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/text_three_plus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_4dp"
+                            android:layout_marginTop="@dimen/dimen_2dp"
+                            android:layout_marginEnd="@dimen/dimen_4dp"
+                            android:layout_toEndOf="@+id/tv_text_four"
+                            android:text="+"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_text2_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_toEndOf="@+id/text_three_plus"
+                            android:drawablePadding="@dimen/dimen_8dp"
+                            android:text="@string/_10_days"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            app:drawableStartCompat="@drawable/ic_active_orange" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/level_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_unselected">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_cashout_tier_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_11dp"
+                        android:layout_marginTop="@dimen/dimen_9dp"
+                        android:textStyle="bold"
+                        android:text="@string/unlock_90_cashout"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_text_three2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_three"
+                        android:layout_marginStart="@dimen/dimen_11dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_11dp"
+                        android:drawablePadding="@dimen/dimen_8dp"
+                        android:text="@string/complete"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:drawableStartCompat="@drawable/ic_vespa" />
+
+                    <TextView
+                        android:id="@+id/tv_text_four2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_three"
+                        android:layout_marginStart="@dimen/dimen_7dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toEndOf="@+id/tv_text_three2"
+                        android:drawablePadding="@dimen/dimen_8dp"
+                        android:text="@string/_100_trips_2"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/text_three_plus2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_three"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginTop="@dimen/dimen_2dp"
+                        android:layout_marginEnd="@dimen/dimen_4dp"
+                        android:layout_toEndOf="@+id/tv_text_four2"
+                        android:text="+"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_text_three4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cashout_tier_three"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toEndOf="@+id/text_three_plus2"
+                        android:drawablePadding="@dimen/dimen_8dp"
+                        android:text="@string/_20_days"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        app:drawableStartCompat="@drawable/ic_active_orange" />
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/container"
+        android:layout_margin="@dimen/dimen_20dp"
+        app:cardCornerRadius="@dimen/dimen_16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dimen_12dp"
+            android:text="@string/cd_continue"
+            android:textColor="#4943D2"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensanssemibold"
+            android:text="@string/order_amount"
+            android:textColor="@color/grey2"
+            android:textSize="@dimen/dimen_12dp" />
+
+        <TextView
+            android:id="@+id/tv_amt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/_900"
+            android:textColor="@color/black_v2"
+            android:fontFamily="@font/opensansregular"
+            android:textSize="@dimen/dimen_12dp"
+            android:textStyle="bold" />
+
+</RelativeLayout>
+
+    </layout>

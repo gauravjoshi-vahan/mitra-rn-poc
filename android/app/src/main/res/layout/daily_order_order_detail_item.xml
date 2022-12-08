@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_20dp">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:fontFamily="@font/opensansregular"
+                android:text="@string/trip_time_7_03_am"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_orderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_6dp"
+                android:fontFamily="@font/opensanssemibold"
+                android:text="@string/order_id_adwdw78"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/dimen_10dp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nested1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_orderId"
+                android:layout_marginStart="@dimen/dimen_14dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/daily_order_rv_nested1_item" />
+
+            <ImageView
+                android:id="@+id/iv_dropdown"
+                android:layout_width="@dimen/dimen_12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen_6dp"
+                android:src="@drawable/ic_dropdown" />
+
+            <TextView
+                android:id="@+id/tv_amt_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_12dp"
+                android:layout_toStartOf="@+id/iv_dropdown"
+                android:fontFamily="@font/opensansregular"
+                android:text="₹ 210"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_14dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_nested2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_container"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/daily_order_nested_rv2_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_nested3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_nested2"
+            android:layout_marginBottom="@dimen/dimen_15dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/daily_order_nested_rv3_item" />
+
+        <RelativeLayout
+            android:id="@+id/rl_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_below="@id/rv_nested3"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:background="@color/very_light_grey" />
+    </RelativeLayout>
+
+</layout>

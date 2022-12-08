@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_vespa"/>
+
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:progress="40"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:progressTint="@color/default_200"
+            android:layout_centerInParent="true"
+            android:thumb="@drawable/ic_ellipse_124" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:progress="60"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:progressTint="@color/default_200"
+            android:layout_centerInParent="true"
+            android:thumb="@drawable/ic_ellipse_124" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:progress="80"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:progressTint="@color/default_200"
+            android:layout_centerInParent="true"
+            android:thumb="@drawable/ic_ellipse_124"/>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:progress="100"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:progressTint="@color/default_200"
+            android:layout_centerInParent="true"
+            android:thumb="@drawable/ic_ellipse_124"/>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:layout_centerInParent="true"
+            android:progress="20"
+            android:progressTint="@color/default_200"
+            android:thumb="@drawable/ic_vespa" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:layout_marginEnd="16dp"
+            android:layout_centerInParent="true">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="4"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="10+" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 200" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="6" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:layout_centerInParent="true">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="6"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="10+" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 200" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="4" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/iv_profile"
+            android:layout_marginEnd="16dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="8.3" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="11+" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 200" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1.8" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/iv_profile">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="11+" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 200" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

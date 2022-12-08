@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.documentupload.ui.UploadScreenFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_20dp">
+
+            <include
+                android:id="@+id/enter_name"
+                layout="@layout/enter_name_add_bank_layout" />
+
+            <include
+                android:id="@+id/enter_number"
+                layout="@layout/enter_number_add_bank_layout"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/enter_re_number"
+                layout="@layout/enter_re_number_add_bank_layout"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/enter_ifsc"
+                layout="@layout/enter_ifsc_add_bank_layout"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

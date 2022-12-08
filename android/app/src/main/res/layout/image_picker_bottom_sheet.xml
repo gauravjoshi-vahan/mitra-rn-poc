@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:elevation="0.5dp"
+    android:forceDarkAllowed="false"
+    android:orientation="vertical"
+    app:cardCornerRadius="0.5dp">
+
+    <LinearLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/background_bottom_radius"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Choose options"
+            android:textColor="@color/text_heading" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black_heading" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCamera"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/camera"
+            android:textColor="@color/default_200" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black_heading" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvGallery"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/gallery"
+            android:textColor="@color/default_200" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvcancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Cancel"
+            android:textColor="@color/text_heading" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

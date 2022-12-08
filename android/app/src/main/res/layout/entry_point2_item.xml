@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+    <RelativeLayout
+        android:id="@+id/card_weight_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_150dp">
+
+        <RelativeLayout
+            android:id="@+id/rv_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_150dp"
+            android:layout_marginEnd="8dp">
+
+            <ImageView
+                android:id="@+id/iv_graph"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:layout_height="@dimen/dimen_150dp"
+                android:layout_marginTop="@dimen/dimen_9dp"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/iv_graph"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginBottom="@dimen/dimen_6dp"-->
+<!--                android:fontFamily="@font/opensanssemibold"-->
+<!--                android:textColor="@color/black_v2"-->
+<!--                android:textSize="@dimen/dimen_12dp" />-->
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/inner_image"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</layout>

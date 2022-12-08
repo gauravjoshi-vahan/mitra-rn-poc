@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dimen_75dp"
+        android:weightSum="10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/compIcon"
+                android:layout_width="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/sfx_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/itemCompName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:textAlignment="textStart"
+                    android:maxLines="2"
+                    android:scrollHorizontally="true"
+                    android:text="@string/weekly_earnings_txt"
+                    android:textColor="@color/black_v2"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:textSize="@dimen/dimen_12dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/moneyIcon"
+                android:layout_width="@dimen/dimen_14dp"
+                android:layout_height="@dimen/dimen_12dp"
+                android:layout_marginEnd="@dimen/dimen_10dp"
+                android:src="@drawable/money"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/rupeeSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rupee"
+                android:textStyle="bold"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_12dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/amountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_15"
+                android:textStyle="bold"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_12dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

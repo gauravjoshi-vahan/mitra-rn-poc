@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/profile_status_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp">
+
+            <ImageView
+                android:id="@+id/iv_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:padding="@dimen/dimen_4dp"
+                android:src="@drawable/ic_back_arrow_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="@dimen/dimen_3dp"
+                android:layout_toEndOf="@+id/iv_back_button"
+                android:src="@drawable/ic_profile" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/iv_profile"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Prakhar"
+                    android:textColor="@color/black_v2"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_profile_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinslight"
+                    tools:text="+91-9599525080"
+                    android:textColor="@color/light_color_heading"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/notification_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_notification_v2"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rv_mitra_balance_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_status_bar_container"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_30dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:background="@drawable/grey_border_filled">
+
+            <ImageView
+                android:id="@+id/iv_wallet"
+                android:layout_width="@dimen/dimen_19dp"
+                android:layout_height="@dimen/dimen_19dp"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginBottom="@dimen/dimen_15dp"
+                android:src="@drawable/ic_wallet_grey" />
+
+            <TextView
+                android:id="@+id/tv_mitra_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_toEndOf="@+id/iv_wallet"
+                android:fontFamily="@font/opensanssemibold"
+                android:text="@string/mitra_balance"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_14dp" />
+
+            <ImageView
+                android:id="@+id/iv_right_arrow_mitra_balance"
+                android:layout_width="@dimen/dimen_12dp"
+                android:layout_height="@dimen/dimen_12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:src="@drawable/greater_than_orange_icon" />
+
+            <TextView
+                android:id="@+id/tv_mitra_balance_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:layout_toStartOf="@+id/iv_right_arrow_mitra_balance"
+                android:fontFamily="@font/opensanssemibold"
+                android:text="₹"
+                android:textColor="@color/light_pink" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rv_mitra_balance_container"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/earnings_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/earnings_tc"
+                    android:textColor="@color/black_v2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/weeklyEarningsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/weeklyEarningsImg"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_weekly_earnings" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/weekly_earnings"
+                            android:textColor="@color/black_v2"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_weekly_balance_amt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_marginEnd="@dimen/dimen_8dp"
+                            android:layout_toStartOf="@+id/iv_forward_arrow_icon2"
+                            android:fontFamily="@font/opensanssemibold"
+                            android:text="₹"
+                            android:textColor="@color/light_pink" />
+
+                        <ImageView
+                            android:id="@+id/iv_forward_arrow_icon2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_forward_v2" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/very_light_grey" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/transaction_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp">
+
+                    <ImageView
+                        android:id="@+id/iv_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_transc_29" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+
+                        android:text="@string/transaction_history_tv"
+                        android:textColor="@color/black_v2"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:src="@drawable/ic_forward_v2" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/very_light_grey" />
+
+                <LinearLayout
+                    android:id="@+id/view_payslip_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp">
+
+                    <ImageView
+                        android:id="@+id/iv_payslip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_payslip" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+
+                        android:text="@string/view_payslips"
+                        android:textColor="@color/black_v2"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:src="@drawable/ic_forward_v2" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/very_light_grey" />
+
+                <LinearLayout
+                    android:id="@+id/view_referral_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_referral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_referral" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/refer_and_earn"
+                            android:textColor="@color/black_v2"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_forward_v2" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/very_light_grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cross_util_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_cross_util"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_upload_slots" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/upcoming_slots"
+                            android:textColor="@color/black_v2"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_forward_v2" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/very_light_grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/loan_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_loan"
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:scaleType="centerCrop"
+                            android:layout_marginEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_loan_light" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/loan_tv_v2"
+                            android:textColor="@color/black_v2"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_forward_v2" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/very_light_grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/insurance_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_insurance"
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:layout_marginEnd="@dimen/dimen_10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_insurance_light_v2" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/insurance_tv_v2"
+                            android:textColor="@color/black_v2"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_forward_v2" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/very_light_grey" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/personal_detail_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/personal_details"
+                    android:textColor="@color/black_v2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/personal_detail_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_edit_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_edit_profile" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+
+                        android:text="@string/edit_profile"
+
+                        android:textColor="@color/black_v2"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_forward_v2" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/light_color_heading"
+                    android:visibility="gone" />
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/iv_container_language"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="24dp"-->
+<!--                    android:background="@drawable/ripple_effect"-->
+<!--                    android:clickable="true"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:visibility="visible"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/personal_detail_tv">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_language"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_langauge" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvlanguage"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:ellipsize="end"-->
+
+<!--                        android:maxLines="1"-->
+<!--                        android:text="@string/language"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/language_selected"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:layout_marginEnd="8dp"-->
+<!--                        android:drawablePadding="4dp"-->
+<!--                        android:text="@string/language_selection"-->
+<!--                        android:textColor="@color/default_200"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:visibility="gone" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgArrowIconLang"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_forward_v2" />-->
+<!--                </LinearLayout>-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view4lang"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@color/very_light_grey" />-->
+
+
+                <LinearLayout
+                    android:id="@+id/iv_container_upload_document"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/personal_detail_tv">
+
+                    <ImageView
+                        android:id="@+id/iv_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_upload_profile" />
+
+                    <TextView
+                        android:id="@+id/tvUpload"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+
+                        android:maxLines="1"
+                        android:text="@string/uploaded_documents"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/document_pending_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:drawablePadding="4dp"
+                        android:textColor="@color/default_200"
+                        android:textSize="10sp"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_alert_12" />
+
+                    <TextView
+                        android:id="@+id/tv_document_left_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_toStartOf="@+id/imgArrowIcon"
+                        android:fontFamily="@font/opensansregular"
+                        android:text="1 Missing!"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/light_pink" />
+
+
+
+                    <ImageView
+                        android:id="@+id/imgArrowIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_forward_v2" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/very_light_grey" />
+
+                <LinearLayout
+                    android:id="@+id/iv_container_add_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_bank_profile" />
+
+                    <TextView
+                        android:id="@+id/tvBank"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/view_bank_details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/bankdetails_pending_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:drawablePadding="4dp"
+                        android:textColor="@color/default_200"
+                        android:textSize="10sp"
+                        android:text="@string/bank_details_missing2"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_alert_12" />
+
+                    <ImageView
+                        android:id="@+id/imgArrowIcon_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_forward_v2" />
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/very_light_grey" />
+
+                <TextView
+                    android:id="@+id/help_and_settings_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/help_and_settings"
+                    android:textColor="@color/black_v2"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_help_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/help_and_setting_layout" />
+
+                <TextView
+                    android:id="@+id/app_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:textColor="@color/grey_text"
+                    android:textSize="@dimen/dimen_16sp"
+                    tools:text="APP VERSION"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/faq_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="center"
+            app:backgroundTint="@color/white"
+            app:fabSize="normal"
+            app:maxImageSize="84dp"
+            app:srcCompat="@drawable/ic_group_19950" />
+    </RelativeLayout>
+</layout>

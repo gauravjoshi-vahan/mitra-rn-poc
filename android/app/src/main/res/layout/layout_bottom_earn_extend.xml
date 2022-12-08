@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/card_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp">
+
+
+                <TextView
+                    android:id="@+id/tv_head"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:text="@string/current_week_earnings"
+                    android:textColor="@color/black_v2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone"
+
+                    android:textColor="@color/default_200"
+                    android:textSize="14sp"
+                    tools:text="32514" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toStartOf="@+id/tv_amount"
+
+                    android:text="₹"
+                    android:visibility="gone"
+                    android:textColor="@color/default_200"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:id="@+id/eight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_head">
+
+                    <ImageView
+                        android:id="@+id/brand_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        tools:src="@drawable/bank_name" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/brand_image"
+                        app:layout_constraintTop_toTopOf="parent">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toTopOf="@+id/main_line"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/txt_title"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/target_weekly_orders"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@+id/txt_title2"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_weight="6"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_title2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/app_name"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:visibility="invisible"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_weight="6.5"
+                                app:layout_constraintStart_toEndOf="@+id/txt_title"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <ImageView
+                            android:id="@+id/main_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_centerInParent="true"
+                            android:src="@color/light_color_heading"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/main_line">
+
+                            <TextView
+                                android:id="@+id/txt_title_bottom"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/minimum_guaranteed_pay"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toStartOf="@+id/txt_title2_bottom"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_weight="6"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_title2_bottom"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/app_name"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:visibility="invisible"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_weight="6.5"
+                                app:layout_constraintStart_toEndOf="@+id/txt_title_bottom"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@+id/brand_image"
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_0"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/view_color_one"
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+
+                                <TextView
+                                    android:id="@+id/text_0"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    android:layout_above="@+id/ic_vespa_one"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+                                    android:id="@+id/ic_vespa_one"
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_35"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="3.4"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_35"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/default_200"
+                                    android:text="23" />
+
+
+                                <ImageView
+
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_40"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="4.45"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_40"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_55"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="6"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/view_color_two"
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_55"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/ic_vespa_two"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+                                    android:id="@+id/ic_vespa_two"
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_70"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="6.8"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_70"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_80"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="8"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_85"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_92"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="8.8"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_92"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/seekbar_100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="10"
+                            android:translationX="-4dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+
+                                android:layout_width="0dp"
+                                android:layout_height="2dp"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:src="@color/default_200" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/text_100"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="23"
+                                    android:textColor="@color/default_200" />
+
+
+                                <ImageView
+
+                                    android:layout_width="15dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_vespa"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@color/default_200" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        android:layout_toEndOf="@+id/brand_image">
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:gravity="end"
+                            android:visibility="visible"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/max_1"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="10+" />
+
+
+                                <ImageView
+                                    android:id="@+id/dot_40"
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_ellipse_124" />
+
+                                <TextView
+                                    android:id="@+id/value_1"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="30+" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="end"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/max_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:text="10+" />
+
+
+                                <ImageView
+                                    android:id="@+id/dot_70"
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_ellipse_124" />
+
+                                <TextView
+                                    android:id="@+id/value_2"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="30+" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_weight="2"
+                            android:gravity="end"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/max_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:textSize="12sp"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:text="10+" />
+
+
+                                <ImageView
+                                    android:id="@+id/dot_100"
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_ellipse_124" />
+
+                                <TextView
+                                    android:id="@+id/value_3"
+                                    android:textSize="12sp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/poppinslight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="30+" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

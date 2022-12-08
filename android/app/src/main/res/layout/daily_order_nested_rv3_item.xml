@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensanssemibold"
+            android:text="@string/payment_type"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/dimen_10dp" />
+
+        <TextView
+            android:id="@+id/tv_type_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensanssemibold"
+            android:text="@string/online"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/dimen_10dp" />
+
+    </RelativeLayout>
+
+</layout>

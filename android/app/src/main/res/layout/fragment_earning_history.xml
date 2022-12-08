@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:padding="@dimen/dimen_16dp"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_12dp"
+            android:paddingBottom="@dimen/dimen_12dp">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@null"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/dimen_8dp"
+                android:src="@drawable/ic_back_arrow_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/weHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="24dp"
+                android:layout_toEndOf="@+id/backBtn"
+                android:text="Weekly History"
+                android:textColor="@color/black_v2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backBtn" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cVData"
+            android:layout_below="@+id/cardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/dimen_3dp"
+            app:cardBackgroundColor="#F8F8F8"
+            app:cardCornerRadius="@dimen/dimen_12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp"
+                    android:background="@color/default_200"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:text="@string/this_week_s_earnings"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/weeklyEarning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:textSize="@dimen/dimen_26dp"
+                        android:fontFamily="@font/opensansextrabold"
+                        android:text="₹ 7,450"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="#F8F8F8"
+                    android:visibility="gone"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:paddingStart="@dimen/dimen_8dp"
+                    android:paddingEnd="@dimen/dimen_8dp"
+                    android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:textColor="@color/green"
+                        android:text="Yesterday, you earned ₹200 more than last week’s daily average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_upward"
+                        android:drawablePadding="@dimen/dimen_6dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:id="@+id/rl_container_view"
+            android:layout_below="@+id/cVData"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dimen_8dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:background="@drawable/view_data_weekly_goal">
+
+            <RelativeLayout
+                android:id="@+id/rl_container_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_money"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/dimen_10dp"
+                    android:layout_height="@dimen/dimen_10dp"
+                    android:layout_marginEnd="@dimen/dimen_6dp"
+                    android:src="@drawable/money"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/default_200"
+                    android:layout_toEndOf="@+id/iv_money"
+                    android:text="Calculate your weekly goals"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:textSize="@dimen/font_12sp"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/black_v2"
+                android:layout_below="@+id/rl_container_money"
+                android:text="Check how many hours you need to work"
+                android:fontFamily="@font/opensanssemibold"
+                android:textSize="@dimen/font_12sp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_forward_v2"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:tint="@color/black_v2" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+
+            android:layout_below="@+id/rl_container_view"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_view_spinner"
+                android:layout_width="wrap_content"
+                android:background="@drawable/bg_filled_grey"
+                android:padding="@dimen/dimen_10dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/dimen_6dp"
+                    android:src="@drawable/ic_calendar"/>
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensanssemibold"
+                    android:textColor="@color/black_v2"
+                    android:layout_height="wrap_content"
+                    tools:text="September"/>
+
+                <LinearLayout
+                    android:id="@+id/spinner_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="@dimen/dimen_14dp"
+                        android:layout_height="@dimen/dimen_10dp"
+                        android:clickable="true"
+                        android:background="@drawable/arrow_down_float"
+                        android:backgroundTint="@color/grey2"
+                        android:dropDownVerticalOffset="-15dp"
+                        android:spinnerMode="dropdown"
+                        android:focusable="true" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+    </RelativeLayout>
+</layout>

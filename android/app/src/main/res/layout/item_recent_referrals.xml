@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/card_white_background"
+    android:layout_marginTop="@dimen/dimen_12dp"
+    android:layout_height="@dimen/dimen_50dp">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dimen_26dp"
+        android:textStyle="bold"
+        android:text="Sunil Saini"
+        android:textColor="@color/black_v2"
+        android:textSize="@dimen/dimen_14dp" />
+
+    <ImageView
+        android:id="@+id/iv_drop_down"
+        android:layout_width="@dimen/dimen_12dp"
+        android:layout_height="7dp"
+        android:src="@drawable/ic_drop_down"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/dimen_20dp"/>
+
+    <TextView
+        android:id="@+id/tv_referralStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/dimen_12dp"
+        android:layout_toLeftOf="@+id/iv_drop_down"
+        android:background="@drawable/border_filled_outlined"
+        android:paddingStart="@dimen/dimen_8dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="@dimen/dimen_8dp"
+        android:paddingBottom="@dimen/dimen_2dp"
+        android:text="Referral Started"
+        android:textColor="@color/default_200"
+        android:textSize="@dimen/dimen_10dp" />
+
+</RelativeLayout>

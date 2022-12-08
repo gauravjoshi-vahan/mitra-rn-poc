@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_orderEarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_44dp"
+            android:layout_marginTop="@dimen/dimen_14dp"
+            android:layout_marginEnd="@dimen/dimen_44dp">
+
+            <ImageView
+                android:id="@+id/iv_ellipse1"
+                android:layout_width="@dimen/dimen_6dp"
+                android:layout_height="@dimen/dimen_6dp"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                android:src="@drawable/ic_ellipse_orange" />
+
+            <TextView
+                android:id="@+id/tvOrderEarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_14dp"
+                android:layout_toEndOf="@id/iv_ellipse1"
+                android:fontFamily="@font/opensanssemibold"
+                android:text="Order Earnings"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/dimen_10dp" />
+
+            <TextView
+                android:id="@+id/tv_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="+ ₹ 180"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/dimen_12dp"
+                android:fontFamily="@font/opensansregular"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

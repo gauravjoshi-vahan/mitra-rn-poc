@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_container_clicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dimen_16dp">
+
+        <TextView
+            android:id="@+id/weekly_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/dimen_16sp"
+            android:text="Mon" />
+
+        <TextView
+            android:id="@+id/week_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weekly_day"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/dimen_16sp" />
+
+
+    </RelativeLayout>
+</layout>

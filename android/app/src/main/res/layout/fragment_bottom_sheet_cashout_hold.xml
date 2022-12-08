@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <androidx.cardview.widget.CardView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingBottom="@dimen/dimen_20dp"
+           app:cardBackgroundColor="#4943D2"
+           app:cardCornerRadius="20dp">
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <ImageView
+                   android:id="@+id/iv_cross"
+                   android:layout_width="@dimen/dimen_22dp"
+                   android:layout_height="@dimen/dimen_22dp"
+                   android:src="@drawable/ic_cross_white"
+                   android:layout_alignParentEnd="true"
+                   android:padding="@dimen/dimen_4dp"
+                   android:layout_marginEnd="@dimen/dimen_20dp"
+                   android:layout_marginTop="@dimen/dimen_20dp"/>
+
+               <TextView
+                   android:id="@+id/tv_cashout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="@dimen/dimen_42dp"
+                   android:fontFamily="@font/opensansregular"
+                   android:gravity="center"
+                   android:paddingTop="@dimen/dimen_8dp"
+                   android:text="@string/cashout_on_hold"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/dimen_28dp"
+                   android:textStyle="bold" />
+
+               <LinearLayout
+                   android:id="@+id/tv_cashout_desc"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tv_cashout"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="@dimen/dimen_4dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:fontFamily="@font/opensansregular"
+                       android:text="@string/your"
+                       android:textColor="@color/white"
+                       android:textSize="@dimen/dimen_14dp" />
+
+                   <ImageView
+                       android:id="@+id/iv_company_icon"
+                       android:layout_width="@dimen/dimen_14dp"
+                       android:layout_height="@dimen/dimen_14dp"
+                       android:layout_gravity="center"
+                        />
+
+                   <TextView
+                       android:id="@+id/tv_desc"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:fontFamily="@font/opensansregular"
+                       android:text="  Zepto cash deposit is pending"
+                       android:textColor="@color/white"
+                       android:textSize="@dimen/dimen_14dp" />
+
+               </LinearLayout>
+
+               <TextView
+                   android:id="@+id/tv_cashout_desc2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tv_cashout_desc"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="@dimen/dimen_34dp"
+                   android:fontFamily="@font/opensanssemibold"
+                   android:gravity="center"
+                   android:paddingTop="@dimen/dimen_8dp"
+                   android:text="@string/deposit_pending_cash"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/dimen_16dp" />
+               <TextView
+                   android:id="@+id/tv_cashout_desc3"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:fontFamily="@font/opensanssemibold"
+                   android:gravity="center"
+                   android:layout_below="@+id/tv_cashout_desc2"
+                   android:text="@string/to_enable_cashout"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/dimen_16dp" />
+
+               <LinearLayout
+                   android:id="@+id/divider"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/dimen_1dp"
+                   android:background="#6962ED"
+                   android:layout_marginStart="@dimen/dimen_20dp"
+                   android:layout_marginEnd="@dimen/dimen_20dp"
+                   android:layout_below="@+id/tv_cashout_desc3"
+                   android:layout_marginTop="@dimen/dimen_28dp"
+                   android:orientation="horizontal" />
+
+               <TextView
+                   android:id="@+id/tv_cashout_desc4"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Your Available Cashout Amount"
+                   android:layout_below="@+id/divider"
+                   android:textSize="@dimen/dimen_12dp"
+                   android:textColor="#928DEE"
+                   android:fontFamily="@font/opensanssemibold"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="@dimen/dimen_30dp"/>
+
+               <RelativeLayout
+                   android:id="@+id/rl_amt"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_below="@+id/tv_cashout_desc4">
+                   <ImageView
+                       android:id="@+id/ivhold"
+                       android:layout_width="@dimen/dimen_25dp"
+                       android:layout_height="@dimen/dimen_25dp"
+                       android:src="@drawable/ic_cashout_hold"
+                       android:layout_centerVertical="true"/>
+
+                   <TextView
+                       android:id="@+id/tv_amt"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="@dimen/dimen_15dp"
+                       android:layout_toEndOf="@+id/ivhold"
+                       android:fontFamily="@font/opensansextrabold"
+                       android:text="₹ 2,800"
+                       android:textColor="#928DEE"
+                       android:textSize="@dimen/dimen_30dp" />
+               </RelativeLayout>
+
+               <ImageView
+                   android:id="@+id/iv_secure"
+                   android:layout_width="@dimen/dimen_74dp"
+                   android:layout_height="@dimen/dimen_22dp"
+                   android:layout_below="@+id/rl_amt"
+                   android:src="@drawable/ioo_secure"
+                   android:layout_marginBottom="@dimen/dimen_6dp"
+                   android:layout_marginTop="@dimen/dimen_6dp"
+                   android:layout_centerHorizontal="true"/>
+
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/cv_got_it"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/iv_secure"
+                   android:layout_margin="@dimen/dimen_20dp"
+                   app:cardCornerRadius="@dimen/dimen_16dp">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:gravity="center"
+                       android:padding="@dimen/dimen_12dp"
+                       android:text="@string/okay"
+                       android:textColor="#4943D2"
+                       android:textSize="@dimen/dimen_18sp"
+                       android:textStyle="bold" />
+
+               </androidx.cardview.widget.CardView>
+
+           </RelativeLayout>
+
+       </androidx.cardview.widget.CardView>
+
+   </RelativeLayout>
+
+</layout>

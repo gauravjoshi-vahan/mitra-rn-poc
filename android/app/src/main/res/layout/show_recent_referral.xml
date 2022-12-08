@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_15dp"
+            android:background="@drawable/card_background">
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_12dp"
+                android:layout_marginTop="29dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_14dp"
+                tools:text="8178253375" />
+
+            <TextView
+                android:id="@+id/tv_referralStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:layout_toStartOf="@+id/iv_cross"
+                android:background="@drawable/border_filled_outlined"
+                android:paddingStart="@dimen/dimen_8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="@dimen/dimen_8dp"
+                android:paddingBottom="@dimen/dimen_2dp"
+                android:text="@string/referral_started"
+                android:textColor="@color/default_200"
+                android:textSize="@dimen/dimen_12dp" />
+
+            <ImageView
+                android:id="@+id/iv_cross"
+                android:layout_width="@dimen/dimen_24dp"
+                android:layout_height="@dimen/dimen_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen_28dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:src="@drawable/ic_black_close" />
+
+
+            <RelativeLayout
+                android:id="@+id/iv_milestone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_number"
+                android:layout_marginStart="@dimen/dimen_12dp"
+                android:layout_marginTop="@dimen/dimen_20dp">
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage1"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_milestone1"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage2"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_milestone2"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage3"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_milestone3"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage4"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="403dp"
+                    android:src="@drawable/ic_milestone4"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage5"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="350dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:src="@drawable/ic_milestone5"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_milestone_stage6"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="350dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:src="@drawable/ic_milestone6"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tv_referralStarted_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_milestone1"
+                android:layout_marginStart="@dimen/dimen_14dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_toRightOf="@+id/iv_milestone1">
+
+                <TextView
+                    android:id="@+id/tv_referralStarted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/referral_started"
+                    android:textColor="@color/default_200"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_referralStarted2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    android:textStyle="bold"
+                    android:text="@string/referral_started"
+                    android:textColor="@color/default_200"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_referralStarted3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/referral_started"
+                    android:textColor="@color/default_200"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_invitation_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_referralStarted_container"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dimen_12dp"
+                android:textStyle="bold"
+                android:text="@string/invitation_sent"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_11dp" />
+
+            <ImageView
+                android:id="@+id/iv_invitation_sent"
+                android:layout_width="@dimen/dimen_14dp"
+                android:layout_height="@dimen/dimen_14dp"
+                android:layout_alignTop="@+id/tv_invitation_sent"
+                android:layout_alignBottom="@+id/tv_invitation_sent"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/tv_invitation_sent"
+                android:src="@drawable/ic_invitation_sent" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_referralStarted_container"
+                android:layout_alignStart="@+id/tv_referralStarted_container"
+
+                android:text="@string/_1_july_2022"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/dimen_11dp" />
+
+            <RelativeLayout
+                android:id="@+id/tv_joined_mitra_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_alignStart="@+id/tv_date">
+
+                <TextView
+                    android:id="@+id/tv_joined_mitra1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_22dp"
+                    android:textStyle="bold"
+                    android:text="@string/j_mitra"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp" />
+
+                <TextView
+                    android:id="@+id/tv_joined_mitra2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_22dp"
+                    android:textStyle="bold"
+                    android:text="@string/j_mitra"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_joined_mitra_container"
+                android:layout_alignStart="@+id/tv_referralStarted_container"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/tv_date_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_date2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/_1_july_2022"
+                        android:textColor="@color/grey2"
+                        android:textSize="@dimen/dimen_11dp"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_50dp"
+                    android:layout_marginEnd="@dimen/dimen_50dp"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:background="@drawable/button_green_border"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_whatsapp"
+                        android:layout_width="@dimen/dimen_17dp"
+                        android:layout_height="@dimen/dimen_17dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_12dp"
+                        android:src="@drawable/ic_whatsapp" />
+
+                    <TextView
+                        android:id="@+id/tv_whatsapp_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_12dp"
+                        android:layout_toEndOf="@+id/iv_whatsapp"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/dimen_6dp"
+                        android:paddingBottom="@dimen/dimen_6dp"
+                        android:text="Tell your friend to start trips"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_11dp"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tv_first_trip_done_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll1"
+                android:layout_alignStart="@+id/tv_date">
+
+                <TextView
+                    android:id="@+id/tv_first_trip_done1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/first_trip_done"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_first_trip_done3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_14dp"
+                    android:textStyle="bold"
+                    android:text="@string/first_trip_done"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_first_trip_done4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:textStyle="bold"
+                    android:text="@string/first_trip_done"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_first_trip_done_container"
+                android:layout_alignStart="@+id/tv_referralStarted_container"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/tv_date_container2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_date3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/_1_july_2022"
+                        android:textColor="@color/grey2"
+                        android:textSize="@dimen/dimen_11dp"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl2_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_cash"
+                        android:layout_width="@dimen/dimen_26dp"
+                        android:layout_height="@dimen/dimen_23dp"
+                        android:src="@drawable/cash_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_days_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/iv_cash"
+                        android:textStyle="bold"
+                        android:text="11"
+                        android:textColor="@color/default_200"
+                        android:textSize="@dimen/dimen_11dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/tv_days_left"
+                        android:textStyle="bold"
+                        android:text=" days more to earn more money"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_11dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:background="@drawable/button_green_border"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_whatsapp2"
+                        android:layout_width="@dimen/dimen_17dp"
+                        android:layout_height="@dimen/dimen_17dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:src="@drawable/ic_whatsapp" />
+
+                    <TextView
+                        android:id="@+id/tv_whatsapp_button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_12dp"
+                        android:layout_toEndOf="@+id/iv_whatsapp2"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/dimen_6dp"
+                        android:paddingEnd="@dimen/dimen_20dp"
+                        android:paddingBottom="@dimen/dimen_6dp"
+                        android:text="Tell your friend to start trips"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_11dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tv_bonus_earned_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll2"
+                android:layout_alignStart="@+id/tv_date"
+                android:layout_marginTop="@dimen/dimen_2dp">
+
+                <TextView
+                    android:id="@+id/tv_bonus_earned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/bonus_earned"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_bonus_earned2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:textStyle="bold"
+                    android:text="@string/bonus_earned"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_bonus_earned3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:textStyle="bold"
+                    android:text="@string/bonus_earned"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/amt_earned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_bonus_earned2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:textStyle="bold"
+                    android:text="₹1100 Earned"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_11dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_gift"
+                    android:layout_width="@dimen/dimen_16dp"
+                    android:layout_height="@dimen/dimen_16dp"
+                    android:layout_alignTop="@+id/amt_earned"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toStartOf="@+id/amt_earned"
+                    android:src="@drawable/ic_amt_earned"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_totalTrips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_bonus_earned2"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@+id/iv_gift"
+                    android:textStyle="bold"
+                    android:text="57 Trips"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen_11dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_scooter"
+                    android:layout_width="@dimen/dimen_13sp"
+                    android:layout_height="@dimen/dimen_13sp"
+                    android:layout_alignTop="@+id/tv_totalTrips"
+                    android:layout_marginTop="@dimen/dimen_2dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_toStartOf="@+id/tv_totalTrips"
+                    android:src="@drawable/ic_scooter"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_date4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bonus_earned_container"
+                android:layout_alignStart="@+id/tv_bonus_earned_container"
+
+                android:text="@string/_1_july_2022"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/dimen_11dp"
+                android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_date4"
+                android:layout_alignStart="@+id/tv_bonus_earned_container"
+                android:layout_marginEnd="@dimen/dimen_12dp">
+
+                <include
+                    android:id="@+id/step_view_ui"
+                    layout="@layout/horizontal_milestone_status">
+
+                </include>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_final"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_final"
+                android:layout_alignStart="@+id/tv_date4"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/rl4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_final"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    android:gravity="center_horizontal"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/iv_cash2"
+                        android:layout_width="@dimen/dimen_26dp"
+                        android:layout_height="@dimen/dimen_23dp"
+                        android:src="@drawable/cash_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_days_left2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/iv_cash2"
+                        android:textStyle="bold"
+                        android:text="11"
+                        android:textColor="@color/default_200"
+                        android:textSize="@dimen/dimen_11dp" />
+
+                    <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/tv_days_left2"
+                        android:textStyle="bold"
+                        android:text=" days more to earn more money"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen_11dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:background="@drawable/button_green_border"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/iv_whatsapp3"
+                        android:layout_width="@dimen/dimen_17dp"
+                        android:layout_height="@dimen/dimen_17dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:src="@drawable/ic_whatsapp" />
+
+                    <TextView
+                        android:id="@+id/tv_whatsapp_button3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dimen_12dp"
+                        android:layout_toEndOf="@+id/iv_whatsapp3"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/dimen_6dp"
+                        android:paddingEnd="@dimen/dimen_20dp"
+                        android:paddingBottom="@dimen/dimen_6dp"
+                        android:text="Tell your friend to start trips"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dimen_11dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tv_referral_completed_container5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl4"
+                    android:layout_alignStart="@+id/tv_date"
+                    android:layout_marginTop="@dimen/dimen_26dp"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_referral_completed5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:textStyle="bold"
+                        android:text="Referral Completed"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/dimen_12dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_date5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_referral_completed5"
+
+                        android:text="@string/_1_july_2022"
+                        android:textColor="@color/grey2"
+                        android:textSize="@dimen/dimen_11dp"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tv_referral_completed_container4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_final"
+                android:layout_alignStart="@+id/tv_date"
+                android:layout_marginBottom="@dimen/dimen_30dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_referral_completed4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:textStyle="bold"
+                    android:text="Referral Completed"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tv_referral_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_final"
+                android:layout_alignStart="@+id/tv_date"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_referral_completed1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Referral Completed"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_referral_completed2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textStyle="bold"
+                    android:text="Referral Completed"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_referral_completed3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:textStyle="bold"
+                    android:text="Referral Completed"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

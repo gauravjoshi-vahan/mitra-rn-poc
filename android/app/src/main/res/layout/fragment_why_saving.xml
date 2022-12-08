@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_20dp"
+        tools:context=".view.experiments.savingcalculator.view.ui.fragments.WhySavingFragment">
+
+<!--Layout One this is for Reason-->
+        <include
+            android:id="@+id/layout_one_purpose"
+            layout="@layout/get_purpose_savings"
+            android:visibility="gone"/>
+<!--Layout two this is for Amount -->
+        <include
+            android:id="@+id/layout_two_purpose"
+            layout="@layout/get_amount_savings"
+            android:visibility="visible"/>
+
+
+    </RelativeLayout>
+</layout>

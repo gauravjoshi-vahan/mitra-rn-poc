@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.vahan.mitra_playstore">
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_ALL_DOWNLOADS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="true" />
+
+<!--    Add this for prod-->
+<!--    android:networkSecurityConfig="@xml/network_security_config"-->
+    <application
+        android:name=".view.BaseApplication"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@drawable/ic_register_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_app_icon"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Mitra_android"
+        tools:remove="android:appComponentFactory"
+        tools:targetApi="s">
+        <meta-data
+            android:name="blitz_api_key"
+            android:value="key_Bm7b3o2IMpAuxIh" />
+
+        <receiver
+            android:name=".services.SmsReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".services.MyFirebaseServices"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".services.LocationService"
+            android:exported="true" />
+        <service
+            android:name=".services.GetAllNotifications"
+            android:exported="true"
+            android:label="GetAllNotification"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".view.HomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data
+                    android:host="mitra.vahan.co"
+                    android:pathPrefix="/status"
+                    android:scheme="https" />
+                <data
+                    android:host="mitra.vahan.co"
+                    android:pathPrefix="/non-payroll"
+                    android:scheme="https" />
+                <data
+                    android:host="mitra.vahan.co"
+                    android:pathPrefix="/knowledgeCentre"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+
+                <!-- below line is to set the action to our intent to view -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <!-- on below line we are adding a category to make our app browsable -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--
+                    on below line we are specifying the host name and
+                        the scheme type from which we will be calling our app
+                -->
+                <data android:scheme="http" />
+                <data
+                    android:host="mitraapp.page.link"
+                    android:pathPrefix="/"
+                    android:scheme="https" />
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+            android:name=".view.AuthenticationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.EnterOtpActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.SalaryViewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activities.enternumberactivity.view.ui.EnterNumberActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ExperimentActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.NotificationViewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.LanguageSelectionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.StarterScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.freshchat.consumer.sdk.activity.FAQCategoriesActivity"
+            android:theme="@style/MyCustomTextAppearancee"
+            tools:replace="android:theme" />
+        <activity
+            android:name="com.freshchat.consumer.sdk.activity.ConversationDetailActivity"
+            android:theme="@style/MyCustomTextAppearance"
+            tools:replace="android:theme" />
+        <activity
+            android:name="com.freshchat.consumer.sdk.activity.FAQListActivity"
+            android:theme="@style/MyCustomTextAppearance"
+            tools:replace="android:theme" />
+        <activity
+            android:name="com.freshchat.consumer.sdk.activity.FAQDetailsActivity"
+            android:theme="@style/MyCustomTextAppearance"
+            tools:replace="android:theme" />
+        <activity
+            android:name=".view.DemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".view.ReactActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <provider
+            android:name=".utils.CustomProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path_app" />
+        </provider>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.vahan.mitra_playstore"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/freshchat_file_provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

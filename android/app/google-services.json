@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120270645872",
+    "project_id": "mitra-playstore",
+    "storage_bucket": "mitra-playstore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120270645872:android:d397c68ee72e40736da2b5",
+        "android_client_info": {
+          "package_name": "com.vahan.mitra_playstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120270645872-g00dlqal6kis3cq2tnbbvi2mdi1kl4kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkr7f24sqmB_K4X2Q1L3Q1JyNkTeLTLIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120270645872-g00dlqal6kis3cq2tnbbvi2mdi1kl4kp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

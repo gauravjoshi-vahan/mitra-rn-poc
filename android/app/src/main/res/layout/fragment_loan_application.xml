@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/container_rl"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.loan.view.ui.fragment.LoanApplicationFragment">
+
+        <include
+            android:id="@+id/layout_one_purpose"
+            layout="@layout/get_purpose"
+            android:visibility="visible"/>
+
+        <include
+            android:id="@+id/layout_two_purpose"
+            layout="@layout/get_amount"
+            android:visibility="gone"/>
+
+
+
+
+
+    </RelativeLayout>
+</layout>

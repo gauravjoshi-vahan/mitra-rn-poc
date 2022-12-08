@@ -1,0 +1,2040 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="@dimen/dimen_1dp"
+        app:cardBackgroundColor="#FCFCFC"
+        app:cardCornerRadius="@dimen/dimen_12dp"
+        android:layout_margin="@dimen/dimen_4dp">
+
+    <RelativeLayout
+        android:id="@+id/card_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible">
+
+        //Card header
+
+        <LinearLayout
+            android:id="@+id/cardHeaderParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/cardHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                //Left side icon and text
+
+                <LinearLayout
+                    android:id="@+id/cardHeaderContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/cardHeaderTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:text="@string/weekly_earnings_txt"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                //Right side icon and text
+
+                <LinearLayout
+                    android:id="@+id/tripsCompletedRightContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tripsCompletedRightTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/view_details_txt"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/default_200"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/viewDetailsBtn"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:rotation="-90"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            //bottom content
+
+            <LinearLayout
+                android:id="@+id/cardHeaderBottomContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/cardHeaderBottomTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppinslight"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="@string/updated_till_txt"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        //No. of trips completed header
+
+        <LinearLayout
+            android:id="@+id/tripsCompletedParent"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/milestone_header_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/tripsCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                //Left side icon and text
+
+                <LinearLayout
+                    android:id="@+id/tripsCompletedContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/tripsCompletedImg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_earning" />
+
+                    <TextView
+                        android:id="@+id/tripsCompletedTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+
+                        android:text="@string/trips_done_txt"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    //Extra content for mitra incentive card
+
+                    <LinearLayout
+                        android:id="@+id/tripsCompletedMitraContent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="3.5"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/tripsCompletedMitraLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tripsCompletedMitraPlus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="@string/plus"
+                                android:textAlignment="center"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/tripsCompletedMitraImgTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="2.5"
+                            android:gravity="start"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/tripsCompletedMitraImg"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_earning" />
+
+                            <TextView
+                                android:id="@+id/tripsCompletedMitraTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:ellipsize="end"
+
+                                android:maxLines="1"
+                                android:text="@string/trips_done_txt"
+                                android:textAlignment="center"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        //Timeline + Card view
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="125dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:id="@+id/cardTimelineParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white">
+
+                            //main line
+                            //required to put a linear layout cause of the 3 dots in between the
+                            line
+
+                            <RelativeLayout
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/mainLineImg"
+                                    android:layout_width="3dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginBottom="30dp"
+                                    android:src="@color/light_color_heading" />
+
+                                <ImageView
+                                    android:id="@+id/topLineImg"
+                                    android:layout_width="3dp"
+                                    android:layout_height="30dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginBottom="30dp"
+                                    android:src="@color/default_200"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
+
+                            //allMilestoneCases for timeline view
+
+                            <RelativeLayout
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:id="@+id/allMilestoneCasesTimeline"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical"
+                                    android:weightSum="10">
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 1
+                                    //When the rider has completed rides less than or equal to L0
+                                    //Hide the first grey dot from initial state
+
+                                    <LinearLayout
+                                        android:id="@+id/onFirst"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/white"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/onFirstImg"
+                                            android:layout_width="16dp"
+                                            android:layout_height="16dp"
+                                            android:src="@drawable/ic_scooter_filled" />
+
+                                        <TextView
+                                            android:id="@+id/onFirstImgTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textStyle="bold"
+                                            android:text="@string/your_here_txt"
+                                            android:textAlignment="center"
+                                            android:textAllCaps="true"
+                                            android:textColor="@color/default_200"
+                                            android:textSize="6sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:autoSizeMinTextSize="5sp"
+                                            android:autoSizeMaxTextSize="8sp"
+                                            android:autoSizeStepGranularity="0.5sp"
+                                            android:hyphenationFrequency="none"
+                                            tools:targetApi="o" />
+                                    </LinearLayout>
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 2
+                                    //When the rider has completed rides greater than than L0 but
+                                    less
+                                    than
+                                    //L1
+                                    //Make first grey dot purple
+                                    //Weight = 1.75
+
+                                    <LinearLayout
+                                        android:id="@+id/betweenFirstAndSecond"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.5"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/betweenFirstAndSecondLine"
+                                            android:layout_width="3dp"
+                                            android:layout_height="0dp"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:src="@color/default_200" />
+
+                                        <RelativeLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="38dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/white">
+
+                                            <ImageView
+                                                android:id="@+id/betweenFirstAndSecondImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="@color/white"
+                                                android:src="@drawable/ic_scooter_filled" />
+
+                                            <TextView
+                                                android:id="@+id/betweenFirstAndSecondTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_below="@+id/betweenFirstAndSecondImg"
+                                                android:background="@color/white"
+                                                android:textStyle="bold"
+                                                android:text="@string/your_here_txt"
+                                                android:textAlignment="center"
+                                                android:textAllCaps="true"
+                                                android:textColor="@color/default_200"
+                                                android:textSize="6sp"
+                                                android:autoSizeTextType="uniform"
+                                                android:autoSizeMinTextSize="5sp"
+                                                android:autoSizeMaxTextSize="8sp"
+                                                android:autoSizeStepGranularity="0.5sp"
+                                                android:hyphenationFrequency="none"
+                                                tools:targetApi="o" />
+
+                                        </RelativeLayout>
+
+                                    </LinearLayout>
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 3
+                                    //When the rider has completed rides equal to L1
+                                    //Make first dot purple
+                                    //Hide the second grey dot from initial state
+                                    //Weight = 4.2
+
+                                    <LinearLayout
+                                        android:id="@+id/onSecond"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/onSecondLine"
+                                            android:layout_width="3dp"
+                                            android:layout_height="0dp"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:src="@color/default_200" />
+
+                                        <RelativeLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="38dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/white">
+
+                                            <ImageView
+                                                android:id="@+id/onSecondImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="@color/white"
+                                                android:src="@drawable/ic_scooter_filled" />
+
+                                            <TextView
+                                                android:id="@+id/onSecondTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_below="@+id/onSecondImg"
+                                                android:background="@color/white"
+                                                android:textStyle="bold"
+                                                android:text="@string/your_here_txt"
+                                                android:textAlignment="center"
+                                                android:textAllCaps="true"
+                                                android:textColor="@color/default_200"
+                                                android:textSize="6sp"
+                                                android:autoSizeTextType="uniform"
+                                                android:autoSizeMinTextSize="5sp"
+                                                android:autoSizeMaxTextSize="8sp"
+                                                android:autoSizeStepGranularity="0.5sp"
+                                                android:hyphenationFrequency="none"
+                                                tools:targetApi="o" />
+
+                                        </RelativeLayout>
+
+                                    </LinearLayout>
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 4
+                                    //When the rider has completed rides greater than L1 and equal
+                                    to or
+                                    //less than any multiple of L( n ) where n is less than n - 2
+                                    //Hide first gray dot
+                                    //Same as CASE 1 just Give id = mainLineImg a marginTop of 0dp
+                                    //-----------------------------------------------------------------------
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 5
+                                    //When the rider has completed rides greater than L( n ) but
+                                    less
+                                    //than L( n - 2 )
+                                    //(where n is the most number of trips the rider can make to
+                                    earn
+                                    weekly
+                                    //incentive &amp; n > 1)
+                                    //Make first dot purple
+                                    //Same as CASE 2 just Give id = mainLineImg a marginTop of 0dp
+                                    //-----------------------------------------------------------------------
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 6
+                                    //When the rider has completed rides equal to L( n - 2 )
+                                    //Make first dot purple
+                                    //Same as CASE 4, just hide the 3 dots and give id = mainLineImg
+                                    a
+                                    //marginTop of 0dp
+                                    //After hiding the 3 dots, change weight of id =
+                                    defaultTimelineState to
+                                    //0.85 &amp; id = allMilestoneCasesCard to 0.575
+                                    //-----------------------------------------------------------------------
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 7
+                                    //When the rider has completed rides greater than than L( n - 2
+                                    )
+                                    but
+                                    //less than
+                                    //L( n - 1 )
+                                    //Make first dot purple
+                                    //Same as CASE 2, just hide the 3 dots and don't hide the first
+                                    dot
+                                    //After hiding the 3 dots, change weight of id =
+                                    defaultTimelineState to
+                                    //0.85 &amp; id = allMilestoneCasesCard to 0.575
+                                    //-----------------------------------------------------------------------
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 8
+                                    //When the rider has completed rides equal to L( n - 1 )
+                                    //Same as CASE 3 just give first grey dot a marginTop of 60dp
+                                    and
+                                    //Make first dot purple
+                                    //Hide the second grey dot and the 3 dots from initial state
+                                    //After hiding the 3 dots, change weight of id =
+                                    defaultTimelineState to
+                                    //0.85 &amp; id = allMilestoneCasesCard to 0.575
+                                    //-----------------------------------------------------------------------
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 9
+                                    //When the rider has completed rides greater than L( n - 1 ) but
+                                    less
+                                    //than L ( n )
+                                    //Make first 2 dots purple
+                                    //Hide the 3 dots
+                                    //After hiding the 3 dots,cardOnThird change weight of id =
+                                    defaultTimelineState to
+                                    //0.85 &amp; id = allMilestoneCasesCard to 0.575
+                                    //id = mainLineEndImg visibility to gone
+
+                                    <LinearLayout
+                                        android:id="@+id/betweenSecondAndThird"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="6.75"
+                                        android:background="@color/white"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/betweenSecondAndThirdLine"
+                                            android:layout_width="3dp"
+                                            android:layout_height="0dp"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:src="@color/default_200" />
+
+                                        <RelativeLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="38dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/white">
+
+                                            <ImageView
+                                                android:id="@+id/betweenSecondAndThirdImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="@color/white"
+                                                android:src="@drawable/ic_scooter_filled" />
+
+                                            <TextView
+                                                android:id="@+id/betweenSecondAndThirdTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_below="@+id/betweenSecondAndThirdImg"
+                                                android:background="@color/white"
+                                                android:textStyle="bold"
+                                                android:text="@string/your_here_txt"
+                                                android:textAlignment="center"
+                                                android:textAllCaps="true"
+                                                android:textColor="@color/default_200"
+                                                android:textSize="6sp"
+                                                android:autoSizeTextType="uniform"
+                                                android:autoSizeMinTextSize="5sp"
+                                                android:autoSizeMaxTextSize="8sp"
+                                                android:autoSizeStepGranularity="0.5sp"
+                                                android:hyphenationFrequency="none"
+                                                tools:targetApi="o" />
+                                        </RelativeLayout>
+                                    </LinearLayout>
+
+                                    //-----------------------------------------------------------------------
+                                    //CASE 10
+                                    //When the rider has completed rides equal to L ( n )
+                                    //Make first 2 dots purple
+                                    //Hide the last dot
+                                    //Hide the 3 dots
+                                    //After hiding the 3 dots, change weight of id =
+                                    defaultTimelineState to
+                                    //0.85 &amp; id = allMilestoneCasesCard to 0.575
+
+                                    <LinearLayout
+                                        android:id="@+id/onThird"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="10"
+                                        android:background="@color/white"
+                                        android:gravity="center_horizontal"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/onThirdLine"
+                                            android:layout_width="3dp"
+                                            android:layout_height="0dp"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:src="@color/default_200" />
+
+                                        <RelativeLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="38dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/white">
+
+                                            <ImageView
+                                                android:id="@+id/onThirdImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="@color/white"
+                                                android:src="@drawable/ic_scooter_filled" />
+
+                                            <TextView
+                                                android:id="@+id/secondMilestoneInProgressText"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_below="@+id/onThirdImg"
+                                                android:autoSizeMaxTextSize="8sp"
+                                                android:autoSizeMinTextSize="5sp"
+                                                android:autoSizeStepGranularity="0.5sp"
+                                                android:autoSizeTextType="uniform"
+                                                android:background="@color/white"
+                                                android:textStyle="bold"
+                                                android:hyphenationFrequency="none"
+                                                android:text="@string/your_here_txt"
+                                                android:textAlignment="center"
+                                                android:textAllCaps="true"
+                                                android:textColor="@color/default_200"
+                                                android:textSize="6sp"
+                                                tools:targetApi="o" />
+                                        </RelativeLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            //allMilestoneCases for card view
+
+                            <LinearLayout
+                                android:id="@+id/allMilestoneCasesCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="false"
+                                android:layout_marginStart="45dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                //CASE 1
+                                //When the card is on the first dot
+                                //weight = 0.38
+
+                                <LinearLayout
+                                    android:id="@+id/cardOnFirstParent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.38"
+                                    android:gravity="start"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    //CASE 1-A
+                                    //When the card is on the first dot (highlighted)
+
+                                    <LinearLayout
+                                        android:id="@+id/cardOnFirst"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/card_background_yellow_outlined"
+                                        android:gravity="start"
+                                        android:orientation="vertical"
+                                        android:padding="10dp"
+                                        android:visibility="visible"
+                                        android:layout_marginBottom="@dimen/dimen_10dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardOnFirstLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="start"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            //Left side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnFirstLeftContent"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="7"
+                                                android:gravity="start"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardOnFirstLeftImg"
+                                                    android:layout_width="20dp"
+                                                    android:layout_height="20dp"
+                                                    android:src="@drawable/ic_earning" />
+
+                                                <TextView
+                                                    android:id="@+id/cardOnFirstLeftTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+
+                                                    android:text="@string/_15_trips"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="false"
+                                                    android:textColor="@color/black"
+                                                    android:textSize="14sp" />
+
+                                                //Extra content for mitra incentive card
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardOnFirstMitraParent"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="3.5"
+                                                    android:gravity="start"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="gone">
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnFirstMitraPlusLayout"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:gravity="center"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnFirstMitraPlus"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+
+                                                            android:text="@string/plus"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+                                                    </LinearLayout>
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnFirstMitraImgTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="2.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <ImageView
+                                                            android:id="@+id/cardOnFirstMitraImg"
+                                                            android:layout_width="20dp"
+                                                            android:layout_height="20dp"
+                                                            android:src="@drawable/ic_earning" />
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnFirstMitraTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="8dp"
+
+                                                            android:text="@string/_15_trips"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                            //Right side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnFirstRightContent"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="end"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <TextView
+                                                    android:id="@+id/cardOnFirstRightTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textStyle="bold"
+                                                    android:text="@string/_100"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="true"
+                                                    android:textColor="@color/default_200"
+                                                    android:textSize="14sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/firstCardLeftContent"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:gravity="end"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/firstCardBottomImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:src="@drawable/money" />
+
+
+                                            <TextView
+                                                android:id="@+id/cardOnFirstBottomTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="8dp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/poppinslight"
+                                                android:maxLines="2"
+                                                android:scrollHorizontally="true"
+                                                android:text="@string/take_11_more_trips_from_sfx_to_earn_250"
+                                                android:textAlignment="textStart"
+                                                android:textAllCaps="false"
+                                                android:textColor="@color/dark_grey"
+                                                android:textSize="11sp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    //CASE 1-B
+                                    //When the card is not on the first dot
+
+                                    <LinearLayout
+                                        android:id="@+id/cardNotOnFirst"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@drawable/card_background_grey"
+                                        android:gravity="start"
+                                        android:orientation="vertical"
+                                        android:padding="12dp"
+                                        android:visibility="gone">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardNotOnFirstLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="10"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+
+                                            //Left side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardNotOnFirstLeftContent"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="7"
+                                                android:gravity="center_vertical"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardNotOnFirstLeftImg"
+                                                    android:layout_width="20dp"
+                                                    android:layout_height="20dp"
+                                                    android:layout_gravity="center"
+                                                    android:src="@drawable/ic_earning" />
+
+                                                <TextView
+                                                    android:id="@+id/cardNotOnFirstLeftTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+
+                                                    android:text="@string/_15_trips"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="false"
+                                                    android:textColor="@color/black"
+                                                    android:textSize="14sp" />
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardNotOnFirstMitraParent"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="3.5"
+                                                    android:gravity="start"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="gone">
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardNotOnFirstMitraPlusLayout"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:gravity="center"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <TextView
+                                                            android:id="@+id/cardNotOnFirstMitraPlus"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+
+                                                            android:text="@string/plus"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+                                                    </LinearLayout>
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardNotOnFirstMitraImgTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="2.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <ImageView
+                                                            android:id="@+id/cardNotOnFirstMitraImg"
+                                                            android:layout_width="20dp"
+                                                            android:layout_height="20dp"
+                                                            android:src="@drawable/ic_earning" />
+
+                                                        <TextView
+                                                            android:id="@+id/cardNotOnFirstMitraTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="8dp"
+
+                                                            android:text="@string/_15_trips"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                            //Right side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardNotOnFirstRightContent"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardNotOnFirstMitraCompletedImg"
+                                                    android:layout_width="18dp"
+                                                    android:layout_height="18dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:src="@drawable/ic_green_tick2"
+                                                    android:visibility="gone" />
+
+                                                <TextView
+                                                    android:id="@+id/cardNotOnFirstRightTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textStyle="bold"
+                                                    android:gravity="center"
+                                                    android:text="@string/_100"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="true"
+                                                    android:textColor="@color/default_200"
+                                                    android:textSize="14sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                //CASE 2
+                                //When the card is on the second dot
+                                //weight = 0.17
+
+                                <LinearLayout
+                                    android:id="@+id/cardOnSecondParent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.17"
+                                    android:gravity="start"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    //CASE 2-A
+                                    //When the card is on the second dot (highlighted)
+
+                                    <LinearLayout
+                                        android:id="@+id/cardOnSecond"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/card_background_yellow_outlined"
+                                        android:gravity="center_vertical"
+                                        android:orientation="vertical"
+                                        android:padding="10dp"
+                                        android:visibility="gone"
+                                        android:layout_marginTop="@dimen/dimen_10dp"
+                                        android:layout_marginBottom="@dimen/dimen_10dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardOnSecondLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="10"
+                                            android:gravity="start"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+
+                                            //Left side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnSecondLeft"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="7"
+                                                android:gravity="start"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardOnSecondLeftImg"
+                                                    android:layout_width="20dp"
+                                                    android:layout_height="20dp"
+                                                    android:src="@drawable/ic_earning" />
+
+                                                <TextView
+                                                    android:id="@+id/cardOnSecondLeftTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+
+                                                    android:text="@string/_15_trips"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="false"
+                                                    android:textColor="@color/black"
+                                                    android:textSize="14sp" />
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardOnSecondMitraParent"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="3.5"
+                                                    android:gravity="start"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="gone">
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnSecondMitraPlusLayout"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:gravity="center"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnSecondMitraPlus"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+
+                                                            android:text="@string/plus"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+                                                    </LinearLayout>
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnSecondMitraImgTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="2.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <ImageView
+                                                            android:id="@+id/cardOnSecondMitraImg"
+                                                            android:layout_width="20dp"
+                                                            android:layout_height="20dp"
+                                                            android:src="@drawable/ic_earning" />
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnSecondMitraTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="8dp"
+
+                                                            android:text="@string/_15_trips"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                            //Right side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnSecondRight"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="end"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <TextView
+                                                    android:id="@+id/cardOnSecondRightTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textStyle="bold"
+                                                    android:text="@string/_100"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="true"
+                                                    android:textColor="@color/default_200"
+                                                    android:textSize="14sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/cardOnSecondBottom"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:gravity="end"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/cardOnSecondBottomImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:src="@drawable/money" />
+
+
+                                            <TextView
+                                                android:id="@+id/cardOnSecondBottomTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="8dp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/poppinslight"
+                                                android:maxLines="2"
+                                                android:scrollHorizontally="true"
+                                                android:text="@string/take_11_more_trips_from_sfx_to_earn_250"
+                                                android:textAlignment="textStart"
+                                                android:textAllCaps="false"
+                                                android:textColor="@color/dark_grey"
+                                                android:textSize="11sp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    //CASE 2-B
+                                    //When the card is not on the second dot
+
+                                    <LinearLayout
+                                        android:id="@+id/cardNotOnSecond"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/card_background_grey"
+                                        android:gravity="bottom"
+                                        android:orientation="vertical"
+                                        android:padding="12dp"
+                                        android:visibility="visible">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardNotOnSecondLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="10"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+
+                                            //Left side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardNotOnSecondLeftContent"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="7"
+                                                android:gravity="center_vertical"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardNotOnSecondLeftImg"
+                                                    android:layout_width="20dp"
+                                                    android:layout_height="20dp"
+                                                    android:layout_gravity="center"
+                                                    android:src="@drawable/ic_earning" />
+
+                                                <TextView
+                                                    android:id="@+id/cardNotOnSecondLeftTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+
+                                                    android:text="@string/_15_trips"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="false"
+                                                    android:textColor="@color/black"
+                                                    android:textSize="14sp" />
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardNotOnSecondMitraParent"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="3.5"
+                                                    android:gravity="start"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="gone">
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardNotOnSecondMitraPlusLayout"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:gravity="center"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <TextView
+                                                            android:id="@+id/cardNotOnSecondMitraPlus"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+
+                                                            android:text="@string/plus"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+                                                    </LinearLayout>
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardNotOnSecondMitraImgTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="2.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <ImageView
+                                                            android:id="@+id/cardNotOnSecondMitraImg"
+                                                            android:layout_width="20dp"
+                                                            android:layout_height="20dp"
+                                                            android:src="@drawable/ic_earning" />
+
+                                                        <TextView
+                                                            android:id="@+id/cardNotOnSecondMitraTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="8dp"
+
+                                                            android:text="@string/_15_trips"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                            //Right side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardNotOnSecondRightContent"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardNotOnSecondMitraCompletedImg"
+                                                    android:layout_width="18dp"
+                                                    android:layout_height="18dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:src="@drawable/ic_green_tick2"
+                                                    android:visibility="gone" />
+
+
+                                                <TextView
+                                                    android:id="@+id/cardNotOnSecondRightTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textStyle="bold"
+                                                    android:gravity="center"
+                                                    android:text="@string/_100"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="true"
+                                                    android:textColor="@color/default_200"
+                                                    android:textSize="14sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                //three dots
+                                //weight = 0.45
+
+                                <LinearLayout
+                                    android:id="@+id/threeDotsCardParent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.45"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    <LinearLayout
+                                        android:id="@+id/threeDotsCard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.3"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:visibility="visible">
+
+                                        <LinearLayout
+                                            android:id="@+id/dot1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/dot1Img"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/dot2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/dot2Img"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/dot3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+
+                                            <ImageView
+                                                android:id="@+id/dot3Img"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:layout_marginBottom="0dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                //CASE 3
+                                //When the card is on the third dot
+                                //weight = 0
+
+                                <LinearLayout
+                                    android:id="@+id/cardOnThirdParent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="bottom"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    //CASE 3-A
+                                    //When the card is on the third dot (highlighted)
+
+                                    <LinearLayout
+                                        android:id="@+id/cardOnThird"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/card_background_yellow_outlined"
+                                        android:gravity="bottom"
+                                        android:orientation="vertical"
+                                        android:padding="10dp"
+                                        android:visibility="gone"
+                                        android:layout_marginTop="@dimen/dimen_10dp">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardOnThirdLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="end"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            //Left side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnThirdLeft"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="7"
+                                                android:gravity="start"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardOnThirdLeftImg"
+                                                    android:layout_width="20dp"
+                                                    android:layout_height="20dp"
+                                                    android:src="@drawable/ic_earning" />
+
+                                                <TextView
+                                                    android:id="@+id/cardOnThirdLeftTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+
+                                                    android:text="@string/_15_trips"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="false"
+                                                    android:textColor="@color/black"
+                                                    android:textSize="14sp" />
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardOnThirdMitraParent"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="3.5"
+                                                    android:gravity="start"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="gone">
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnThirdMitraPlusLayout"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:gravity="center"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnThirdMitraPlus"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+
+                                                            android:text="@string/plus"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+                                                    </LinearLayout>
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardOnThirdMitraImgTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="2.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="visible">
+
+                                                        <ImageView
+                                                            android:id="@+id/cardOnThirdMitraImg"
+                                                            android:layout_width="20dp"
+                                                            android:layout_height="20dp"
+                                                            android:src="@drawable/ic_earning" />
+
+                                                        <TextView
+                                                            android:id="@+id/cardOnThirdMitraTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="8dp"
+
+                                                            android:text="@string/_15_trips"
+                                                            android:textAlignment="center"
+                                                            android:textAllCaps="false"
+                                                            android:textColor="@color/black"
+                                                            android:textSize="14sp" />
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                            //Right side icon and text
+
+                                            <LinearLayout
+                                                android:id="@+id/cardOnThirdRight"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="end"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                <ImageView
+                                                    android:id="@+id/cardOnThirdMitraCompletedImg"
+                                                    android:layout_width="18dp"
+                                                    android:layout_height="18dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:src="@drawable/ic_green_tick2"
+                                                    android:visibility="gone" />
+
+                                                <TextView
+                                                    android:id="@+id/cardOnThirdRightTxt"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:textStyle="bold"
+                                                    android:text="@string/_100"
+                                                    android:textAlignment="center"
+                                                    android:textAllCaps="true"
+                                                    android:textColor="@color/default_200"
+                                                    android:textSize="14sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/cardOnThirdBottom"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:gravity="end"
+                                            android:orientation="horizontal"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/cardOnThirdBottomImg"
+                                                android:layout_width="16dp"
+                                                android:layout_height="16dp"
+                                                android:src="@drawable/money" />
+
+
+                                            <TextView
+                                                android:id="@+id/cardOnThirdBottomTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="8dp"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/poppinslight"
+                                                android:maxLines="2"
+                                                android:scrollHorizontally="true"
+                                                android:text="@string/take_11_more_trips_from_sfx_to_earn_250"
+                                                android:textAlignment="textStart"
+                                                android:textAllCaps="false"
+                                                android:textColor="@color/dark_grey"
+                                                android:textSize="11sp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    //CASE 3-B
+                                    //When the card is not on the third dot
+
+                                    <LinearLayout
+                                        android:id="@+id/cardNotOnThirdParent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="70dp"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:visibility="visible">
+
+                                        <LinearLayout
+                                            android:id="@+id/cardNotOnThird"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/card_background_grey"
+                                            android:gravity="bottom"
+                                            android:orientation="vertical"
+                                            android:padding="10dp"
+                                            android:visibility="visible">
+
+                                            <LinearLayout
+                                                android:id="@+id/cardNotOnThirdLayout"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="10"
+                                                android:gravity="center"
+                                                android:orientation="horizontal"
+                                                android:visibility="visible">
+
+                                                //Left side icon and text
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardNotOnThirdLeft"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_weight="7"
+                                                    android:gravity="center_vertical"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="visible">
+
+                                                    <ImageView
+                                                        android:id="@+id/cardNotOnThirdLeftImg"
+                                                        android:layout_width="20dp"
+                                                        android:layout_height="20dp"
+                                                        android:layout_gravity="center"
+                                                        android:src="@drawable/ic_earning" />
+
+                                                    <TextView
+                                                        android:id="@+id/cardNotOnThirdLeftTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginStart="8dp"
+
+                                                        android:text="@string/_15_trips"
+                                                        android:textAlignment="center"
+                                                        android:textAllCaps="false"
+                                                        android:textColor="@color/black"
+                                                        android:textSize="14sp" />
+
+                                                    <LinearLayout
+                                                        android:id="@+id/cardNotOnThirdMitraParent"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="3.5"
+                                                        android:gravity="start"
+                                                        android:orientation="horizontal"
+                                                        android:visibility="gone">
+
+                                                        <LinearLayout
+                                                            android:id="@+id/cardNotOnThirdMitraPlusLayout"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_weight="1"
+                                                            android:gravity="center"
+                                                            android:orientation="horizontal"
+                                                            android:visibility="visible">
+
+                                                            <TextView
+                                                                android:id="@+id/cardNotOnThirdMitraPlus"
+                                                                android:layout_width="wrap_content"
+                                                                android:layout_height="wrap_content"
+
+                                                                android:text="@string/plus"
+                                                                android:textAlignment="center"
+                                                                android:textAllCaps="false"
+                                                                android:textColor="@color/black"
+                                                                android:textSize="14sp" />
+                                                        </LinearLayout>
+
+                                                        <LinearLayout
+                                                            android:id="@+id/cardNotOnThirdMitraImgTxt"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_weight="2.5"
+                                                            android:gravity="start"
+                                                            android:orientation="horizontal"
+                                                            android:visibility="visible">
+
+                                                            <ImageView
+                                                                android:id="@+id/cardNotOnThirdMitraImg"
+                                                                android:layout_width="20dp"
+                                                                android:layout_height="20dp"
+                                                                android:src="@drawable/ic_earning" />
+
+                                                            <TextView
+                                                                android:id="@+id/cardNotOnThirdMitraTxt"
+                                                                android:layout_width="wrap_content"
+                                                                android:layout_height="wrap_content"
+                                                                android:layout_marginStart="8dp"
+
+                                                                android:text="@string/_15_trips"
+                                                                android:textAlignment="center"
+                                                                android:textAllCaps="false"
+                                                                android:textColor="@color/black"
+                                                                android:textSize="14sp" />
+
+                                                        </LinearLayout>
+
+                                                    </LinearLayout>
+
+                                                </LinearLayout>
+
+                                                //Right side icon and text
+
+                                                <LinearLayout
+                                                    android:id="@+id/cardNotOnThirdRight"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center"
+                                                    android:orientation="horizontal"
+                                                    android:visibility="visible">
+
+                                                    <ImageView
+                                                        android:id="@+id/cardNotOnThirdMitraCompletedImg"
+                                                        android:layout_width="18dp"
+                                                        android:layout_height="18dp"
+                                                        android:layout_marginEnd="5dp"
+                                                        android:src="@drawable/ic_green_tick2"
+                                                        android:visibility="gone" />
+
+                                                    <TextView
+                                                        android:id="@+id/cardNotOnThirdRightTxt"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:textStyle="bold"
+                                                        android:gravity="center"
+                                                        android:text="@string/_100"
+                                                        android:textAlignment="center"
+                                                        android:textAllCaps="true"
+                                                        android:textColor="@color/default_200"
+                                                        android:textSize="14sp" />
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            //Initial states
+
+                        <RelativeLayout
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:id="@+id/defaultTimelineState"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginBottom="30dp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                //startFirstMilestone
+                                //weight = 0.3
+
+                                <LinearLayout
+                                    android:id="@+id/firstDot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.3"
+                                    android:gravity="start"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    //startFirstMilestone incomplete state
+
+                                    <ImageView
+                                        android:id="@+id/firstDotImg"
+                                        android:layout_width="13dp"
+                                        android:layout_height="13dp"
+                                        android:layout_marginTop="0dp"
+                                        android:src="@drawable/ic_ellipse_grey"
+                                        android:visibility="visible" />
+
+                                </LinearLayout>
+
+                                //secondMilestone
+                                //weight = 0.25
+
+                                <LinearLayout
+                                    android:id="@+id/secondDot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="25dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_weight="0.25"
+                                    android:gravity="center"
+                                    android:visibility="visible">
+
+                                    <ImageView
+                                        android:id="@+id/secondDotImg"
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:src="@drawable/ic_ellipse_grey"
+                                        android:visibility="visible" />
+
+                                </LinearLayout>
+
+                                //three milestoneDots
+                                //weight = 0.3
+
+                                <LinearLayout
+                                    android:id="@+id/threeDotsParent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.3"
+                                    android:background="@color/white"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    <LinearLayout
+                                        android:id="@+id/threeDotsLine"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.3"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:visibility="visible">
+
+                                        <LinearLayout
+                                            android:id="@+id/dot1Initial"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+                                            <ImageView
+                                                android:id="@+id/dot1InitialImg"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/dot2Initial"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+
+                                            <ImageView
+                                                android:id="@+id/dot2InitialImg"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/dot3Initial"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.1"
+                                            android:gravity="center"
+                                            android:visibility="visible">
+
+
+                                            <ImageView
+                                                android:id="@+id/dot3InitialImg"
+                                                android:layout_width="8dp"
+                                                android:layout_height="8dp"
+                                                android:layout_marginBottom="0dp"
+                                                android:src="@drawable/ic_ellipse_grey" />
+
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                //weight = 0.15
+                                //last line image
+
+                                <LinearLayout
+                                    android:id="@+id/mainLineEndLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.15"
+                                    android:gravity="center_horizontal"
+                                    android:visibility="visible"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/mainLineEndImg"
+                                        android:layout_width="3dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:src="@color/light_color_heading" />
+
+                                </LinearLayout>
+
+                                //endMilestone
+                                //weight = 0
+
+                                <LinearLayout
+                                    android:id="@+id/lastDot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="bottom"
+                                    android:visibility="visible"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+
+                                    <ImageView
+                                        android:id="@+id/lastDotImg"
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:src="@drawable/ic_ellipse_grey" />
+
+                                </LinearLayout>
+
+                                //end of weightsum 1
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textAlignment="textStart"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_t_c_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        tools:text="@string/weekly_incentives_txt"
+                        android:textColor="@color/default_200"
+                        android:textSize="11sp" />
+
+                    <LinearLayout
+                        android:id="@+id/tncContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tncTxt1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scrollHorizontally="true"
+                            android:textStyle="bold"
+                            tools:text="@string/terms_amp_conditions"
+                            android:textColor="@color/default_200"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:forceDarkAllowed="false"
+        tools:context="com.vahan.earn.EarnFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/container_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:weightSum="6">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="8dp">
+                    <ImageView
+                        android:id="@+id/dynamic_logo"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:text="@string/my_earning"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/notification_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toStartOf="@+id/profile_page"
+                        android:backgroundTint="@null"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_notifications_24"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="@string/my_earning"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/profile_page"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@null"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_profile" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/container_header"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                shimmer:duration="800">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <include layout="@layout/shimmer_skeleton_effect" />
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <LinearLayout
+                android:id="@+id/flow_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/container_header"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:weightSum="6">
+
+                <RelativeLayout
+                    android:id="@+id/first_container_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.7"
+                    android:background="@color/white"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cashless_iv"
+                        android:layout_width="66dp"
+                        android:layout_height="70dp"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="visible" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_container_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cashless_iv"
+                        android:layout_marginTop="10dp"
+                        shimmer:cardBackgroundColor="@color/border_color"
+                        shimmer:cardCornerRadius="12dp"
+                        shimmer:cardElevation="8dp"
+                        shimmer:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_income"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_default"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="@string/your_income" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/this_week_earning"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/rs_25_320"
+                                    android:textColor="@color/black_default"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/current_week_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/_21_april"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/first_week_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-light"
+                                android:text="@string/_1_april_to_30_april"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/_3_days_left"
+                                android:textColor="@color/text_heading"
+                                android:visibility="gone" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/view_breakup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:linksClickable="false"
+                                android:paddingTop="4dp"
+                                android:selectAllOnFocus="false"
+                                android:text="@string/view_breakup"
+                                android:textColor="@color/default_200"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bottom_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3.3"
+                    android:background="@drawable/background_bottom"
+                    android:elevation="16dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:visibility="visible">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="16dp"
+                        shimmer:cardCornerRadius="16dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:id="@+id/heading"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textStyle="bold"
+                                android:gravity="start"
+                                android:paddingStart="20dp"
+                                android:paddingEnd="20dp"
+                                android:text="@string/pending_actions"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/heading_sub"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/heading"
+                                android:gravity="start"
+                                android:padding="8dp"
+                                android:paddingStart="20dp"
+                                android:paddingEnd="20dp"
+                                android:text="@string/without_any_delay_you_get_your_money_on_time"
+                                android:textColor="@color/text_heading"
+                                android:textSize="14sp" />
+
+                            <LinearLayout
+                                android:id="@+id/card_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/heading_sub"
+                                android:orientation="vertical">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/step_one_verification"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    shimmer:cardBackgroundColor="@color/border_color">
+
+                                    <LinearLayout
+                                        android:id="@+id/kyc_stage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:padding="16dp">
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="2">
+
+                                            <ImageView
+                                                android:id="@+id/verify_document_speed"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:scaleType="centerInside"
+                                                android:src="@drawable/ic_bank" />
+
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toEndOf="@+id/verify_document_speed"
+                                                android:orientation="vertical">
+
+                                                <com.google.android.material.textview.MaterialTextView
+                                                    android:id="@+id/verify_document_second"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="5dp"
+                                                    android:gravity="center"
+                                                    android:text="@string/we_need_this_to_verify_your_indentify"
+                                                    android:textColor="@color/text_heading"
+                                                    android:textSize="12sp"
+                                                    android:textStyle="bold" />
+
+                                                <com.google.android.material.textview.MaterialTextView
+                                                    android:id="@+id/pending_document"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="5dp"
+                                                    android:textColor="@color/error_color"
+                                                    android:textSize="12sp"
+                                                    android:textStyle="bold"
+                                                    tools:text="@string/pending_document" />
+
+                                            </LinearLayout>
+
+
+                                        </RelativeLayout>
+
+                                        <TextView
+                                            android:id="@+id/upload_document_page"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/button_border_outlined"
+                                            android:gravity="center"
+                                            android:padding="8dp"
+                                            android:text="@string/upload"
+                                            android:textColor="@color/default_200" />
+
+                                        <ImageView
+                                            android:id="@+id/verify_document_success"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:padding="6dp"
+                                            android:src="@drawable/ic_green_tick"
+                                            android:visibility="gone" />
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/step_one_verification_two"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    shimmer:cardBackgroundColor="@color/border_color">
+
+                                    <LinearLayout
+                                        android:id="@+id/verification_stage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:padding="16dp">
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="2">
+
+                                            <ImageView
+                                                android:id="@+id/verify_document_speed_second"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:scaleType="centerInside"
+                                                android:src="@drawable/ic_document" />
+
+                                            <LinearLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toEndOf="@+id/verify_document_speed_second"
+                                                android:orientation="vertical">
+
+                                                <com.google.android.material.textview.MaterialTextView
+                                                    android:id="@+id/verify_document_second_sub"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="5dp"
+                                                    android:gravity="center"
+                                                    android:text="@string/you_ll_recevie_your_salary_in_the_account"
+                                                    android:textColor="@color/text_heading"
+                                                    android:textSize="12sp"
+                                                    android:textStyle="bold" />
+
+                                                <com.google.android.material.textview.MaterialTextView
+                                                    android:id="@+id/pending_bank_details"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="5dp"
+                                                    android:textColor="@color/error_color"
+                                                    android:textSize="12sp"
+                                                    android:textStyle="bold"
+                                                    tools:text="Pending Bank Details" />
+
+                                            </LinearLayout>
+
+
+                                        </RelativeLayout>
+
+                                        <TextView
+                                            android:id="@+id/upload_bank_details"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/button_border_outlined"
+                                            android:gravity="center"
+                                            android:padding="8dp"
+                                            android:text="@string/add_now"
+                                            android:textColor="@color/default_200" />
+
+                                        <ImageView
+                                            android:id="@+id/verify_bank_success"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:padding="6dp"
+                                            android:src="@drawable/ic_green_tick"
+                                            android:visibility="gone" />
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bottom_container_salary_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:elevation="16dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/heading_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="start"
+                        android:text="@string/earning_history"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_salaryList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_below="@+id/heading_salary"
+                        shimmer:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <LinearLayout
+                        android:id="@+id/earning_ll"
+                        android:layout_below="@+id/heading_salary"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center"
+                            android:text="@string/no_earning_history_available"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:translationY="-20dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/circular_background" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/circular_background_grey" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

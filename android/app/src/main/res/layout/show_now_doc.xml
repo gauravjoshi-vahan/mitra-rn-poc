@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/curver_corner_12"
+    android:backgroundTint="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/panCard_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="5dp"
+        android:elevation="3dp"
+        android:scaleType="centerInside"
+        tools:src="@drawable/cross_icon" />
+
+
+    <ImageView
+        android:id="@+id/adhaar_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:elevation="3dp"
+        android:scaleType="centerInside"
+        tools:src="@drawable/cross_icon" />
+
+
+</LinearLayout>

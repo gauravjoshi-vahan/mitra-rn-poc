@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/normalTxt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_30dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:weightSum="10"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/otherItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/weekly_earnings_orderPayoutTxt"
+                android:textColor="@color/grey3"
+                android:textSize="@dimen/font_14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/rupeeSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/rupee"
+                android:textColor="@color/grey3"
+                android:textSize="@dimen/font_14sp" />
+
+            <TextView
+                android:id="@+id/amountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/_15"
+                android:textColor="@color/grey3"
+                android:textSize="@dimen/font_14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

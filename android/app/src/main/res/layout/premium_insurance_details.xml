@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/ripple_effect"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_comp_logo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@color/background_deduction_payout"
+            />
+
+        <TextView
+            android:id="@+id/tv_premium_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/img_comp_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Accidental Insurance" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/tv_premium_expire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinslight"
+            android:textColor="@color/light_color_heading"
+            android:textSize="10sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@+id/img_comp_logo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_premium_title"
+            tools:text="Expires: 30 Oct 2021" />
+        <TextView
+            android:id="@+id/tv_premium_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/img_for"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="₹1,00,000" />
+        <ImageView
+            android:id="@+id/img_for"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/tv_premium_amount"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/top_container"
+        android:layout_margin="8dp"
+        android:background="@color/black_color" />
+
+
+</RelativeLayout>

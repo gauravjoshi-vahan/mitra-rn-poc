@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Pin the domain www.datatheorem.com -->
+    <!-- Official Android N API -->
+    <domain-config>
+        <domain includeSubdomains="true">api.mitra.vahan.co</domain>
+        <pin-set expiration="2023-04-23">
+            <pin digest="SHA-256">VLpDg8n2O86z4jnG657yjvS1vgiUjsGUcVMatiTwz1s=</pin>
+            <pin digest="SHA-256">8Rw90Ej3Ttt8RRkrg+WYDS9n7IS03bk5bjP/UXPtaY8=</pin>
+        </pin-set>
+        <!-- TrustKit Android API -->
+        <!-- Do not enforce pinning validation -->
+        <trustkit-config enforcePinning="false">
+            <!-- Add a reporting URL for pin validation reports -->
+            <report-uri>http://report.datatheorem.com/log_report</report-uri>
+        </trustkit-config>
+    </domain-config>
+</network-security-config>

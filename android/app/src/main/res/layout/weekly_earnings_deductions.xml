@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="@dimen/dimen_20dp">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:theme="@style/TabLayout_Theme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/default_tab_bg"
+            app:tabIndicatorColor="@color/default_200"
+            app:tabMinWidth="@dimen/dimen_150dp"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabSelectedTextColor="@color/default_200"
+            app:tabTextAppearance="@style/CustomTextAppearanceTab"
+            app:tabTextColor="@color/default_200" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDeductionItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+            tools:itemCount="3"
+            tools:listitem="@layout/weekly_earnings_deduction_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

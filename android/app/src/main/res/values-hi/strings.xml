@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">मित्रा</string>
+    <string name="reg_heading_first">लॉग इन करने के लिए अपना मोबाइल नंबर दर्ज करें</string>
+    <string name="reg_heading_sub_heading_highlight">हमें इस नंबर वाला खाता नहीं मिला. कृपया अपने नियोक्ता के पास पंजीकृत मोबाइल नंबर दर्ज करें।</string>
+    <string name="reg_heading_second">केवल अपने नियोक्ता के साथ पंजीकृत मोबाइल नंबर का उपयोग करें</string>
+    <string name="et_hint_otp">नंबर डालें</string>
+    <string name="et_hint_otp_number">9599525080 पर प्राप्त OTP दर्ज करें</string>
+    <string name="bottom_navigation_home">कमाए</string>
+    <string name="bottom_navigation_borrow">उधार</string>
+    <string name="bottom_navigation_insure">बीमा</string>
+    <string name="hello_blank_fragment">नमस्ते खाली टुकड़ा</string>
+    <string name="congratulation">बधाई</string>
+    <string name="congratulation_sub">आप अपना पहला वेतन प्राप्त करने से केवल दो कदम दूर हैं</string>
+    <string name="title_loan">मॉड्यूल शीर्षक</string>
+    <string name="aadhaar_card_front_tv">आधार कार्ड सामने</string>
+    <string name="aadhaar_card_front_tv_pan">पैन कार्ड</string>
+    <string name="upload_picture_tv">अपने आधार कार्ड के सामने वाले हिस्से की तस्वीर अपलोड करें</string>
+    <string name="upload_picture_tv_back">अपने आधार कार्ड के पिछले हिस्से की तस्वीर अपलोड करें</string>
+    <string name="upload_picture_tv_pan">पैन कार्ड की तस्वीर अपलोड करें</string>
+    <string name="didn_otp">OTP प्राप्त नहीं हुआ?</string>
+    <string name="account_details">खाता विवरण</string>
+    <string name="account_number">खाता संख्या</string>
+    <string name="re_enter_account_number">खाता संख्या फिर से दर्ज करें</string>
+    <string name="ifsc">IFSC</string>
+    <string name="why_do_you_need_saving">कृपया अपने चयन की पुष्टि करें</string>
+    <string name="choose_a_reason_from_the_below_options_for_saving_money">पैसे बचाने के लिए नीचे दिए गए विकल्पों में से एक कारण चुनें</string>
+    <string name="enter_amount_save">वह राशि दर्ज करें जिसे आप सहेजना चाहते हैं</string>
+    <string name="your_name_as_per_bank_account">बैंक खाते के अनुसार आपका नाम</string>
+    <string name="this_information_will_be_securely_stored_with_us_as_per_mitra_s_terms_of_service_and_privacy_policy">मित्रा की सेवा की शर्तों और गोपनीयता नीति के अनुसार यह जानकारी हमारे पास सुरक्षित रूप से संग्रहीत की जाएगी</string>
+    <string name="confirm_bank_account">बैंक खाते की पुष्टि करें</string>
+    <string name="log_in">लॉग इन करें</string>
+    <string name="language_selection">भाषा का चयन करें</string>
+    <string name="notification">अधिसूचना</string>
+    <string name="profile">मेरा प्रोफाइल</string>
+    <string name="vishal_bharadwaj">विशाल भारद्वाज</string>
+    <string name="_91_9599432523">91-9599432523</string>
+    <string name="job_details">नौकरी विवरण</string>
+    <string name="employee_id">कर्मचारी आईडी</string>
+    <string name="employer">नियोक्ता</string>
+    <string name="bha0356">बीएचए0356</string>
+    <string name="doj">शामिल होने की तिथि</string>
+    <string name="_23_jan_2021">23-जनवरी-2021</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="help_and_settings">सहायता और सेटिंग</string>
+    <string name="bank_account_details">बैंक खाते का विवरण</string>
+    <string name="my_documents">मेरे दस्तावेज</string>
+    <string name="my_salary_slip">मेरी सैलरी स्लिप</string>
+    <string name="language">भाषा</string>
+    <string name="help_and_support">सहायता और समर्थन</string>
+    <string name="log_out">लॉग आउट</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="app_version_1_3">ऐप संस्करण 1.3</string>
+    <string name="send_otp">OTP भेजें</string>
+    <string name="download">डाउनलोड</string>
+    <string name="share">शेयर</string>
+    <string name="upload_document">दस्तावेज़ अपलोड करें</string>
+    <string name="start_uploading_documents">दस्तावेज़ अपलोड करना प्रारंभ करें</string>
+    <string name="done">हो गया</string>
+    <string name="select_a_document_to_verify">सत्यापित करने के लिए एक दस्तावेज़ का चयन करें</string>
+    <string name="aadhar_front">आधार कार्ड सामने</string>
+    <string name="aadhar_back">आधार बैक</string>
+    <string name="loading">लोड हो रहा है...</string>
+    <string name="my_earning">मेरी कमाई</string>
+    <string name="your_income">आपकी आय</string>
+    <string name="_21_april">21 अप्रैल</string>
+    <string name="_1_april_to_30_april">1 - अप्रैल से 30 अप्रैल</string>
+    <string name="_3_days_left">तीन दिन बचे</string>
+    <string name="rs_25_320">रुपये 25,320</string>
+    <string name="salary_details">आपका वेतन 2 दिनों में देय है।</string>
+    <string name="without_any_delay_you_get_your_money_on_time">बिना किसी देरी के आपको अपना पैसा समय पर मिल जाता है</string>
+    <string name="verify_document">दस्तावेज़ सत्यापित करें</string>
+    <string name="we_need_this_to_verify_your_indentify">आपकी पहचान सत्यापित करने के लिए हमें इसकी आवश्यकता है</string>
+    <string name="upload">अपलोड</string>
+    <string name="add_bank_account_details">अपलोड</string>
+    <string name="you_ll_recevie_your_salary_in_the_account">आप खाते में अपना वेतन प्राप्त करेंगे</string>
+    <string name="tv_heading">हिंदी</string>
+    <string name="hindi">हिंदी</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="support">सहायता</string>
+    <string name="mitra_is_always_here_to_help">मित्रा हमेशा आपकी मदद के लिए मौजूद हैं</string>
+    <string name="call_person">हमें 91-9876543210 पर किसी भी समय सुबह 9 बजे से शाम 7 बजे तक, सोमवार से शुक्रवार तक कॉल करें।</string>
+    <string name="congratulation_name">बधाई</string>
+    <string name="pending_document">लंबित दस्तावेज़</string>
+    <string name="wait">कृपया प्रतीक्षा करें</string>
+    <string name="bank_account">बैंक खाता</string>
+    <string name="bank_account_receving">आपको निम्न खाते में वेतन मिल रहा है</string>
+    <string name="resend_otp">OTP पुनः भेजें</string>
+    <string name="title_activity_maps">नक्शा</string>
+    <string name="msg_token_fmt">संदेश प्रारूप</string>
+    <string name="view_breakup"><u>ब्रेकअप देखें</u>  </string>
+    <string name="earning_breakup">कमाई का ब्रेकअप</string>
+    <string name="net_payout">वास्तविक भुगतान</string>
+    <string name="share_subject">ब्रेकअप विवरण</string>
+    <string name="share_using">साझा करें</string>
+    <string name="term_condition">लॉग इन पर क्लिक करके, आप हमारी सहमति दे रहे हैं<u>  <b>terms of service.</b></u>  </string>
+    <string name="term_and_conditions"><u> नियम और शर्तें</u>  </string>
+    <string name="gallery">गैलरी</string>
+    <string name="camera">कैमरा</string>
+    <string name="bank_address">बैंक पता</string>
+    <string name="aadhaar_card_back_tv">आधार कार्ड बैक</string>
+    <string name="validation_message">कृपया 10 अंकों की संख्या दर्ज करें</string>
+    <string name="term_and_condition_link">https://vahan.ai/terms-of-use.html</string>
+    <string name="number_heading_text">91 . पर प्राप्त OTP दर्ज करें</string>
+    <string name="home_tc">Home</string>
+
+    <string name="number_screen_heading_v2">अपनी मोबाइल संख्या दर्ज करे</string>
+    <string name="number_screen_sub_heading_v2">कृपया वही मोबाइल नंबर दर्ज करें जो आपके नियोक्ता के पास पंजीकृत है</string>
+    <string name="mobile_number_v2">मोबाइल नंबर</string>
+    <string name="enter_otp_v2_heading">OTP दर्ज करें</string>
+    <string name="resend_otp_v2_first">गलत मोबाइल नंबर? अभी फिर से दर्ज करें</string>
+    <string name="resend_otp_v2_term_and_condition_first">आगे क्लिक करके, आप हमारे साथ सहमत हैं</string>
+    <string name="resend_otp_v2_term_and_condition_Second">मामले</string>
+    <string name="resend_otp_v2_term_and_condition_third">गोपनीयता नीति</string>
+    <string name="incorrect_mobile_number_re_enter_now_v2">गलत मोबाइल नंबर?</string>
+    <string name="incorrect_mobile_number_re_enter_now_v2_second">फिर से दर्ज करें</string>
+    <string name="earnings_tc">कमाई</string>
+    <string name="profile_tv_v2">प्रोफ़ाइल</string>
+    <string name="history_tv_v2">इतिहास</string>
+    <string name="earn_screen_tv_v2">2 दस्तावेज़ गायब हैं!</string>
+    <string name="earn_screen_tv_v2_document">वेतन पाने के लिए दस्तावेज अपलोड करें</string>
+    <string name="insurance_tv_v2">बीमा</string>
+    <string name="my_earnings_v2_profile">मेरी कमाई</string>
+    <string name="cashout_available">कैशआउट उपलब्ध!</string>
+    <string name="loan_tv_v2">लोन</string>
+    <string name="number_heading_tv">कृपया 91 . पर भेजे गए 4 अंकों का OTP कोड दर्ज करें</string>
+    <string name="downloading">डाउनलोड हो रहा है...</string>
+    <string name="title_file_download">एपीके डाउनलोड हो रहा है</string>
+    <string name="storage_access_required">फ़ाइल को डाउनलोड करने के लिए स्टोरेज एक्सेस की आवश्यकता होती है।</string>
+    <string name="storage_permission_denied">स्टोरेज अनुरोध अस्वीकार कर दिया गया है </string>
+    <string name="ok">ठीक है</string>
+    <string name="our_partners_mitra_splash_tv">हमारे सहयोगी</string>
+    <string name="starting_text_91">+91</string>
+    <string name="enter_numbr_and_tv">और</string>
+    <string name="next_btn_tv">अगला</string>
+    <string name="transaction_history_tv">लेन-देन का इतिहास</string>
+    <string name="starter_one_1">सिर्फ एक ऐप के साथ अपनी सारी कमाई का प्रबंधन करें</string>
+    <string name="starter_one_sub">अब आप अपनी सारी कमाई और निकासी को आसानी से प्रबंधित कर सकते हैं</string>
+    <string name="state_bank_of_india_8033">भारतीय स्टेट बैंक .... 8033</string>
+    <string name="savings_account">बचत खाता</string>
+    <string name="bottom_sheet_v1_tv">कैशआउट क्या है और इसे कैसे प्राप्त करें?</string>
+    <string name="bottom_sheet_v1_sub_tv">आप जल्द ही वेतन चक्र के अंत की प्रतीक्षा किए बिना तुरंत अपनी आय कैशआउट करने में सक्षम होंगे!</string>
+    <string name="eligibility_tv">पात्रता</string>
+    <string name="we_will_notify_you_tv">हम आपको सूचित करेंगे</string>
+    <string name="note_that">ध्यान दें कि</string>
+    <string name="you_need_to_be_on_mitra_payroll_for_3_months_or_more_to_avail_the_cashout_benefit">कैशआउट का लाभ उठाने के लिए आपको 3 महीने या उससे अधिक समय तक मित्रा पेरोल पर रहना होगा</string>
+    <string name="we_do_not_charge_you_any_extra_fees_when_you_cashout_this_amount_it_is_a_part_of_your_payout_received_early">जब आप इस राशि को भुनाते हैं तो हम आपसे कोई अतिरिक्त शुल्क नहीं लेते हैं। यह आपके पहले प्राप्त भुगतान का एक भाग है</string>
+    <string name="got_it">समझ में आया</string>
+    <string name="no_hidden_charges_tv">कोई छिपा शुल्क नहीं</string>
+    <string name="how_it_works">यह कैसे काम करता है</string>
+    <string name="cashout_amount_is_nothing_but_a_portion_of_your_earnings_available_before_scheduled_payout_date_if_you_opt_to_recieve_this_amount_the_same_will_be_deducted_from_your_mitra_balance_you_will_not_be_charged_any_extra_amount_to_avail_this_cashout">कैशआउट राशि और कुछ नहीं बल्कि निर्धारित भुगतान तिथि से पहले उपलब्ध आपकी आय का एक हिस्सा है। यदि आप इस राशि को प्राप्त करने का विकल्प चुनते हैं, तो इसे आपके मित्रा बैलेंस से काट लिया जाएगा। इस कैशआउट का लाभ उठाने के लिए आपसे कोई अतिरिक्त शुल्क नहीं लिया जाएगा!</string>
+    <string name="cashout_money">कैशआउट मनी</string>
+    <string name="paying_kumar_hegde">Kumar Hogde को भुगतान</string>
+    <string name="you_are_eligible_for_a_cashout_of_5_000_n_from_your_earnings">आप अपनी कमाई से ₹ के कैशआउट के पात्र हैं</string>
+    <string name="confirm_cashout">कैशआउट की पुष्टि करें</string>
+    <string name="transaction_history">लेन-देन का इतिहास</string>
+    <string name="view_all">सभी देखें</string>
+    <string name="no_history_available">कोई इतिहास उपलब्ध नहीं !!</string>
+    <string name="click_here_to_view_all_transactions_including_earnings_deductions_fees_etc">कमाई, कटौती, शुल्क आदि सहित सभी लेनदेन देखने के लिए यहां क्लिक करें</string>
+    <string name="skip_all">सभी को छोड़ें</string>
+    <string name="next">अगला</string>
+    <string name="while_we_verify_your_bank_account_details">जबकि हम आपके बैंक खाते के विवरण को सत्यापित करते हैं</string>
+    <string name="delete_document">दस्तावेज़ हटाएं?</string>
+    <string name="you_are_trying_to_delete_a_document_that_has_been_verified_by_mitra">आप उस दस्तावेज़ को हटाने का प्रयास कर रहे हैं जिसे मित्रा द्वारा सत्यापित किया गया है।</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="yes_delete">हाँ हटाएं</string>
+    <string name="for_your_new_job_at_bhartpe">भारत पे में आपकी नई नौकरी के लिए</string>
+    <string name="view_my_earning">मेरी कमाई देखें</string>
+    <string name="enter_ifsc_code">IFSC कोड दर्ज करें</string>
+    <string name="please_enter_your_bank_s_ifsc_number">कृपया अपने बैंक का IFSC नंबर दर्ज करें</string>
+    <string name="enter_account_holder_name">खाता धारक का नाम दर्ज करें</string>
+    <string name="please_enter_your_name_as_printed_on_your_bank_passbook">कृपया अपना नाम दर्ज करें जैसा कि आपकी बैंक पासबुक पर मुद्रित है</string>
+    <string name="account_name">खाता धारक का नाम</string>
+    <string name="enter_account_number">खाता संख्या दर्ज करें</string>
+    <string name="please_enter_your_bank_account_number_as_printed_on_the_bank_passbook">कृपया अपना बैंक खाता नंबर दर्ज करें जैसा कि बैंक पासबुक पर मुद्रित है</string>
+    <string name="please_re_enter_your_bank_account_number_for_verification_purpose">सत्यापन के उद्देश्य से कृपया अपना बैंक खाता नंबर दोबारा दर्ज करें</string>
+    <string name="select_period">अवधि चुनें</string>
+    <string name="select_company">कंपनी का चयन करें</string>
+    <string name="clear_all">हटाए</string>
+    <string name="apply_all">लागू</string>
+    <string name="new_update_available">नया अपडेट उपलब्ध</string>
+    <string name="we_have_added_new_features_and_fixed_minor_bugs">हमने नई सुविधाएँ जोड़ी हैं और मामूली बग को ठीक किया है।</string>
+    <string name="update_now">अब अपडेट करें</string>
+    <string name="coming_soon">जल्द आ रहा है!</string>
+    <string name="you_will_soon_be_able_to_avail_loans">आप जल्द ही लोन प्राप्त करने में सक्षम होंगे</string>
+    <string name="yes_i_am_interested">हां, मेरी दिलचस्पी है</string>
+    <string name="pending_actions">लंबित कार्रवाइयां!</string>
+    <string name="add_now">अभी जोड़ें</string>
+    <string name="earning_history">कमाई का इतिहास</string>
+    <string name="no_earning_history_available">कमाई का कोई इतिहास उपलब्ध नहीं है</string>
+    <string name="mitra_balance">मित्रा बैलेंस</string>
+    <string name="next_transfer_in_2_days">2 दिनों में अगला स्थानांतरण!</string>
+    <string name="need_help">मदद की ज़रूरत है?</string>
+    <string name="call_mitra_help_line">मित्रा हेल्प लाइन पर कॉल करें</string>
+    <string name="money_in">क्रेडिट पैसा</string>
+    <string name="money_out">डेबिट पैसा</string>
+    <string name="sort_by">इसके अनुसार क्रमबद्ध करें</string>
+    <string name="latest_to_oldest">नवीनतम से सबसे पुराना</string>
+    <string name="filter_by">फिल्टर के द्वारा</string>
+    <string name="macdonlods">मैकडॉनलोड्स</string>
+    <string name="you_will_soon_be_able_to_money_from_us">आप जल्द ही हमसे धन प्राप्त करने में सक्षम होंगे।</string>
+    <string name="my_insurance">मेरा बीमा</string>
+    <string name="coverage_details">कवरेज विवरण</string>
+    <string name="name">नाम</string>
+    <string name="premium">प्रीमियम</string>
+    <string name="sum_assured">सुनिश्चित राशि</string>
+    <string name="due_from">से प्राप्य</string>
+    <string name="expire_on">पर समाप्त होना</string>
+    <string name="policy_status">नीतिगत स्थिति</string>
+    <string name="view_details">वदस्तावेज़ीकरण देखें</string>
+    <string name="help">मदद</string>
+    <string name="claim_now">अब दावा करो</string>
+    <string name="notifications">सूचनाएं</string>
+    <string name="no_new_notifications">कोई नई सूचनाएं नहीं</string>
+    <string name="stay_tuned_you_ll_be_notified_about_important_information">बने रहें, आपको महत्वपूर्ण जानकारी के बारे में सूचित किया जाएगा!</string>
+    <string name="cashout_request_n_processed">कैशआउट अनुरोध संसाधित</string>
+    <string name="view_payslip">पेस्लिप देखें</string>
+    <string name="view_payslips">पेस्लिप देखें</string>
+    <string name="personal_details">व्यक्तिगत विवरण</string>
+    <string name="edit_profile">प्रोफ़ाइल संपादित करें</string>
+    <string name="uploaded_documents">अपलोड किए गए दस्तावेज़</string>
+    <string name="documents_missing">दस्तावेज़ उपलब्ध नहीं है!!</string>
+    <string name="documents_bank_details_missing">दस्तावेज़ और बैंक विवरण उपलब्ध नहीं है !!</string>
+    <string name="not_verified">प्रमाणित नहीं है</string>
+    <string name="waiting">इंतज़ार कर रही!</string>
+    <string name="missing">लापता!</string>
+    <string name="view_now">अभ देखो</string>
+    <string name="upload_now">अपलोड करें</string>
+    <string name="pan_card">पैनकार्ड</string>
+    <string name="status">स्थिति</string>
+    <string name="status_processing">प्रक्रिया में</string>
+    <string name="success">सफलता</string>
+    <string name="upload_pan_card">पैन कार्ड अपलोड करें</string>
+    <string name="please_upload_your_pan_card_photo_if_you_need_help_uploading_the_same">कृपया अपना पैन कार्ड फोटो अपलोड करें। यदि आपको इसे अपलोड करने में सहायता चाहिए:</string>
+    <string name="take_photo_or_upload">फोटो लें या अपलोड करें</string>
+    <string name="delete">हटाएं</string>
+    <string name="front">आगे</string>
+    <string name="back">पीछे</string>
+    <string name="save">सहेजें</string>
+    <string name="account_information">खाता संबंधी जानकारी</string>
+    <string name="aadhar_card_details">आधार कार्ड विवरण</string>
+    <string name="daily_order_payout">दैनिक आदेश भुगतान</string>
+    <string name="aadhar_document_missing">आधार दस्तावेज गायब</string>
+    <string name="upload_aadhar_to_recieve_salary">वेतन प्राप्त करने के लिए आधार अपलोड करें</string>
+    <string name="starter_two_2">कभी भी अपना पैसा कैशआउट करें!</string>
+    <string name="starter_two_sub">अब और नकदी की कमी नहीं - जब भी आपको पैसे की जरूरत हो, मित्रा आपके लिए है!</string>
+    <string name="starter_three_3">आपके और आपके परिवार के लिए बीमा!</string>
+    <string name="starter_three_sub">हम सर्वोत्तम स्वास्थ्य सेवाएं और बीमा योजनाएं प्रदान करके आपकी और आपके परिवार की देखभाल करते हैं</string>
+
+    <string name="starter_four_4">कई कंपनियों के साथ काम करें और अधिक कमाएं!</string>
+    <string name="starter_four_sub">अब आप कई कंपनियों के साथ काम कर सकते हैं और मित्र से अतिरिक्त प्रोत्साहन प्राप्त कर सकते हैं। \n ₹55,000/माह तक कमाएं</string>
+
+    <string name="get_started">शुरू हो जाओ</string>
+    <string name="all">सभी</string>
+
+    <string name="view_all_start_coachmark">अपनी सभी बीमा योजनाएं देखें</string>
+    <string name="loan_coach_mark_second">आप कम ब्याज दरों पर लोन प्राप्त कर सकते हैं</string>
+    <string name="personal_details_coach_marks"> अपना व्यक्तिगत विवरण देखें</string>
+    <string name="alert_logout">चेतावनी</string>
+    <string name="alert_logout_message">क्या आप लॉग आउट करना चाहते हैं</string>
+    <string name="alert_no">नहीं</string>
+    <string name="alert_yes">हां</string>
+    <string name="hindi_string">हिंदी</string>
+    <string name="hindi_sub_string">मुझे हिंदी में बात करना पसंद है</string>
+    <string name="select_language_string">भाषा का चयन करें</string>
+    <string name="select_language_string_sub_string">आप इसे बाद में \nसेटिंग्स . से बदल सकते हैं</string>
+    <string name="english_string">अंग्रेज़ी</string>
+    <string name="english_string_sub_string">मुझे अंग्रेजी में बात करना पसंद है</string>
+    <string name="reminder_string">अनुस्मारक</string>
+    <string name="reminder_substring">अपने वेतन को समय पर संसाधित करने के लिए कृपया हमारे लिए सभी लंबित दस्तावेज़ अपलोड करें</string>
+    <string name="notification_access">नोटिफिकेशन एक्सेस</string>
+    <string name="notification_access_substring">आपको बेहतर सेवा देने के लिए हमें आपके ऐप नोटिफिकेशन तक पहुंचने की आवश्यकता है!</string>
+    <string name="allow">अनुमति देना</string>
+    <string name="deny">मना करना</string>
+    <string name="cashout_amount_mitra_app">आप मित्र ऐप के माध्यम से अपनी कैश आउट राशि कब प्राप्त कर सकते हैं, इसका ट्रैक रखने में सक्षम होंगे</string>
+    <string name="tap_to_upload">अपलोड करने के लिए टैप करें</string>
+    <string name="loan_tv_one">त्वरित,आसान और परेशानी मुक्त</string>
+    <string name="loan_tv_two">कोई छिपा हुआ और शुल्क नहीं</string>
+    <string name="loan_tv_three">आसान और परेशानी मुक्त</string>
+    <string name="loan_emi">लोन ईएमआई</string>
+    <string name="loan_amount">उधार की राशि</string>
+    <string name="tenure">कार्यकाल</string>
+    <string name="apply_now">अभी अप्लाई करें</string>
+    <string name="loan_heading_one">अपने व्यक्तिगत लोन अनुरोध के साथ आगे बढ़ने के लिए कृपया यह फ़ॉर्म भरें</string>
+    <string name="why_do_you_need_money">आपको पैसे की आवश्यकता क्यों है?</string>
+    <string name="choose_a_reason_from_the_below_options_for_borrowing_money">पैसे उधार लेने के लिए नीचे दिए गए विकल्पों में से एक कारण चुनें</string>
+    <string name="accept_term_condition">मैं समझता/समझती हूं कि लोन के वितरण के बाद, ईएमआई के बराबर राशि मेरे भुगतान से साप्ताहिक आधार पर काट ली जाएगी। <u>मैं नियम और शर्तें स्वीकार करता हूं।</u></string>
+    <string name="how_much_money_do_you_need">आपको कितनी राशि की आवश्यकता है?</string>
+    <string name="transaction_on">लेन-देन चालू</string>
+    <string name="interest">ब्याज</string>
+    <string name="tenure_of">के लोन के लिए कार्यकाल का चयन करें</string>
+    <string name="select_tenure">कार्यकाल चुनें</string>
+    <string name="emi">ईएमआई</string>
+    <string name="every_month">हर महीने</string>
+    <string name="my_loans">मेरे लोन</string>
+    <string name="hi_fixed">हिंदी</string>
+    <string name="next_lang">अगला</string>
+    <string name="loan_status">लोन स्थिति</string>
+    <string name="loan_type">लोन विवरण</string>
+    <string name="call_now">कॉल करें</string>
+    <string name="loan_summary">लोन सारांश</string>
+    <string name="error_add_message">सत्यापित करने में असमर्थ, कृपया बाद में फिर से प्रयास करें!</string>
+    <string name="sort_error_toast_message">कृपया सॉर्ट किए गए आइटम की प्रतीक्षा करें !!</string>
+    <string name="tnc_card_text">आप अपनी कमाई से ₹ </string>
+    <string name="tnc_card_text_two"> \n  के कैशआउट के पात्र हैं</string>
+    <string name="minimum_guaranteed_pay">न्यूनतम गारंटी \nभुगतान</string>
+    <string name="target_weekly_orders">साप्ताहिक लक्ष्य \nआदेश</string>
+    <string name="current_week_earnings">वर्तमान सप्ताह की कमाई</string>
+    <string name="earning_calculation">कमाई की गणना</string>
+    <string name="earning_calculation_below">साप्ताहिक प्रोत्साहन सप्ताह के अंत में जमा किए जाएंगे</string>
+    <string name="view_details_earn">विवरण देखें</string>
+    <string name="week">सप्ताह</string>
+    <string name="month">महीना</string>
+    <string name="year">वर्ष</string>
+    <string name="no_internet">कोई इंटरनेट कनेक्शन नहीं</string>
+    <string name="something_went_wrong">कुछ गलत हो गया!!</string>
+    <string name="oh_no_something_went_wrong">अरे नहीं! कुछ गलत हो गया!</string>
+    <string name="error_heading_second">हम इसे ठीक करने के लिए काम कर रहे हैं। हम अपना सर्वश्रेष्ठ कर रहे हैं और हम जल्द ही वापस आएंगे!</string>
+    <string name="go_home"><u>वापस जाइए</u></string>
+    <string name="_36000">₹ 36000</string>
+    <string name="add_new_bank">नया बैंक खाता जोड़ें</string>
+    <string name="tap_to_bank">बैंक जोड़ें</string>
+    <string name="verification_pending_msg">आपका पिछला अनुरोध संसाधित होने तक कृपया प्रतीक्षा करें</string>
+    <string name="bank_detail_saved">बैंक विवरण सहेजा गया</string>
+    <string name="detail_saved">आपके बैंक खाते का विवरण सफलतापूर्वक सहेज लिया गया है!</string>
+    <string name="exper_text">आपका अनुभव कैसा था?</string>
+    <string name="exper_text_next">आशा है कि आप ऐप का आनंद ले रहे होंगे। कृपया हमें अपने विचारों से अवगत कराएं!</string>
+    <string name="submit">प्रस्तुत</string>
+    <string name="close">बंद करना</string>
+    <string name="user_feed">बयहां अपना फ़ीडबैक लिखें (वैकल्पिक)</string>
+    <string name="sharing_feedback">अपनी बहुमूल्य प्रतिक्रिया साझा करने के लिए धन्यवाद</string>
+    <string name="rating_mandatory">रेटिंग जरूरी है</string>
+    <string name="press_the_back_button">बैक बटन दबाएं</string>
+    <string name="choose_a_reason_from_the_below_options_for_cashing_out">कैश आउट करने के लिए नीचे दिए गए विकल्पों में से कोई कारण चुनें</string>
+
+    <!--for freshchat-->
+    <string name="freshchat_file_provider_authority">com.vahan.mitra_playstore</string>
+    <!--*********************************-->
+
+    <string name="tools_label_duration">समयांतराल</string>
+
+    <string name="freshchat_default_agent_name">सहायता</string>
+
+    <string name="freshchat_view_text">देखना</string>
+    <string name="freshchat_chat_deeplink">@string/freshchat_view_text</string>
+    <string name="freshchat_chat_deeplink_faq">अक्सर पूछे जाने वाले प्रश्न देखें</string>
+    <string name="freshchat_chat_message_composer_hint">एक संदेश लिखें</string>
+    <string name="freshchat_chat_capture_from_camera">एक तस्वीर ले </string>
+    <string name="freshchat_chat_select_from_gallery">गैलरी से अपलोड करें</string>
+
+    <string name="freshchat_channel_list_empty">ओह, यहाँ कोई संदेश चैनल नहीं है!</string>
+    <string name="freshchat_channel_disabled">ओह, यह चैट अब उपलब्ध नहीं है</string>
+
+    <string name="freshchat_faqs_reload_and_redirect">अक्सर पूछे जाने वाले प्रश्न अपडेट किए गए। रीडायरेक्ट किया जा रहा है...</string>
+    <string name="freshchat_faq_list_empty">माफ़ करना! कोई अक्सर पूछे जाने वाले प्रश्न उपलब्ध नहीं हैं</string>
+    <string name="freshchat_faq_vote_successful">आपकी प्रतिक्रिया के लिए धन्यवाद!</string>
+    <string name="freshchat_faq_voting_prompt">क्या यह अक्सर पूछे जाने वाले प्रश्न मददगार थे?</string>
+    <string name="freshchat_faq_upvote">@string/freshchat_yes</string>
+    <string name="freshchat_faq_downvote">@string/freshchat_no</string>
+    <string name="freshchat_faq_video_loading">वीडियो लोड हो रहा है...</string>
+    <string name="freshchat_faq_search_query_hint">अक्सर पूछे जाने वाले प्रश्न खोजें</string>
+    <string name="freshchat_faq_failed_to_load">यह अक्सर पूछे जाने वाले प्रश्न अब उपलब्ध नहीं हैं</string>
+    <string name="freshchat_faq_rich_media_content_cannot_be_displayed">समृद्ध मीडिया सामग्री देखने के लिए इंटरनेट से कनेक्ट करें</string>
+
+    <string name="freshchat_yes">हां</string>
+    <string name="freshchat_no">ना</string>
+
+    <!--General-->
+    <string name="freshchat_loading">लोड हो रहा है</string>
+    <string name="freshchat_no_connection">कोई कनेक्शन नहीं</string>
+    <string name="freshchat_check_internet_connection">कृपया अपने इंटरनेट कनेक्शन की जाँच करें</string>
+    <string name="freshchat_retry">@string/freshchat_calendar_timeslots_retry</string>
+    <string name="freshchat_error_was_encountered">एक त्रृटी हुई थी</string>
+
+    <!-- Hint for Input Fields -->
+
+
+    <!-- Content descriptions for accessibility -->
+    <string name="freshchat_content_description_send_message">मेसेज भेजें</string>
+    <string name="freshchat_content_description_attach_picture">एक तस्वीर संलग्न करें</string>
+    <string name="freshchat_content_description_send_voice_message">ध्वनि संदेश रिकॉर्ड करें</string>
+    <string name="freshchat_content_description_upload_status">संदेश अपलोड स्थिति</string>
+    <string name="freshchat_content_description_show_original_content">मूल दिखाएं</string>
+    <string name="freshchat_content_description_hide_original_content">मूल छुपाएं</string>
+
+    <!-- Error messages -->
+    <string name="freshchat_error_send_message_when_no_internet">ओह, कोई इंटरनेट कनेक्शन नहीं! जब आप पुनः कनेक्ट करेंगे तो संदेश भेजा जाएगा।</string>
+    <string name="freshchat_error_message_not_connected_to_internet">कोई इंटरनेट कनेक्शन नहीं!</string>
+    <string name="freshchat_error_message_faq_section_not_enabled">अक्सर पूछे जाने वाले प्रश्न अनुभाग अनुपलब्ध है</string>
+    <string name="freshchat_error_message_inbox_section_not_enabled">चैट अनुभाग अनुपलब्ध है। </string>
+    <string name="freshchat_error_message_account_not_active">यह अनुभाग अब उपलब्ध नहीं है</string>
+    <string name="freshchat_error_message_init_not_completed">फ्रेशचैट एसडीके इनिशियलाइज़ नहीं हुआ। कृपया पहले Freshchat.init() का आह्वान करें और {{method_name}} को फिर से आमंत्रित करें!</string>
+    <string name="freshchat_error_message_init_not_completed_method_name_placeholder">{{विधि का नाम}}</string>
+    <string name="freshchat_error_message_failed_to_launch_support_section">लॉन्च करने में विफल</string>
+    <string name="freshchat_error_message_token_failed">कुछ गलत हो गया। कृपया स्क्रीन को फिर से लॉन्च करें.</string>
+
+    <!-- Permission prompts and rationale -->
+    <string name="freshchat_chat_camera_permissions_granted">कैमरा एक्सेस करने की अनुमति दी गई</string>
+    <string name="freshchat_chat_camera_permissions_not_granted">कैमरा एक्सेस करने की अनुमति नहीं दी गई</string>
+    <string name="freshchat_chat_camera_permissions_rationale">तस्वीरें लेने के लिए कैमरा अनुमति की आवश्यकता है</string>
+
+    <string name="freshchat_chat_voice_messaging_permissions_granted">ध्‍वनि संदेश भेजने के लिए आवश्‍यक अनुमतियां प्रदान कर दी गई हैं</string>
+    <string name="freshchat_chat_voice_messaging_permissions_not_granted">ध्‍वनि संदेश भेजने के लिए आवश्‍यक अनुमतियां प्रदान नहीं की गई हैं</string>
+    <string name="freshchat_chat_voice_messaging_permissions_rationale">ध्वनि संदेशों को कैप्चर करने और भेजने के लिए ऑडियो रिकॉर्डिंग अनुमति और बाहरी संग्रहण लिखने की अनुमति आवश्यक है</string>
+    <string name="freshchat_chat_voice_messaging_audio_recording_permission_rationale">ध्वनि संदेशों को कैप्चर करने और भेजने के लिए ऑडियो रिकॉर्डिंग की अनुमति आवश्यक है</string>
+    <string name="freshchat_chat_voice_messaging_write_storage_permission_rationale">ध्वनि संदेशों को कैप्चर करने और भेजने के लिए बाहरी संग्रहण अनुमति लिखें आवश्यक है</string>
+
+    <string name="freshchat_voice_message_preview">[आवाज़ ({{समयांतराल}})]</string>
+    <string name="freshchat_voice_message_preview_duration_tag">{{समयांतराल}}</string>
+    <string name="freshchat_speaker_phone_on">ऑडियो आपके कान के टुकड़े से चलेगा</string>
+    <string name="freshchat_speaker_phone_off">"ऑडियो आपके फ़ोन के स्पीकर से चलेगा"</string>
+    <string name="freshchat_voice_message_too_short">आप जिस संदेश को भेजने का प्रयास कर रहे हैं उसकी अवधि एक सेकंड से भी कम समय में है। क्या आप वाकई इसे भेजना चाहते हैं?</string>
+    <string name="freshchat_voice_message_too_long">ध्वनि संदेश अधिकतम अवधि सीमा तक पहुंच गया है, कृपया संदेश भेजने के लिए जारी करें, अन्यथा संदेश जल्द ही खारिज कर दिया जाएगा</string>
+
+    <string name="freshchat_contact_us">हमें संदेश दें</string>
+    <string name="freshchat_faq_not_helpful_contact_us">अभी भी मदद की तलाश है? हमसे बात करें</string>
+    <string name="freshchat_message_sending_failed">संदेश नहीं भेजा गया। हम फिर से कोशिश करेंगे</string>
+    <string name="freshchat_message_content_copied_to_clipboard">संदेश कॉपी किया गया</string>
+    <string name="freshchat_chat_unknown_content_type">संदेश सामग्री इस संस्करण पर समर्थित नहीं है। कृपया ऐप को अपडेट करें</string>
+    <string name="freshchat_original_message_title">मूल</string>
+    <string name="freshchat_error_no_matching_faq_categories_found">कोई मेल खाने वाली एफएक्यू श्रेणियां नहीं मिलीं!</string>
+    <string name="freshchat_error_no_matching_faqs_found">मिलते-जुलते कोई अक्सर पूछे जाने वाले प्रश्न नहीं मिले!</string>
+
+    <string name="freshchat_unknown_message_fragment">संदेश दिखाने में असमर्थ। कृपया समर्थन से संपर्क करें।</string>
+
+    <!-- Activity Title -->
+    <string name="freshchat_activity_title_category_list">पूछे जाने वाले प्रश्न</string>
+    <string name="freshchat_activity_title_article_list">पूछे जाने वाले प्रश्न</string>
+    <string name="freshchat_activity_title_article_detail">सामान्य प्रश्न</string>
+    <string name="freshchat_activity_title_channel_list">संवाद</string>
+
+    <!-- Menu title -->
+    <string name="freshchat_menu_item_search_faqs">खोज</string>
+    <string name="freshchat_menu_item_contact_us">हमें संदेश दें</string>
+    <string name="freshchat_menu_item_toggle_speaker">स्पीकरफ़ोन टॉगल करें</string>
+
+    <!-- Strings for Customer Satisfaction related UI Elements -->
+    <string name="freshchat_chat_resolution_survey_question"></string>
+    <string name="freshchat_chat_resolution_confirmation_prompt">क्या हमने आपकी चिंताओं का समाधान किया?</string>
+    <string name="freshchat_chat_resolution_confirmation_prompt_positive">@string/freshchat_yes</string>
+    <string name="freshchat_chat_resolution_confirmation_prompt_negative">@string/freshchat_no</string>
+    <string name="freshchat_chat_resolution_suggestions_prompt">हम आपकी बेहतर मदद कैसे कर सकते थे?</string>
+    <string name="freshchat_chat_resolution_user_comments_hint">हमें बताओ</string>
+    <string name="freshchat_chat_rating_submit">भेजना</string>
+
+    <!--Strings for Typically Replies in-->
+    <string name="freshchat_typically_replies_within_a_minute">आम तौर पर एक मिनट में जवाब देता है</string>
+    <string name="freshchat_typically_replies_within_x_minutes">आम तौर पर {{मिनट}} मिनट में जवाब देता है</string>
+    <string name="freshchat_typically_replies_within_an_hour">आम तौर पर एक घंटे के भीतर जवाब</string>
+    <string name="freshchat_typically_replies_within_2_hours">आम तौर पर 2 घंटे के भीतर जवाब</string>
+    <string name="freshchat_typically_replies_within_few_hours">आम तौर पर कुछ घंटों के भीतर जवाब</string>
+    <string name="freshchat_currently_replying_in_a_minute">वर्तमान में एक मिनट में उत्तर दे रहे हैं</string>
+    <string name="freshchat_currently_replying_in_x_minutes">वर्तमान में {{मिनट}} मिनट में उत्तर दे रहे हैं</string>
+    <string name="freshchat_currently_replying_in_an_hour">वर्तमान में एक घंटे में जवाब दे रहे हैं</string>
+    <string name="freshchat_currently_replying_in_2_hours">फ़िलहाल 2 घंटे में जवाब दे रहे हैं</string>
+    <string name="freshchat_currently_replying_in_few_hours">वर्तमान में कुछ ही घंटों में उत्तर दे रहे हैं</string>
+    <string name="freshchat_placeholder_minutes">{{मिनट}}</string>
+
+    <!--Strings for notifications-->
+    <string name="freshchat_conversation_notification_channel_name">बातचीत संदेश</string>
+    <string name="freshchat_campaign_notification_channel_name">अभियान संदेश</string>
+    <string name="freshchat_support_message_notification_title">{{app_name}}</string>
+    <string name="freshchat_promotional_message_notification_title">{{app_name}}</string>
+    <string name="freshchat_placeholder_app_name">{{app_name}}</string>
+
+    <!--Strings for Auto start prompt displayed to users on xiaomi devices -->
+    <string name="freshchat_xiaomi_auto_start_prompt_message">ऐप के बैकग्राउंड में होने पर सूचनाएं प्राप्त करने के लिए कृपया ऑटोस्टार्ट को सक्षम करें</string>
+    <string name="freshchat_xiaomi_auto_start_prompt_positive">@android:string/ok</string>
+    <string name="freshchat_xiaomi_auto_start_prompt_negative">@android:string/cancel</string>
+
+
+    <!-- Allow customization of date formatter used for displaying date and time for messages -->
+    <string name="freshchat_chat_message_time_today">"hh:mm a"</string>
+    <string name="freshchat_chat_message_time_this_year_short">"MMM dd"</string>
+    <string name="freshchat_chat_message_time_this_year_long">"MMM dd',' hh:mm a"</string>
+    <string name="freshchat_chat_message_time_other_year">"MMM yyyy"</string>
+    <string name="freshchat_chat_calendar_date_format">"EEEE',' dd MMM yyyy"</string>
+    <string name="freshchat_chat_calendar_timeslot_format">"hh:mm a"</string>
+
+    <!--Strings for Business hour offline response-->
+    <string name="freshchat_all_members_away_message">हम अभी दूर हैं</string>
+
+    <!--Strings for Drop down messages-->
+    <string name="freshchat_drop_down_hint_text">चयन करने के लिए यहां क्लिक करें</string>
+
+    <!--Strings for Carousel -->
+    <string name="freshchat_carousel_default_preview_text">एक विकल्प चुनें</string>
+
+    <!--Strings for Carousel Card default-->
+    <string name="freshchat_carousel_card_default_callback_btn_text">चयन</string>
+    <string name="freshchat_carousel_card_default_view_btn_text">@string/freshchat_view_text</string>
+    <string name="freshchat_carousel_card_selected_text">चुनें</string>
+
+    <!-- Strings used for Calendar integration -->
+    <string name="freshchat_calendar_find_slot">एक स्लॉट खोजें</string>
+    <string name="freshchat_calendar_not_interested">रुचि नहीं</string>
+    <string name="freshchat_calendar_cancel_invite_message">आमंत्रण रद्द कर दिया</string>
+    <string name="freshchat_calendar_title">बैठक का समय तय करो</string>
+    <string name="freshchat_calendar_duration">{{duration}} mins</string>
+    <string name="freshchat_calendar_duration_place_holder">{{duration}}</string>
+    <string name="freshchat_calendar_email_request_desc">हमारी टीम के साथ बैठक का समय निर्धारित करने के लिए कृपया हमें अपना ईमेल पता प्रदान करें</string>
+    <string name="freshchat_calendar_email_hint">अपना ईमेल पता दर्ज करें</string>
+    <string name="freshchat_calendar_next">अगला</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_message">क्या आप वाकई इस बुकिंग को रद्द करना चाहते हैं?</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_continue">जारी रखना</string>
+    <string name="freshchat_calendar_cancel_booking_prompt_cancel">बुकिंग रद्द करें</string>
+    <string name="freshchat_calendar_show_more_time_slots">और दिखाओ</string>
+    <string name="freshchat_calendar_no_timeslots_found">कोई स्लॉट उपलब्ध नहीं है</string>
+    <string name="freshchat_calendar_error_encountered">एक त्रृटी हुई थी</string>
+    <string name="freshchat_calendar_timeslots_retry">पुन: प्रयास करें</string>
+    <string name="freshchat_calendar_cancel_invite">रद्द करें</string>
+    <string name="freshchat_calendar_today">आज</string>
+    <string name="freshchat_calendar_tomorrow">आने वाला कल</string>
+    <string name="freshchat_calendar_part_of_day_morning">सुबह</string>
+    <string name="freshchat_calendar_part_of_day_afternoon">दोपहर</string>
+    <string name="freshchat_calendar_part_of_day_evening">शाम</string>
+    <string name="freshchat_calendar_part_of_day_night">रात</string>
+    <string name="freshchat_calendar_confirm">पुष्टि करना</string>
+    <string name="freshchat_calendar_change_slot">स्लॉट बदलें</string>
+    <string name="freshchat_calendar_meeting_with_our_team">हमारी टीम के साथ बैठक</string>
+    <string name="freshchat_calendar_meeting_state_scheduled">अनुसूचित</string>
+    <string name="freshchat_calendar_meeting_state_failed">अनुत्तीर्ण होना</string>
+    <string name="freshchat_calendar_meeting_state_pending">पुष्टिकरण की प्रतीक्षा</string>
+    <string name="freshchat_calendar_invite_awaiting_confirmation">समय स्लॉट पुष्टि की प्रतीक्षा में</string>
+    <string name="freshchat_calendar_meeting_banner_view_btn">@string/freshchat_view_text</string>
+    <string name="updated_till">"तक अपडेट किया गया: "</string>
+
+    <!--Omni KBASE-->
+
+    <string name="freshchat_no_faq_categories">प्रदर्शित करने के लिए कोई अक्सर पूछे जाने वाले प्रश्न नहीं</string>
+    <string name="freshchat_faq_name_placeholder">{{faq_name}}</string>
+    <string name="freshchat_no_faqs">No articles found for &lt;b&gt;\'%1$s\'&lt;/b&gt;</string>
+    <string name="freshchat_no_articles_found">कोई लेख नहीं मिला</string>
+    <string name="freshchat_no_faq_found">कोई सामान्य प्रश्न नहीं मिला</string>
+    <string name="freshchat_minimum_search_criteria">खोजने के लिए 3 या अधिक वर्ण दर्ज करें</string>
+    <string name="freshchat_pagination_error_with_retry">लोड करने में विफल। पुनः प्रयास करने के लिए टैप करे</string>
+    <string name="freshchat_pagination_no_internet_with_retry">कोई इंटरनेट कनेक्शन नहीं। पुनः प्रयास करने के लिए टैप करे</string>
+
+    <!--Bots-->
+    <string name="freshchat_bot_faq_feedback_title">क्या यह उत्तर उपयोगी था?</string>
+    <string name="freshchat_bot_faq_feedback_success">आपकी प्रतिक्रिया के लिए आपका धन्यवाद!</string>
+
+    <string name="dashboard_view_for_tracking_your_finances_which_update_daily_and_a_way_get_your_salary_in_advance">अपने वित्त पर नज़र रखने के लिए डैशबोर्ड दृश्य जो दैनिक रूप से अपडेट होता है और एक तरह से आपका वेतन अग्रिम में प्राप्त करता है!</string>
+    <string name="access_to_more_value_added_services_such_as_loans_savings_insurance_and_mitra_homes">अपने वित्त पर नज़र रखने के लिए डैशबोर्ड दृश्य जो दैनिक रूप से अपडेट होता है और एक तरह से आपका वेतन अग्रिम में प्राप्त करता है!</string>
+    <string name="easy_ways_of_earning_extra_money_by_solving_puzzles_captcha">पहेलियाँ / कैप्चा हल करके अतिरिक्त पैसे कमाने के आसान तरीके!</string>
+    <string name="i_accept_the_t_c">मैं नियम और शर्त स्वीकार करता हूं!</string>
+    <string name="let_s_go">आगे चलो</string>
+    <string name="upgrade_your_mitra_header">अपना मित्रा खाता अपग्रेड करें और अधिक शक्तिशाली सुविधाएं प्राप्त करें...</string>
+    <string name="upgrade_available">अपग्रेड उपलब्द है</string>
+
+    <string name="status_of_the_jobs_applied_and_one_click_application_for_new_jobs_if_not_selected">लागू की गई नौकरियों की स्थिति और चयनित नहीं होने पर नई नौकरियों के लिए एक-क्लिक आवेदन</string>
+    <string name="easy_ways_of_earning_extra_money_by_solving_puzzles_translating">पहेलियाँ हल करके/अनुवाद करके अतिरिक्त पैसे कमाने के आसान तरीके</string>
+    <string name="access_to_mitra_shots_your_best_entertainment_companion_while_on_the_go">यात्रा के दौरान आपका सबसे अच्छा मनोरंजन साथी मित्रा शॉट्स तक पहुंच</string>
+
+
+    <string name="your_friend_completes_10_trips">आपके दोस्त ने\n10 ट्रिप पूरी की</string>
+    <string name="on_completing_referrals">रेफरल पूरा\nकरने पर</string>
+    <string name="amount_you_will_earn">राशि\nआप कमाएंगे</string>
+    <string name="invite_text"></string>
+    <string name="refer_friends_now">अपने दोस्तों को अभी रेफर करें!</string>
+    <string name="enter_your_friend_s_phone_number_and_press_invite">अपने मित्र का फ़ोन नंबर दर्ज करें और आमंत्रण दबाएं</string>
+    <string name="enter_mobile_number">मोबाइल नंबर दर्ज करें</string>
+    <string name="invite">आमंत्रित करें</string>
+    <string name="earn">Earn</string>
+    <string name="by_inviting_your">by inviting your</string>
+    <string name="friends_to_mitra">friends to Mitra!</string>
+    <string name="_1_referral_2000">1 रेफरल = ₹2000</string>
+    <string name="invite_your_friend">अपने मित्र को निमंत्रित करो</string>
+    <string name="your_referral_status">आपकी रेफ़रल स्थिति</string>
+    <string name="_5">5</string>
+    <string name="_10">10</string>
+    <string name="_15">15</string>
+    <string name="_10_000">₹10,000</string>
+    <string name="_20_000">₹20,000</string>
+    <string name="_30_000">₹30,000</string>
+    <string name="rupee_0">₹0</string>
+    <string name="rupees_earned">रुपए कमाए</string>
+    <string name="_0_friends">0 रेफरल</string>
+    <string name="_10_trips_done">10 यात्राएं की गईं</string>
+    <string name="view_status">स्थिति देखें</string>
+    <string name="referrals_invited_in_progress">रेफरल आमंत्रित / प्रगति पर</string>
+    <string name="_7">7</string>
+    <string name="t_and_c_apply">* T and C Apply</string>
+    <string name="recent_referrals">हाल के रेफरल</string>
+    <string name="what_is_referral">रेफरल क्या है</string>
+    <string name="how_does_it_work">यह कैसे काम करता है?</string>
+    <string name="how_can_it_benefit_me">यह मुझे कैसे लाभ पहुंचा सकता है?</string>
+    <string name="invite_friends_to_mitra">मित्रों को आमंत्रित करें</string>
+    <string name="view_referrl">देखें और कमाएं</string>
+
+    <string name="refer_and_earn">रेफ़र और कमाएं</string>
+    <string name="choose_from_your_contacts_list_below">नीचे अपनी संपर्क सूची में से चुनें!</string>
+    <string name="deselect_all">सभी को अचिन्हिंत करें</string>
+    <string name="invite_now">अभी आमंत्रित करें</string>
+
+    <string name="_friends">" रेफरल्स"</string>
+    <string name="_trips_done">" की गई यात्राएं"</string>
+    <string name="_1_referral">"1 रेफरल = "</string>
+    <string name="invite_to_mitra">आप अपने मित्रों और परिवार को मित्रा में शामिल होने के लिए आमंत्रित करके नौकरी दिलाने में मदद करके अधिक कमा सकते हैं। </string>
+    <string name="str1">अपने मित्र को मित्रा में शामिल होने के लिए आमंत्रित करें, और आप रुपये कमा सकते हैं। ₹</string>
+    <string name="str2">आपके दोस्त के पूरा होने के बाद </string>
+    <string name="str3"> ट्रिप्स।</string>
+    <string name="str4"> जब आप 5 दोस्तों को रेफर करते हैं।</string>
+    <string name="str5"></string>
+    <string name="regex">[6-9]{1}[0-9]{9}</string>
+    <string name="limit_excedded">सीमा पार हो गई</string>
+    <string name="no_contact_is_selected">कोई संपर्क नहीं चुना गया है</string>
+    <string name="search_contacts_or_enter_number">संपर्क खोजें या नंबर दर्ज करें</string>
+    <string name="you_get_one">आपको मिलेंगे </string>
+    <string name="you_get_two">\nआपके दोस्त के खत्म \nहोने के तुरंत बाद </string>
+    <string name="you_get_three">यात्रा !</string>
+    <string name="completed">पूर्ण</string>
+    <string name="my_referral_status">मेरी रेफरल स्थिति</string>
+    <string name="no_referral_rewards">कोई रेफरल नहीं</string>
+    <string name="my_referrals">मेरा रेफरल</string>
+    <string name="you_have_not_invited_any_of_your_friends_yet">आपने अभी तक अपने किसी मित्र को आमंत्रित नहीं किया है।</string>
+    <string name="your_friend_will_be_contacted_soon">आपके मित्र से जल्द ही संपर्क किया जाएगा</string>
+    <string name="friend">मित्र आपके द्वारा या किसी अन्य व्यक्ति द्वारा पहले ही संदर्भित किया जा चुका है</string>
+    <string name="tell_your_friend">अपने मित्र को और ट्रिप्स करने के लिए कहें</string>
+    <string name="amount_earned">रुपया कमा लिया</string>
+    <string name="r_started">रेफरल शुरू हुआ</string>
+    <string name="j_mitra">मित्रा में शामिल हुए</string>
+    <string name="f_t_done">पहला ट्रिप हो गया</string>
+    <string name="r_b_earned">रेफरल बोनस कमा लिय</string>
+    <string name="i_sent">रेफर करने के लिए धन्यवाद</string>
+    <string name="tv_friend">मित्र को</string>
+    <string name="tv_friends">मित्रों को</string>
+
+    <string name="mitra_is_access_your_current_location">मित्रा आपके वर्तमान स्थान तक पहुंच रहा है!</string>
+    <string name="expires">समय-सीमा समाप्त : </string>
+
+    <!--ConnectivityUtils-->
+    <string name="connectivity_error">कनेक्टिविटी एरर</string>
+
+    <!--AddBankFragment-->
+    <string name="account_no_doent_match">खाता संख्या मेल नहीं खाती</string>
+    <string name="enter_account_name">खाता नाम दर्ज करें</string>
+    <string name="invalid_ifsc">अमान्य IFSC</string>
+    <string name="coma_">, </string>
+    <string name="bank_Details_added_successfully">बैंक विवरण सफलतापूर्वक जोड़ा गया</string>
+    <string name="unable_to_verify_please_try_again_later">सत्यापित करने में असमर्थ, कृपया बाद में पुन: प्रयास करें!</string>
+    <string name="verification_is_in_process">सत्यापन जारी है!</string>
+    <string name="bank_account_added">बैंक खाता जोड़ा गया</string>
+
+    <!--BankBottomSheet-->
+    <string name="transfer">ट्रान्सफर </string>
+    <string name="cashout">कैशआउट </string>
+    <string name="percentage_fee_applicable">% शुल्क लागू </string>
+    <string name="fee_applicable"> शुल्क लागू </string>
+    <string name="_success">सफलता</string>
+    <string name="upload_aadhar_card">आधार कार्ड अपलोड करें</string>
+    <string name="please_upload_uour_aadhar_card">कृपया अपने आधार कार्ड की फोटो अपलोड करें। यदि आपको इसे अपलोड करने में सहायता चाहिए:</string>
+    <string name="validation_failed_please_try_again_later">सत्यापन विफल, कृपया बाद में पुन: प्रयास करें</string>
+
+    <!--CaroselEffectSlider-->
+    <string name="link_not_found">लिंक नहीं मिला</string>
+
+    <!--CashoutTransactionAdapter-->
+    <string name="transfer_rupees">स्वीकार करें ₹ </string>
+    <string name="cashout_request_is_processed">कैशआउट अनुरोध संसाधित किया जाता है</string>
+    <string name="cashout_failed_please_try_again_later">कैशआउट विफल, कृपया बाद में पुन: प्रयास करें!</string>
+    <string name="data_not_available">डेटा उपलब्ध नहीं</string>
+
+    <!--EarnFRagmentV2-->
+    <string name="you_have_already_availed_the_service">आप पहले ही सेवा का लाभ उठा चुके हैं</string>
+    <string name="documents_missing_">दस्तावेज गायब!</string>
+    <string name="upload_document_">पेआउट प्राप्त करने के लिए आधार और पैन अपलोड करें</string>
+    <string name="bank_details_missing">बैंक विवरण गायब!</string>
+    <string name="add_bank_details_to_receive_payouts">पेआउट प्राप्त करने के लिए बैंक विवरण जोड़े</string>
+
+
+    <!--ErrorFragment-->
+    <string name="please_try_after_sometime">कृपया कुछ देर बाद प्रयास करें</string>
+    <string name="please_wait_for_sorted_items">कृपया सॉर्ट किए गए आइटम की प्रतीक्षा करें !!</string>
+
+    <!--MainActivity-->
+    <string name="failure">असफलता</string>
+    <string name="An_update_has_just_been_downloaded">एक अपडेट अभी डाउनलोड किया गया है।</string>
+    <string name="app_update_failed_please_try_again_on_the_next_app_launch">ऐप अपडेट विफल रहा, कृपया अगले ऐप लॉन्च पर फिर से प्रयास करें।</string>
+
+
+    <!--EnterOtpActivity-->
+    <string name="please_enter_4_digit_otp">कृपया 4 अंकों का ओटीपी दर्ज करें</string>
+    <string name="please_check_your_otp_and_try_again">कृपया अपना ओटीपी जांचें और पुनः प्रयास करें!</string>
+
+    <!--ReferContactListAdapter-->
+    <string name="whatsapp_not_installed">व्हाट्सएप इंस्टॉल नहीं है</string>
+
+    <!--ProfileFragment-->
+    <string name="bank_details_missing2">बैंक विवरण उपलब्ध नहीं है !!</string>
+    <string name="complete_your_pending_actions">अपने pending कार्यों को पूरा करें !!</string>
+    <string name="please_select_the_language">कृपया भाषा चुनें</string>
+    <string name="url_not_found">यूआरएल नहीं मिला !!</string>
+    <string name="download_completed">डाउनलोड पूरा हो गया है!</string>
+
+    <!--TenureSelectionFragment-->
+    <string name="to_be_deducted_weekly">साप्ताहिक कटौती की जानी है</string>
+
+    <!--loan-->
+    <string name="loan_applied_successfully">Loan Applied Successfully</string>
+    <string name="please_enter_amount_greater_than_0">Please enter amount greater than 0</string>
+    <string name="upload_aadhaar_pan_to_receive_payouts">पेआउट प्राप्त करने के लिए आधार और पैन अपलोड करें</string>
+
+    <string name="incentives">प्रोत्साहन राशि</string>
+    <string name="cashout_question">कैशआउट क्या है?</string>
+    <string name="cashout_question_one">कैशआउट निकालने के लिए और ऑर्डर पूरा करें!</string>
+    <string name="cashout_reason_one">आप अपने भुक्तान दिन (सोमवार) से पहले कमाई का कुछ पैसा निकाल सकते हैं</string>
+    <string name="cashout_reason_two">आपके धनरशी कुछ निश्चित सुल्क के साथ आपके बैंक खाते में जमा कर दिया जाएगा</string>
+    <string name="cashout_reason_three">अधिक कमाई करके आप अधिक पैसा निकल सकते हैं </string>
+    <string name="got_it_key">समझ गया</string>
+    <string name="stay_active_3">3 दिन तक सक्रिय रहें</string>
+    <string name="unlock_cashout_70">कैशआउट 70% अनलॉक करें</string>
+    <string name="complete_50_trips">पूरी 50 यात्राएं</string>
+    <string name="stay_active_for_10_days">10 दिनों तक सक्रिय रहें</string>
+    <string name="unlock_cashout_90">कैशआउट 90% अनलॉक करें</string>
+    <string name="complete_20_trips">20 यात्राएं पूरी करें</string>
+    <string name="stay_active_for_20_days">20 दिनों तक सक्रिय रहें</string>
+    <string name="cashout_level_one_50">कैशआउट 50%</string>
+    <string name="complete_100_trips_v1">पूरी 100 यात्राएं</string>
+    <string name="cd_continue">जारी रखना</string>
+    <string name="cashout_more_as_you_earn_more">अधिक कमाई के रूप में अधिक कैशआउट करें</string>
+    <string name="money_will_be_xtransferred_to_your_bank_from_your_mitra_earnings_with_a_fee">आपकी मित्र कमाई से शुल्क के साथ आपके बैंक में पैसा ट्रांसफर कर दिया जाएगा</string>
+    <string name="selected_tier_one">कैशआउट 50%</string>
+    <string name="selected_tier_three">कैशआउट 90%</string>
+    <string name="selected_tier_two">कैशआउट 70%</string>
+    <string name="want_to_cashout_more_money">अधिक पैसा कैशआउट करना चाहते हैं?</string>
+
+
+    <string name="in_progress">प्रगति पर</string>
+    <string name="earn_money_upto_2100_for_every_milestone_that_your_friend_will_be_completing_in_the_first_15_days">आपके मित्र द्वारा पहले 15 दिनों में पूरे किए जाने वाले प्रत्येक उपलब्धि के लिए ₹2100 तक कमाएं</string>
+    <string name="invite_your_friend_and_get_them_onboarded">अपने मित्र को आमंत्रित करें और उन्हें ऑनबोर्ड करें</string>
+    <string name="your_friend_starts_taking_trips">आपके मित्र ने यात्राएं शुरू कर दी हैं</string>
+    <string name="get_bonus_for_the_trips_completed_in_15_days">15 दिनों में पूरी की गई यात्राओं के लिए बोनस प्राप्त करें</string>
+    <string name="terms_conditions"><![CDATA[नियम एवं शर्तें]]></string>
+    <string name="you_will_get_bonus_for_the_trips_your_friend_completes_in_the_first_15_days">आपके मित्र द्वारा पहले 15 दिनों में पूरी की जाने वाली यात्राओं के लिए आपको बोनस मिलेगा।</string>
+    <string name="your_bonus_amount">आपकी बोनस राशि</string>
+    <string name="no_of_trips">यात्राओं की संख्या</string>
+    <string name="bonus_earned">अर्जित बोनस</string>
+    <string name="total_earned">कुल कमाई</string>
+    <string name="_10_trips">10 यात्राएं</string>
+    <string name="_20_trips">20 यात्राएं</string>
+    <string name="_200">₹200</string>
+    <string name="_100">₹100</string>
+    <string name="_300">₹300</string>
+    <string name="_30_trips">30 यात्राएं</string>
+    <string name="_600">₹600</string>
+    <string name="_1100">₹1100</string>
+    <string name="_500">₹500</string>
+    <string name="_50_trips">50 Trips</string>
+    <string name="_2100">₹2100</string>
+    <string name="_earned">" कमाया हुआ"</string>
+    <string name="_1_000">₹1,000</string>
+    <string name="_100_trips">100 यात्राएं</string>
+    <string name="trips_taken_by_your_friend_in_15_days">15 दिनों में आपके मित्र द्वारा की गई यात्राएं</string>
+    <string name="_20">20</string>
+    <string name="_30">30</string>
+    <string name="_50">50</string>
+    <string name="space_100">100</string>
+    <string name="referral_started">रेफरल शुरू हुआ</string>
+    <string name="_1_july_2022">1 जुलाई 2022</string>
+    <string name="invitation_sent">निमंत्रण भेजा गया</string>
+    <string name="first_trip_done">पहला ट्रिप हो गया</string>
+    <string name="amount_you_will_earn2">राशि आप कमाएंगे</string>
+    <string name="plus_rupee_100">+ ₹100</string>
+    <string name="plus_rupee_200">+ ₹200</string>
+    <string name="plus_rupee_300">+ ₹300</string>
+    <string name="plus_rupee_500">+ ₹500</string>
+    <string name="plus_rupee_1000">+ ₹1000</string>
+    <string name="invite_your_friend_to_join_mitra">मित्रा में शामिल होने\nके लिए अपने मित्र को आमंत्रित करें</string>
+    <string name="your_friend_starts_taking_trips2">आपका मित्र\nयात्राएं शुरू कर रहा है</string>
+    <string name="_referral">" रेफ़रल"</string>
+    <string name="_trips">" ट्रिप्स"</string>
+    <string name="on_amount_referrals">राशि जो आप\nकमा रहे होंगे</string>
+    <string name="trips_taken">"की गईं यात्राएं"</string>
+    <string name="what_is_refer_and_earn">रेफर करें और कमाएं क्या है?</string>
+    <string name="know_more"><u>अधिक जानिए</u></string>
+    <string name="joined_mitra_whatsapp_msg">"नमस्ते! मित्रा से जुड़ने के लिए धन्यवाद! पहले 15 दिनों में अधिक ऑर्डर लेना शुरू करें, और अधिक पैसा कमाएं !!"</string>
+    <string name="get_bonus_for_the_trips_completed_by_your_friend_in_15_days">अपने मित्र द्वारा 15 दिनों\nमें पूरी की गई यात्राओं\n के लिए बोनस प्राप्त करें</string>
+    <string name="rate_card">रेट कार्ड</string>
+    <string name="weekly">साप्ताहिक</string>
+    <string name="sfx">SFX</string>
+    <string name="earnings_per_pay">प्रति वेतन आय</string>
+    <string name="on_reaching_targets">लक्ष्य तक पहुँचने पर</string>
+    <string name="_60_trips">60 ट्रिप्स</string>
+    <string name="_250">₹ 250</string>
+    <string name="take_11_more_trips_from_sfx_to_earn_250">₹250 कमाने के लिए SFX से 11 और ट्रिप लें</string>
+    <string name="trips_completed">" यात्राएं पूर्ण"</string>
+    <string name="weekly_earnings"> साप्ताहिक कमाई</string>
+    <string name="weekly_earnings_txt"> एसएफएक्स साप्ताहिक प्रोत्साहन</string>
+    <string name="error_msg">हम इस समय नए रेफरल स्वीकार नहीं कर रहे हैं। कृपया कुछ दिनों के बाद पुनः प्रयास करें</string>
+    <string name="view_details_txt">विवरण देखें</string>
+    <string name="updated_till_txt">तक अपडेट किया गया: 17 मार्च 2022</string>
+    <string name="trips_done_txt">15 यात्राएं संपन्न</string>
+    <string name="your_here_txt">तुम यहाँ \n हो</string>
+    <string name="_15_trips">15 यात्राएं</string>
+    <string name="weekly_incentives_txt">* साप्ताहिक प्रोत्साहन सप्ताह के अंत में जमा किए जाएंगे</string>
+    <string name="your_upcoming_slots">आपके आने वाले स्लॉट</string>
+    <string name="upcoming_slots">आगामी स्लॉट</string>
+    <string name="no_slot_available">कोई स्लॉट उपलब्ध नहीं</string>
+    <string name="weekly_earnings_dayDateTxt">सोमवार, 13 जून 2022</string>
+    <string name="expand">बढ़ाना</string>
+    <string name="weekly_earnings_orderCountTxt">"आदेश गणना :  "</string>
+    <string name="weekly_earnings_orderPayoutTxt">ऑर्डर पेआउट</string>
+    <string name="weekly_earnings_startDate">जून 13</string>
+    <string name="weekly_earnings_pageHeaderTxt">शुद्ध भुगतान</string>
+    <string name="weekly_earnings_pageSubHeaderTxt">कमाई</string>
+    <string name="weekly_earnings_pageSubHeaderTxtDeductions">कटौती</string>
+    <string name="weekly_earnings_otherEarningsTxt">अन्य कमाई</string>
+    <string name="total">कुल</string>
+
+    <string name="yay">वाह!</string>
+    <string name="you_are_now_eligible_for">अब आप इसके लिए पात्र हैं</string>
+    <string name="_50_cashout">50% कैशआउट</string>
+    <string name="_70_cashout">70% कैशआउट</string>
+    <string name="_90_cashout">90% कैशआउट</string>
+
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="view">View</string>
+    <string name="maximize_your_earnings_through_mitra_incentives">Maximize your earnings through Mitra incentives</string>
+    <string name="_60_acceptance_rate_at_uber">\u2022 उबर 60% स्वीकृति दर</string>
+
+    <string name="cashout_tv3">वाह ! अब आप अधिक पैसे कैशआउट कर सकते हैं!</string>
+    <string name="cashout_tv2">अधिक सवारी करें और 90% अनलॉक करें!</string>
+    <string name="_cashout"> कैशआउट</string>
+    <string name="complete">100 यात्राएं </string>
+    <string name="complete2">50 यात्राएं </string>
+    <string name="_100_trips_2">पूरी करें</string>
+    <string name="_50_trips_2">पूरी करें</string>
+    <string name="_20_days">20 दिन</string>
+    <string name="_10_days">10 दिन</string>
+    <string name="unlock_90_cashout">90% कैशआउट अनलॉक करें</string>
+    <string name="unlock_70_cashout">70% कैशआउट अनलॉक करें</string>
+    <string name="take_more_rides_and_unlock_70">अधिक सवारी करें और 70% अनलॉक करें!</string>
+    <string name="tnc_txt2">" लागू"</string>
+    <string name="continue_txt">जारी रखें</string>
+    <string name="app_version">App version </string>
+
+    <string name="work_for_mutliple_companies_together_with_mitra_earn_extra_money">मित्रा के साथ मिलकर कई कंपनियों के लिए काम करें और अतिरिक्त पैसा कमाएं</string>
+    <string name="know_your_slot_timings_and_open_you_client_app_directly_from_here">अपने स्लॉट समय के बारे में जानें और यहां से सीधे अपना क्लाइंट ऐप खोलें!</string>
+    <string name="ok_got_it">ठीक है</string>
+    <string name="slot_coach_mark_desc">अपने स्लॉट का समय जानें और सीधे यहां से अपना क्लाइंट ऐप खोलें!</string>
+    <string name="cardview_coach_mark_desc">कमाई, कटौती, शुल्क आदि सहित सभी लेनदेन देखने के लिए यहां क्लिक करें</string>
+    <string name="profile_coach_mark_desc">अपना प्रोफ़ाइल विवरण देखने या संपादित करने, अपना मित्र बैलेंस जानने आदि के लिए यहां क्लिक करे</string>
+    <string name="dl_card">Driving License</string>
+    <string name="upload_driving_license">ड्राइविंग लाइसेंस अपलोड करें</string>
+    <string name="upload_driving_license_desc">कृपया अपना ड्राइविंग लाइसेंस फोटो अपलोड करें। यदि आपको इसे अपलोड करने में सहायता चाहिए:</string>
+
+    <string name="daily_orders">Daily Orders</string>
+    <string name="zepto_orders_monday_13_june_2022">ज़िप्टो ऑर्डर - सोमवार 13 जून 2022</string>
+    <string name="total_orders">कुल आदेश</string>
+    <string name="total_amount">कुल रकम</string>
+    <string name="order_amount">ऑर्डर करने की राशि</string>
+    <string name="distance_fee">दूरी शुल्क</string>
+    <string name="tip">बख्शीश</string>
+    <string name="order_id_adwdw78">आदेश ID: ADWDW78</string>
+    <string name="last_mile_1_5_km">आखरी मील - 1.5 KM</string>
+    <string name="_900">₹ 900</string>
+    <string name="payment_type">भुगतान के प्रकार</string>
+    <string name="online">ऑनलाइन</string>
+    <string name="first_mile_1_5_km">पहला मील - 1.5 KM</string>
+    <string name="trip_time_7_03_am">ट्रिप टाइम 7:03 AM</string>
+    <string name="ticket_history">टिकट इतिहास</string>
+    <string name="update_now_home">Update Now</string>
+    <string name="weekly_incentives_will_be_credited_at_the_end_of_the_week">साप्ताहिक प्रोत्साहन सप्ताह के अंत में जमा किए जाएंगे</string>
+    <string name="you_can_cashout">कैशआउट </string>
+    <string name="aadhaar_card_missing">आधार कार्ड उपलब्ध नहीं है!</string>
+    <string name="pan_card_missing">पैन कार्ड उपलब्ध नहीं है!</string>
+    <string name="aadhar_and_bank_card_missing">आधार और बैंक विवरण उपलब्ध नहीं है!</string>
+    <string name="pan_and_bank_card_missing">पैन और बैंक विवरण उपलब्ध नहीं है!</string>
+    <string name="document_missing">दस्तावेज़ गायब हैं!</string>
+    <string name="this_week_s_earnings">इस हफ्ते की कमाई</string>
+
+
+    <string name="home_tab_coach_mark_desc">अपने सभी प्रोत्साहन, लेन-देन, साप्ताहिक आय आदि देखने के लिए यहां क्लिक करें।  </string>
+    <string name="earnings_tab_coach_mark_desc">अपने सभी प्रोत्साहन, लेन-देन, साप्ताहिक आय आदि देखने के लिए यहां क्लिक करें।  </string>
+    <string name="mitra_balance_coach_mark_desc">अपना मित्रा बैलेंस देखने के लिए यहां क्लिक करें </string>
+    <string name="updated_at">पर अपडेट किया गया :</string>
+    <string name="ticket_ID_label">टिकट आईडी</string>
+    <string name="created_on_label">पर बनाया</string>
+    <string name="ticket_type_label">टिकिट का प्रकार</string>
+    <string name="no_tickets_yet">अभी तक कोई टिकट नहीं</string>
+    <string name="no_tickets_yet_desc">आपने अभी तक कोई समर्थन अनुरोध नहीं किया है|</string>
+    <string name="go_back_to_home">घर वापस जाओ</string>
+
+    <string name="view_bank_details">बैंक विवरण देखें</string>
+    <string name="two_missings">2 दस्तावेज उपलब्ध नहीं है!</string>
+    <string name="one_missings">1 दस्तावेज उपलब्ध नहीं है!</string>
+    <string name="or">or</string>
+    <string name="share_code">Share Code</string>
+    <string name="generic_text_check_in">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check in</b></string>
+    <string name="generic_text_check_out">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check Out</b></string>
+
+    <string name="cashout_on_hold">कैशआउट रुका हुआ है</string>
+    <string name="available_cashout">उपलब्ध कैशआउट</string>
+    <string name="profile_img_upload_success">प्रोफ़ाइल चित्र सफलतापूर्वक सेट किया गया !</string>
+    <string name="deposit_pending_cash">कैशआउट सक्षम करने के लिए</string>
+    <string name="to_enable_cashout">लंबित नकद जमा करें</string>
+    <string name="your">आपका </string>
+    <string name="okay">ठीक है</string>
+    <string name="zepto_cash_deposit_pending">Zepto नकद जमा लंबित</string>
+
+    <string name="add_a_referral_code">Add a referral code</string>
+    <string name="referral_code">Referral Code</string>
+    <string name="thanks_for_your_interest_n_we_will_reach_out_to_you_shortly">Thanks for your Interest \n we will reach out to you shortly</string>
+
+    <string name="profile_pic_page_header_txt">प्रोफ़ाइल तस्वीर अपलोड करें</string>
+    <string name="bank_doc_upload_page_header_txt">बैंक डॉक्स अपलोड करें</string>
+    <string name="profile_pic_header_txt">कोई पसंदीदा सेल्फी है? इसे अभी अपलोड करें!</string>
+    <string name="profile_pic_tip_content_txt">सुनिश्चित करें कि आपका चेहरा आपके प्रोफ़ाइल चित्र रद्द किए गए चेक में दिखाई दे रहा है</string>
+    <string name="bank_doc_upload_header_txt">कृपया अपनी पासबुक/रद्द किए गए चेक की तस्वीर अपलोड करें</string>
+    <string name="bank_doc_upload_tip_content_txt">सुनिश्चित करें कि फोटो स्पष्ट है और धुंधली नहीं है।</string>
+    <string name="click_to_upload">अपलोड करने के लिए क्लिक करें</string>
+    <string name="invalid_image_type">फोटो प्रकार मान्य नहीं है</string>
+    <string name="img_upload_success">फोटो सफलतापूर्वक अपलोड किया गया!</string>
+</resources>
