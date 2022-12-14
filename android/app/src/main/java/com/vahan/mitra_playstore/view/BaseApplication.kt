@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.blitzllama.androidSDK.BlitzLlamaSDK
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.microsoft.codepush.react.CodePush
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.MoEngage
 import com.moengage.core.config.NotificationConfig
@@ -27,7 +28,6 @@ import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.LocaleManager
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import dagger.hilt.android.HiltAndroidApp
-
 
 @HiltAndroidApp
 class BaseApplication : Application() {
@@ -49,7 +49,6 @@ class BaseApplication : Application() {
         setupBlitzLlamaSDK()
         trustKitInitialized()
     }
-
 
     private fun trustKitInitialized() {
 //        TrustKit.initializeWithNetworkSecurityConfiguration(this)  //comment for stg

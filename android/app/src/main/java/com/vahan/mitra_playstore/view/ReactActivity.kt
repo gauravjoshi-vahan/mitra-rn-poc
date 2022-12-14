@@ -1,18 +1,18 @@
 package com.vahan.mitra_playstore.view
 
 import android.app.Activity
+import android.app.Application
 import android.os.Bundle
-import com.facebook.react.PackageList
-import com.facebook.react.ReactInstanceManager
-import com.facebook.react.ReactPackage
-import com.facebook.react.ReactRootView
+import androidx.databinding.DataBindingUtil.setContentView
+import com.facebook.react.*
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.soloader.SoLoader
+import com.microsoft.codepush.react.CodePush
 import com.vahan.mitra_playstore.BuildConfig
-import dagger.hilt.android.AndroidEntryPoint
 
-class ReactActivity : Activity(), DefaultHardwareBackBtnHandler {
+
+class ReactActivity : Activity(), DefaultHardwareBackBtnHandler, ReactApplication {
     private var mReactRootView: ReactRootView? = null
     private var mReactInstanceManager: ReactInstanceManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +20,6 @@ class ReactActivity : Activity(), DefaultHardwareBackBtnHandler {
         SoLoader.init(this, false)
         mReactRootView = ReactRootView(this)
         val packages: List<ReactPackage> = PackageList(application).packages
-        // Packages that cannot be autolinked yet can be added manually here, for example:
-        // packages.add(new MyReactNativePackage());
-        // Remember to include them in `settings.gradle` and `app/build.gradle` too.
         mReactInstanceManager = ReactInstanceManager.builder()
             .setApplication(application)
             .setCurrentActivity(this)
@@ -61,5 +58,9 @@ class ReactActivity : Activity(), DefaultHardwareBackBtnHandler {
     override fun onBackPressed() {
         mReactInstanceManager?.onBackPressed()
         super.onBackPressed()
+    }
+
+    override fun getReactNativeHost(): ReactNativeHost {
+        TODO("Not yet implemented")
     }
 }
