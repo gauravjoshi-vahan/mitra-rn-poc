@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.blitzllama.androidSDK.BlitzLlamaSDK
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import com.microsoft.codepush.react.CodePush
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.MoEngage
 import com.moengage.core.config.NotificationConfig

@@ -8,7 +8,6 @@ import com.facebook.react.*
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import com.facebook.soloader.SoLoader
-import com.microsoft.codepush.react.CodePush
 import com.vahan.mitra_playstore.BuildConfig
 
 

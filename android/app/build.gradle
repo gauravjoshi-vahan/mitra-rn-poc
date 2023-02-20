@@ -224,7 +224,6 @@ dependencies {
     implementation "com.facebook.react:react-native:0.70.6" // From node_modules
     implementation "org.webkit:android-jsc:+"
 
-    implementation ':react-native-code-push'
 }
 
 
@@ -240,4 +239,3 @@ dependencies {
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"

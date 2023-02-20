@@ -9,7 +9,7 @@ import {
 const HelloWorld = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.hello}>Hello, World! React is awesome!</Text>
+      <Text style={styles.hello}>Hello, World! Joshi is awesome!</Text>
     </View>
   );
 };

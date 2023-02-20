@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "react": "18.1.0",
-    "react-native": "0.71.0",
-    "react-native-code-push": "^7.0.5"
+    "react-native": "0.70.6"
   }
 }
