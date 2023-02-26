@@ -3,10 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "yarn react-native start"
+    "start": "yarn react-native start",
+    "android": "yarn react-native run-android",
+    "release-stg": "appcenter codepush release-react -a vahaninc/Mitra -d Staging -t 1.75",
+    "release-prod": "appcenter codepush release-react -a vahaninc/Mitra -d Production -t 1.75"
   },
   "dependencies": {
     "react": "18.1.0",
-    "react-native": "0.70.6"
+    "react-native": "0.70.6",
+    "react-native-code-push": "^7.1.0"
   }
 }
