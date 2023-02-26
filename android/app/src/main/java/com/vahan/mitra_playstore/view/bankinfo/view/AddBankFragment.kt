@@ -18,6 +18,7 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.moengage.core.Properties
 import com.uxcam.UXCam
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FragmentAddBankBinding
@@ -33,9 +35,7 @@ import com.vahan.mitra_playstore.models.CheckCorrectIFSCModel
 import com.vahan.mitra_playstore.models.VerifyModel
 import com.vahan.mitra_playstore.models.kotlin.Account
 import com.vahan.mitra_playstore.network.SharedViewModel
-import com.vahan.mitra_playstore.utils.ApiState
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.PrefrenceUtils
+import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.HomeActivity
 import com.vahan.mitra_playstore.view.bankinfo.viewmodel.BankViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,19 +46,14 @@ class AddBankFragment : Fragment() {
     private var binding: FragmentAddBankBinding? = null
     private var dialogLoader: Dialog? = null
     private var fa: FirebaseAnalytics? = null
-    private var is_verify_bank_for_non_payroll: String? = null
+    private var isVerifyBankForNonPayroll: String? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for getActivity() fragment
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_add_bank,
-            container,
-            false
+            inflater, R.layout.fragment_add_bank, container, false
         )
 //        initView()
         return binding!!.root
@@ -67,8 +62,8 @@ class AddBankFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.apply {
-            is_verify_bank_for_non_payroll = getString("nav")
-            PrefrenceUtils.insertData(requireContext(), "nav", is_verify_bank_for_non_payroll)
+            isVerifyBankForNonPayroll = getString("nav")
+            PrefrenceUtils.insertData(requireContext(), "nav", isVerifyBankForNonPayroll)
         }
         initView()
     }
@@ -93,15 +88,13 @@ class AddBankFragment : Fragment() {
         binding!!.enterReNumber.saveButton.setOnClickListener { checkValidationForReEnterNumber() }
         binding!!.enterIfsc.saveButton.setOnClickListener { createAccountApi() }
         binding!!.enterName.backButton.setOnClickListener {
-            if (is_verify_bank_for_non_payroll == "Navigation") {
+            if (isVerifyBankForNonPayroll == "Navigation") {
                 requireContext().startActivity(
                     Intent(
-                        requireContext(),
-                        HomeActivity::class.java
+                        requireContext(), HomeActivity::class.java
                     ).putExtra("link", Constants.REDIRECTION_URL)
                 )
-            } else
-                requireActivity().onBackPressed()
+            } else findNavController().popBackStack()
 
         }
         binding!!.enterNumber.backButton.setOnClickListener {
@@ -128,6 +121,9 @@ class AddBankFragment : Fragment() {
             override fun afterTextChanged(editable: Editable) {
                 if (editable.toString().length == 11) {
                     dialogLoader?.show()
+                    captureEventsCommon(
+                        "add_bank_ifsc_entered", editable.toString(), "jse_add_bank_ifsc_entered"
+                    )
                     checkCorrectIFSCCode(editable.toString())
                 }
                 var s: String = editable.toString()
@@ -138,22 +134,19 @@ class AddBankFragment : Fragment() {
                 }
             }
         })
-        binding!!.enterName.edtNameLayout.filters = arrayOf<InputFilter>(
-            object : InputFilter {
-                override fun filter(
-                    cs: CharSequence, start: Int,
-                    end: Int, spanned: Spanned, dStart: Int, dEnd: Int
-                ): CharSequence {
-                    // TODO Auto-generated method stub
-                    if (cs == "") { // for backspace
-                        return cs
-                    }
-                    return if (cs.toString().matches(Regex("[a-zA-Z ]+"))) {
-                        cs
-                    } else ""
+        binding!!.enterName.edtNameLayout.filters = arrayOf<InputFilter>(object : InputFilter {
+            override fun filter(
+                cs: CharSequence, start: Int, end: Int, spanned: Spanned, dStart: Int, dEnd: Int
+            ): CharSequence {
+                // TODO Auto-generated method stub
+                if (cs == "") { // for backspace
+                    return cs
                 }
+                return if (cs.toString().matches(Regex("[a-zA-Z ]+"))) {
+                    cs
+                } else ""
             }
-        )
+        })
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -169,6 +162,11 @@ class AddBankFragment : Fragment() {
                 resources.getString(R.string.account_no_doent_match)
             binding!!.enterReNumber.edtNumberLayout.error = null
         } else {
+            captureEventsCommon(
+                "add_bank_number_entered_twice",
+                binding!!.enterReNumber.edtNumberLayout.text.toString(),
+                "jse_add_bank_number_entered_twice"
+            )
             binding!!.enterName.root.visibility = View.GONE
             binding!!.enterNumber.root.visibility = View.GONE
             binding!!.enterReNumber.root.visibility = View.GONE
@@ -190,6 +188,12 @@ class AddBankFragment : Fragment() {
                 resources.getString(R.string.enter_account_number)
             binding!!.enterNumber.edtNumberLayout.error = null
         } else {
+            captureEventsCommon(
+                "add_bank_number_entered",
+                binding!!.enterNumber.edtNumberLayout.text.toString(),
+                "jse_add_bank_number_entered"
+            )
+
             binding!!.enterName.root.visibility = View.GONE
             binding!!.enterNumber.root.visibility = View.GONE
             binding!!.enterIfsc.root.visibility = View.GONE
@@ -211,6 +215,11 @@ class AddBankFragment : Fragment() {
                 resources.getString(R.string.enter_account_name)
             binding!!.enterName.edtNameLayout.error = null
         } else {
+            captureEventsCommon(
+                "add_bank_name_entered",
+                binding!!.enterName.edtNameLayout.text.toString(),
+                "jse_add_bank_name_entered"
+            )
             binding!!.enterName.root.visibility = View.GONE
             binding!!.enterNumber.root.visibility = View.VISIBLE
             binding!!.enterNumber.root.requestFocus()
@@ -231,10 +240,12 @@ class AddBankFragment : Fragment() {
         dialogLoader?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialogLoader?.setCancelable(false)
         dialogLoader?.setContentView(R.layout.layout_loader)
+        val textViewAnimation: TextView? =
+            dialogLoader?.findViewById<TextView>(R.id.layoutLoaderTxt)
+        textViewAnimation?.text = "Verifying your bank details..."
         val imageViewAnimation: ImageView? = dialogLoader?.findViewById(R.id.animate_icon)
         val rotate = RotateAnimation(
-            0f, 180F, Animation.RELATIVE_TO_SELF,
-            0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+            0f, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
         )
         rotate.duration = 2000
         rotate.interpolator = LinearInterpolator()
@@ -264,9 +275,7 @@ class AddBankFragment : Fragment() {
         binding!!.enterIfsc.ifscText.visibility = View.GONE
         requireActivity().runOnUiThread {
             Toast.makeText(
-                activity,
-                resources.getString(R.string.invalid_ifsc),
-                Toast.LENGTH_SHORT
+                activity, resources.getString(R.string.invalid_ifsc), Toast.LENGTH_SHORT
             ).show()
         }
     }
@@ -288,38 +297,66 @@ class AddBankFragment : Fragment() {
         )
         val viewBankViewModel: BankViewModel =
             ViewModelProvider(requireActivity())[BankViewModel::class.java]
+        captureEventsCommon(
+            "add_bank_save_clicked", "", "jse_add_bank_save_clicked"
+        )
         lifecycleScope.launchWhenStarted {
-            viewBankViewModel.createAccount(account)
-                .collect {
-                    when (it) {
-                        ApiState.Loading -> {
-                            dialogLoader?.show()
-                        }
-                        is ApiState.Success -> {
-                            dialogLoader?.dismiss()
-                            if (it.data.status.equals("validated", ignoreCase = true)) {
-                                resetAllErrorValue()
-                                validationSuccess(it.data)
-                            } else if (it.data.status.equals("failed", ignoreCase = true)) {
-                                resetAllErrorValue()
-                                resetFailedData(it.data)
-                            } else if (it.data.status.equals("Pending", ignoreCase = true) ||
-                                it.data.status.equals("Requested", ignoreCase = true)
-                            ) {
-                                resetAllErrorValue()
-                                verificationPendingData(it.data)
-                            } else {
-                                resetAllErrorValue()
-                                resetFailedData(it.data)
-                            }
-                            // TODO() redirect back to web page for when user enters the add screen from non payroll account
-                        }
-                        is ApiState.Failure -> {
-                            dialogLoader?.dismiss()
+            viewBankViewModel.createAccount(account).collect {
+                when (it) {
+                    ApiState.Loading -> {
+                        dialogLoader?.show()
+                    }
+                    is ApiState.Success -> {
+                        dialogLoader?.dismiss()
+                        if (it.data.status.equals("validated", ignoreCase = true)) {
+//                                fa?.logEvent("jse_added_bank_account", Bundle())
+                            captureAllFAEvents(
+                                requireContext(), Constants.BANK_ACCOUNT_ADDED_JSE_FA, Bundle()
+                            )
+                            captureEventsCommon(
+                                "add_bank_details_status",
+                                "validated",
+                                "jse_add_bank_details_status"
+                            )
+                            fa?.logEvent("jse_added_bank_account", Bundle())
+                            resetAllErrorValue()
+                            validationSuccess(it.data)
+                        } else if (it.data.status.equals("failed", ignoreCase = true)) {
+                            captureEventsCommon(
+                                "add_bank_details_status",
+                                "failed",
+                                "jse_add_bank_details_status"
+                            )
+                            resetAllErrorValue()
+                            resetFailedData(it.data)
+                        } else if (it.data.status.equals(
+                                "Pending",
+                                ignoreCase = true
+                            ) || it.data.status.equals("Requested", ignoreCase = true)
+                        ) {
+                            captureEventsCommon(
+                                "add_bank_details_status",
+                                "pending",
+                                "jse_add_bank_details_status"
+                            )
+                            resetAllErrorValue()
+                            verificationPendingData(it.data)
+                        } else {
+                            captureEventsCommon(
+                                "add_bank_details_status",
+                                "failed",
+                                "jse_add_bank_details_status"
+                            )
+                            resetAllErrorValue()
+                            resetFailedData(it.data)
                         }
                     }
-
+                    is ApiState.Failure -> {
+                        dialogLoader?.dismiss()
+                    }
                 }
+
+            }
         }
 
     }
@@ -327,11 +364,14 @@ class AddBankFragment : Fragment() {
     private fun verificationPendingData(verifyModel: VerifyModel) {
         if (verifyModel.status.equals("pending", ignoreCase = true)) {
             Toast.makeText(
-                activity,
-                verifyModel.message,
-                Toast.LENGTH_LONG
+                activity, verifyModel.message, Toast.LENGTH_LONG
             ).show()
-            Navigation.findNavController(binding!!.root).navigate(R.id.nav_fragment_addBank_view)
+            val bundle = Bundle()
+            bundle.putString("is_non_payroll", isVerifyBankForNonPayroll)
+            bundle.putString(Constants.MESSAGE, verifyModel.message)
+            bundle.putString(Constants.COLOR, "#04A7BD")
+            Navigation.findNavController(binding!!.root)
+                .navigate(R.id.nav_fragment_addBank_view, bundle)
         } else {
             Navigation.findNavController(binding!!.root).navigate(R.id.nav_bank_detail_saved)
         }
@@ -345,12 +385,14 @@ class AddBankFragment : Fragment() {
         val message: String = verifyModel.message
         val bundle = Bundle()
         bundle.putString(Constants.MESSAGE, message)
+        bundle.putString(Constants.COLOR, "#27C174")
         bundle.putString("type", "bank")
         bundle.putInt("orderReachToNextLevel", 0)
         bundle.putInt("tripsReachToNextLevel", 0)
         bundle.putBoolean("orderReachToNextLevel1", false)
         bundle.putBoolean("daysReachToNextLevel", false)
         bundle.putInt("percentage", 0)
+        bundle.putString("is_non_payroll", isVerifyBankForNonPayroll)
         //Toast.makeText(requireContext(), "${it?.message}", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.nav_fragment_addBank_view, bundle)
     }
@@ -366,8 +408,8 @@ class AddBankFragment : Fragment() {
     }
 
     private fun hideKeyboard(activity: Activity?, view: EditText) {
-        val imm: InputMethodManager = activity?.applicationContext
-            ?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager =
+            activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -375,8 +417,21 @@ class AddBankFragment : Fragment() {
         val inputMethodManager: InputMethodManager =
             activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.toggleSoftInputFromWindow(
-            view.applicationWindowToken,
-            InputMethodManager.SHOW_FORCED, 0
+            view.applicationWindowToken, InputMethodManager.SHOW_FORCED, 0
+        )
+    }
+
+    private fun captureEventsCommon(
+        attributeName: String, attributeVal: String, eventName: String
+    ) {
+        val attribute = HashMap<String, Any>()
+        val properties = Properties()
+        if (attributeVal !== "") {
+            properties.addAttribute(attributeName, attributeVal)
+            attribute[attributeName] = attributeVal
+        }
+        captureAllJSEEvents(
+            requireContext(), eventName, attribute, properties
         )
     }
 }

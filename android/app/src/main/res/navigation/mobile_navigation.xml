@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home_fragment">
+    android:id="@+id/mobile_navigation">
 
     <fragment
         android:id="@+id/nav_earn_fragment"
@@ -42,7 +41,7 @@
 
     <fragment
         android:id="@+id/nav_profile_fragment"
-        android:name="com.vahan.mitra_playstore.view.profile.ProfileFragment"
+        android:name="com.vahan.mitra_playstore.view.profile.view.ui.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -68,6 +67,12 @@
         tools:layout="@layout/fragment_upload_screen" />
 
     <fragment
+        android:id="@+id/nav_doc_selection_fragment"
+        android:name="com.vahan.mitra_playstore.view.jobsmarketplace.docupload.ui.fragments.JMDocSelectionFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_jm_doc_selection" />
+
+    <fragment
         android:id="@+id/transaction_layout"
         android:name="com.vahan.mitra_playstore.view.earn.view.ui.CashOutTransactionFragment"
         android:label="CashOut Money"
@@ -75,7 +80,7 @@
 
 
     <fragment
-        android:id="@+id/nav_fragment_add"
+        android:id="@+id/nav_fragment_add_bank"
         android:name="com.vahan.mitra_playstore.view.bankinfo.view.AddBankFragment"
         android:label="Upload"
         tools:layout="@layout/fragment_add_bank" />
@@ -103,6 +108,13 @@
         android:name="com.vahan.mitra_playstore.view.insurance.ui.InsuranceInfoFragment"
         android:label="Insurance"
         tools:layout="@layout/fragment_insurance_info" />
+
+    <fragment
+        android:id="@+id/nav_fragment_mpl"
+        android:name="com.vahan.mitra_playstore.view.experiments.mitrapaylater.view.ui.fragments.MPLFragment"
+        android:label="MPL Fragment"
+        tools:layout="@layout/fragment_m_p_l" />
+
     <fragment
         android:id="@+id/nav_fragment_payment_sucessful"
         android:name="com.vahan.mitra_playstore.view.payment.PaymentSucessfulFragment"
@@ -117,9 +129,9 @@
 
     <fragment
         android:id="@+id/nav_fragment_addBank_view"
-        android:name="com.vahan.mitra_playstore.view.bankinfo.view.ViewFragment"
+        android:name="com.vahan.mitra_playstore.view.bankinfo.view.BankDetailsViewFragment"
         android:label="payment successful"
-        tools:layout="@layout/fragment_view" />
+        tools:layout="@layout/fragment_bank_details_view" />
 
     <fragment
         android:id="@+id/nav_view_upload"
@@ -270,7 +282,7 @@
             app:exitAnim="@anim/exit_animation" />
         <action
             android:id="@+id/action_nav_home_fragment_to_nav_add_fragment"
-            app:destination="@id/nav_fragment_add"
+            app:destination="@id/nav_fragment_add_bank"
             app:enterAnim="@anim/enter_animation"
             app:exitAnim="@anim/exit_animation" />
         <action
@@ -330,14 +342,14 @@
 
     <fragment
         android:id="@+id/nav_help_support_fragment"
-        android:name="com.vahan.mitra_playstore.view.profile.HelpAndSupportFragment"
+        android:name="com.vahan.mitra_playstore.view.profile.view.ui.HelpAndSupportFragment"
         android:label="Help and Support"
         tools:layout="@layout/fragment_help_and_settings"/>
 
 
 
     <fragment
-        android:id="@+id/nav_fragment_generic_image_mode"
+        android:id="@+id/nav_fragment_image_profile_upload"
         android:name="com.vahan.mitra_playstore.view.profilepic.ui.fragments.GenericImageUploadMode"
         android:label="Image Upload Mode"
         tools:layout="@layout/fragment_generic_image_upload_mode" />
@@ -353,6 +365,47 @@
         android:name="com.vahan.mitra_playstore.view.experiments.earningHistory.view.fragments.EarningHistoryFragment"
         android:label="Earning History"
         tools:layout="@layout/fragment_earning_history" />
+
+    <fragment
+        android:id="@+id/nav_fragment_jobsmarketplace_upload"
+        android:name="com.vahan.mitra_playstore.view.jobsmarketplace.docupload.ui.fragments.JMDocUploadFragment"
+        android:label="Upload Docs"
+        tools:layout="@layout/fragment_jm_doc_upload" >
+        <action
+            android:id="@+id/action_nav_upload_fragment_to_nav_view_fragment"
+            app:destination="@id/nav_view_fragment" />
+
+        <action
+            android:id="@+id/action_nav_upload_fragment_to_nav_doc_selection_fragment"
+            app:destination="@id/nav_doc_selection_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_jobsmarketplace_error"
+        android:name="com.vahan.mitra_playstore.view.jobsmarketplace.errorpage.fragments.JMErrorFragment"
+        android:label="Error"
+        tools:layout="@layout/fragment_jm_error" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_rate_card_zepto"
+        android:name="com.vahan.mitra_playstore.view.ratecard.ui.ZeptoRateCardFragment"
+        android:label="Earning History"
+        tools:layout="@layout/fragment_zepto_rate_card" />
+
+    <fragment
+        android:id="@+id/nav_mpl_fragment_onbaording"
+        android:name="com.vahan.mitra_playstore.view.experiments.mitrapaylater.view.ui.fragments.MPLOnboardFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_m_p_l_onboarding" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_mpl_fragment_applied"
+        android:name="com.vahan.mitra_playstore.view.experiments.mitrapaylater.view.ui.fragments.MPLAppliedFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_mpl_applied" >
+    </fragment>
 
 
 </navigation>

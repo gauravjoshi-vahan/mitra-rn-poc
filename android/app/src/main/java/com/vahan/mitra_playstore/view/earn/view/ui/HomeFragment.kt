@@ -19,14 +19,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -40,6 +39,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.moengage.core.Properties
 import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
+import com.vahan.mitra_playstore.activityViewModel.ActivityViewModel
 import com.vahan.mitra_playstore.databinding.FragmentHomeBinding
 import com.vahan.mitra_playstore.interfaces.CoachmarkListener
 import com.vahan.mitra_playstore.models.kotlin.BannerListDataModelNew
@@ -49,20 +49,18 @@ import com.vahan.mitra_playstore.models.kotlin.TransactionDetailModel
 import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.BaseApplication
 import com.vahan.mitra_playstore.view.MainActivity
-import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetCashOutPurpose
-import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetCashoutHold
-import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetV2
-import com.vahan.mitra_playstore.view.bottomsheet.FeedbackBottomsheet
+import com.vahan.mitra_playstore.view.bottomsheet.*
+import com.vahan.mitra_playstore.view.earn.model.DynamicEntryContentVideoModel
 import com.vahan.mitra_playstore.view.earn.view.adapter.*
 import com.vahan.mitra_playstore.view.earn.viewModel.EarnViewModel
 import com.vahan.mitra_playstore.view.ratecard.ui.RateCardDetailViewOnClick
 import com.vahan.mitra_playstore.workmanager.WorkerScheduler
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_weekly_earnings.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
@@ -76,6 +74,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
     val handler = Handler(Looper.getMainLooper())
     private var notificationAlert: MoengageNotification? = null
     var transactionDetailAdapter: TransactionDetailAdapter? = null
+    var dynamicEntryContentVideoAdapter: DynamicEntryContentVideoAdapter? = null
     private var milestoneModel: EarnDataModel.IncentiveStructures? = null
     private var showLearnMoreTxt = true
     private var slotAvailableCompanyA = ""
@@ -90,13 +89,13 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
     private var isViewBank = false
     private var cashoutFixedFeeLabel: String? = null
     var location = 0
+    private val activityViewModel: ActivityViewModel by activityViewModels()
     private val transactionDetailsModels = ArrayList<TransactionDetailModel.Transaction>()
     private val dynamicBannerList = ArrayList<BannerListDataModelNew.DynamicBanner>()
     var key: String = ""
-    lateinit var dynamicEntryPointAdapter: DynamicEntryPointAdapter
     lateinit var entryPointAdapter: EntryPointAdapter
     private val entryPointList = ArrayList<BannerListDataModelNew.DynamicEntryPoint>()
-    private var cashoutStatus = "hold"
+    lateinit var dynamicEntryContentVideoModel : DynamicEntryContentVideoModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -120,10 +119,20 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
         viewEarnViewModel = ViewModelProvider(this)[EarnViewModel::class.java]
         binding.cashLayout.visibility = View.VISIBLE
         getRemoteConfigDataForUpdate()
+        getCurrentDeviceTime()
         setupScreenName()
-        alertNotification()
-        getTransactionDetails(1, 5, "")
         clickListener()
+        alertNotification()
+    }
+
+    private fun getCurrentDeviceTime() {
+        asyncApiCall()
+    }
+
+    private fun asyncApiCall() {
+        apiNudges()
+        getTransactionDetails(1, 5, "")
+        apiEarnInfo()
     }
 
     private fun clickListener() {
@@ -134,15 +143,15 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     dataModel?.cashoutDetails!!.holdDetails!!.companyName,
                     dataModel!!.cashoutDetails!!.holdDetails!!.companyIcon,
                     dataModel!!.cashoutDetails!!.holdDetails!!.holdMessage,
-                    dataModel!!.cashoutDetails!!.amountEligibleLabel
+                    dataModel!!.cashoutDetails!!.amountEligibleLabel,
+                    dataModel!!.cashoutDetails!!.holdDetails!!.liabilitySum,
+                    dataModel!!.cashoutDetails!!.holdDetails!!.amountLiabilityLabel,
+                    dataModel!!.cashoutDetails!!.holdDetails!!.holdPayoutSinceWeek
                 ).show()
             }
         }
 
-
-
         binding.cashoutTxt.setOnClickListener {
-
             if (eligiblityCheck) {
                 setUpInstrumentation()
                 dataModel!!.cashoutDetails!!.amountEligibleLabel?.let { it1 ->
@@ -167,6 +176,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             }
 
         }
+
         binding.chat.setOnClickListener {
             val tags: MutableList<String> = ArrayList()
             tags.add("newFaq")
@@ -179,13 +189,11 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             Freshchat.showFAQs(requireActivity(), faqOptions)
         }
         binding.notification.setOnClickListener {
-            binding.ivNotificationIconLight.visibility = View.VISIBLE
-            binding.notificationContainerLight.visibility = View.GONE
-             Navigation.findNavController(binding.root).navigate(R.id.nav_fragment_notification)
-//            findNavController().navigate(
-//                R.id.nav_fragment_graph
-//            )
-
+            binding.ivNotificationIconLight.visibility =
+                View.VISIBLE
+            binding.notificationContainerLight.visibility =
+                View.GONE
+            Navigation.findNavController(binding.root).navigate(R.id.nav_fragment_notification)
         }
         binding.tvViewAll.setOnClickListener {
 //            if(recylerViewItemCheck){
@@ -202,11 +210,15 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             // findNavController().navigate(R.id.action_nav_home_fragment_to_nav_fragment_history)
             //          }
         }
+        binding.rlMPLContainer.setOnClickListener {
+            findNavController().navigate(
+                R.id.nav_mpl_fragment_onbaording
+            )
+        }
         binding.profile.setOnClickListener {
             val items = HashMap<String, Any>()
             val properties = Properties()
             captureAllEvents(requireContext(), Constants.PROFILE_PAGE_VIEWED, items, properties)
-
             val bundle = Bundle()
             bundle.putParcelable("cashoutDetails", dataModel?.cashoutDetails)
             bundle.putParcelable("cashoutAdditionalData", dataModel?.cashoutAdditionalData)
@@ -216,16 +228,8 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 R.id.action_nav_home_fragment_to_nav_profile_fragment,
                 bundle
             )
-            //findNavController().navigate(R.id.action_nav_home_fragment_to_nav_profile_fragment)
         }
-        binding.rlPlaceHolderDocument.setOnClickListener {
-            if (!isViewBank) {
-                findNavController().navigate(R.id.action_nav_home_fragment_to_nav_add_fragment)
-            } else {
-                findNavController().navigate(R.id.action_nav_home_fragment_to_nav_upload_document)
-            }
 
-        }
         binding.tvAttendanceMark.setOnClickListener {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_nav_earn_fragment_to_nav_cross_util_fragment)
@@ -259,6 +263,9 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             // findNavController().navigate(R.id.action_nav_home_fragment_to_nav_profile_fragment)
         }
 
+        binding.tvExploreMore.setOnClickListener {
+            actionPerformOnDynamicBanner(dynamicEntryContentVideoModel.url, binding.rlMitraBonusVideosContainer)
+        }
 
     }
 
@@ -314,44 +321,19 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     }
                     is ApiState.Success -> {
                         transactionDetailsModels.clear()
-                        if (it.data.transactions != null) {
+                        transactionDetailAdapter = if (it.data.transactions != null) {
                             for (item in it.data.transactions) {
                                 transactionDetailsModels.add(item!!)
                             }
                             if (transactionDetailsModels.size > 0) {
-                                binding.rvHistory.visibility = View.VISIBLE
-                                binding.rlIncentiveContainer.visibility = View.GONE
-                                transactionDetailAdapter =
-                                    activity?.let { it1 ->
-                                        TransactionDetailAdapter(
-                                            it1,
-                                            transactionDetailsModels
-                                        )
-                                    }
+                                activity?.let { it1 -> TransactionDetailAdapter(it1, transactionDetailsModels) }
                             } else {
-                                binding.rlIncentiveContainer.visibility = View.VISIBLE
-                                binding.rvHistory.visibility = View.GONE
-                                transactionDetailAdapter =
-                                    activity?.let { it1 ->
-                                        TransactionDetailAdapter(
-                                            it1,
-                                            ArrayList()
-                                        )
-                                    }
+                                activity?.let { it1 -> TransactionDetailAdapter(it1, ArrayList()) }
                             }
                         } else {
-                            binding.rlIncentiveContainer.visibility = View.VISIBLE
-                            binding.rvHistory.visibility = View.GONE
-                            transactionDetailAdapter =
-                                activity?.let { it1 ->
-                                    TransactionDetailAdapter(
-                                        it1,
-                                        ArrayList()
-                                    )
-                                }
+                            activity?.let { it1 -> TransactionDetailAdapter(it1, ArrayList()) }
                         }
                         binding.rvHistory.adapter = transactionDetailAdapter
-                        apiEarnInfo()
                     }
                     is ApiState.Failure -> {
                         Navigation.findNavController(binding.root).navigate(R.id.nav_error_fragment)
@@ -392,6 +374,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                         insertPreferencesData()
                         setMoenageUserDetails()
                         setBlitzllama()
+                        getStatusMPL(it.data.mplDetails)
                         loadInitialApiData(dataModel!!)
                         checkTypeOfDataStorage()
                         checkForSessions()
@@ -402,17 +385,9 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                             dataModel?.cashoutAdditionalData?.CashoutExpUser == true
                         ) {
                             key = "experimentalUser"
-                            Log.d(
-                                "peo",
-                                "apiEarnInfo: " + dataModel!!.cashoutDetails!!.holdDetails!!.isHold
-                            )
                             experimentFlow()
                         } else {
                             key = "oldUser"
-                            Log.d(
-                                "peo",
-                                "apiEarnInfo: " + dataModel!!.cashoutDetails!!.holdDetails!!.isHold
-                            )
                             updateUI()
                         }
                         documentStatus(dataModel!!.documents, dataModel!!.bankAccountDetails)
@@ -420,6 +395,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                         if (dataModel?.attendanceDetails !== null)
                             checkAttendanceIsMarked(dataModel?.attendanceDetails?.data)
                         setInnerViewPager(dataModel)
+                        apiDynamicEntryContentVideo()
                         setInstrumentation()
                         setInstrumentationHold()
                     }
@@ -433,6 +409,27 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             }
         }
 
+    }
+
+    private fun getStatusMPL(mplDetails:EarnDataModel.MplDetails?) {
+        if(mplDetails!=null){
+            PrefrenceUtils.insertDataInBoolean(requireContext(),Constants.MPL_ENABLED,mplDetails.enabled?:false)
+            if(mplDetails.mplUiDetails!=null && mplDetails.enabled==true) {
+                binding.rlMPLContainer.visibility = View.VISIBLE
+                binding.tvTitleMPL.text = mplDetails.mplUiDetails.title
+                binding.tvDescMPL.text = mplDetails.mplUiDetails.description
+                binding.tvAlignMPL.text = mplDetails.mplUiDetails.ctaText
+                requireContext().setImage(
+                    requireContext(),
+                    mplDetails.mplUiDetails.svgIcon?:"",
+                    binding.ivMPLIcon
+                )
+            }else{
+                binding.rlMPLContainer.visibility = View.GONE
+            }
+        }else{
+            binding.rlMPLContainer.visibility = View.GONE
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -463,14 +460,13 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     viewEarnViewModel.remoteCashOutData.value?.eC?.hiMsg
             }
             "E" -> {
-
-                Log.d("lklk", "updateUI: " + dataModel!!.cashoutDetails!!.holdDetails!!.isHold)
                 if (dataModel!!.cashoutDetails!!.holdDetails!!.isHold == true) {
-                    binding.setPriceExpHold.text = dataModel!!.cashoutDetails!!.amountEligibleLabel
+                    binding.setPriceExpHold.text = "₹ "+dataModel!!.cashoutDetails!!.holdDetails?.liabilitySum.toString()
                     binding.cashoutCardRoot.visibility = View.GONE
-                    binding.ivIconHold.setImageResource(R.drawable.ic_cashout_hold)
                     binding.cashoutCardHoldRoot.visibility = View.VISIBLE
                     binding.llHold.visibility = View.VISIBLE
+                    binding.tvCashoutAvailable.text = "Pending deposit"
+                    binding.ivIconHold.setImageResource(R.drawable.ic_cashout_hold)
                     binding.cashOutHoldTxt.text = context?.getString(R.string.cashout_on_hold)
                     binding.cashOutHoldTxtDesc.text =
                         dataModel!!.cashoutDetails!!.holdDetails!!.companyName + " " + dataModel!!.cashoutDetails!!.holdDetails!!.holdMessage
@@ -673,18 +669,6 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             binding.setPrice.text = dataModel!!.cashoutDetails!!.amountEligibleLabel
         }
 
-
-        /*  if(dataModel!!.cashoutDetails!!.holdDetails!!.isHold == true){
-              binding.tvCashoutDesc.text = "Cashout on hold"
-              binding.tvCashoutDesc.setTextSize(TypedValue.COMPLEX_UNIT_SP,16F)
-              binding.cashOutConfigTxtDetailExp.text = dataModel!!.cashoutDetails!!.holdDetails!!.companyName +
-                      dataModel!!.cashoutDetails!!.holdDetails!!.holdMessage
-              binding.tvOne.text = "Available Cashout"
-
-              binding.tvOne.setTextColor(resources.getColor(R.color.faded_grey))
-              // binding.tvOne.setTextColor(context?.let { ContextCompat.getColor(it,R.color.faded_grey) })
-              binding.setPriceExp.setTextColor(resources.getColor(R.color.faded_grey))
-          }*/
     }
 
     private fun hideLoading() {
@@ -784,64 +768,11 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
         }
         isViewUpload = documents?.uploaded!!
         isViewBank = bankAccountDetails?.available!!
-
-        showDocumentNude(
-            isViewUpload,
-            isViewBank,
-            isAadhaarDocumentUpload,
-            isPanCardDocumentUpload,
-            isBankDetailsUpload
-        )
-
     }
 
-    private fun showDocumentNude(
-        isDocument: Boolean,
-        isViewBank: Boolean,
-        aadhaarDocumentUpload: Boolean,
-        panCardDocumentUpload: Boolean,
-        bankDetailsUpload: Boolean
-    ) {
-        if (!isDocument || !isViewBank) {
-            recylerViewItemCheck = false
-            //  binding.tvViewAll.visibility = View.INVISIBLE
-            binding.tvViewAll.visibility = View.VISIBLE
-            if (aadhaarDocumentUpload && panCardDocumentUpload && bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.GONE
-            } else if (!aadhaarDocumentUpload && panCardDocumentUpload && bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.aadhaar_card_missing)
-            } else if (aadhaarDocumentUpload && !panCardDocumentUpload && bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.pan_card_missing)
-            } else if (aadhaarDocumentUpload && panCardDocumentUpload && !bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.bank_details_missing2)
-            } else if (!aadhaarDocumentUpload && panCardDocumentUpload && !bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.aadhar_and_bank_card_missing)
-            } else if (aadhaarDocumentUpload && !panCardDocumentUpload && !bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.pan_and_bank_card_missing)
-            } else if (!aadhaarDocumentUpload && !panCardDocumentUpload && bankDetailsUpload) {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text = getString(R.string.documents_missing)
-            } else {
-                binding.rlPlaceHolderDocument.visibility = View.VISIBLE
-                binding.documentPendingText.text =
-                    getString(R.string.documents_bank_details_missing)
-            }
-        } else {
-            recylerViewItemCheck = true
-            binding.tvViewAll.visibility = View.VISIBLE
-            binding.rlPlaceHolderDocument.visibility = View.GONE
-        }
-    }
 
     private fun setDetailsForMilestone() {
-        if ((milestoneModel != null || (milestoneModel?.incentiveList!!.isNotEmpty())) &&
-            transactionDetailsModels.isNotEmpty()
-        ) {
+        if ((milestoneModel != null || (milestoneModel?.incentiveList!!.isNotEmpty())) && transactionDetailsModels.isNotEmpty()) {
             if (milestoneModel == null || (milestoneModel?.incentiveList!!.isEmpty())) {
                 binding.rvEarning.visibility = View.GONE
                 binding.rlHistoryContainer.visibility = View.VISIBLE
@@ -860,7 +791,6 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             binding.tvNoDocument.visibility = View.VISIBLE
         }
     }
-
 
     @SuppressLint("SimpleDateFormat")
     private fun checkAttendanceIsMarked(attendanceDetails: EarnDataModel.AttendanceDetails.Data?) {
@@ -914,7 +844,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "SuspiciousIndentation")
     private fun setSlotAvailableData(crossUtilSlots: List<EarnDataModel.CrossUtilSlots>) {
         val currentTime: String =
             SimpleDateFormat("hh:mm a").format(Date())
@@ -941,14 +871,23 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     if (currentDateTime >= startingSlotTimeOne && currentDateTime!! <= endingSlotTimeTwo) {
                         showLearnMoreNudge(false)
                         binding.rlSlotContainer.visibility = View.VISIBLE
-                        slotAvailableCompanyA =
-                            if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
-                                    .equals("en")
-                            )
+
+                        if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                .equals("en")
+                        ) {
+                            slotAvailableCompanyA =
                                 "It's <b>$currentTime</b> your ${crossUtilSlots[0].companyName} slots is open!"
-                            else {
+                        } else if (PrefrenceUtils.retriveLangData(
+                                requireContext(),
+                                Constants.LANGUAGE
+                            ).equals("hi")
+                        ) {
+                            slotAvailableCompanyA =
                                 "<b>$currentTime</b> होरे है | आपके " + "${crossUtilSlots[0].companyName} के स्लॉट खुले हैं!"
-                            }
+                        } else {
+                            slotAvailableCompanyA =
+                                "ఇప్పుడు <b>$currentTime</b> మీ ${crossUtilSlots[0].companyName} స్లాట్\u200Cలు తెరవబడ్డాయి!"
+                        }
                         break
                     } else {
                         for (j in 0 until crossUtilSlots[0].slots!!.size) {
@@ -962,15 +901,25 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                             if (currentDateTime <= startingSlotTimeOne || currentDateTime <= endingSlotTimeOne) {
                                 showLearnMoreNudge(false)
                                 binding.rlSlotContainer.visibility = View.VISIBLE
-                                sourceStringOne =
-                                    if (PrefrenceUtils.retriveLangData(
-                                            requireContext(),
-                                            Constants.LANGUAGE
-                                        ).equals("en")
-                                    )
+
+                                if (PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("en")
+                                )
+                                    sourceStringOne =
                                         "${crossUtilSlots[0].companyName} " + "slots is at <b>$timeA</b>"
-                                    else
+                                else if (PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("hi")
+                                ) {
+                                    sourceStringOne =
                                         "${crossUtilSlots[0].companyName} के " + "स्लॉट <b>$timeA</b> पर उपलब्ध है "
+                                } else {
+                                    sourceStringOne =
+                                        "${crossUtilSlots[0].companyName} స్లాట్\u200Cలు <b>${timeA}</b> వద్ద ఉన్నాయి"
+                                }
                                 break
                             } else {
 //                              binding.rlSlotContainer.visibility = View.GONE
@@ -981,19 +930,25 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 }
 
                 if (slotAvailableCompanyA.isNotEmpty()) {
-                    val sourceString =
-                        if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
-                                .equals("en")
-                        )
-                            "<b>${"Hey,"}</b> ${
-                                "Its <b>$currentTime</b> your " +
-                                        "${crossUtilSlots[0].companyName}" + " slots is open! Get Ready for your ride. <b> <u>Login Now</u> </b>"
-                            }"
-                        else
-                            "<b>${"नमस्ते!!"}</b> ${
-                                " <b>$currentTime</b> होरे है| आपके " +
-                                        "${crossUtilSlots[0].companyName} " + " के स्लॉट खुले हैं! अपनी सवारी के लिए तैयार हो जाओ <b> <u>प्रवेश करें</u> </b>"
-                            }"
+                    var sourceString = ""
+                    if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                            .equals("en")
+                    )
+                        sourceString = "<b>${"Hey,"}</b> ${
+                            "Its <b>$currentTime</b> your " +
+                                    "${crossUtilSlots[0].companyName}" + " slots is open! Get Ready for your ride. <b> <u>Login Now</u> </b>"
+                        }"
+                    else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                            .equals("hi")
+                    )
+                        sourceString = "<b>${"नमस्ते!!"}</b> ${
+                            " <b>$currentTime</b> होरे है| आपके " +
+                                    "${crossUtilSlots[0].companyName} " + " के स्लॉट खुले हैं! अपनी सवारी के लिए तैयार हो जाओ <b> <u>प्रवेश करें</u> </b>"
+                        }"
+                    else {
+                        sourceString =
+                            "<b>${"Hey,"}</b> ఇప్పుడు <b>$currentTime</b> మీ, ${crossUtilSlots[0].companyName} స్లాట్‌లు తెరవబడ్డాయి! మీ రైడ్ కోసం సిద్ధంగా ఉండండి. <b> <u>ఇప్పుడే లాగిన్ అవ్వండి</u> </b>"
+                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         binding.tvSlot.text =
                             Html.fromHtml(sourceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -1002,13 +957,20 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     }
                 } else {
                     if (sourceStringOne.isNotEmpty()) {
-                        val sourceString =
+                        var sourceString =
                             if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                     .equals("en")
                             )
                                 "<b>${"Hey!!"}</b> Your upcoming $sourceStringOne. <b><u>View All</u></b>"
+                            else if (PrefrenceUtils.retriveLangData(
+                                    requireContext(),
+                                    Constants.LANGUAGE
+                                )
+                                    .equals("hi")
+                            )
+                                "<b>${"नमस्ते!!"}</b> आपका आगामी $sourceStringOne <b><u>सभी को देखें</u></b>"
                             else
-                                "<b>${"नमस्ते!!"}</b> आपका आगामी ${"$sourceStringOne <b><u>View All</u></b>"}"
+                                "<b>${"Hey!!"}</b> మీ రాబోయే ${sourceStringOne}. <b><u> అన్నింటినీ వీక్షించండి</u></b>"
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             binding.tvSlot.text =
                                 Html.fromHtml(sourceString, HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -1039,8 +1001,16 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                                     .equals("en")
                             )
                                 "${crossUtilSlots[0].companyName}" + " slots is open!"
-                            else
+                            else if (PrefrenceUtils.retriveLangData(
+                                    requireContext(),
+                                    Constants.LANGUAGE
+                                )
+                                    .equals("hi")
+                            )
                                 "${crossUtilSlots[0].companyName} के स्लॉट खुले हैं!"
+                            else {
+                                "${crossUtilSlots[0].companyName} స్లాట్\u200Cలు తెరవబడి ఉన్నాయి!"
+                            }
                         break
                     } else {
                         for (j in listOfSlotOne.indices) {
@@ -1061,9 +1031,14 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                                         ).equals("en")
                                     )
                                         "${crossUtilSlots[0].companyName} " + " slots is at <b>$timeA</b>"
-                                    else
+                                    else if (PrefrenceUtils.retriveLangData(
+                                            requireContext(),
+                                            Constants.LANGUAGE
+                                        ).equals("hi")
+                                    )
                                         "${crossUtilSlots[0].companyName} के " + "स्लॉट <b>$timeA</b> पर उपलब्ध है "
-
+                                    else
+                                        "${crossUtilSlots[0].companyName} స్లాట్\u200Cలు <b>${timeA}</b> వద్ద ఉన్నాయి"
                                 break
                             } else {
 //                                binding.rlSlotContainer.visibility = View.GONE
@@ -1083,13 +1058,23 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     val endingSlotTimeTwo = format.parse(timeB)
                     if (currentDateTime in startingSlotTimeOne..endingSlotTimeTwo) {
                         showLearnMoreNudge(false)
-                        slotAvailableCompanyB =
-                            if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
-                                    .equals("en")
-                            )
+
+                        if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                .equals("en")
+                        )
+                            slotAvailableCompanyB =
                                 "${crossUtilSlots[1].companyName}" + " slots is open!"
-                            else
+                        else if (PrefrenceUtils.retriveLangData(
+                                requireContext(),
+                                Constants.LANGUAGE
+                            )
+                                .equals("hi")
+                        )
+                            slotAvailableCompanyB =
                                 "${crossUtilSlots[1].companyName} के स्लॉट खुले हैं!"
+                        else
+                            slotAvailableCompanyB =
+                                "${crossUtilSlots[0].companyName} స్లాట్\u200Cలు తెరవబడి ఉన్నాయి!"
                         break
                     } else {
                         for (j in listOfSlotTwo.indices) {
@@ -1102,27 +1087,44 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                             val endingSlotTimeOne = format.parse(timeB)
                             if (currentDateTime!! >= startingSlotTimeOne && currentDateTime <= endingSlotTimeOne) {
                                 showLearnMoreNudge(false)
-                                sourceStringTwo =
-                                    if (PrefrenceUtils.retriveLangData(
-                                            requireContext(),
-                                            Constants.LANGUAGE
-                                        ).equals("en")
-                                    )
+                                if (PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("en")
+                                )
+                                    sourceStringTwo =
                                         "${crossUtilSlots[1].companyName} " + "slots is at <b>$timeA</b>"
-                                    else
+                                else if (PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("hi")
+                                )
+                                    sourceStringTwo =
                                         "${crossUtilSlots[1].companyName} के " + "स्लॉट <b>$timeA</b> पर उपलब्ध है "
+                                else {
+                                    sourceStringTwo =
+                                        "${crossUtilSlots[1].companyName} స్లాట్\u200Cలు <b>${timeA}</b> వద్ద ఉన్నాయి"
+                                }
                                 break
                             } else if (currentDateTime <= startingSlotTimeOne || currentDateTime <= endingSlotTimeOne) {
                                 showLearnMoreNudge(false)
-                                sourceStringTwo =
-                                    if (PrefrenceUtils.retriveLangData(
-                                            requireContext(),
-                                            Constants.LANGUAGE
-                                        ).equals("en")
-                                    )
+                                if (PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("en")
+                                )
+                                    sourceStringTwo =
                                         "${crossUtilSlots[1].companyName} " + "slots is at <b>$timeA</b>"
-                                    else
+                                else if ((PrefrenceUtils.retriveLangData(
+                                        requireContext(),
+                                        Constants.LANGUAGE
+                                    ).equals("hi"))
+                                )
+                                    sourceStringTwo =
                                         "${crossUtilSlots[1].companyName} के " + "स्लॉट <b>$timeA</b> पर उपलब्ध है "
+                                else
+                                    sourceStringTwo =
+                                        "${crossUtilSlots[1].companyName} స్లాట్\u200Cలు <b>${timeA}</b> వద్ద ఉన్నాయి"
                                 break
                             } else {
 //                                showLearnMoreNudge(true)
@@ -1133,75 +1135,91 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 }
 
                 if (slotAvailableCompanyA.isNotEmpty() && slotAvailableCompanyB.isNotEmpty()) {
-                    val sourceString =
+                    var sourceString = ""
                         if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                 .equals("en")
                         )
-                            "<b>${"Hey!!"}</b>" + " Its <b>$currentTime</b> your $slotAvailableCompanyA & $slotAvailableCompanyB  Get Ready for your ride <b> <u>Login Now</u> </b>"
-                        else
-                            "<b>${"नमस्ते!!"}</b> ${
-                                " <b>$currentTime</b> होरे है | " +
+                            sourceString = "<b>Hey!!</b> Its <b>$currentTime</b> your $slotAvailableCompanyA & $slotAvailableCompanyB  Get Ready for your ride <b> <u>Login Now</u> </b>"
+                        else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                .equals("hi")
+                        )
+                            sourceString = "<b>नमस्ते!!</b> ${" <b>$currentTime</b> होरे है | " +
                                         "$slotAvailableCompanyA & $slotAvailableCompanyB " + " अपनी सवारी के लिए तैयार हो जाएं <b> <u>अभी लॉगिन करें</u> </b>"
                             }"
+                    else
+                            sourceString = "<b>Hey,</b> ఇప్పుడు <b>$currentTime</b> మీ , ${crossUtilSlots[0].companyName} స్లాట్‌లు తెరవబడ్డాయి! మీ రైడ్ కోసం సిద్ధంగా ఉండండి. <b> <u>ఇప్పుడే లాగిన్ అవ్వండి</u> </b>"
                     binding.tvSlot.text = Html.fromHtml(sourceString)
-                } else if (slotAvailableCompanyA.isEmpty() && slotAvailableCompanyB.isNotEmpty()) {
-                    val sourceString =
+                }
+                else if (slotAvailableCompanyA.isEmpty() && slotAvailableCompanyB.isNotEmpty()) {
+                    var sourceString = ""
                         if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                 .equals("en")
                         )
-                            "<b>${"Hey!!"}</b> ${
+                            sourceString = "<b>${"Hey!!"}</b> ${
                                 "Your Upcoming " +
                                         sourceStringOne + slotAvailableCompanyB + " <b><u>View All</u></b>"
 
                             }"
-                        else
-                            "<b>${"नमस्ते!!"}</b> ${
-                                "आपका आगामी " +
-                                        "$sourceStringOne $slotAvailableCompanyB" + " <b> <u> सभी को देखें </u></b>"
-                            }"
-                    binding.tvSlot.text = Html.fromHtml(sourceString)
-                } else if (slotAvailableCompanyA.isNotEmpty() && slotAvailableCompanyB.isEmpty()) {
-                    val sourceString =
-                        if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
-                                .equals("en")
+                        else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                .equals("hi")
                         )
-                            "<b>${"Hey!!"}</b> ${
-                                "Your Upcoming " +
-                                        sourceStringTwo + slotAvailableCompanyA + " <b><u>View All</u></b>"
-                            }"
+                            sourceString = "<b>Hey,</b> ${
+                                "आपका आगामी $sourceStringOne $slotAvailableCompanyB <b> <u> सभी को देखें </u></b>"}"
+                    else
+                    sourceString = "<b>${"Hey!!"}</b> మీ రాబోయే ${ sourceStringOne + slotAvailableCompanyB}. <b><u> అన్నింటినీ వీక్షించండి</u></b>"
+                    binding.tvSlot.text = Html.fromHtml(sourceString)
+                }
+                else if (slotAvailableCompanyA.isNotEmpty() && slotAvailableCompanyB.isEmpty()) {
+                    val sourceString =
+                        if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE).equals("en"))
+                            "<b>${"Hey!!"}</b> Your Upcoming " + sourceStringTwo + slotAvailableCompanyA + " <b><u>View All</u></b>"
+                        else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE).equals("hi"))
+                            "<b>${"नमस्ते!!"}</b> आपका आगामी $sourceStringTwo $slotAvailableCompanyA <b><u> सभी को देखें </u></b>"
                         else
-                            "<b>${"नमस्ते!!"}</b> ${
-                                "आपका आगामी " +
-                                        "$sourceStringTwo $slotAvailableCompanyA" + " <b> <u> सभी को देखें </u></b>"
-                            }"
+                            "<b>${"Hey!!"}</b> మీ రాబోయే ${sourceStringTwo + slotAvailableCompanyA}. <b><u> అన్నింటినీ వీక్షించండి</u></b>"
                     binding.tvSlot.text = Html.fromHtml(sourceString)
                 } else {
                     if (sourceStringOne.isNotEmpty() && sourceStringTwo.isNotEmpty()) {
-                        val sourceString =
+                        var sourceString = ""
                             if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                     .equals("en")
                             )
-                                "<b>${"Hey!!"}</b> ${"Your Upcoming $sourceStringOne & $sourceStringTwo"}" + " <b><u>View All</u></b>"
+                                sourceString = "<b>${"Hey!!"}</b> ${"Your Upcoming $sourceStringOne & $sourceStringTwo"}" + " <b><u>View All</u></b>"
+                            else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                    .equals("hi")
+                            )
+
+                            "<b>${"नमस्ते!!"}</b> ${"आपका आगामी "}$sourceStringOne  &  $sourceStringTwo" + " <b> <u> सभी को देखें </u></b>"
                             else
-                                "<b>${"नमस्ते!!"}</b> ${"आपका आगामी "}$sourceStringOne  &  $sourceStringTwo" + " <b> <u> सभी को देखें </u></b>"
+                            sourceString = "<b>${"Hey!!"}</b> మీ రాబోయే $sourceStringOne  &  $sourceStringTwo" + " <b><u> అన్నింటినీ వీక్షించండి</u></b>"
+
                         binding.tvSlot.text = Html.fromHtml(sourceString)
                     } else if (sourceStringOne.isEmpty() && sourceStringTwo.isNotEmpty()) {
-                        val sourceString =
+                        var sourceString = ""
                             if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                     .equals("en")
                             )
-                                "<b>${"Hey!!"}</b> ${"Your Upcoming "}" + sourceStringTwo + " <b><u>View All</u></b>"
-                            else
-                                "<b>${"नमस्ते!!"}</b> ${"आपका आगामी $sourceStringTwo"} " + "<b> <u> सभी को देखें </u></b>"
+                                sourceString = "<b>${"Hey!!"}</b> ${"Your Upcoming "}" + sourceStringTwo + " <b><u>View All</u></b>"
+                            else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                    .equals("hi")
+                            )
+                                sourceString = "<b>${"नमस्ते!!"}</b> ${"आपका आगामी $sourceStringTwo"} " + "<b> <u> सभी को देखें </u></b>"
+                        else {
+                                sourceString = "<b>${"Hey!!"}</b> మీ రాబోయే $sourceStringTwo"  + "<b><u> అన్నింటినీ వీక్షించండి</u></b>"
+                            }
                         binding.tvSlot.text = Html.fromHtml(sourceString)
                     } else if (sourceStringOne.isNotEmpty() && sourceStringTwo.isEmpty()) {
-                        val sourceString =
+                        var sourceString = ""
                             if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                                     .equals("en")
                             )
-                                "<b>${"Hey!!"}</b> ${"Your Upcoming "}" + sourceStringOne + " <b><u>View All</u></b>"
+                                sourceString =  "<b>${"Hey!!"}</b> ${"Your Upcoming "}" + sourceStringOne + " <b><u>View All</u></b>"
+                            else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                                    .equals("hi")
+                            )
+                                sourceString = "<b>${"नमस्ते!!"}</b> ${"आपका आगामी"}" + sourceStringOne + "<b> <u> सभी को देखें </u></b>"
                             else
-                                "<b>${"नमस्ते!!"}</b> ${"आपका आगामी"}" + sourceStringOne + "<b> <u> सभी को देखें </u></b>"
+                                sourceString = "<b>${"Hey!!"}</b> మీ రాబోయే $sourceStringTwo"  + "<b><u> అన్నింటినీ వీక్షించండి</u></b>"
                         binding.tvSlot.text = Html.fromHtml(sourceString)
                     }
                 }
@@ -1243,15 +1261,17 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             showLearnMoreTxt = true
             binding.rlSlotContainer.visibility = View.VISIBLE
             val sourceString =
-                if (PrefrenceUtils.retriveLangData(
-                        requireContext(),
-                        Constants.LANGUAGE
-                    )
+                if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
                         .equals("en")
-                )
+                ) {
                     "<b>Hey, Work with multiple companies together and earn extra! <u> Learn more </u></b>"
-                else
+                } else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = false)
+                ) {
                     "<b>नमस्ते! एक साथ कई कंपनियों के साथ काम करें और अतिरिक्त कमाई करें! <u> और अधिक जानें </u></b>"
+                } else {
+                    "<b>హే, బహుళ కంపెనీలతో కలిసి పని చేయండి మరియు అదనంగా సంపాదించండి! <u> మరింత తెలుసుకోండి </u></b>"
+                }
             binding.tvSlot.text = Html.fromHtml(sourceString)
         } else {
             showLearnMoreTxt = false;
@@ -1318,17 +1338,23 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 ) {
                     binding.cashOutConfigTxt.text =
                         viewEarnViewModel.remoteCashOutData.value?.eC?.msg
-                } else {
+                } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ) {
                     binding.cashOutConfigTxt.text =
                         viewEarnViewModel.remoteCashOutData.value?.eC?.hiMsg
+                } else {
+                    binding.cashOutConfigTxt.text =
+                        viewEarnViewModel.remoteCashOutData.value?.eC?.teMsg
                 }
             }
             "E" -> {
                 if (dataModel!!.cashoutDetails!!.holdDetails!!.isHold == true) {
-                    binding.setPriceExpHold.text = dataModel!!.cashoutDetails!!.amountEligibleLabel
+                    binding.setPriceExpHold.text = "₹ "+dataModel!!.cashoutDetails!!.holdDetails?.liabilitySum.toString()
                     binding.cashoutCardRoot.visibility = View.GONE
                     binding.cashoutCardHoldRoot.visibility = View.VISIBLE
                     binding.llHold.visibility = View.VISIBLE
+                    binding.tvCashoutAvailable.text = "Pending deposit"
                     binding.ivIconHold.setImageResource(R.drawable.ic_cashout_hold)
                     binding.cashOutHoldTxt.text = context?.getString(R.string.cashout_on_hold)
                     binding.cashOutHoldTxtDesc.text =
@@ -1360,12 +1386,15 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     ) {
                         binding.tvCashoutDesc.text =
                             "Your Cashout Limit is ${dataModel!!.cashoutAdditionalData?.cashoutPercentage}%"
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                            .equals("hi", ignoreCase = true)
+                    ) {
                         binding.tvCashoutDesc.text =
                             "आपकी कैशआउट सीमा ${dataModel!!.cashoutAdditionalData?.cashoutPercentage}% है"
-
+                    } else {
+                        binding.tvCashoutDesc.text =
+                            "మీ క్యాష్అవుట్ పరిమితి ${dataModel!!.cashoutAdditionalData?.cashoutPercentage}%"
                     }
-
 
                     if (PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
                             .equals("en", ignoreCase = true)
@@ -1399,7 +1428,9 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                             binding.cashOutConfigTxtDetailExp.text =
                                 "You are now eligible for maximum cashout!"
                         }
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
+                            .equals("hi", ignoreCase = true)
+                    ) {
                         if (dataModel?.cashoutAdditionalData?.orderReachToNextLevel == true &&
                             dataModel?.cashoutAdditionalData?.daysReachToNextLevel == true
                         ) {
@@ -1420,6 +1451,29 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                         ) {
                             binding.cashOutConfigTxtDetailExp.text =
                                 " ${dataModel?.cashoutAdditionalData?.cashoutNextLevelPercentage}% कैशआउट अनलॉक करने के लिए मित्रा में ${dataModel?.cashoutAdditionalData?.daysRequiredTOReachToNextLevel} और दिन काम करना जारी रखें "
+                        }
+                    } else {
+                        if (dataModel?.cashoutAdditionalData?.orderReachToNextLevel == true &&
+                            dataModel?.cashoutAdditionalData?.daysReachToNextLevel == true
+                        ) {
+                            binding.cashOutConfigTxtDetailExp.text =
+                                "${dataModel?.cashoutAdditionalData?.orderRequiredToReachToNextLevel} ట్రిప్పులను ${dataModel?.cashoutAdditionalData?.daysRequiredTOReachToNextLevel} రోజులలో పూర్తి చేయండి" +
+                                        " ${dataModel?.cashoutAdditionalData?.cashoutNextLevelPercentage}% క్యాష్\u200Cఅవుట్\u200C పొందడం కోసం"
+                        } else if (dataModel?.cashoutAdditionalData?.orderReachToNextLevel == true &&
+                            dataModel?.cashoutAdditionalData?.daysReachToNextLevel == false
+                        ) {
+                            binding.cashOutConfigTxtDetailExp.text =
+                                "${dataModel?.cashoutAdditionalData?.cashoutNextLevelPercentage}% క్యాష్\u200Cఅవుట్\u200Cని అన్\u200Cలాక్ చేయడానికి మిత్రాతో ${dataModel?.cashoutAdditionalData?.daysRequiredTOReachToNextLevel} రోజులు పని కొనసాగించండి"
+                        } else if (dataModel?.cashoutAdditionalData?.orderReachToNextLevel == false &&
+                            dataModel?.cashoutAdditionalData?.daysReachToNextLevel == false
+                        ) {
+                            binding.cashOutConfigTxtDetailExp.text =
+                                "మీరు ఇప్పుడు గరిష్ట క్యాష్\u200Cఅవుట్\u200Cకి అర్హులు!"
+                        } else if (dataModel?.cashoutAdditionalData?.orderReachToNextLevel == false &&
+                            dataModel?.cashoutAdditionalData?.daysReachToNextLevel == true
+                        ) {
+                            binding.cashOutConfigTxtDetailExp.text =
+                                " ${dataModel?.cashoutAdditionalData?.cashoutNextLevelPercentage}% క్యాష్\u200Cఅవుట్\u200Cని అన్\u200Cలాక్ చేయడానికి మిత్రాతో ${dataModel?.cashoutAdditionalData?.daysRequiredTOReachToNextLevel} రోజులు పని కొనసాగించండి "
                         }
                     }
 
@@ -1542,8 +1596,15 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 )
                     binding.cashOutConfigTxt.text =
                         viewEarnViewModel.remoteCashOutData.value?.eW?.msg
-                else binding.cashOutConfigTxt.text =
-                    viewEarnViewModel.remoteCashOutData.value?.eW?.hiMsg
+                else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ) {
+                    binding.cashOutConfigTxt.text =
+                        viewEarnViewModel.remoteCashOutData.value?.eW?.hiMsg
+                } else {
+                    binding.cashOutConfigTxt.text =
+                        viewEarnViewModel.remoteCashOutData.value?.eW?.teMsg
+                }
             }
             "NE" -> {
                 eligiblityCheck = false
@@ -1562,9 +1623,15 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                 if (PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
                         .equals("en", ignoreCase = true)
                 ) binding.cashOutConfigTxt.text = viewEarnViewModel.remoteCashOutData.value?.nE?.msg
-                else
+                else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ) {
                     binding.cashOutConfigTxt.text =
                         viewEarnViewModel.remoteCashOutData.value?.nE?.hiMsg
+                } else {
+                    binding.cashOutConfigTxt.text =
+                        viewEarnViewModel.remoteCashOutData.value?.nE?.teMsg
+                }
             }
         }
 
@@ -1675,22 +1742,17 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                         setViewPaggerInsertData(dynamicBannerList)
 
                         if (entryPointList.size > 0) {
-                            if (entryPointList.size <= 4) {
-                                binding.dynamicBannerViewpager2.visibility = View.VISIBLE
-                                dynamicEntryPointAdapter =
+                                binding.dynamicExpirementRl.visibility = View.VISIBLE
+                                entryPointAdapter =
                                     context?.let { it1 ->
-                                        DynamicEntryPointAdapter(
+                                        EntryPointAdapter(
                                             it1,
                                             entryPointList
                                         )
                                     }!!
-
-                                binding.viewpageInner2.adapter = dynamicEntryPointAdapter
-                            } else {
-                                binding.dynamicBannerViewpager2.visibility = View.GONE
-                            }
+                                binding.viewpageInner2.adapter = entryPointAdapter
                         } else {
-                            binding.dynamicBannerViewpager2.visibility = View.GONE
+                            binding.dynamicExpirementRl.visibility = View.GONE
                         }
                     }
                     is ApiState.Failure -> {
@@ -1790,7 +1852,18 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
 
     override fun onResume() {
         super.onResume()
-        showCashoutFeedbackPopup()
+        try{
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (isAdded && !(requireActivity() as MainActivity).checkIsEnable()) {
+                    (requireActivity() as MainActivity).isEnabledContainer(true)
+                }
+            }, 1000)
+            showCashoutFeedbackPopup()
+        }
+        catch (e: java.lang.Exception){
+            Toast.makeText(requireContext(), R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun showCashoutFeedbackPopup() {
@@ -1862,12 +1935,12 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             dataModel?.cashoutDetails!!.holdDetails!!.isHold
         )
         attribute[Constants.STATUS] = dataModel?.cashoutDetails!!.holdDetails!!.isHold.toString()
-        captureAllEvents(
+        /*captureAllEvents(
             requireContext(),
             Constants.COD_PAYMENT_DONE,
             attribute,
             properties
-        )
+        )*/
     }
 
 
@@ -1882,6 +1955,16 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             Constants.PHONENUMBER,
             earnDataModel.user.phoneNumber
         )
+        PrefrenceUtils.insertData(
+            requireActivity(),
+            Constants.MITRA_BALANCE,
+            dataModel?.walletDetails?.walletBalance.toString()
+        )
+        PrefrenceUtils.insertData(
+            requireActivity(),
+            Constants.WEEKLY_EARNINGS,
+            earnDataModel.currentEarnings?.amount.toString()
+        )
         PrefrenceUtils.insertDataInBoolean(
             requireActivity(),
             Constants.CHECK_BANK_STATUS,
@@ -1892,11 +1975,13 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             Constants.TEST_USER,
             earnDataModel.user.settings?.isTestUser!!
         )
+
         PrefrenceUtils.insertDataInBoolean(
             requireActivity(),
             Constants.CHECK_UPLOAD_STATUS,
             earnDataModel.documents!!.uploaded!!
         )
+        Log.d("DATAS", "loadInitialApiData: ${PrefrenceUtils.retriveDataInBoolean(requireActivity(), Constants.CHECK_UPLOAD_STATUS)}")
         // Flatfeelabel
         cashoutFixedFeeLabel = dataModel?.cashoutDetails?.cashoutFixedFeeLabel
 
@@ -1988,10 +2073,13 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                         .getUnreadCountAsync { _, unreadCount -> //Assuming "badgeTextView" is a text view to show the count on
                             //badgeTextView.setText()
                             if (unreadCount.toString() == "0") {
-                                binding.chatCount.visibility = ViewPager.GONE
+                                binding.chatCount.visibility =
+                                    ViewPager.GONE
                             } else {
-                                binding.chatCount.visibility = ViewPager.VISIBLE
-                                binding.chatCount.text = unreadCount.toString()
+                                binding.chatCount.visibility =
+                                    ViewPager.VISIBLE
+                                binding.chatCount.text =
+                                    unreadCount.toString()
                             }
                         }
                 }
@@ -2088,23 +2176,7 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
                     Log.d("TapTargetView", "Clicked on " + lastTarget.id())
                 }
 
-                override fun onSequenceCanceled(lastTarget: TapTarget) {
-//                    val dialog = AlertDialog.Builder(requireContext())
-//                        .setTitle("Uh oh")
-//                        .setMessage("You canceled the sequence")
-//                        .setPositiveButton("Oops", null).show()
-//                    TapTargetView.showFor(dialog,
-//                        TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE),
-//                            "Uh oh!",
-//                            "You canceled the sequence at step " + lastTarget.id())
-//                            .cancelable(false)
-//                            .tintTarget(false), object : TapTargetView.Listener() {
-//                            override fun onTargetClick(view: TapTargetView) {
-//                                super.onTargetClick(view)
-//                                dialog.dismiss()
-//                            }
-//                        })
-                }
+                override fun onSequenceCanceled(lastTarget: TapTarget) {}
             })
 
         // You don't always need a sequence, and for that there's a single time tap target
@@ -2128,4 +2200,47 @@ class HomeFragment : Fragment(), CoachmarkListener, RateCardDetailViewOnClick {
             .navigate(R.id.nav_rate_card_new, bundle)
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun apiNudges() {
+        activityViewModel.getNudgeData()
+    }
+
+    private fun apiDynamicEntryContentVideo(){
+        lifecycleScope.launchWhenStarted {
+            viewEarnViewModel.getDynamicEntryContentVideoList.collect {
+                when (it) {
+                    is ApiState.Success -> {
+                        hideLoading()
+                        binding.tvExploreMore.visibility = View.VISIBLE
+                        dynamicEntryContentVideoModel = it.data
+                        dynamicEntryContentVideoAdapter = DynamicEntryContentVideoAdapter(requireContext(),it.data.videoDetails)
+                        binding.rvMitraBonusVideos.adapter = dynamicEntryContentVideoAdapter
+                    }
+                    is ApiState.Failure -> {
+                        Navigation.findNavController(binding.root)
+                            .navigate(R.id.nav_error_fragment)
+                    }
+                    ApiState.Loading -> {
+                        showLoading()
+                    }
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun actionPerformOnDynamicBanner(landingUrl : String, container : RelativeLayout) {
+        val properties = Properties()
+        val data = HashMap<String,Any>()
+        captureAllEvents(requireContext(),Constants.EXPLORE_MORE_CLICKED,data,properties)
+        requireContext().startBlitzSurvey(requireContext(),Constants.EXPLORE_MORE_CLICKED)
+        requireContext().redirectionBasedOnAction(
+            landingUrl,
+            requireContext(),
+            container,
+            null,
+            "BANNER",
+            null
+        )
+    }
 }

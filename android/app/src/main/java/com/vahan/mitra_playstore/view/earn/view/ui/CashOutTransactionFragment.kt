@@ -161,7 +161,7 @@ class CashOutTransactionFragment : Fragment() {
                     ) {
                         count = 1;
                         binding.ctaDetails.visibility = VISIBLE
-                        binding.cashoutGotIt.visibility = View.GONE
+                        binding.cashoutGotIt.visibility =GONE
                         binding.transferMoney.isEnabled = true
                         binding.transferMoney.isClickable = true
                         binding.transferMoney.text =

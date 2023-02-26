@@ -5,8 +5,10 @@ import android.app.Dialog
 import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,37 +19,37 @@ import android.view.animation.RotateAnimation
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.moengage.core.Properties
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FragmentRateCardNewBinding
-import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
-import com.vahan.mitra_playstore.utils.ApiState
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.SvgSoftwareLayerSetter
-import com.vahan.mitra_playstore.utils.captureAllEvents
+import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.earn.view.adapter.MilestoneAdapter
 import com.vahan.mitra_playstore.view.earn.view.adapter.WeeklyIncentivesAdapter
-import com.vahan.mitra_playstore.view.earn.viewModel.EarnViewModel
 import com.vahan.mitra_playstore.view.ratecard.adapter.VariablePayAdapter
+import com.vahan.mitra_playstore.view.ratecard.adapter.ZomatoAdapter
+import com.vahan.mitra_playstore.view.ratecard.models.RateCardDetailsDTO
+import com.vahan.mitra_playstore.view.ratecard.viewmodels.RateCardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_borrow.*
 import kotlinx.android.synthetic.main.fragment_rate_card_new.*
-import java.util.HashMap
 
 
 @AndroidEntryPoint
 class RateCardFragment : Fragment() {
-    private lateinit var viewEarnViewModel: EarnViewModel
-    private var dataModel: EarnDataModel? = null
+    private lateinit var viewRateViewModel: RateCardViewModel
     private lateinit var binding: FragmentRateCardNewBinding
-    private var data: EarnDataModel.IncentiveStructures? = null
+    private lateinit var rateCardStructure : RateCardDetailsDTO
+    private var incentiveStructureList = ArrayList<RateCardDetailsDTO.Incentive?>()
     private var currentPos: Int = 0
     private var dialogLoader: Dialog? = null
     private var companyName = arrayListOf<String>()
@@ -59,62 +61,52 @@ class RateCardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_rate_card_new,
-            container,
-            false
-        )
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rate_card_new, container, false)
         initView()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        currentPos = arguments?.getInt("position")?:0
+    }
+
+    private fun initView() {
+        initLoader()
+        viewRateViewModel = ViewModelProvider(this@RateCardFragment)[RateCardViewModel::class.java]
+        getRateCardDetails()
+        clickListener()
     }
 
     private fun clickListener() {
         binding.ivBackButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
         binding.tvTAndCStickyView.setOnClickListener { view ->
-            val item = data?.incentiveList!![pos]
+            val item = rateCardStructure.incentiveList
             val bundle = Bundle()
-            bundle.putString("label", item.milestoneFooter?.label)
-            bundle.putString("description", item.milestoneFooter?.description)
-
+            bundle.putString("label", item?.get(currentPos)?.milestoneFooter?.label)
+            bundle.putString("description", item?.get(currentPos)?.milestoneFooter?.description)
             Navigation.findNavController(view)
                 .navigate(R.id.terms_and_condition_fragment, bundle)
         }
-
     }
-
-    private fun initView() {
-        initLoader()
-        viewEarnViewModel = ViewModelProvider(this@RateCardFragment)[EarnViewModel::class.java]
-        currentPos = requireArguments().getInt("position")
-        apiEarnInfo()
-        clickListener()
-    }
-
 
     @SuppressLint("SetTextI18n")
-    private fun apiEarnInfo() {
+    private fun getRateCardDetails() {
         lifecycleScope.launchWhenStarted {
-            viewEarnViewModel.getEarnList.collect {
+            viewRateViewModel.getAllRateCardDetails().collect {
                 when (it) {
                     is ApiState.Success -> {
-                        dialogLoader?.dismiss()
-                        dataModel = it.data
-                        data = it.data.incentiveStructures
-                        val bundle = Bundle()
-                        if (data?.incentiveList?.get(pos)?.milestoneFooter != null) {
-                            bundle.putString("label",
-                                data!!.incentiveList[pos].milestoneFooter?.label)
-                            bundle.putString("description",
-                                data!!.incentiveList[pos].milestoneFooter?.description)
+                        if(it.data.incentiveList!=null && it.data.incentiveList.isNotEmpty()) {
+                            setData(pos, it.data)
+                            setUpSpinner()
+                            setUpRecyclerView()
+                        }else{
+                            dialogLoader?.dismiss()
+                            Toast.makeText(requireContext(), R.string.something_went_wrong, Toast.LENGTH_SHORT).show()
+                            requireActivity().onBackPressed()
                         }
-                        setData(pos)
-                        setUpSpinner()
-                        setUpRecyclerView()
                     }
                     is ApiState.Failure -> {
                         dialogLoader?.dismiss()
@@ -131,61 +123,25 @@ class RateCardFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setData(position: Int) {
-
-        val items = HashMap<String, Any>()
-        val properties = Properties()
-        properties.addAttribute("client",data?.incentiveList?.get(position)?.companyTitle)
-        items["client"] = data?.incentiveList?.get(position)?.companyTitle!!
-        captureAllEvents(requireContext(), Constants.RATE_CARD_VIEWED, items, properties)
-
-        // binding.tvTAndCStickyView.text = data!!.incentiveList[pos].milestoneFooter?.label
-
-        binding.tvCompanyWeeklyIncentives.text = data?.incentiveList?.get(position)?.companyTitle
-        binding.tvWeekly.text = data?.type
-        binding.tvRateCard.text = data?.heading
-        binding.tvWeekName.text = data?.label
-        binding.tvOrderPay.text = data?.orderPayTitle
-        binding.tvEarning.text = data?.orderPayLabel
-
-        if (data?.incentiveList!![position].payoutStructure?.size !== null && data?.incentiveList?.get(
-                position)?.payoutStructure?.size!! >= 1
-        ) {
-            variablePayAdapter = VariablePayAdapter(requireContext(), data!!, pos)
-            binding.rvVariablePay.adapter = variablePayAdapter
-//            binding.tvBasePay.text = data?.incentiveList!![position].payoutStructure?.get(0)?.name
-//            binding.basePayLabel.text =
-//                data!!.incentiveList[position].payoutStructure?.get(0)?.label
-//            binding.perOrderValue.text =
-//                data!!.incentiveList[position].payoutStructure?.get(0)?.value
-//            binding.perOrder.text =
-//                data!!.incentiveList[position].payoutStructure?.get(0)?.unitLabel
-//            binding.tvDistancePay.text =
-//                data!!.incentiveList[position].payoutStructure?.get(1)?.name
-//            binding.distancePayLabel.text =
-//                data!!.incentiveList[position].payoutStructure?.get(1)?.label
-//            binding.distancePayValue.text =
-//                data!!.incentiveList[position].payoutStructure?.get(1)?.value
-//            binding.perKm.text = data!!.incentiveList[position].payoutStructure?.get(1)?.unitLabel
-//            binding.tvPeekHoursIncentive.text =
-//                data!!.incentiveList[position].payoutStructure?.get(2)?.name
-//            binding.peekHoursPayLabel.text =
-//                data!!.incentiveList[position].payoutStructure?.get(2)?.label
-//            binding.peekHoursIncentiveAmt.text =
-//                data!!.incentiveList[position].payoutStructure?.get(2)?.value
-//            binding.perHrs.text = data!!.incentiveList[position].payoutStructure?.get(2)?.unitLabel
+    private fun setData(position: Int, rateCard: RateCardDetailsDTO) {
+        rateCardStructure = rateCard
+        dialogLoader?.dismiss()
+        for(i in 0 until (rateCard.incentiveList?.size ?: 0))
+            incentiveStructureList.add(rateCard.incentiveList?.get(i))
+        val bundle = Bundle()
+        if (incentiveStructureList[pos]?.milestoneFooter != null) {
+            bundle.putString("label", incentiveStructureList[pos]?.milestoneFooter?.label)
+            bundle.putString("description", incentiveStructureList[pos]?.milestoneFooter?.description)
         }
-        binding.tvOnReachingTarget.text = data!!.companyLabel
-        binding.tvTripsCompleted.text =
-            data!!.incentiveList[pos].companies?.get(0)?.targetAchieved.toString() + " " + context?.resources?.getString(
-                R.string.trips_completed)
-        binding.tvTripsLeftForMilestone.text =
-            data!!.incentiveList[pos].companies?.get(0)?.messageLabel
+        setupInstrumentation(position)
+        setLabels(position)
+        setPayoutStructure(position)
+        setImage(incentiveStructureList[position]?.companies?.get(0)?.companyIcon.toString(), binding.ivCompanyLogoTripsCompleted)
+        setIncentiveStructure(position)
+    }
 
-        //Setting images for fragment_rate_card_new
-        setImage(data!!.incentiveList[position].companies?.get(0)?.companyIcon.toString(),
-            binding.ivCompanyLogoTripsCompleted)
-        if (data!!.incentiveList[position].spinnerKey == "Mitra") {
+    private fun setIncentiveStructure(position :Int) {
+        if (incentiveStructureList[position]?.spinnerKey == "Mitra") {
             val tncTxtUnderlined = SpannableString(binding.tvTAndCStickyView.text)
             tncTxtUnderlined.setSpan(UnderlineSpan(), 0, tncTxtUnderlined.length, 0)
             binding.tvTAndCStickyView.text = tncTxtUnderlined
@@ -195,13 +151,41 @@ class RateCardFragment : Fragment() {
             setImage("Mitra", binding.ivWeeklyIncentivesCompanyLogo)
         } else {
             binding.rlStickyView.visibility = View.GONE
-            setImage(data?.incentiveList!![position].companies?.get(0)?.companyIcon.toString(),
+            setImage(incentiveStructureList[position]?.companies?.get(0)?.companyIcon.toString(),
                 binding.ivSelectedCompanyLogo)
-//            setImage(data?.incentiveList!![position].companies?.get(0)?.companyIcon.toString(),
-//                binding.ivComapnyLogoStickyView)
-            setImage(data!!.incentiveList[position].companies?.get(0)?.companyIcon.toString(),
+            setImage(incentiveStructureList[position]?.companies?.get(0)?.companyIcon.toString(),
                 binding.ivWeeklyIncentivesCompanyLogo)
         }
+    }
+
+    private fun setPayoutStructure(position : Int) {
+        if (incentiveStructureList[position]?.payoutStructure?.size !== null && incentiveStructureList[position]?.payoutStructure?.size!! >= 1
+        ) {
+            variablePayAdapter = VariablePayAdapter(requireContext(), rateCardStructure, pos)
+            binding.rvVariablePay.adapter = variablePayAdapter
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setLabels(position: Int) {
+        binding.tvCompanyWeeklyIncentives.text = incentiveStructureList[position]?.companyTitle
+        binding.tvWeekly.text = rateCardStructure.type
+        binding.tvRateCard.text = rateCardStructure.heading
+        binding.tvWeekName.text = rateCardStructure.label
+        binding.tvOrderPay.text = rateCardStructure.orderPayTitle
+        binding.tvEarning.text = rateCardStructure.orderPayLabel
+        binding.tvOnReachingTarget.text = rateCardStructure.companyLabel
+        binding.tvTripsCompleted.text =
+            incentiveStructureList[position]?.companies?.get(0)?.targetAchieved.toString() + " " + context?.resources?.getString(R.string.trips_completed)
+        binding.tvTripsLeftForMilestone.text = incentiveStructureList[position]?.companies?.get(0)?.messageLabel
+    }
+
+    private fun setupInstrumentation(position: Int) {
+        val items = HashMap<String, Any>()
+        val properties = Properties()
+        properties.addAttribute("client",incentiveStructureList[position]?.companyTitle)
+        items["client"] = incentiveStructureList[position]?.companyTitle!!
+        captureAllEvents(requireContext(), Constants.RATE_CARD_VIEWED, items, properties)
     }
 
     private fun setImage(url: String, imageView: ImageView) {
@@ -219,20 +203,15 @@ class RateCardFragment : Fragment() {
 
     private fun setUpSpinner() {
         companyName = arrayListOf()
-        for (i in 0 until data!!.incentiveList.size) {
-            data!!.incentiveList[i].spinnerKey?.let { companyName.add(it) }
+        companyName.clear()
+        for(i in 0 until incentiveStructureList.size){
+            companyName.add(incentiveStructureList[i]?.companyTitle!!)
         }
-
-        val adapter: ArrayAdapter<String> = ArrayAdapter(
-            requireContext(),
-            R.layout.spinner_item, companyName
-        )
+        val adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), R.layout.spinner_item, companyName)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.adapter = adapter
         spinner.setSelection(currentPos)
-        binding.tvSelectedCompanyName.setOnClickListener {
-            spinner.performClick()
-        }
+        binding.tvSelectedCompanyName.setOnClickListener { spinner.performClick() }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             @SuppressLint("SetTextI18n")
             override fun onItemSelected(
@@ -241,57 +220,73 @@ class RateCardFragment : Fragment() {
                 position: Int,
                 id: Long,
             ) {
-                setData(position)
                 pos = position
-
-                binding.tvTripsCompleted.text =
-                    data!!.incentiveList[pos].companies?.get(0)?.targetAchieved.toString() + " " + context!!.resources.getString(
-                        R.string.trips_completed)
-                binding.tvTripsLeftForMilestone.text =
-                    data!!.incentiveList[pos].companies?.get(0)?.messageLabel
-
-                if (companyName[position] == "Mitra") {
-                    binding.ivAdd.visibility = View.VISIBLE
-                    binding.ivCompanyLogoTripsCompleted2.visibility = View.VISIBLE
-                    binding.tvTripsCompleted2.visibility = View.VISIBLE
-                    binding.tvTripsLeftForMilestone2.visibility = View.VISIBLE
-
-                 //   binding.rl3.visibility = View.GONE
-                    binding.rlRv1.visibility = View.GONE
-                    binding.cl2.visibility = View.GONE
-
-                    setImage(data!!.incentiveList[pos].companies?.get(1)?.companyIcon.toString(),
-                        binding.ivCompanyLogoTripsCompleted2)
-                    binding.tvTripsCompleted2.text =
-                        data!!.incentiveList[pos].companies?.get(1)?.targetAchieved.toString() + " " + context!!.resources.getString(
+                if(incentiveStructureList[pos]?.version==1){
+                    includeZomatoUi.visibility = View.GONE
+                    includeRapidoUi.visibility = View.GONE
+                    rlCrossUtilContainer.visibility = View.VISIBLE
+                    binding.tvTripsCompleted.text =
+                        incentiveStructureList[pos]!!.companies?.get(0)?.targetAchieved.toString() + " " + context!!.resources.getString(
                             R.string.trips_completed)
-                    binding.tvTripsLeftForMilestone2.text =
-                        data!!.incentiveList[pos].companies?.get(1)?.messageLabel
+                    binding.tvTripsLeftForMilestone.text =
+                        incentiveStructureList[pos]!!.companies?.get(0)?.messageLabel
 
-
-                } else {
-                    binding.ivAdd.visibility = View.GONE
-                    binding.ivCompanyLogoTripsCompleted2.visibility = View.GONE
-                    binding.tvTripsCompleted2.visibility = View.GONE
-                    binding.tvTripsLeftForMilestone2.visibility = View.GONE
-
-                    binding.cl2.visibility = View.VISIBLE
-
-                   // binding.rl3.visibility = View.VISIBLE
-                    binding.rlRv1.visibility = View.VISIBLE
-                    variablePayAdapter = VariablePayAdapter(context!!, data!!, pos)
-                    binding.rvVariablePay.adapter = variablePayAdapter
-
+                    // Cross Util Rate Card
+                    if (companyName[position] == "Mitra") {
+                        binding.ivAdd.visibility = View.VISIBLE
+                        binding.ivCompanyLogoTripsCompleted2.visibility = View.VISIBLE
+                        binding.tvTripsCompleted2.visibility = View.VISIBLE
+                        binding.tvTripsLeftForMilestone2.visibility = View.VISIBLE
+                        binding.rlRv1.visibility = View.GONE
+                        binding.cl2.visibility = View.GONE
+                        setImage(incentiveStructureList[pos]?.companies?.get(1)?.companyIcon.toString(),
+                            binding.ivCompanyLogoTripsCompleted2)
+                        binding.tvTripsCompleted2.text =
+                            incentiveStructureList[pos]?.companies?.get(1)?.targetAchieved.toString() + " " + context!!.resources.getString(
+                                R.string.trips_completed)
+                        binding.tvTripsLeftForMilestone2.text =
+                            incentiveStructureList[pos]?.companies?.get(1)?.messageLabel
+                    }
+                    else {
+                        binding.ivAdd.visibility = View.GONE
+                        binding.ivCompanyLogoTripsCompleted2.visibility = View.GONE
+                        binding.tvTripsCompleted2.visibility = View.GONE
+                        binding.tvTripsLeftForMilestone2.visibility = View.GONE
+                        binding.cl2.visibility = View.VISIBLE
+                        // binding.rl3.visibility = View.VISIBLE
+                        binding.rlRv1.visibility = View.VISIBLE
+                        variablePayAdapter = VariablePayAdapter(context!!, rateCardStructure, pos)
+                        binding.rvVariablePay.adapter = variablePayAdapter
+                    }
+                    binding.tvSelectedCompanyName.text = companyName[position]
+                    weeklyAdapter = WeeklyIncentivesAdapter(context!!, rateCardStructure, pos)
+                    binding.rvWeeklyIncentives.adapter = weeklyAdapter
+                    val adapter2 = MilestoneAdapter(context!!, rateCardStructure, pos)
+                    binding.rvMilestone.adapter = adapter2
                 }
-
-                binding.tvSelectedCompanyName.text = companyName[position]
-
-                weeklyAdapter = WeeklyIncentivesAdapter(context!!, data!!, pos)
-                binding.rvWeeklyIncentives.adapter = weeklyAdapter
-
-                val adapter2 = MilestoneAdapter(context!!, data!!, pos)
-                binding.rvMilestone.adapter = adapter2
-
+                // Zepto Rate Card
+                else if(incentiveStructureList[pos]?.version==2){
+                    includeZomatoUi.visibility = View.GONE
+                    includeRapidoUi.visibility = View.GONE
+                    rlCrossUtilContainer.visibility = View.VISIBLE
+                    val bundle = Bundle()
+                    bundle.putInt("position",pos)
+                    findNavController().navigate(R.id.nav_fragment_rate_card_zepto,bundle)
+                }
+                // Zomato Rate Card
+                else if(incentiveStructureList[pos]?.version==3){
+                    includeZomatoUi.visibility = View.VISIBLE
+                    rlCrossUtilContainer.visibility = View.GONE
+                    includeRapidoUi.visibility = View.GONE
+                    setZomatoData()
+                }
+                // Rapido Rate Card
+                else if(incentiveStructureList[pos]?.version==4){
+                    includeZomatoUi.visibility = View.GONE
+                    rlCrossUtilContainer.visibility = View.GONE
+                    includeRapidoUi.visibility = View.VISIBLE
+                    setRapidoData()
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -319,17 +314,159 @@ class RateCardFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.rvWeeklyIncentives.layoutManager = LinearLayoutManager(context)
-        weeklyAdapter = WeeklyIncentivesAdapter(requireContext(), data!!, pos)
+        weeklyAdapter = WeeklyIncentivesAdapter(requireContext(), rateCardStructure, pos)
         binding.rvWeeklyIncentives.adapter = weeklyAdapter
-
         binding.rvMilestone.layoutManager = LinearLayoutManager(context)
-        val adapter2 = MilestoneAdapter(requireContext(), data!!, pos)
+        val adapter2 = MilestoneAdapter(requireContext(), rateCardStructure, pos)
         binding.rvMilestone.adapter = adapter2
-
         binding.rvMilestone.setHasFixedSize(true);
         binding.rvMilestone.isNestedScrollingEnabled = false;
-
         binding.rvWeeklyIncentives.setHasFixedSize(true);
         binding.rvWeeklyIncentives.isNestedScrollingEnabled = false;
     }
+
+    private fun setZomatoData(){
+        binding.includeZomatoUi.apply {
+            tvOrderPay.text = incentiveStructureList[pos]?.orderPayTitle
+            tvEarningsPerDay.text = incentiveStructureList[pos]?.orderPaylabel
+            tvDailyMilestoneIncentives.text = incentiveStructureList[pos]?.milestoneIncentivesTitle
+            tvWeekKey1.text = incentiveStructureList[pos]?.weekKey1
+            tvWeekKey2.text = incentiveStructureList[pos]?.weekKey2
+            binding.tvSelectedCompanyName.text = incentiveStructureList[pos]?.companyTitle
+            incentiveStructureList[pos]?.companyIcon?.let { requireContext().setImage(requireContext(),it,ivCompanyIcon) }
+            incentiveStructureList[pos]?.companyIcon?.let { requireContext().setImage(requireContext(),it,iv_selected_company_logo) }
+
+            // setting weekly list data to MON-FRI by default
+            viewOne.setBackgroundResource(R.drawable.round_orange_bg)
+            viewTwo.setBackgroundResource(R.drawable.round_grey_bg)
+            tvWeekKey1.setTextColor(resources.getColor(R.color.black_v2))
+            tvWeekKey2.setTextColor(resources.getColor(R.color.grey))
+            val url: String? = incentiveStructureList[pos]?.weeklyImageList?.get(0)
+            Glide.with(requireContext()).load(url).into(ivWeeklyList)
+
+//            if (url != null) {
+//                requireContext().setImage(requireContext(),url,ivWeeklyList)
+//            }
+
+            // setting list data to MON-FRI
+            llWeek1.setOnClickListener {
+                viewOne.setBackgroundResource(R.drawable.round_orange_bg)
+                viewTwo.setBackgroundResource(R.drawable.round_grey_bg)
+                tvWeekKey1.setTextColor(resources.getColor(R.color.black_v2))
+                tvWeekKey2.setTextColor(resources.getColor(R.color.grey))
+                val url: String? = incentiveStructureList[pos]?.weeklyImageList?.get(0)
+                Glide.with(requireContext()).load(url).into(ivWeeklyList)
+            }
+
+            // setting list data to SAT-SUN
+            llWeek2.setOnClickListener {
+                viewOne.setBackgroundResource(R.drawable.round_grey_bg)
+                viewTwo.setBackgroundResource(R.drawable.round_orange_bg)
+                tvWeekKey1.setTextColor(resources.getColor(R.color.grey))
+                tvWeekKey2.setTextColor(resources.getColor(R.color.black_v2))
+                val url: String? = incentiveStructureList[pos]?.weeklyImageList?.get(1)
+                Glide.with(requireContext()).load(url).into(ivWeeklyList)
+
+            }
+
+            //setting order pay adapter
+            rvOrderPay.adapter = ZomatoAdapter(requireContext(),
+                incentiveStructureList,
+                pos,
+                "order_pay"
+            )
+            //setting Daily Milestone Incentives adapter
+            rvDailyMilestoneIncentives.adapter = ZomatoAdapter(requireContext(),
+                incentiveStructureList,
+                pos,
+                "daily_milestone_incentive"
+            )
+        }
+    }
+    private fun setRapidoData(){
+        var selectedTab = 1
+        binding.includeRapidoUi.apply {
+            tvRideOption1.text = incentiveStructureList[pos]?.rideOption1
+            tvRideOption2.text = incentiveStructureList[pos]?.rideOption2
+            binding.tvSelectedCompanyName.text = incentiveStructureList[pos]?.companyTitle
+            incentiveStructureList[pos]?.companyIcon?.let { requireContext().setImage(requireContext(),it,iv_selected_company_logo) }
+
+            // setting rapido by default data
+            viewOne.setBackgroundResource(R.drawable.round_orange_bg)
+            viewTwo.setBackgroundResource(R.drawable.round_grey_bg)
+            tvRideOption1.setTextColor(resources.getColor(R.color.black_v2))
+            tvRideOption2.setTextColor(resources.getColor(R.color.grey))
+            tvTitleRedirection.text = Html.fromHtml(incentiveStructureList[pos]?.rideOptionsList?.get(0)?.titleHtml).trim()
+            val url: String? = incentiveStructureList[pos]?.rideOptionsList?.get(0)?.imageUrl
+            Glide.with(requireContext()).load(url)
+                .placeholder(R.drawable.ic_app_icon)
+                .dontTransform()
+                .into(ivRapidoPayList)
+
+
+            // setting list data to ride option 1
+            llRideOption1.setOnClickListener {
+                selectedTab = 1
+                viewOne.setBackgroundResource(R.drawable.round_orange_bg)
+                viewTwo.setBackgroundResource(R.drawable.round_grey_bg)
+                tvRideOption1.setTextColor(resources.getColor(R.color.black_v2))
+                tvRideOption2.setTextColor(resources.getColor(R.color.grey))
+                ivRapidoPayListTwo.visibility = View.GONE
+                ivRapidoPayList.visibility = View.VISIBLE
+                val url: String? = incentiveStructureList[pos]?.rideOptionsList?.get(0)?.imageUrl
+                Glide.with(requireContext()).load(url)
+                    .placeholder(R.drawable.ic_app_icon)
+                    .dontTransform()
+                    .into(ivRapidoPayList)
+               tvTitleRedirection.text = Html.fromHtml(incentiveStructureList[pos]?.rideOptionsList?.get(0)?.titleHtml).trim()
+            }
+
+            // setting list data to ride option 2
+            llRideOption2.setOnClickListener {
+                selectedTab = 2
+                viewOne.setBackgroundResource(R.drawable.round_grey_bg)
+                viewTwo.setBackgroundResource(R.drawable.round_orange_bg)
+                tvRideOption1.setTextColor(resources.getColor(R.color.grey))
+                tvRideOption2.setTextColor(resources.getColor(R.color.black_v2))
+                ivRapidoPayListTwo.visibility = View.VISIBLE
+                ivRapidoPayList.visibility = View.GONE
+                val url: String? = incentiveStructureList[pos]?.rideOptionsList?.get(1)?.imageUrl
+                Glide.with(requireContext())
+                    .load(url)
+                    .placeholder(R.drawable.ic_app_icon)
+                    .into(ivRapidoPayListTwo)
+               tvTitleRedirection.text = Html.fromHtml(incentiveStructureList[pos]?.rideOptionsList?.get(1)?.titleHtml).trim()
+            }
+
+            llTextContainer.setOnClickListener {
+                if(selectedTab == 1){
+                    if(incentiveStructureList[pos]?.rideOptionsList?.get(0)?.redirectEnabled == true){
+                        requireContext().redirectionBasedOnAction(
+                            incentiveStructureList[pos]?.rideOptionsList?.get(0)?.redirectLink!!,
+                            requireContext(),
+                            llTextContainer,
+                            null,
+                            "FRAGMENTS",
+                            null
+
+                        )
+                    }
+                }else{
+                    if(incentiveStructureList[pos]?.rideOptionsList?.get(1)?.redirectEnabled == true){
+                        requireContext().redirectionBasedOnAction(
+                            incentiveStructureList[pos]?.rideOptionsList?.get(1)?.redirectLink!!,
+                            requireContext(),
+                            llTextContainer,
+                            null,
+                            "FRAGMENTS",
+                            null
+
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+
 }

@@ -31,6 +31,9 @@ public class OtherSettingModel {
         @SerializedName("hi_key")
         @Expose
         private String hiKey;
+        @SerializedName("te_key")
+        @Expose
+        private String teKey;
         @SerializedName("icon")
         @Expose
         private int icon;
@@ -40,6 +43,14 @@ public class OtherSettingModel {
 
         public String getHiKey() {
             return hiKey;
+        }
+
+        public String getTeKey() {
+            return teKey;
+        }
+
+        public void setTeKey(String teKey) {
+            this.teKey = teKey;
         }
 
         public void setHiKey(String hiKey) {

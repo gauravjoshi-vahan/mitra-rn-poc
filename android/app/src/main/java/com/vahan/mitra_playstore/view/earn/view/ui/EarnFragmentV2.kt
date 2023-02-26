@@ -20,6 +20,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -33,6 +34,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.moengage.core.Properties
 import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
+import com.vahan.mitra_playstore.activityViewModel.ActivityViewModel
 import com.vahan.mitra_playstore.databinding.FragmentEarnV2Binding
 import com.vahan.mitra_playstore.interfaces.CoachmarkListener
 import com.vahan.mitra_playstore.models.kotlin.BannerListDataModelNew
@@ -49,6 +51,7 @@ import com.vahan.mitra_playstore.view.earn.view.adapter.SliderAdapter
 import com.vahan.mitra_playstore.view.earn.view.adapter.TransactionDetailAdapter
 import com.vahan.mitra_playstore.view.earn.model.TextModel
 import com.vahan.mitra_playstore.view.earn.viewModel.EarnViewModel
+import com.vahan.mitra_playstore.view.errorview.ErrorFragment
 import com.vahan.mitra_playstore.view.ratecard.ui.RateCardDetailViewOnClick
 import com.vahan.mitra_playstore.workmanager.WorkerScheduler
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,6 +91,7 @@ class EarnFragmentV2 : Fragment(), RateCardDetailViewOnClick, CoachmarkListener 
     private var sourceStringTwo = ""
     private var listOfSlotOne = ArrayList<String>()
     private var showLearnMoreTxt = true
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -1341,7 +1345,6 @@ class EarnFragmentV2 : Fragment(), RateCardDetailViewOnClick, CoachmarkListener 
                             for (item in it.data.dynamicBanner) {
                                 fragmentArrayList.add(item!!)
                             }
-
                         }
                         fragmentArrayList.add(0, banner)
                         setViewPaggerInsertData(fragmentArrayList)
@@ -1498,7 +1501,6 @@ class EarnFragmentV2 : Fragment(), RateCardDetailViewOnClick, CoachmarkListener 
             }
         }, 3000)
     }
-
 
     private fun loadInitialApiData(earnDataModel: EarnDataModel) {
         PrefrenceUtils.insertData(
@@ -1882,6 +1884,9 @@ class EarnFragmentV2 : Fragment(), RateCardDetailViewOnClick, CoachmarkListener 
     override fun coachmarkCallback() {
        // startCoachMarks()
     }
+
+
+
 
 
 }

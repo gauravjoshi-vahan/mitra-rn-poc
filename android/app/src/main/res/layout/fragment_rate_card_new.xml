@@ -8,8 +8,10 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl1"
@@ -44,112 +46,113 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/rl1"
             android:layout_below="@+id/cl1"
-            android:layout_above="@id/rl_stickyView"
+            android:background="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+
             <RelativeLayout
-                android:id="@+id/rl1"
-                android:background="@color/white"
+                android:id="@+id/rl2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                >
 
-
-                <RelativeLayout
-                    android:id="@+id/rl2"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_week_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginStart="@dimen/dimen_19dp"
+                    android:layout_marginTop="@dimen/dimen_24dp"
 
-                    <TextView
-                        android:id="@+id/tv_week_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_19dp"
-                        android:layout_marginTop="@dimen/dimen_24dp"
+                    android:text="Monday - Sunday"
+                    android:textColor="@color/black_v2"
+                    android:textSize="@dimen/dimen_12dp" />
 
-                        android:text="Monday - Sunday"
-                        android:textColor="@color/black_v2"
-                        android:textSize="@dimen/dimen_12dp" />
+                <TextView
+                    android:id="@+id/tv_weekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_6dp"
+                    android:layout_marginTop="@dimen/dimen_22dp"
+                    android:layout_toEndOf="@+id/tv_week_name"
+                    android:background="@drawable/view_border_grey_filled"
 
-                    <TextView
-                        android:id="@+id/tv_weekly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_6dp"
-                        android:layout_marginTop="@dimen/dimen_22dp"
-                        android:layout_toEndOf="@+id/tv_week_name"
-                        android:background="@drawable/view_border_grey_filled"
+                    android:paddingStart="@dimen/dimen_8dp"
+                    android:paddingTop="@dimen/dimen_2dp"
+                    android:paddingEnd="@dimen/dimen_8dp"
+                    android:paddingBottom="@dimen/dimen_2dp"
+                    android:text="@string/weekly"
+                    android:textColor="@color/grey2"
+                    android:textSize="@dimen/dimen_12dp" />
 
-                        android:paddingStart="@dimen/dimen_8dp"
-                        android:paddingTop="@dimen/dimen_2dp"
-                        android:paddingEnd="@dimen/dimen_8dp"
-                        android:paddingBottom="@dimen/dimen_2dp"
-                        android:text="@string/weekly"
-                        android:textColor="@color/grey2"
-                        android:textSize="@dimen/dimen_12dp" />
+                <!--            <ImageView-->
+                <!--                android:id="@+id/iv_arrow_down"-->
+                <!--                android:layout_width="@dimen/dimen_11dp"-->
+                <!--                android:layout_height="@dimen/dimen_11dp"-->
+                <!--                android:layout_alignParentEnd="true"-->
+                <!--                android:layout_marginTop="@dimen/dimen_28dp"-->
+                <!--                android:layout_marginEnd="@dimen/dimen_21dp"-->
+                <!--                android:src="@drawable/arrow_down_float"-->
+                <!--                app:tint="@color/grey2" />-->
 
-                    <!--            <ImageView-->
-                    <!--                android:id="@+id/iv_arrow_down"-->
-                    <!--                android:layout_width="@dimen/dimen_11dp"-->
-                    <!--                android:layout_height="@dimen/dimen_11dp"-->
-                    <!--                android:layout_alignParentEnd="true"-->
-                    <!--                android:layout_marginTop="@dimen/dimen_28dp"-->
-                    <!--                android:layout_marginEnd="@dimen/dimen_21dp"-->
-                    <!--                android:src="@drawable/arrow_down_float"-->
-                    <!--                app:tint="@color/grey2" />-->
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/dimen_28dp"
+                    android:layout_marginEnd="@dimen/dimen_21dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="@dimen/dimen_28dp"
-                        android:layout_marginEnd="@dimen/dimen_21dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/spinner"
-                            android:layout_width="@dimen/dimen_14dp"
-                            android:layout_height="@dimen/dimen_10dp"
-                            android:clickable="true"
-                            android:background="@drawable/arrow_down_float"
-                            android:backgroundTint="@color/grey2"
-                            android:dropDownVerticalOffset="-15dp"
-                            android:spinnerMode="dropdown"
-                            android:focusable="true" />
-                    </LinearLayout>
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="@dimen/dimen_14dp"
+                        android:layout_height="@dimen/dimen_10dp"
+                        android:clickable="true"
+                        android:background="@drawable/arrow_down_float"
+                        android:backgroundTint="@color/grey2"
+                        android:dropDownVerticalOffset="-15dp"
+                        android:spinnerMode="dropdown"
+                        android:focusable="true" />
+                </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tv_selected_company_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_25dp"
-                        android:layout_marginEnd="6dp"
-                        android:layout_toStartOf="@+id/linearLayout"
+                <TextView
+                    android:id="@+id/tv_selected_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_25dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_toStartOf="@+id/linearLayout"
 
-                        tools:text="@string/sfx"
-                        android:textColor="@color/black_v2"
-                        android:textSize="@dimen/dimen_12dp" />
+                    tools:text="@string/sfx"
+                    android:textColor="@color/black_v2"
+                    android:textSize="@dimen/dimen_12dp" />
 
-                    <ImageView
-                        android:id="@+id/iv_selected_company_logo"
-                        android:layout_width="@dimen/dimen_22dp"
-                        android:layout_height="@dimen/dimen_22dp"
-                        android:layout_marginTop="@dimen/dimen_23dp"
-                        android:layout_marginEnd="@dimen/dimen_10dp"
-                        android:layout_toStartOf="@+id/tv_selected_company_name" />
+                <ImageView
+                    android:id="@+id/iv_selected_company_logo"
+                    android:layout_width="@dimen/dimen_22dp"
+                    android:layout_height="@dimen/dimen_22dp"
+                    android:layout_marginTop="@dimen/dimen_23dp"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
+                    android:layout_toStartOf="@+id/tv_selected_company_name" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rlCrossUtilContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl2"
+                android:visibility="gone">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl2"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/rl2"
                     android:layout_marginTop="@dimen/dimen_22dp"
                     android:background="#FFF1EB"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -197,245 +200,6 @@
                         tools:listitem="@layout/rate_card_rv1_item" />
 
                 </RelativeLayout>
-
-<!--                <RelativeLayout-->
-<!--                    android:id="@+id/rl3"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/rl_rv1">-->
-
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:id="@+id/cl3"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_base_pay"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="15dp"-->
-<!--                            android:layout_marginBottom="12dp"-->
-
-<!--                            android:text="Base Pay"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="14sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/per_order_value"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginEnd="10dp"-->
-
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/per_order"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/per_order"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/per_order"-->
-<!--                            tools:text="42" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_base_pay_amt"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="3dp"-->
-
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/per_order_value"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/per_order_value"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/per_order_value"-->
-<!--                            tools:text="+₹" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/per_order"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="15dp"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="10sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent"-->
-<!--                            tools:text="Per order" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/base_pay_label"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="12sp"-->
-<!--                            app:layout_constraintStart_toStartOf="@+id/tv_base_pay"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/tv_base_pay"-->
-<!--                            tools:text="for each order delivered" />-->
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:id="@+id/cl4"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:layout_below="@+id/cl3"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/cl3">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_distance_pay"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="15dp"-->
-<!--                            android:layout_marginBottom="12dp"-->
-
-<!--                            android:text="Distance Pay"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="14sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/distance_pay_value"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="10dp"-->
-
-<!--                            tools:tools="6"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/per_km"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/per_km"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/per_km" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_distance_pay_amt"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="3dp"-->
-
-<!--                            tools:text="+₹"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/distance_pay_value"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/distance_pay_value"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/distance_pay_value" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/per_km"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="15dp"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:text="Per Km"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="10sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/distance_pay_label"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:text="for each order delivered"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="12sp"-->
-<!--                            app:layout_constraintStart_toStartOf="@+id/tv_distance_pay"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/tv_distance_pay" />-->
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:id="@+id/cl5"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:layout_below="@+id/cl4"-->
-<!--                        android:visibility="visible"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/tv_peek_hours_incentive"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="15dp"-->
-<!--                            android:layout_marginBottom="12dp"-->
-
-<!--                            android:text="Peek hour incentive"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="14sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/peek_hours_incentive_amt"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="10dp"-->
-
-<!--                            tools:text="6"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/per_hrs"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/per_hrs"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/per_hrs" />-->
-
-<!--                        <TextView-->
-
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="3dp"-->
-
-<!--                            android:text="+₹"-->
-<!--                            android:textColor="@color/black_v2"-->
-<!--                            android:textSize="16sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="@+id/peek_hours_incentive_amt"-->
-<!--                            app:layout_constraintEnd_toStartOf="@+id/peek_hours_incentive_amt"-->
-<!--                            app:layout_constraintTop_toTopOf="@+id/peek_hours_incentive_amt" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/per_hrs"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="15dp"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:text="Per Km"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="10sp"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/peek_hours_pay_label"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/poppinslight"-->
-<!--                            android:text="for the work done during peak hours"-->
-<!--                            android:textColor="@color/light_color_heading"-->
-<!--                            android:textSize="12sp"-->
-<!--                            app:layout_constraintStart_toStartOf="@+id/tv_peek_hours_incentive"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/tv_peek_hours_incentive" />-->
-
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                </RelativeLayout>-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl6"
@@ -614,10 +378,29 @@
                         tools:listitem="@layout/rate_card_trips_done_item" />
 
                 </LinearLayout>
-
-
             </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+
+            <include
+                android:id="@+id/includeZomatoUi"
+                android:layout_below="@id/rl2"
+                layout="@layout/zomato_ui"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_width="wrap_content" />
+
+            <include
+                android:id="@+id/includeRapidoUi"
+                android:layout_below="@id/rl2"
+                layout="@layout/rapido_rate_card_ui"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:visibility="visible"
+                android:layout_width="wrap_content" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_stickyView"

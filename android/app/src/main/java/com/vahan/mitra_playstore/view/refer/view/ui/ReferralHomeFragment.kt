@@ -3,9 +3,13 @@ package com.vahan.mitra_playstore.view.refer.view.ui
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,17 +30,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.freshchat.consumer.sdk.Freshchat
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.dynamiclinks.ktx.androidParameters
+import com.google.firebase.dynamiclinks.ktx.dynamicLink
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
+import com.google.firebase.ktx.Firebase
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.Properties
 import com.uxcam.UXCam
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FragmentReferralHomeBinding
 import com.vahan.mitra_playstore.models.kotlin.CustomDataClass
-import com.vahan.mitra_playstore.utils.ApiState
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.view.SalaryViewActivity
 import com.vahan.mitra_playstore.interfaces.ReferralMilestoneOnClick
+import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.refer.view.adapter.ReferContactListNewAdapter
 import com.vahan.mitra_playstore.view.refer.view.customdialog.RecentReferralDialog
 import com.vahan.mitra_playstore.view.refer.models.*
@@ -62,6 +69,7 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
     private var customDataClassList: ArrayList<CustomDataClass> = ArrayList()
     var arrTripsDoneReferralStatus = ArrayList<ReferralStatusNewModel.BonusAmountObject>()
     var arrTripsDoneReferralHome = ArrayList<ReferralHomeNewRespModel.BonusAmountObject>()
+    private lateinit var referralCodeResp: ReferralCodeRespDTO
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,10 +86,17 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
     private fun initViews() {
         fa = FirebaseAnalytics.getInstance(requireActivity())
         viewReferralStatusModel = ViewModelProvider(this)[ReferralStatusViewModel::class.java]
         disableInviteButton()
+        // function for getting referral code from API response
+        getReferralCode()
         getReferralNewHomeData("3")
         getReferralHomeData("3")
         clickListener()
@@ -124,7 +139,9 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
                     is ApiState.Success -> {
                         dialog.dismiss()
                         setDataNew(it.data)
-                     //   RecentReferralDialog()
+                       // val phoneNumber = arguments?.getString(Constants.REFERRAL_NUMBERS)
+                        //if(phoneNumber!="")
+                        //getReferralMilestoneData(phoneNumber?:"","")
                     }
                     is ApiState.Failure -> {
                         dialog.dismiss()
@@ -135,7 +152,8 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
             }
         }
     }
-    private fun getReferralMilestoneData(phNo: String,name:String) {
+
+    private fun getReferralMilestoneData(phNo: String, name: String) {
         val homeReferralData = ReferralMilestoneRequestModel(phNo)
         val dialog = createProgressDialog()
         lifecycleScope.launchWhenStarted {
@@ -176,7 +194,7 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
     private fun setData(it: ReferralHomeRespModel) {
         responseModel = it
         setReferredHomeData(it)
-       // setUpNewRecyclerView(it)
+        // setUpNewRecyclerView(it)
         //setUpEarnableAmount(it.earnableAmountForReferrals)
     }
 
@@ -206,10 +224,14 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
             data.totalEarnableAmountPerSuccessfulReferral.toString()
         )
         if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
-            binding.tvThird.text ="Get bonus for the trips completed by your friend in "+ data.referralValidForDays+" days"
+            binding.tvThird.text =
+                "Get bonus for the trips completed by your friend in " + data.referralValidForDays + " days"
+        } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
+            binding.tvThird.text =
+                "अपने मित्र द्वारा " + data.referralValidForDays + " दिनों में पूरी की गई यात्राओं के लिए बोनस प्राप्त करें"
         } else {
             binding.tvThird.text =
-                "अपने मित्र द्वारा "+data.referralValidForDays + " दिनों में पूरी की गई यात्राओं के लिए बोनस प्राप्त करें"
+                "${data.referralValidForDays} రోజులలో మీ స్నేహితుడు పూర్తి చేసిన ట్రిప్\u200Cలకు బోనస్ పొందండి"
         }
 
     }
@@ -217,37 +239,42 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
     @SuppressLint("SetTextI18n")
     private fun setReferredNewHomeData(data: ReferralHomeNewRespModel) {
 
-
-//        PrefrenceUtils.insertData(
-//            requireContext(),
-//            Constants.REFERRAL_AMOUNT,
-//            data.earnableAmountPerSuccessfulReferral.toString()
-//        )
         if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
             binding.tvThird.text =
                 "Get bonus for the trips\ncompleted by your friend\nin " + data.referralValidForDays + " days"
+        } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
+            binding.tvThird.text =
+                "अपने मित्र द्वारा " + data.referralValidForDays + " दिनों में पूरी की गई यात्राओं के लिए बोनस प्राप्त करें"
         } else {
             binding.tvThird.text =
-               "अपने मित्र द्वारा "+ data.referralValidForDays +" दिनों में पूरी की गई यात्राओं के लिए बोनस प्राप्त करें"
+                " ${data.referralValidForDays} రోజులలో మీ స్నేహితుడు పూర్తి చేసిన ట్రిప్‌లకు బోనస్ పొందండి"
         }
-        binding.tvEarnAmt.text = resources.getString(R.string.rupee) + data.totalEarnableAmountPerSuccessfulReferral.toString()
-        binding.tvRupeeEarnedAmt.text = resources.getString(R.string.rupee) + data.totalAmountEarnedForReferrals.toString()
+        binding.tvEarnAmt.text = data.referralMessage
+        binding.tvRupeeEarnedAmt.text =
+            resources.getString(R.string.rupee) + data.totalAmountEarnedForReferrals.toString()
 
 
-        binding.tvCompletedAmt.text =   data.referralsCompleted.toString()+resources.getString(R.string._friends)
-        binding.tvInProgressAmt.text =   data.referralsInProgress.toString()+resources.getString(R.string._friends)
+        binding.tvCompletedAmt.text =
+            data.referralsCompleted.toString() + resources.getString(R.string._friends)
+        binding.tvInProgressAmt.text =
+            data.referralsInProgress.toString() + resources.getString(R.string._friends)
 
-        binding.tvR1C1.text =   data.bonusAmountObject?.get(0)?.numberOfTrips.toString()
-        binding.tvR1C2.text =   data.bonusAmountObject?.get(1)?.numberOfTrips.toString()
-        binding.tvR1C3.text =   data.bonusAmountObject?.get(2)?.numberOfTrips.toString()
-        binding.tvR1C4.text =   data.bonusAmountObject?.get(3)?.numberOfTrips.toString()
-        binding.tvR1C5.text =   data.bonusAmountObject?.get(4)?.numberOfTrips.toString()
+        binding.tvR1C1.text = data.bonusAmountObject?.get(0)?.numberOfTrips.toString()
+        binding.tvR1C2.text = data.bonusAmountObject?.get(1)?.numberOfTrips.toString()
+        binding.tvR1C3.text = data.bonusAmountObject?.get(2)?.numberOfTrips.toString()
+        binding.tvR1C4.text = data.bonusAmountObject?.get(3)?.numberOfTrips.toString()
+        binding.tvR1C5.text = data.bonusAmountObject?.get(4)?.numberOfTrips.toString()
 
-        binding.tvR2C1.text =   resources.getString(R.string.rupee) + data.bonusAmountObject?.get(0)?.totalEarned.toString()
-        binding.tvR2C2.text =   resources.getString(R.string.rupee) + data.bonusAmountObject?.get(1)?.totalEarned.toString()
-        binding.tvR2C3.text =   resources.getString(R.string.rupee) + data.bonusAmountObject?.get(2)?.totalEarned.toString()
-        binding.tvR2C4.text =   resources.getString(R.string.rupee) + data.bonusAmountObject?.get(3)?.totalEarned.toString()
-        binding.tvR2C5.text =   resources.getString(R.string.rupee) + data.bonusAmountObject?.get(4)?.totalEarned.toString()
+        binding.tvR2C1.text =
+            resources.getString(R.string.rupee) + data.bonusAmountObject?.get(0)?.totalEarned.toString()
+        binding.tvR2C2.text =
+            resources.getString(R.string.rupee) + data.bonusAmountObject?.get(1)?.totalEarned.toString()
+        binding.tvR2C3.text =
+            resources.getString(R.string.rupee) + data.bonusAmountObject?.get(2)?.totalEarned.toString()
+        binding.tvR2C4.text =
+            resources.getString(R.string.rupee) + data.bonusAmountObject?.get(3)?.totalEarned.toString()
+        binding.tvR2C5.text =
+            resources.getString(R.string.rupee) + data.bonusAmountObject?.get(4)?.totalEarned.toString()
 
 
     }
@@ -308,14 +335,14 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
 
         binding.rl2.visibility = View.VISIBLE
         binding.rvRecentReferrals.layoutManager = LinearLayoutManager(requireContext())
-            val adapter =
-                responseModelNew?.let {
-                    context?.let { it1 -> ReferContactListNewAdapter(it1,this, it, fa) }
-                }
-            binding.rvRecentReferrals.adapter = adapter
+        val adapter =
+            responseModelNew?.let {
+                context?.let { it1 -> ReferContactListNewAdapter(it1, this, it, fa) }
+            }
+        binding.rvRecentReferrals.adapter = adapter
 
         //customDataClassList.clear()
-    //       val stgMap: HashMap<String, ReferralHomeNewRespModel.ReferralStagesAndStatusMapping.ReferralStage> =
+        //       val stgMap: HashMap<String, ReferralHomeNewRespModel.ReferralStagesAndStatusMapping.ReferralStage> =
 //            HashMap()
 //        for (referralStg in referralStatus.referralStagesAndStatusMapping?.referralStages!!) {
 //            val stg: String = referralStg?.stage!!
@@ -344,7 +371,14 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
 //        } else {
 //            binding.rl2.visibility = View.GONE
 //        }
+    }
 
+    private fun setInstrumentation(code: String?) {
+        val properties = Properties()
+        val attribute = HashMap<String, Any>()
+        properties.addAttribute("code", code)
+        attribute["code"] = code!!
+        captureAllEvents(requireContext(), Constants.REFER_TYPE, attribute, properties)
     }
 
     private fun queryListener() {
@@ -381,6 +415,9 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     private fun clickListener() {
+        binding.referralCodeRl.setOnClickListener {
+           shareReferralCode()
+        }
         binding.tvKnowMore.setOnClickListener {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.nav_know_more_fragment)
@@ -421,9 +458,11 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
                     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
                         binding.tvHwItWorkTxt.text ="You can refer your friends and make some extra money. Earn upto ₹"+dataOne+
                                 " per referral depending on the number of rides your friend is taking in "+dataTwo+" days time."
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi"))  {
                         binding.tvHwItWorkTxt.text ="आप अपने दोस्तों को रेफर कर सकते हैं और कुछ अतिरिक्त पैसे कमा सकते हैं। आपके दोस्त द्वारा "+dataTwo+
                                 " दिनों में ली जा रही राइड्स की संख्या के आधार पर प्रति रेफरल ₹"+dataOne+" तक कमाएं।"
+                    }else {
+                        binding.tvHwItWorkTxt.text = "మీరు మీ స్నేహితులను సూచించవచ్చు మరియు కొంత అదనపు డబ్బు సంపాదించవచ్చు. మీ స్నేహితుడు" +dataTwo+ " రోజుల వ్యవధిలో తీసుకునే రైడ్\u200Cల సంఖ్యను బట్టి ఒక్కో రెఫరల్\u200Cకు ₹"+dataOne+ " వరకు సంపాదించండి"
                     }
 
                     setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_minus, 0, 0, 0)
@@ -436,10 +475,10 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
             }
         }
         // this click action showing and moving to next screen i.e ReferralCodeFragment
-        binding.tvShowCode.setOnClickListener {
-          //  findNavController().navigate(R.id.nav_referral_code_fragment)
-            ReferralCodeFragment().show(childFragmentManager,null)
-        }
+//        binding.tvShowCode.setOnClickListener {
+//          //  findNavController().navigate(R.id.nav_referral_code_fragment)
+//            ReferralCodeFragment().show(childFragmentManager,null)
+//        }
         binding.tvHwItCanBenefit.apply {
             this.setOnClickListener {
                 if (isEnable3) {
@@ -452,12 +491,12 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
                     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
                         binding.tvHwItCanBenefitTxt.text =
                             "Invite your friend to join mitra, and earn upto ₹$data per referral."
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
                         binding.tvHwItCanBenefitTxt.text =
                             "अपने मित्र को मित्रा में शामिल होने के लिए आमंत्रित करें, और प्रति रेफरल ₹$data तक अर्जित करें।"
+                    } else{
+                        binding.tvHwItCanBenefitTxt.text = "మిత్రాలో చేరడానికి మీ స్నేహితుడిని ఆహ్వానించండి మరియు ప్రతి రెఫరల్\u200Cకు ₹${data} వరకు సంపాదించండి."
                     }
-
-
                     setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_minus, 0, 0, 0)
                 } else {
                     binding.tvHwItCanBenefit.setTextColor(ContextCompat.getColor(context,R.color.dark_grey))
@@ -578,12 +617,118 @@ class ReferralHomeFragment : Fragment(), ReferralMilestoneOnClick {
             .trackEvent(Constants.REFERRAL_HOME_VIEWED, properties)
         UXCam.logEvent(Constants.REFERRAL_HOME_VIEWED, data)
         Freshchat.trackEvent(requireContext(), Constants.REFERRAL_HOME_VIEWED, attribute)
+
+        requireContext().startBlitzSurvey(
+            requireContext(),
+            Constants.REFERRAL_HOME_VIEWED
+        )
     }
 
     override fun onClick(phoneNo: String,name: String) {
         getReferralMilestoneData(phoneNo,name)
       // getReferralMilestoneData("9999999999")
+    }
 
+    // Get the Referral code from the API
+    private fun getReferralCode() {
+        val referralCode = ReferralCodeReqModel(
+            PrefrenceUtils.retriveData(requireContext(), Constants.PHONENUMBER),
+            listOf()
+        )
+        val dialog = createProgressDialog()
+        lifecycleScope.launchWhenStarted {
+            viewReferralStatusModel.getReferralCode(referralCode).collect {
+                when (it) {
+                    ApiState.Loading -> {
+                        dialog.show()
+                    }
+                    is ApiState.Success -> {
+                        dialog.dismiss()
+                        setReferralCodeData(it.data)
+                    }
+                    is ApiState.Failure -> {
+                        dialog.dismiss()
+                        Toast.makeText(requireContext(), "" + it.msg, Toast.LENGTH_SHORT).show()
+                        Navigation.findNavController(binding.root).navigate(R.id.nav_error_fragment)
+                    }
+                }
+            }
+        }
+    }
+    // Setting Data
+    private fun setReferralCodeData(data: ReferralCodeRespDTO) {
+        referralCodeResp = data
+        setInstrumentationReferCode(referralCodeResp.code)
+        Log.d("DATA", "setData: ${referralCodeResp.code}")
+        binding.tvReferralCodeValue.text = referralCodeResp.code
+    }
+
+    private fun setInstrumentationReferCode(code: String?) {
+        val properties = Properties()
+        val attribute = HashMap<String, Any>()
+        properties.addAttribute("code", code)
+        attribute["code"] = code?:""
+        captureAllEvents(requireContext(), "refer_type", attribute, properties)
+    }
+
+    private fun createDynamicLinkManually(code: String?) {
+        var dynamicLinks = ""
+        val invitationLink =
+            Constants.DEEPLINK + code
+        val dynamicLink = Firebase.dynamicLinks.dynamicLink {
+            link =
+                Uri.parse(invitationLink)
+            domainUriPrefix = Constants.DOMAIN_URL_PREFIX
+            // Open links with this app on Android
+            androidParameters {
+                minimumVersion = 1
+            }
+        }
+
+        val dynamicLinkUri = dynamicLink.uri
+        dynamicLinks = dynamicLinkUri.toString()
+        shorterDynamicLink(invitationLink)
+    }
+
+    // This method is used for shortening the dynamic Link
+    private fun shorterDynamicLink(dynamicLink: String) {
+        val shortLinkTask = Firebase.dynamicLinks.shortLinkAsync {
+            link = Uri.parse(dynamicLink)
+            domainUriPrefix = Constants.DOMAIN_URL_PREFIX
+            androidParameters {
+                minimumVersion = 1
+            }
+        }.addOnSuccessListener { result ->
+            val shortLink = result.shortLink
+            shareUsingIntent(shortLink!!)
+        }.addOnFailureListener {
+            Log.d("log_tag", "==> ${it.localizedMessage}", it)
+
+        }
+    }
+    // this function is for redirecting the user to social media app to share the msg in chat
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun shareUsingIntent(shortLink: Uri){
+        val data =PrefrenceUtils.retriveData(context, Constants.SHARE_REFERRAL_CODE_TEXT_REMOTE_CONFIG) +"\n\n"+ shortLink.toString()
+        val decodedByte = requireContext().drawableToBitmap(resources.getDrawable(R.drawable.referral_banner))
+        val imageToShare: Uri = Uri.parse(requireContext().insertImage(requireContext().contentResolver, decodedByte,
+                "Share app",
+                "ContentImage"
+            )
+        )
+        val share = Intent(Intent.ACTION_SEND)
+        share.type = "image/*"
+        share.putExtra(Intent.EXTRA_TEXT,data)
+        share.putExtra(Intent.EXTRA_STREAM, imageToShare)
+        startActivity(Intent.createChooser(share, "Share via"))
+    }
+    // function for sharing referral code
+    private fun shareReferralCode(){
+        if (referralCodeResp.code != null)
+            createDynamicLinkManually(referralCodeResp.code)
+        else
+            Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                .show()
     }
 }
 

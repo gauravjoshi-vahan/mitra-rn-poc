@@ -115,7 +115,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.HOME_UTILITIES,
                 "https://uploads-a.vahan.co/wmRtiT-homeutilities.svg",
                 "Home Utilities",
-                "घरेलू उपयोगिताएँ"
+                "घरेलू उपयोगिताएँ",
+                "గృహ వినియోగాలు"
             )
         )
 
@@ -124,7 +125,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.HOUSE_RENT,
                 "https://uploads-a.vahan.co/drgRPZ-houserent.svg",
                 "House Rent",
-                "घर का किराया"
+                "घर का किराया",
+                "ఇంటి అద్దె"
             )
         )
         purposeList.add(
@@ -132,7 +134,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.FAMILY,
                 "https://uploads-a.vahan.co/NiZiTZ-family.svg",
                 "Family",
-                "परिवार"
+                "परिवार",
+                "కుటుంబం"
             )
         )
         purposeList.add(
@@ -140,7 +143,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.VEHICLE,
                 "https://uploads-a.vahan.co/t3g8MR-vehicle.svg",
                 "Vehicle",
-                "वाहन"
+                "वाहन",
+                "వాహనం"
             )
         )
         purposeList.add(
@@ -148,7 +152,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.SHOPPING,
                 "https://uploads-a.vahan.co/ylLXVX-shopping.svg",
                 "Shopping",
-                "खरीदारी"
+                "खरीदारी",
+                "షాపింగ్"
             )
         )
         purposeList.add(
@@ -156,7 +161,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.FESTIVAL,
                 "https://uploads-a.vahan.co/TyRDrh-festival.svg",
                 "Festival",
-                "त्यौहार"
+                "त्यौहार",
+                "పండుగ"
             )
         )
         purposeList.add(
@@ -164,7 +170,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.MEDICAL,
                 "https://uploads-a.vahan.co/mSLw6V-medical.svg",
                 "Medical",
-                "मेडिकल"
+                "मेडिकल",
+                "వైద్య"
             )
         )
         purposeList.add(
@@ -172,7 +179,8 @@ class CashoutPurposeFragment : Fragment() {
                 Constants.OTHER,
                 "https://uploads-a.vahan.co/H3Jv0T-other.svg",
                 "Other",
-                "अन्य"
+                "अन्य",
+                "ఇతర"
             )
         )
 

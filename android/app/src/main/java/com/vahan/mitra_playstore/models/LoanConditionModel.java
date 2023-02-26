@@ -63,12 +63,18 @@ public class LoanConditionModel {
         @SerializedName("claim_desc_hi")
         @Expose
         private String claimDescHi;
+        @SerializedName("claim_desc_te")
+        @Expose
+        private String claimDescTe;
         @SerializedName("help_desc")
         @Expose
         private String helpDesc;
         @SerializedName("help_desc_hi")
         @Expose
         private String helpDescHi;
+        @SerializedName("help_desc_te")
+        @Expose
+        private String helpDescTe;
         @SerializedName("claim_button")
         @Expose
         private Integer claimButton;
@@ -84,6 +90,22 @@ public class LoanConditionModel {
 
         public Boolean getView() {
             return view;
+        }
+
+        public String getClaimDescTe() {
+            return claimDescTe;
+        }
+
+        public void setClaimDescTe(String claimDescTe) {
+            this.claimDescTe = claimDescTe;
+        }
+
+        public String getHelpDescTe() {
+            return helpDescTe;
+        }
+
+        public void setHelpDescTe(String helpDescTe) {
+            this.helpDescTe = helpDescTe;
         }
 
         public void setView(Boolean view) {
@@ -175,12 +197,18 @@ public class LoanConditionModel {
         @SerializedName("title_hi")
         @Expose
         private String titleHi;
+        @SerializedName("title_te")
+        @Expose
+        private String titleTe;
         @SerializedName("desc")
         @Expose
         private String desc;
         @SerializedName("hi_desc")
         @Expose
         private String hiDesc;
+        @SerializedName("te_desc")
+        @Expose
+        private String teDesc;
         @SerializedName("button")
         @Expose
         private Integer button;
@@ -190,6 +218,33 @@ public class LoanConditionModel {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
+
+        public String getTitleTe() {
+            return titleTe;
+        }
+
+        public void setTitleTe(String titleTe) {
+            this.titleTe = titleTe;
+        }
+
+        public String getTeDesc() {
+            return teDesc;
+        }
+
+        public void setTeDesc(String teDesc) {
+            this.teDesc = teDesc;
+        }
+
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
 
         public Boolean getView() {
             return view;
@@ -269,15 +324,24 @@ public class LoanConditionModel {
         @SerializedName("title_hi")
         @Expose
         private String titleHi;
+        @SerializedName("title_te")
+        @Expose
+        private String titleTe;
         @SerializedName("hi_desc")
         @Expose
         private String hiDesc;
+        @SerializedName("te_desc")
+        @Expose
+        private String teDesc;
         @SerializedName("desc")
         @Expose
         private String desc;
         @SerializedName("desc_hi")
         @Expose
         private String descHi;
+        @SerializedName("desc_te")
+        @Expose
+        private String descTe;
         @SerializedName("button")
         @Expose
         private Integer button;
@@ -287,6 +351,42 @@ public class LoanConditionModel {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+
+        public String getTitleTe() {
+            return titleTe;
+        }
+
+        public void setTitleTe(String titleTe) {
+            this.titleTe = titleTe;
+        }
+
+        public String getTeDesc() {
+            return teDesc;
+        }
+
+        public void setTeDesc(String teDesc) {
+            this.teDesc = teDesc;
+        }
+
+        public String getDescTe() {
+            return descTe;
+        }
+
+        public void setDescTe(String descTe) {
+            this.descTe = descTe;
+        }
+
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
+
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
 
         public Boolean getView() {
             return view;
@@ -373,12 +473,18 @@ public class LoanConditionModel {
         @SerializedName("title_hi")
         @Expose
         private String titleHi;
+        @SerializedName("title_te")
+        @Expose
+        private String titleTe;
         @SerializedName("desc")
         @Expose
         private String desc;
         @SerializedName("desc_hi")
         @Expose
         private String descHi;
+        @SerializedName("desc_te")
+        @Expose
+        private String descTe;
         @SerializedName("button")
         @Expose
         private Integer button;
@@ -388,6 +494,33 @@ public class LoanConditionModel {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
+
+        public String getTitleTe() {
+            return titleTe;
+        }
+
+        public void setTitleTe(String titleTe) {
+            this.titleTe = titleTe;
+        }
+
+        public String getDescTe() {
+            return descTe;
+        }
+
+        public void setDescTe(String descTe) {
+            this.descTe = descTe;
+        }
+
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
 
         public Boolean getView() {
             return view;

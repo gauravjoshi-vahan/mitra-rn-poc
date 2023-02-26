@@ -8,10 +8,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.vahan.mitra_playstore.view.adapter.SliderAdapter
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.ActivityStarterScreenBinding
-import com.vahan.mitra_playstore.view.activities.enternumberactivity.view.ui.EnterNumberActivity
+import com.vahan.mitra_playstore.view.adapter.SliderAdapter
 
 
 class StarterScreen : BaseActivity() {
@@ -44,7 +43,7 @@ class StarterScreen : BaseActivity() {
 //        }
         binding.btnNext.setOnClickListener {
             if (location == 3) {
-                startActivity(Intent(this, ReactActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
             } else {
                 binding.staterViewPager.setCurrentItem(location + 1, true)

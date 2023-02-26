@@ -8,11 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.RateCardRv1ItemBinding
-import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
+import com.vahan.mitra_playstore.view.ratecard.models.RateCardDetailsDTO
 
 class VariablePayAdapter(
     private val context: Context,
-    private val data: EarnDataModel.IncentiveStructures,
+    private val data: RateCardDetailsDTO,
     private var pos: Int
 ): RecyclerView.Adapter<VariablePayAdapter.MyViewHolder>() {
 
@@ -31,17 +31,17 @@ class VariablePayAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.apply {
-            if(data.incentiveList[pos].spinnerKey!="Mitra"){
-                tvBasePay.text = data.incentiveList[pos].payoutStructure?.get(position)?.name
-                Log.d("geet", "onBindViewHolder: "+data.incentiveList[pos].payoutStructure?.get(position)?.name)
-                basePayLabel.text = data.incentiveList[pos].payoutStructure?.get(position)?.label
-                perOrderValue.text = data.incentiveList[pos].payoutStructure?.get(position)?.value
-                perOrder.text = data.incentiveList[pos].payoutStructure?.get(position)?.unitLabel
+            if(data.incentiveList?.get(pos)!!.spinnerKey!="Mitra"){
+                tvBasePay.text = data.incentiveList[pos]?.payoutStructure?.get(position)?.name
+                Log.d("geet", "onBindViewHolder: "+data.incentiveList[pos]?.payoutStructure?.get(position)?.name)
+                basePayLabel.text = data.incentiveList[pos]?.payoutStructure?.get(position)?.label
+                perOrderValue.text = data.incentiveList[pos]?.payoutStructure?.get(position)?.value
+                perOrder.text = data.incentiveList[pos]?.payoutStructure?.get(position)?.unitLabel
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return data.incentiveList[pos].payoutStructure!!.size
+        return data.incentiveList?.get(pos)?.payoutStructure!!.size
     }
 }

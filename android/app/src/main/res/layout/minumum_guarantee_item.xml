@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16dp"
+        android:background="@color/light_green_F2FFF8">
+
+        <TextView
+            android:id="@+id/tv_minimum_guarantee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Minimum Guarantee (MG)"
+            android:fontFamily="@font/poppinsbold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_14sp"/>
+
+        <TextView
+            android:id="@+id/tv_amount_guarantee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$3000"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_14sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content_condition"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_below="@+id/tv_amount_guarantee"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+</layout>

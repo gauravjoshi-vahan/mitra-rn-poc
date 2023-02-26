@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.freshchat.consumer.sdk.FaqOptions
 import com.freshchat.consumer.sdk.Freshchat
 import com.vahan.mitra_playstore.R
-import com.vahan.mitra_playstore.view.profile.viewmodel.ItemsViewModel
+import com.vahan.mitra_playstore.view.profile.models.ItemsViewModel
 
 class HelpAndSupportAdapter(private val context: Context, private val mList: List<ItemsViewModel>) :
     RecyclerView.Adapter<HelpAndSupportAdapter.ViewHolder>() {

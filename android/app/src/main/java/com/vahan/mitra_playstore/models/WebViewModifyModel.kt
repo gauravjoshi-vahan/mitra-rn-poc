@@ -17,6 +17,6 @@ data class WebViewModifyModel(
         val destination: String? = null,
         @SerializedName("download_link")
         @Expose
-        val downloadLink: String? = null
+        val download_link: String? = null
     )
 }

@@ -58,8 +58,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_partener_logo"
-                    android:scaleType="centerInside" />
+                    android:src="@drawable/splash_partners_logo"
+                    android:scaleType="centerCrop" />
 
             </RelativeLayout>
 

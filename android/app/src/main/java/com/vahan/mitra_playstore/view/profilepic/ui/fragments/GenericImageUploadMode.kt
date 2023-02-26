@@ -193,7 +193,7 @@ class GenericImageUploadMode : Fragment() {
         val viewSharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         toggleUploadLoadingBtnDisplay(true)
         lifecycleScope.launchWhenStarted {
-            viewSharedViewModel.uploadImageFile(
+            viewSharedViewModel.newUploadImageFile(
                 requireContext(),
                 Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(
                     requireContext(),
@@ -202,8 +202,8 @@ class GenericImageUploadMode : Fragment() {
                 viewModel.bitmapDataImage!!,
                 imageType
             )?.observe(requireActivity()) { data ->
-                if (data.isNotEmpty()) {
-                    imageUrl = data
+                if (data.fileURL?.isNotEmpty() == true) {
+                    imageUrl = data.fileURL.toString()
                     if (imageUrl.isNotEmpty()) {
                         verifyImageAPI(imageType, viewSharedViewModel, imageUrl)
                     }

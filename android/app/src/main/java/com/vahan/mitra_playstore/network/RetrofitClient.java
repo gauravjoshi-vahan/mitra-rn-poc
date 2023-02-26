@@ -1,6 +1,8 @@
 package com.vahan.mitra_playstore.network;
 
 
+import com.datatheorem.android.trustkit.TrustKit;
+import com.datatheorem.android.trustkit.pinning.OkHttp3Helper;
 import com.vahan.mitra_android.utils.ConnectivityUtils;
 import com.vahan.mitra_playstore.BuildConfig;
 import com.vahan.mitra_playstore.utils.Constants;
@@ -10,6 +12,9 @@ import com.vahan.mitra_playstore.view.BaseApplication;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +30,7 @@ public class RetrofitClient {
     public static String BASE_URL_FRESHDESK = "https://vahan-commops.freshdesk.com";
 
     public OkHttpClient okHttpInterceptor = new OkHttpClient().newBuilder()
-           // comment for stg (1)
+            // comment for stg (1)
 //            .sslSocketFactory(TrustKit.getInstance().getSSLSocketFactory(Constants.SERVERHOSTNAME),
 //                    TrustKit.getInstance().getTrustManager(Constants.SERVERHOSTNAME))
 //            .addInterceptor(OkHttp3Helper.getPinningInterceptor())
@@ -130,6 +135,14 @@ public class RetrofitClient {
         return retrofit.create(ApiServices.class);
     }
 
+    public ApiServices jobsMarketplaceIntegration() {
+        if (ConnectivityUtils.INSTANCE.isOnline(Objects.requireNonNull(BaseApplication.getContext()))) {
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create()).client(okHttpJobsMarketplace).build();
+        }
+        return retrofit.create(ApiServices.class);
+    }
+
     public ApiServices getApiRetrofitOnlyDeviceId() {
        /* if (ConnectivityUtils.INSTANCE.isOnline(Objects.requireNonNull(BaseApplication.getContext()))) {
 
@@ -159,7 +172,6 @@ public class RetrofitClient {
             .build();
 
 
-
     public OkHttpClient okHttpFreshDesk = new OkHttpClient().newBuilder()
             .connectTimeout(120, TimeUnit.MINUTES)
             .readTimeout(120, TimeUnit.MINUTES)
@@ -167,6 +179,25 @@ public class RetrofitClient {
             .addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
                         .addHeader("Authorization", Constants.AUTHORIZATIONKEYFRESHDESK)
+                        .build();
+                return chain.proceed(request);
+            })
+            .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build();
+
+    public OkHttpClient okHttpJobsMarketplace = new OkHttpClient().newBuilder()
+            .connectTimeout(120, TimeUnit.MINUTES)
+            .readTimeout(120, TimeUnit.MINUTES)
+            .writeTimeout(120, TimeUnit.MINUTES)
+            .addInterceptor(chain -> {
+                Request request = chain.request().newBuilder()
+                        .addHeader(Constants.AUTHORIZATION, Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(BaseApplication.getContext(), Constants.API_TOKEN))
+                        .addHeader(Constants.DEVICEID, PrefrenceUtils.retriveData(BaseApplication.getContext(), Constants.DEVICE_ID))
+                        .addHeader(Constants.APP_BUILD, "playstore")
+                        .addHeader(Constants.APP_ID, "mitra-play-store-app")
+                        .addHeader(Constants.APP_VC, BuildConfig.VERSION_CODE + "")
+                        .addHeader(Constants.APP_VERSION, "200")
+                        .addHeader(Constants.ACCEPT_LANGUAGE, PrefrenceUtils.retriveLangData(BaseApplication.getContext(), Constants.LANGUAGE_API_RESP).toLowerCase(Locale.ROOT))
                         .build();
                 return chain.proceed(request);
             })

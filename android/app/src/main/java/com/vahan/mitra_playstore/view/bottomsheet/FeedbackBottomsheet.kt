@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.Properties
 import com.uxcam.UXCam
+import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FeedbackBottomsheetLayoutBinding
 import com.vahan.mitra_playstore.utils.Constants
@@ -65,44 +66,22 @@ class FeedbackBottomsheet(context: Context, private val page :String) :
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initview() {
         //Toast.makeText(context, binding.feedbackRating.rating, Toast.LENGTH_SHORT).show()
-
         if (binding.feedbackRating.rating != 0.0f) {
             if (binding.feedbackRating.rating > 4.0) {
                 hashMap[context.getString(R.string.mobileNo)] = PrefrenceUtils.retriveData(context,Constants.PHONENUMBER)
                 hashMap[context.getString(R.string.rating)] = binding.feedbackRating.rating.toString()
                 hashMap[context.getString(R.string.feedbackMessage)] = binding.editText.text.toString()
-                hashMap[context.getString(R.string.created_on)] = DateTimeFormatter
-                    .ofPattern(context.getString(R.string.date_format))
-                    .withZone(ZoneOffset.UTC)
-                    .format(Instant.now())
-                handler.postDelayed({ // Run your task here
-                    Log.d("Message",
-                        "initView: ${PrefrenceUtils.retriveData(BaseApplication.context, Constants.FIREBASE_TOKEN)}")
-                    try {
-                        db.collection(Constants.USER_FEEDBACK)
-                            .document(
-                                PrefrenceUtils.retriveData(BaseApplication.context, Constants.PHONENUMBER)
-                            ).set(hashMap)
-                            .addOnSuccessListener {
-                                //Log.d("location", "Location added: $lat")
-                                dismiss()
-                            }
-                            .addOnFailureListener { e ->
-                                Log.d("location", "Location Erroradded: $e")
-                            }
-                        inAppReview()
-                    } catch (e: Exception) {
-
-                    }
-                }, 1000)
+                hashMap[context.getString(R.string.app_version)] = BuildConfig.VERSION_NAME
+                hashMap[context.getString(R.string.created_on)] = DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).withZone(ZoneOffset.UTC).format(Instant.now())
+                submitDataToFirebase()
             } else {
                 hashMap[context.getString(R.string.mobileNo)] = PrefrenceUtils.retriveData(context,Constants.PHONENUMBER)
                 hashMap[context.getString(R.string.ratings)] = binding.feedbackRating.rating.toString()
                 hashMap[context.getString(R.string.feedbackMessage)] = binding.editText.text.toString()
+                hashMap[context.getString(R.string.app_version)] = BuildConfig.VERSION_NAME
+                hashMap[context.getString(R.string.created_on)] = DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).withZone(ZoneOffset.UTC).format(Instant.now())
                 handler.postDelayed({ // Run your task here
-                    Log.d("Message",
-                        "initView: ${PrefrenceUtils.retriveData(BaseApplication.context, Constants.FIREBASE_TOKEN)}")
-                    try {
+                     try {
                         db.collection(Constants.USER_FEEDBACK)
                             .document(
                                 PrefrenceUtils.retriveData(BaseApplication.context, Constants.PHONENUMBER)
@@ -126,6 +105,29 @@ class FeedbackBottomsheet(context: Context, private val page :String) :
         }
         setInstrumentationFeedbackUpdate()
 
+    }
+
+    private fun submitDataToFirebase() {
+        handler.postDelayed({ // Run your task here
+            Log.d("Message",
+                "initView: ${PrefrenceUtils.retriveData(BaseApplication.context, Constants.FIREBASE_TOKEN)}")
+            try {
+                db.collection(Constants.USER_FEEDBACK)
+                    .document(
+                        PrefrenceUtils.retriveData(BaseApplication.context, Constants.PHONENUMBER)
+                    ).set(hashMap)
+                    .addOnSuccessListener {
+                        //Log.d("location", "Location added: $lat")
+                        dismiss()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d("location", "Location Erroradded: $e")
+                    }
+                inAppReview()
+            } catch (e: Exception) {
+
+            }
+        }, 1000)
     }
 
     private fun submitfeedbackCheck() {

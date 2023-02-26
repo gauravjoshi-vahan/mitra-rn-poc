@@ -61,6 +61,9 @@ public class InsureModelClass {
         @SerializedName("desc_hi")
         @Expose
         private String descHi;
+        @SerializedName("desc_te")
+        @Expose
+        private String descTe;
         @SerializedName("button")
         @Expose
         private Integer button;
@@ -70,6 +73,9 @@ public class InsureModelClass {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
 
         public String getTitle() {
             return title;
@@ -119,6 +125,21 @@ public class InsureModelClass {
             this.buttonTextHi = buttonTextHi;
         }
 
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
+
+        public String getDescTe() {
+            return descTe;
+        }
+
+        public void setDescTe(String descTe) {
+            this.descTe = descTe;
+        }
     }
 
     public static class Ec {
@@ -129,12 +150,18 @@ public class InsureModelClass {
         @SerializedName("title_hi")
         @Expose
         private String titleHi;
+        @SerializedName("title_te")
+        @Expose
+        private String titleTe;
         @SerializedName("desc")
         @Expose
         private String desc;
         @SerializedName("hi_desc")
         @Expose
         private String hiDesc;
+        @SerializedName("te_desc")
+        @Expose
+        private String teDesc;
         @SerializedName("button")
         @Expose
         private Integer button;
@@ -144,6 +171,34 @@ public class InsureModelClass {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
+
+        public String getTitleTe() {
+            return titleTe;
+        }
+
+        public void setTitleTe(String titleTe) {
+            this.titleTe = titleTe;
+        }
+
+        public String getTeDesc() {
+            return teDesc;
+        }
+
+        public void setTeDesc(String teDesc) {
+            this.teDesc = teDesc;
+        }
+
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
+
 
         public String getTitle() {
             return title;
@@ -211,12 +266,18 @@ public class InsureModelClass {
         @SerializedName("title_hi")
         @Expose
         private String titleHi;
+        @SerializedName("title_te")
+        @Expose
+        private String titleTe;
         @SerializedName("hi_desc")
         @Expose
         private String hiDesc;
         @SerializedName("desc")
         @Expose
         private String desc;
+        @SerializedName("te_desc")
+        @Expose
+        private String teDesc;
         @SerializedName("desc_hi")
         @Expose
         private String descHi;
@@ -229,6 +290,33 @@ public class InsureModelClass {
         @SerializedName("button_text_hi")
         @Expose
         private String buttonTextHi;
+        @SerializedName("button_text_te")
+        @Expose
+        private String buttonTextTe;
+
+        public String getTitleTe() {
+            return titleTe;
+        }
+
+        public void setTitleTe(String titleTe) {
+            this.titleTe = titleTe;
+        }
+
+        public String getTeDesc() {
+            return teDesc;
+        }
+
+        public void setTeDesc(String teDesc) {
+            this.teDesc = teDesc;
+        }
+
+        public String getButtonTextTe() {
+            return buttonTextTe;
+        }
+
+        public void setButtonTextTe(String buttonTextTe) {
+            this.buttonTextTe = buttonTextTe;
+        }
 
         public String getTitle() {
             return title;
@@ -307,12 +395,18 @@ public class InsureModelClass {
         @SerializedName("claim_desc_hi")
         @Expose
         private String claimDescHi;
+        @SerializedName("claim_desc_te")
+        @Expose
+        private String claimDescTe;
         @SerializedName("help_desc")
         @Expose
         private String helpDesc;
         @SerializedName("help_desc_hi")
         @Expose
         private String helpDescHi;
+        @SerializedName("help_desc_te")
+        @Expose
+        private String helpDescTe;
         @SerializedName("claim_button")
         @Expose
         private Integer claimButton;
@@ -376,6 +470,22 @@ public class InsureModelClass {
 
         public String getClaimPhone() {
             return claimPhone;
+        }
+
+        public String getClaimDescTe() {
+            return claimDescTe;
+        }
+
+        public void setClaimDescTe(String claimDescTe) {
+            this.claimDescTe = claimDescTe;
+        }
+
+        public String getHelpDescTe() {
+            return helpDescTe;
+        }
+
+        public void setHelpDescTe(String helpDescTe) {
+            this.helpDescTe = helpDescTe;
         }
 
         public void setClaimPhone(String claimPhone) {

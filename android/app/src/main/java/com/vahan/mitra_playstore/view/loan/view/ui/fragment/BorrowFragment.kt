@@ -58,7 +58,7 @@ class BorrowFragment : Fragment() {
         ff = FirebaseFirestore.getInstance()
         UXCam.setAutomaticScreenNameTagging(false)
         UXCam.tagScreenName(Constants.BORROW_FRAGMENT)
-        binding.userStoreBorrow.setOnClickListener { view: View? -> uploadDetailInFirestore() }
+        binding.userStoreBorrow.setOnClickListener { uploadDetailInFirestore() }
         checkUserReference()
         dataFromRemoteConfig
     }
@@ -82,10 +82,15 @@ class BorrowFragment : Fragment() {
                 binding.tvCommingSoon.text = loanConditionModel!!.ne.title
                 binding.tvDescComingSon.text = loanConditionModel!!.ne.desc
                 binding.tvButtonApply.text = loanConditionModel!!.ne.buttonText
-            } else {
+            } else if (PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
+                    .equals("hi", ignoreCase = true)) {
                 binding.tvCommingSoon.text = loanConditionModel!!.ne.titleHi
                 binding.tvDescComingSon.text = loanConditionModel!!.ne.descHi
                 binding.tvButtonApply.text = loanConditionModel!!.ne.buttonTextHi
+            }else{
+                binding.tvCommingSoon.text = loanConditionModel!!.ne.titleTe
+                binding.tvDescComingSon.text = loanConditionModel!!.ne.descTe
+                binding.tvButtonApply.text = loanConditionModel!!.ne.buttonTextTe
             }
         } else if ((requireActivity() as MainActivity).loanStatusCheck.equals(
                 "EC",
@@ -98,10 +103,16 @@ class BorrowFragment : Fragment() {
                 binding.tvCommingSoon.text = loanConditionModel!!.ec.title
                 binding.tvDescComingSon.text = loanConditionModel!!.ec.desc
                 binding.tvButtonApply.text = loanConditionModel!!.ec.buttonText
-            } else {
+            } else if(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
+                    .equals("hi", ignoreCase = true)
+            ){
                 binding.tvCommingSoon.text = loanConditionModel!!.ec.titleHi
                 binding.tvDescComingSon.text = loanConditionModel!!.ec.hiDesc
                 binding.tvButtonApply.text = loanConditionModel!!.ec.buttonTextHi
+            }else{
+                binding.tvCommingSoon.text = loanConditionModel!!.ec.titleTe
+                binding.tvDescComingSon.text = loanConditionModel!!.ec.teDesc
+                binding.tvButtonApply.text = loanConditionModel!!.ec.buttonTextTe
             }
         } else if ((requireActivity() as MainActivity).loanStatusCheck.equals(
                 "EW",
@@ -114,10 +125,16 @@ class BorrowFragment : Fragment() {
                 binding.tvCommingSoon.text = loanConditionModel!!.ew.title
                 binding.tvDescComingSon.text = loanConditionModel!!.ew.desc
                 binding.tvButtonApply.text = loanConditionModel!!.ew.buttonText
-            } else {
+            } else if(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE)
+                .equals("hi", ignoreCase = true)
+                    ){
                 binding.tvCommingSoon.text = loanConditionModel!!.ew.titleHi
                 binding.tvDescComingSon.text = loanConditionModel!!.ew.descHi
                 binding.tvButtonApply.text = loanConditionModel!!.ew.buttonTextHi
+            } else {
+                binding.tvCommingSoon.text = loanConditionModel!!.ew.titleTe
+                binding.tvDescComingSon.text = loanConditionModel!!.ew.descTe
+                binding.tvButtonApply.text = loanConditionModel!!.ew.buttonTextTe
             }
         }
     }

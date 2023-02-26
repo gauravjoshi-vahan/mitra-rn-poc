@@ -4,44 +4,33 @@
     <data>
 
     </data>
-    <RelativeLayout
-        android:id="@+id/card_weight_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_150dp">
 
-        <RelativeLayout
+    <RelativeLayout
             android:id="@+id/rv_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_150dp"
-            android:layout_marginEnd="8dp">
+            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingEnd="@dimen/dimen_8dp"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iv_graph"
-                android:layout_width="match_parent"
-                android:scaleType="fitXY"
-                android:layout_height="@dimen/dimen_150dp"
-                android:layout_marginTop="@dimen/dimen_9dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_60dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_price_list" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_title"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@id/iv_graph"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginBottom="@dimen/dimen_6dp"-->
-<!--                android:fontFamily="@font/opensanssemibold"-->
-<!--                android:textColor="@color/black_v2"-->
-<!--                android:textSize="@dimen/dimen_12dp" />-->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_graph"
+                android:textSize="@dimen/dimen_8dp"
+                android:text="@string/rate_card"
+                android:layout_marginTop="@dimen/dimen_2dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/opensanssemibold"
+                android:textColor="@color/black_v2" />
 
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/inner_image"
-            android:layout_width="match_parent"
-            android:scaleType="fitXY"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
-
-    </RelativeLayout>
 
 </layout>

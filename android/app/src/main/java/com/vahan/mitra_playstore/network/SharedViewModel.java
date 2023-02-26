@@ -22,14 +22,18 @@ import com.vahan.mitra_playstore.models.PostLoanApplyModel;
 import com.vahan.mitra_playstore.models.SendOtp;
 import com.vahan.mitra_playstore.models.TransactionDetailsFilterConstraintsModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsModelJava;
+import com.vahan.mitra_playstore.models.UploadDocDTO;
 import com.vahan.mitra_playstore.models.UserResponse;
 import com.vahan.mitra_playstore.models.VerificationResponseModel;
 import com.vahan.mitra_playstore.models.VerifyModel;
 import com.vahan.mitra_playstore.models.kotlin.GetPurPosesAndAmountModel;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMDocUploadDTO;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMPostDocDTO;
 import com.vahan.mitra_playstore.view.supporttickets.datamodels.SupportTicketDTO;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -50,6 +54,9 @@ public class SharedViewModel extends ViewModel {
         return new Retrofithit().uploadImageFile(uploadActivity, token, data, filename);
     }
 
+    public MutableLiveData<UploadDocDTO> newUploadImageFile(Context uploadActivity, String token, Bitmap data, String filename) throws IOException {
+        return new Retrofithit().newUploadImageFile(uploadActivity, token, data, filename);
+    }
 
     public MutableLiveData<VerificationResponseModel> verifyAadharCard(Context context, JsonObject verifyModel) {
         return new Retrofithit().verifyAadharCard(context, verifyModel);
@@ -121,6 +128,14 @@ public class SharedViewModel extends ViewModel {
 
     public MutableLiveData<SupportTicketDTO> callFreshDeskAPI(String queryText) {
         return new Retrofithit().callFreshDeskAPI(queryText);
+    }
+
+    public MutableLiveData<JMDocUploadDTO> JMGetDocsAPI(String queryText) {
+        return new Retrofithit().JMGetDocsAPI(queryText);
+    }
+
+    public MutableLiveData<JMPostDocDTO> JMPostDocsAPI(Context context, JsonObject postDocModel) {
+        return new Retrofithit().JMPostDocsAPI(context, postDocModel);
     }
 
 }

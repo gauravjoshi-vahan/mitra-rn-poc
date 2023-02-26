@@ -13,6 +13,8 @@ import com.jaygoo.widget.RangeSeekBar
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.MilestoneTrackerNewAdapterBinding
 import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
+import com.vahan.mitra_playstore.utils.Constants
+import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.utils.setImage
 import com.vahan.mitra_playstore.view.ratecard.ui.RateCardDetailViewOnClick
 
@@ -175,9 +177,19 @@ class MilestoneNewTrackerAdapter (
                 binding.lastTrip.visibility = View.GONE
             }
             if(count==2) {
+                if(PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("en"))
                 binding.tvCompleted.text = "$currentTotalTripsCompleted trips Completed"
+                else if (PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("hi"))
+                    binding.tvCompleted.text = "$currentTotalTripsCompleted यात्राएं पूर्ण"
+                else
+                    binding.tvCompleted.text = "$currentTotalTripsCompleted పర్యటనలు పూర్తయ్యాయి"
             }else{
-                binding.tvCompleted.text = "$currentTotalCount Completed"
+                if(PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("en"))
+                    binding.tvCompleted.text = "$currentTotalTripsCompleted Completed"
+                else if (PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("hi"))
+                    binding.tvCompleted.text = "$currentTotalTripsCompleted पूरा हुआ"
+                else
+                    binding.tvCompleted.text = "$currentTotalTripsCompleted పూర్తయింది"
             }
             binding.lastTrip.text = currentTotalTripsCompleted
             binding.tvCurrentEarning.text = "₹$currentEarnedAmount"
@@ -225,7 +237,12 @@ class MilestoneNewTrackerAdapter (
         totalEarnAmount:Int,
         allMilestones: List<EarnDataModel.IncentiveStructures.IncentiveList.Milestone>
     ) {
-        binding.tvCompleted.text = "$currentTotalTripsCompleted Completed"
+        if(PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("en"))
+            binding.tvCompleted.text = "$currentTotalTripsCompleted Completed"
+        else if (PrefrenceUtils.retriveLangData(context,Constants.LANGUAGE).equals("hi"))
+            binding.tvCompleted.text = "$currentTotalTripsCompleted पूरा हुआ"
+        else
+            binding.tvCompleted.text = "$currentTotalTripsCompleted పూర్తయింది"
         binding.lastTrip.text = "${allMilestones[allMilestones.size-1].companyTargets!![0].target} ${allMilestones[allMilestones.size-1].companyTargets!![0].unit}"
         binding.tvCurrentEarning.text = "₹$currentEarnedAmount"
         val charSequences: MutableList<CharSequence> = ArrayList()

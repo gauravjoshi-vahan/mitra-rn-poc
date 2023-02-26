@@ -26,14 +26,18 @@ import com.vahan.mitra_playstore.models.SendOtp;
 import com.vahan.mitra_playstore.models.TransactionDetailInfoModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsFilterConstraintsModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsModelJava;
+import com.vahan.mitra_playstore.models.UploadDocDTO;
 import com.vahan.mitra_playstore.models.UserResponse;
 import com.vahan.mitra_playstore.models.VerificationResponseModel;
 import com.vahan.mitra_playstore.models.VerifyModel;
 import com.vahan.mitra_playstore.models.kotlin.GetPurPosesAndAmountModel;
 import com.vahan.mitra_playstore.utils.Constants;
 import com.vahan.mitra_playstore.utils.PrefrenceUtils;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMDocUploadDTO;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMPostDocDTO;
 import com.vahan.mitra_playstore.view.supporttickets.datamodels.SupportTicketDTO;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,6 +85,9 @@ public class Retrofithit {
     public MutableLiveData mutabletLiveSmsData = new MutableLiveData<String>();
     public MutableLiveData mutableNonPayrollDocsData = new MutableLiveData<EarnDataModelJava.Documents>();
     public MutableLiveData mutableFreshDeskData = new MutableLiveData<SupportTicketDTO>();
+    public MutableLiveData mutableJMDocUploadData = new MutableLiveData<JMDocUploadDTO>();
+    public MutableLiveData mutableJMDocPostData = new MutableLiveData<JMPostDocDTO>();
+    public MutableLiveData mutableUploadDocData = new MutableLiveData<UploadDocDTO>();
 
 
     public MutableLiveData<SendOtp> sendOtp(JsonObject mobileNumber) {
@@ -151,8 +158,49 @@ public class Retrofithit {
         return mutableLivelogin;
     }
 
-    public MutableLiveData<String> uploadImageFile(Context uploadActivity, String token, Bitmap data, String filename) {
+    public MutableLiveData<UploadDocDTO> newUploadImageFile(Context uploadActivity, String token, Bitmap data, String filename) throws IOException {
+        File f = new File(uploadActivity.getCacheDir(), filename + ".jpg");
+        f.createNewFile();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        data.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+        byte[] b = baos.toByteArray();
+        FileOutputStream fos = new FileOutputStream(f);
+        fos.write(b);
+        fos.flush();
+        fos.close();
 
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+
+        Call<UploadDocDTO> call = new RetrofitClient().getApiRetrofitInterceptor().upload(filePart);
+        call.enqueue(new Callback<UploadDocDTO>() {
+            @Override
+            public void onResponse(Call<UploadDocDTO> call, Response<UploadDocDTO> response) {
+                try {
+                    if (response.code() >= 200 && response.code() <= 299) {
+                        mutableUploadDocData.postValue(response.body());
+                    } else if (response.code() >= 400) {
+                        LoginModel model = new LoginModel();
+                        model.setSuccess(false);
+                        mutableUploadDocData.postValue(model);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadDocDTO> call, Throwable t) {
+                if (t instanceof SocketTimeoutException) {
+                    UploadDocDTO model = new UploadDocDTO("", false);
+                    model.setSuccess(false);
+                    mutableUploadDocData.postValue(model);
+                }
+            }
+        });
+        return mutableUploadDocData;
+    }
+
+    public MutableLiveData<String> uploadImageFile(Context uploadActivity, String token, Bitmap data, String filename) {
         try {
             File f = new File(uploadActivity.getCacheDir(), filename + ".jpg");
             f.createNewFile();
@@ -886,6 +934,66 @@ public class Retrofithit {
         });
         return mutableFreshDeskData;
     }
+
+    public MutableLiveData<JMDocUploadDTO> JMGetDocsAPI(String queryText) {
+        Call<JMDocUploadDTO> call = new RetrofitClient().jobsMarketplaceIntegration().getJMUploadDocs(queryText);
+        call.enqueue(new Callback<JMDocUploadDTO>() {
+            @Override
+            public void onResponse(Call<JMDocUploadDTO> call, Response<JMDocUploadDTO> response) {
+                try {
+                    JMDocUploadDTO docUploadModel = new JMDocUploadDTO(null,null, 0);
+                    if (response.code() >= 200 && response.code() <= 299) {
+                        mutableJMDocUploadData.postValue(response.body());
+                    }
+                    else if (response.code() >= 400 && response.code() <= 499) {
+                        docUploadModel.setStatusCode(response.code());
+                        mutableJMDocUploadData.postValue(docUploadModel);
+                    } else if (response.code() >= 500) {
+                        docUploadModel.setStatusCode(response.code());
+                        mutableJMDocUploadData.postValue(docUploadModel);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JMDocUploadDTO> call, Throwable t) {
+                JMDocUploadDTO model = new JMDocUploadDTO(null,null, 500);
+                mutableJMDocUploadData.postValue(model);
+            }
+        });
+        return mutableJMDocUploadData;
+    }
+
+    public MutableLiveData<JMPostDocDTO> JMPostDocsAPI(Context context, JsonObject postDocModel) {
+        Call<JMPostDocDTO> call = new RetrofitClient().jobsMarketplaceIntegration().postJMUploadDocs(postDocModel);
+        call.enqueue(new Callback<JMPostDocDTO>() {
+            @Override
+            public void onResponse(Call<JMPostDocDTO> call, Response<JMPostDocDTO> response) {
+                try {
+                    if (response.code() >= 200 && response.code() <= 299) {
+                        mutableJMDocPostData.postValue(response.body());
+                    }
+                    else if (response.code() >= 400 && response.code() <= 499) {
+                        mutableJMDocPostData.postValue(response.body());
+                    } else if (response.code() >= 500) {
+                        mutableJMDocPostData.postValue(response.body());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JMPostDocDTO> call, Throwable t) {
+                JMPostDocDTO model = new JMPostDocDTO(null, 0);
+                mutableJMDocPostData.postValue(model);
+            }
+        });
+        return mutableJMDocPostData;
+    }
+
 
 
 }

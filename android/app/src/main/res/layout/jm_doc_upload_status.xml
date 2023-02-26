@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/docStatusParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start">
+
+        <RelativeLayout
+            android:id="@+id/docStatusImgParent"
+            android:layout_width="@dimen/dimen_10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_2dp">
+
+            <RelativeLayout
+                android:id="@+id/docStatusCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/docStatusCircleImg"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_ellipse_grey"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/docStatusLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/docStatusCircle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp">
+
+                <ImageView
+                    android:id="@+id/statusLineImg"
+                    android:layout_width="2dp"
+                    android:layout_height="@dimen/dimen_20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@color/light_color_heading"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/docStatusTxtParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_8dp">
+            <TextView
+                android:id="@+id/docStatusTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

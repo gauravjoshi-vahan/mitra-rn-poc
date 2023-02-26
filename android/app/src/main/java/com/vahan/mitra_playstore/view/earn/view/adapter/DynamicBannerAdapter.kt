@@ -1,8 +1,6 @@
 package com.vahan.mitra_playstore.view.earn.view.adapter
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.graphics.drawable.PictureDrawable
@@ -30,7 +28,6 @@ import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.interfaces.CoachmarkListener
 import com.vahan.mitra_playstore.models.kotlin.BannerListDataModelNew
 import com.vahan.mitra_playstore.utils.*
-import com.vahan.mitra_playstore.view.ExperimentActivity
 
 
 /**
@@ -83,7 +80,7 @@ class DynamicBannerAdapter(
             requestBuilder.load(uri).into(logos)
             companyLabel.text = bannerList[position].title
             balanceHistory.text = bannerList[position].balance
-            PrefrenceUtils.insertData(fa,Constants.WEEKLY_EARNING,bannerList[position].balance)
+            PrefrenceUtils.insertData(fa,Constants.LANDINGURL_WEEKLY_EARNING,bannerList[position].balance)
         } else {
             relativeLayoutOne.visibility = View.GONE
             innerImage.visibility = View.VISIBLE
@@ -155,7 +152,7 @@ class DynamicBannerAdapter(
         Log.d("hey",landingUrl.toString())
         val properties = Properties()
         val data = HashMap<String, String>()
-        data[Constants.REDIRECTION_URL] = fa.getString(R.string.history_page)
+        data[Constants.REDIRECTION_URL] = landingUrl
         data[Constants.POSITION] = position.toString()
         properties.addAttribute(Constants.REDIRECTION_URL, landingUrl)
         properties.addAttribute(Constants.POSITION, position)
@@ -163,101 +160,17 @@ class DynamicBannerAdapter(
             .trackEvent(Constants.BANNER_TAPPED, properties)
         UXCam.logEvent(Constants.BANNER_TAPPED, data)
         BlitzLlamaSDK.getSdkManager(fa).triggerEvent(Constants.BANNER_TAPPED)
-        if (landingUrl == "") { Toast.makeText(fa, fa.getString(R.string.link_not_found), Toast.LENGTH_LONG).show() }
-
-       // This conditions check when we need to show the URL in Chrome Browser before moving into IN APP Web view
-        else if(
-            landingUrl.startsWith("tel:") ||
-            landingUrl.startsWith("whatsapp:") ||
-            landingUrl.contains("play.google.com") ||
-            landingUrl.startsWith("mailto")
-
-        ){
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse(landingUrl))
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            i.setPackage("com.android.chrome")
-            try {
-                fa.startActivity(i)
-            } catch (e: ActivityNotFoundException) {
-                // Chrome is probably not installed
-                // Try with the default browser
-                i.setPackage(null)
-                fa.startActivity(i)
-            }
-        }
-        /*
-        If this URL will be come from dynamic banner then move to REFERRAL HOME
-         */
-        else if (landingUrl.startsWith("https://mitra.vahan.co/referral")) {
-            Navigation.findNavController(container)
-                .navigate(R.id.nav_referral_home_fragment)
-        }
-        /*
-       This condition checks if url contains userId
-       then it should replace with generated UserId and concatenate with dynamic url
-        */
-        else if (landingUrl.contains("{userId}") || landingUrl.contains("{phoneNumber}")) {
-         var updatedUrl =  landingUrl.replace("{userId}", PrefrenceUtils.retriveData(fa, Constants.USERID))
-          updatedUrl =  updatedUrl.replace("{phoneNumber}", PrefrenceUtils.retriveData(fa, Constants.PHONENUMBER))
-            fa.startActivity(
-                Intent(fa, ExperimentActivity::class.java)
-                    .putExtra(
-                        "link",
-                        updatedUrl)
-            )
-        }
-
-        else {
-            // Direct Open in In APP WebView
-            if (landingUrl.contains(fa.getString(R.string.http)) || landingUrl.contains(fa.getString(R.string.https))) {
-                fa.startActivity(
-                    Intent(fa, ExperimentActivity::class.java)
-                        .putExtra(Constants.LINK, landingUrl)
-                )
-            }
-            // Moving to Profile Page
-            else if (landingUrl == Constants.LANDINGURL_PROFILE) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_profile_fragment)
-            }
-            // Move to Home Page
-            else if (landingUrl == Constants.LANDINGURL_HOME) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_home_fragment)
-            }
-            // Move to Borrow Fragment
-            else if (landingUrl == Constants.LANDINGURL_LOAN) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_loan_application_fragment)
-            }
-            // Move to Notification Fragment
-            else if (landingUrl == Constants.LANDINGURL_NOTIFICATIONS) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_fragment_notification)
-            }
-            // Move to Insurance Fragment
-            else if (landingUrl == Constants.LANDINGURL_INSURE) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_insurance_fragment)
-            }
-            // Move to Referral Home Fragment
-            else if (landingUrl == Constants.LANDINGURL_REFERRAL) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_referral_home_fragment)
-            }
-            // Move to Saving Calculator
-            else if (landingUrl == Constants.LANDINGURL_SAVING_CALCULATOR) {
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_selected_plan_fragment)
-            }
-            // Move to Earning History Graph
-            else if (landingUrl == Constants.WEEKLY_EARNING_GOALS){
-                Navigation.findNavController(container)
-                    .navigate(R.id.nav_fragment_graph)
-            }
-
-
-        }
+        fa.redirectionBasedOnAction(
+            landingUrl,
+            fa,
+            container,
+            null,
+            "BANNER",
+            null
+        )
     }
+
+
+
 
 }

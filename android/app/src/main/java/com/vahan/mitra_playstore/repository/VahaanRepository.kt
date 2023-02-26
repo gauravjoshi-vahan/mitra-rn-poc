@@ -6,12 +6,14 @@ import com.vahan.mitra_playstore.models.kotlin.*
 import com.vahan.mitra_playstore.network.kotlin.ApiNetwork
 import com.vahan.mitra_playstore.utils.toResultFlow
 import com.vahan.mitra_playstore.view.crossutilsslot.models.ReqModelSaveAttendance
+import com.vahan.mitra_playstore.view.experiments.mitrapaylater.models.ReqModelMPLCredit
+import com.vahan.mitra_playstore.view.experiments.savingcalculator.data.ApplySavingRequestModel
+import com.vahan.mitra_playstore.view.experiments.savingcalculator.data.WithDrawRequestModel
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMDocInputFieldPostDTO
 import com.vahan.mitra_playstore.view.refer.models.ReferralCodeReqModel
 import com.vahan.mitra_playstore.view.refer.models.ReferralHomeRequestModel
 import com.vahan.mitra_playstore.view.refer.models.ReferralInviteRequestModel
 import com.vahan.mitra_playstore.view.refer.models.ReferralMilestoneRequestModel
-import com.vahan.mitra_playstore.view.experiments.savingcalculator.data.ApplySavingRequestModel
-import com.vahan.mitra_playstore.view.experiments.savingcalculator.data.WithDrawRequestModel
 import javax.inject.Inject
 
 class VahaanRepository @Inject constructor(
@@ -32,6 +34,10 @@ class VahaanRepository @Inject constructor(
 
     fun getEarnList() = toResultFlow {
         apiNetwork.getEarnList()
+    }
+
+    fun getDynamicEntryContentVideoList() = toResultFlow {
+        apiNetwork.getDynamicEntryContentVideoList()
     }
 
     fun createAccount(account: Account) = toResultFlow {
@@ -126,7 +132,7 @@ class VahaanRepository @Inject constructor(
     }
 
     fun sentInviteReferral(data: ReferralInviteRequestModel) = toResultFlow {
-        apiNetwork.getSentLink(data)
+        apiNetwork.sentLink(data)
     }
 
     fun getReferralStatusData(data: ReferralHomeRequestModel) = toResultFlow {
@@ -144,6 +150,7 @@ class VahaanRepository @Inject constructor(
     fun getReferralMilestoneData(data: ReferralMilestoneRequestModel) = toResultFlow {
         apiNetwork.getReferralMilestoneModel(data)
     }
+
     fun getDailyOrder(
         date: String,
         company: String
@@ -163,7 +170,7 @@ class VahaanRepository @Inject constructor(
         apiNetwork.applySaving(data)
     }
 
-    fun getReferralCode(referralCode: ReferralCodeReqModel) =  toResultFlow {
+    fun getReferralCode(referralCode: ReferralCodeReqModel) = toResultFlow {
         apiNetwork.getReferralCode(referralCode)
     }
 
@@ -171,12 +178,12 @@ class VahaanRepository @Inject constructor(
         apiNetwork.validateReferralCode(number)
     }
 
-    fun getFetchAttendance() = toResultFlow{
+    fun getFetchAttendance() = toResultFlow {
         apiNetwork.getFetchAttendance()
     }
 
-    fun saveAttendanceForUser(reqModel: ReqModelSaveAttendance) = toResultFlow{
-            apiNetwork.saveAttendanceForUser(reqModel)
+    fun saveAttendanceForUser(reqModel: ReqModelSaveAttendance) = toResultFlow {
+        apiNetwork.saveAttendanceForUser(reqModel)
     }
 
     fun showSaveGoal(reqParm: String) = toResultFlow {
@@ -185,6 +192,28 @@ class VahaanRepository @Inject constructor(
 
     fun getWeeklyHistory() = toResultFlow {
         apiNetwork.getWeeklyHistory()
+    }
+
+    fun getNudges() = toResultFlow {
+        apiNetwork.getNudges()
+    }
+
+    fun getJMUploadDocuments(
+        siId: String
+    ) = toResultFlow {
+        apiNetwork.getJMUploadDocs(siId)
+    }
+
+    fun getAllRateCardDetails() = toResultFlow {
+        apiNetwork.getAllRateCardDetails()
+    }
+
+    fun mplCredit(amount: ReqModelMPLCredit) = toResultFlow {
+        apiNetwork.mplCredit(amount)
+    }
+
+    fun postDocInpField(data: JMDocInputFieldPostDTO) = toResultFlow {
+        apiNetwork.postDocInpField(data)
     }
 
 

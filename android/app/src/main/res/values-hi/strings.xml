@@ -224,6 +224,7 @@
     <string name="not_verified">प्रमाणित नहीं है</string>
     <string name="waiting">इंतज़ार कर रही!</string>
     <string name="missing">लापता!</string>
+    <string name="uploading">अपलोड हो रहा है...</string>
     <string name="view_now">अभ देखो</string>
     <string name="upload_now">अपलोड करें</string>
     <string name="pan_card">पैनकार्ड</string>
@@ -886,7 +887,7 @@
     <string name="two_missings">2 दस्तावेज उपलब्ध नहीं है!</string>
     <string name="one_missings">1 दस्तावेज उपलब्ध नहीं है!</string>
     <string name="or">or</string>
-    <string name="share_code">Share Code</string>
+    <string name="share_code">शेयर कोड</string>
     <string name="generic_text_check_in">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check in</b></string>
     <string name="generic_text_check_out">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check Out</b></string>
 
@@ -900,9 +901,10 @@
     <string name="zepto_cash_deposit_pending">Zepto नकद जमा लंबित</string>
 
     <string name="add_a_referral_code">Add a referral code</string>
-    <string name="referral_code">Referral Code</string>
+    <string name="referral_code">रेफरल कोड</string>
     <string name="thanks_for_your_interest_n_we_will_reach_out_to_you_shortly">Thanks for your Interest \n we will reach out to you shortly</string>
 
+    <string name="profile_pic">प्रोफ़ाइल फोटो</string>
     <string name="profile_pic_page_header_txt">प्रोफ़ाइल तस्वीर अपलोड करें</string>
     <string name="bank_doc_upload_page_header_txt">बैंक डॉक्स अपलोड करें</string>
     <string name="profile_pic_header_txt">कोई पसंदीदा सेल्फी है? इसे अभी अपलोड करें!</string>
@@ -912,4 +914,49 @@
     <string name="click_to_upload">अपलोड करने के लिए क्लिक करें</string>
     <string name="invalid_image_type">फोटो प्रकार मान्य नहीं है</string>
     <string name="img_upload_success">फोटो सफलतापूर्वक अपलोड किया गया!</string>
+    <string name="faqs">FAQs</string>
+    <string name="telugu">तेलुगू</string>
+    <string name="by">द्वारा</string>
+    <string name="inviting_your_friends_to_mitra">मित्रा को अपने दोस्तों को आमंत्रित कर रहे हैं!</string>
+    <string name="upto">तक</string>
+    <string name="referral_code_colon">रेफरल कोड:</string>
+    <string name="upload_rc">पंजीकरण प्रमाणपत्र अपलोड करें</string>
+    <string name="please_upload_uour_rc">कृपया अपनी आरसी तस्वीरें अपलोड करें। यदि आपको इसे अपलोड करने में सहायता चाहिए:</string>
+    <string name="upload_bank_doc">बैंक पासबुक या रद्द चेक अपलोड करें</string>
+    <string name="please_upload_uour_bank_doc">कृपया अपनी बैंक पासबुक या रद्द चेक की फोटो अपलोड करें। यदि आपको इसे अपलोड करने में सहायता चाहिए:</string>
+    <string name="proceed">आगे बढ़ना</string>
+
+    <string name="order_pay">आदेश भुगतान</string>
+    <string name="orders">आदेश</string>
+    <string name="mitra_bonus">मित्रा बोनस</string>
+    <string name="mpl_faq_text"><ul>  <li>मित्रा पे लेटर की राशि किसी भी समय अपने बैंक खाते से निकाल सकते हैं.</li>\n<li>₹5 का एक छोटा सा शुल्क लिया जाएगा।</li>\n<li>मित्रा पे लेटर आपकी अगले सप्ताह की कमाई से स्वत: कट जाता है। </li>\n<li>आप मित्रा पे लेटर का उपयोग केवल एक बार कर सकते हैं।</li></ul></string>
+    <string name="watch_video_on_how_mitra_bonus_works">मित्रा बोनस कैसे काम करता है, इस पर वीडियो देखें</string>
+    <string name="i_accept_the_terms_conditions_and_allow_mitra_pay_later_to_be_deducted_from_next_week_s_earnings"><![CDATA[मैं नियमों और शर्तों को स्वीकार करता हूं और मित्रा पे लेटर को अगले सप्ताह की कमाई से काटने की अनुमति देता हूं।]]></string>
+    <string name="mitra_pay_later">मित्रा भुगतान बाद में</string>
+    <string name="mitra_pay_later_amount">मित्रा भुगतान बाद में राशि</string>
+    <string name="your_max_withdrawal_amount">आपकी अधिकतम निकाली गयी राशि</string>
+    <string name="transfer_amount">स्थानांतरण राशि</string>
+    <string name="recommended">अनुशंसित</string>
+    <string name="transfer_1_600">स्थानांतरण ₹ 1,600</string>
+    <string name="mpl_onboarding_starter_title1">मित्रा पे लेटर से अतिरिक्त पैसे पाएं </string>
+    <string name="mpl_onboarding_starter_title2">तुरंत बैंक खाते में स्थानांतरित करें</string>
+    <string name="mpl_onboarding_starter_title3">आसानी से स्वतः भुगतान\nअगले सप्ताह।</string>
+    <string name="mpl_onboarding_starter_title_desc1">आप मित्रा पे लेटर से अपने बैंक खाते में 5 रुपये के एक छोटे से शुल्क के साथ आसानी से अधिक पैसा प्राप्त कर सकते हैं</string>
+    <string name="mpl_onboarding_starter_title_desc2">धनराशि तुरंत अपने बैंक खाते में स्थानांतरित करें।</string>
+    <string name="mpl_onboarding_starter_title_desc3">इस्तेमाल की गई रकम का अगले हफ़्ते\nअपनी कमाई से आसानी से भुगतान करें।</string>
+
+    <string name="savings_plan">बचत योजना प्रारंभ करें</string>
+    <string name="help_amp_support">मदद समर्थन</string>
+    <string name="chat_with_us">हमारे साथ चैट करें</string>
+    <string name="talk_to_us">हमसे बात करें</string>
+    <string name="complaint_status">शिकायत की स्थिति</string>
+
+    <string name="mitra_pay_later_amount_transferred">मित्रा भुगतान बाद में\nराशि हस्तांतरित!</string>
+    <string name="get_a_job_now">अभी नौकरी प्राप्त करें</string>
+    <string name="_5_fee_added">+₹5  शुल्क जोड़ा गया</string>
+    <string name="mitra_joining_bonus">मित्रा ज्वाइनिंग बोनस</string>
+    <string name="re_payment_emi_tenure">पुनर्भुगतान/ईएमआई कार्यकाल</string>
+    <string name="transferring_amount">राशि स्थानांतरित करना</string>
+    <string name="choose_tenure">कार्यकाल चुनें</string>
+    <string name="shifts_completed">Shifts completed</string>
 </resources>

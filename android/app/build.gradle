@@ -5,9 +5,10 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
+//    id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.firebase-perf'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -21,8 +22,8 @@ android {
         applicationId "com.vahan.mitra_playstore"
         minSdk 23
         targetSdk 31
-        versionCode 58
-        versionName "1.58"
+        versionCode 75
+        versionName "1.75"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -39,10 +40,24 @@ android {
         }
     }
     buildTypes {
+        debug {
+            // Note: CodePush updates should not be tested in Debug mode as they are overriden by the RN packager. However, because CodePush checks for updates in all modes, we must supply a key.
+//            buildConfigField "String", "CODEPUSH_KEY", '""'
+            resValue "string", "CodePushDeploymentKey", '""'
+        }
+        releaseStaging {
+            resValue "string", "CodePushDeploymentKey", '"Nt4hZizIsRxyN9N9AHMLkdpyd0TKoQTR854VR"'
+//            buildConfigField "String", "CODEPUSH_KEY", '"Nt4hZizIsRxyN9N9AHMLkdpyd0TKoQTR854VR"'
+            // Note: It is a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
+            // Add the following line if not already there
+            matchingFallbacks = ['release']
+        }
         release {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "CodePushDeploymentKey", '"Z2i5Ui43ujK_E-cMwslJQ0eV64VN2Iv0y0ZQE"'
+//            buildConfigField "String", "CODEPUSH_KEY", '"Z2i5Ui43ujK_E-cMwslJQ0eV64VN2Iv0y0ZQE"'
         }
     }
     compileOptions {
@@ -74,6 +89,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.compose.ui:ui-graphics:1.1.1'
+    implementation 'androidx.core:core-ktx:1.7.0'
 //    testImplementation 'junit:junit:4+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -84,7 +100,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx:21.1.0'
-    implementation 'com.google.firebase:firebase-crashlytics'
+//    implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-perf'
     //datastore
     implementation("androidx.datastore:datastore:1.0.0")
@@ -220,12 +236,9 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.8'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.0'
-
     implementation "com.facebook.react:react-native:0.70.6" // From node_modules
     implementation "org.webkit:android-jsc:+"
-
 }
-
 
 //allprojects {
 //    def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
@@ -236,6 +249,8 @@ dependencies {
 //    }
 //}
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
+applyNativeModulesAppBuildGradle(project)

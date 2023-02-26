@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.vahan.mitra_playstore.BuildConfig
-import com.vahan.mitra_playstore.model.CashOutModel
+import com.vahan.mitra_playstore.models.CashOutModel
 import com.vahan.mitra_playstore.models.FeedbackTriggersModel
 import com.vahan.mitra_playstore.models.FreshchatEnableModel
 import com.vahan.mitra_playstore.models.kotlin.Transaction
@@ -15,6 +15,7 @@ import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.view.BaseApplication
 import com.vahan.mitra_playstore.view.crossutilsslot.models.ReqModelSaveAttendance
+import com.vahan.mitra_playstore.view.experiments.mitrapaylater.models.ReqModelMPLCredit
 import com.vahan.mitra_playstore.workmanager.WorkerScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -38,6 +39,7 @@ class EarnViewModel @Inject constructor(private val repo: VahaanRepository) : Vi
 
     // API CALLS
     val getEarnList = repo.getEarnList()
+    val getDynamicEntryContentVideoList = repo.getDynamicEntryContentVideoList()
     val getFetchAttendance = repo.getFetchAttendance()
     fun saveAttendanceForUser(reqModel : ReqModelSaveAttendance) = repo.saveAttendanceForUser(reqModel)
     fun getTransactionDetails(transaction: Transaction) = repo.getTransactionDetails(transaction)
@@ -48,6 +50,7 @@ class EarnViewModel @Inject constructor(private val repo: VahaanRepository) : Vi
     ) = repo.getBanner(companyName, type,city)
     fun getBankDetail() = Retrofithit().bankInfo!!
     fun paymentMoney(amount: String, purpose : String) = Retrofithit().paymeMoney(amount,purpose)!!
+    fun mplCredit(amount: ReqModelMPLCredit) = repo.mplCredit(amount)
     fun getRemoteConfigDataForUpdate() {
         _remoteCashOutData.postValue(Gson().fromJson(
             PrefrenceUtils.retriveData(
@@ -96,6 +99,8 @@ class EarnViewModel @Inject constructor(private val repo: VahaanRepository) : Vi
         }
 
     }
+
+
 
 
 

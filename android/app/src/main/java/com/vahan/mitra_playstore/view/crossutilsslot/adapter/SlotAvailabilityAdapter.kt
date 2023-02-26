@@ -22,11 +22,9 @@ import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.SlotAvailabilityBinding
 import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.GlideApp
-import com.vahan.mitra_playstore.utils.PrefrenceUtils
-import com.vahan.mitra_playstore.utils.SvgSoftwareLayerSetter
+import com.vahan.mitra_playstore.utils.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class SlotAvailabilityAdapter(
@@ -68,6 +66,7 @@ class SlotAvailabilityAdapter(
         temp = ""
         holder.binding.tvTitle.text = crossUtilSlots[position].companyName
         holder.binding.ctaOpenApp.setOnClickListener {
+            setInstrumentation(crossUtilSlots[position].companyName)
             if(crossUtilSlots[position].deepLink==""){
                 try {
                     requireActivity.startActivity(Intent(Intent.ACTION_VIEW,
@@ -86,6 +85,19 @@ class SlotAvailabilityAdapter(
                 }
             }
         }
+    }
+
+    private fun setInstrumentation(companyName: String?) {
+        val properties = com.moengage.core.Properties()
+        val attribute = HashMap<String, Any>()
+        properties.addAttribute("client_name", companyName)
+        attribute["client_name"] = companyName!!
+        captureAllEvents(
+            requireActivity,
+            "open_client_app",
+            attribute,
+            properties
+        )
     }
 
     override fun getItemCount(): Int {

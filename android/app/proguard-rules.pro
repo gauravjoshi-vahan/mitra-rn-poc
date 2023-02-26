@@ -98,6 +98,7 @@
 -keep class com.uxcam.** { *; }
 -keep class com.vahan.mitra_playstore.models.kotlin.** { *; }
 -keep class com.vahan.mitra_playstore.view.refer.models.** { *; }
+-keep class com.vahan.mitra_playstore.view.crossutilsslot.models.** { *; }
 -keep class com.vahan.mitra_playstore.view.savingcalculator.data.** { *; }
 -dontwarn com.uxcam.**
 

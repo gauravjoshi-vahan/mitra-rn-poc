@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/jmDocUploadParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_32dp">
+
+        <RelativeLayout
+            android:id="@+id/dropdownParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_12dp"
+            android:background="@drawable/black_border"
+            android:paddingStart="@dimen/dimen_12dp"
+            android:paddingEnd="0dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/selectedDocTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dimen_25dp"
+                android:layout_marginEnd="6dp"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_12dp"
+                tools:text="@string/sfx" />
+
+            <LinearLayout
+                android:id="@+id/spinnerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/selectedDocTxt"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dimen_21dp"
+                android:layout_marginTop="@dimen/dimen_28dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="@dimen/dimen_10dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/arrow_down_float"
+                    android:backgroundTint="@color/grey2"
+                    android:clickable="true"
+                    android:dropDownWidth="400dp"
+                    android:dropDownVerticalOffset="-15dp"
+                    android:focusable="true"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dropdownParent"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:visibility="visible"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            tools:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/cardParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_border_card">
+
+                <LinearLayout
+                    android:id="@+id/cardContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/cardHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profile_pic"
+                            android:textColor="@color/black_v2"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/placeholderImg"
+                            android:layout_width="100dp"
+                            android:layout_height="64dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_profile_pic_upload" />
+
+                        <ImageView
+                            android:id="@+id/backSideImg"
+                            android:layout_width="100dp"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_pandcard_3x"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/status"
+                                android:textColor="@color/black_v2"
+                                android:textSize="12sp" />
+
+                            <FrameLayout
+                                android:id="@+id/uploadStatusFrameLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:background="@drawable/ic_missing">
+
+                                <ProgressBar
+                                    android:id="@+id/uploadInProgress"
+                                    style="@android:style/Widget.Holo.Light.ProgressBar.Small"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/dimen_4dp"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/missingDoc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="6dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="6dp"
+                                    android:text="@string/missing"
+                                    android:textColor="@color/tv_missing_bg"
+                                    android:textSize="10sp"
+                                    app:drawableStartCompat="@drawable/ic_alert_icon"
+                                    tools:ignore="SmallSp" />
+                            </FrameLayout>
+
+                        </RelativeLayout>
+
+                        <!--                        <ImageView-->
+                        <!--                            android:id="@+id/docUploadImg"-->
+                        <!--                            android:layout_width="117dp"-->
+                        <!--                            android:layout_height="64dp"-->
+                        <!--                            android:src="@drawable/ic_upload" />-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDocStatusItem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/jm_doc_upload_status" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/docViewBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/cardContainer"
+                    android:layout_alignParentBottom="false"
+                    android:background="#FEF1EB">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="@string/view_now"
+                        android:textColor="@color/default_200"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/uploadDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/cardContainer"
+                    android:layout_alignParentBottom="false"
+                    android:background="@color/default_200">
+
+                    <ProgressBar
+                        android:id="@+id/prog_upload_text_View_doc"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:indicatorColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/upload_text_View_doc"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="@string/upload_now"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:id="@+id/inpFieldParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardView"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/inpFieldHeaderTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_account_number"
+                android:textColor="@color/black_v2"/>
+
+            <FrameLayout
+                android:id="@+id/docNumberParent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_60dp"
+                android:layout_below="@+id/inpFieldHeaderTxt"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/docNumberLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/docNumberTxtLayout"
+                        style="@style/LoginTextInputLayoutStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/docNumberTxt"
+                            android:layout_width="match_parent"
+                            android:textColorHint="@color/grey"
+                            android:layout_height="match_parent"
+                            android:inputType="text"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/inpSubmitParent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
+                    android:layout_marginTop="@dimen/dimen_2dp"
+                    android:gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/inpSubmitInProgress"
+                        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+                        android:layout_width="@dimen/dimen_36dp"
+                        android:layout_height="@dimen/dimen_36dp"
+                        android:padding="@dimen/dimen_4dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/docNumberSubmit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/opensanssemibold"
+                        android:text="@string/submit"
+                        android:textAlignment="center"
+                        android:textColor="@color/default_200"
+                        android:visibility="visible"
+                        tools:ignore="RtlCompat" />
+
+                    <ImageView
+                        android:id="@+id/submittedStatusImg"
+                        android:layout_width="@dimen/dimen_28dp"
+                        android:layout_height="@dimen/dimen_28dp"
+                        android:src="@drawable/ic_green_tick"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/editInpFieldImg"
+                        android:layout_width="@dimen/dimen_28dp"
+                        android:layout_height="@dimen/dimen_28dp"
+                        android:src="@drawable/ic_edit"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</layout>

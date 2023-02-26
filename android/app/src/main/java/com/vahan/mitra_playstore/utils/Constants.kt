@@ -1,10 +1,16 @@
 package com.vahan.mitra_playstore.utils
 
+import com.vahan.mitra_playstore.R
+import com.vahan.mitra_playstore.models.kotlin.NavigationRespLogic
+
+
 object Constants {
 
-    const val WEEKLY_EARNING: String = "weekly_earnings"
-    const val WEEKLY_EARNING_GOALS : String = "weeklyGoal"
-    const val WEEKLY_EARNING_GRAPHS : String = "weeklyGraph"
+    const val MPL_ENABLED = "mpl_enabled"
+    val MITRAPAYLATERPAGEVIEWED = "mitra_pay_later_page_viewed"
+    val MITRAPAYLATERAVAILED = "mitra_pay_later_availed"
+    const val REFERRAL_NUMBERS = "referral_phone_number"
+    const val REFERRAL_NON_PAYROLL = "referral"
     const val DEEPLINK : String = "https://play.google.com/store/apps/details?id=com.vahan.mitra_playstore="
     const val DOMAIN_URL_PREFIX : String = "https://mitraapp.page.link"
     const val RATE_CARD_VIEWED : String = "rate_card_viewed"
@@ -19,6 +25,8 @@ object Constants {
     const val EARNING_REPORT_VIEWED: String = "earnings_report_viewed"
     const val RIDER_WEEKLY_GOAL: String = "rider_weekly_goal"
     const val ISPANCARD: String = "IS_PAN_CARD"
+    const val ISDL: String = "IS_DRIVING_LICENSE"
+    const val ISRC: String = "IS_VEHICLE_RC"
     const val DL_FRONT_IMG: String = "DL_FRONT_IMG"
     const val DL_BACK_IMG: String = "DL_BACK_IMG"
     const val NUDGE_ICON_TEXT: String = "nudge_icon_text"
@@ -28,7 +36,11 @@ object Constants {
     const val CHECKSMSONCES: String = "check_device_info_details"
     const val SERVERHOSTNAME: String = "api.mitra.vahan.co"
     const val USERID: String = "userId"
+    val JOB_SEEKER_REDIRECTION_URL: String = "job_seeker_redirection_url"
     val REDIRECTION_URL: String = "url"
+    val REDIRECTION_URL_STRING: String =
+        "https://5ef7-2406-7400-56-6882-b0a9-783f-50ee-7d2d.in.ngrok.io/application-status/zepto?applicationId=b25e7554-fabb-4102-bfed-f84fc91ca8ae"
+    val JOB_SEEKER_ID: String = "job_seeker_id"
     val WEBVIEW_HANDLER_MODIFY: String = "webview_handler_modified"
     val WEBVIEW_HANDLER_REMOTE_CONFIG_MODIFY: String = "webview_handler_remote_config_modify"
     val FEEDBACK_TRIGGERS :String = "feedback_triggers"
@@ -40,6 +52,8 @@ object Constants {
     const val AADHARCARDFRONT = "aadharcardfront"
     const val AADHARCARDBACK = "aadharcardback"
     const val PROFILEPHOTO = "profilephoto"
+    const val RCFRONT = "rcfront"
+    const val RCBACK = "rcback"
     const val TOKENCONSTANT = "Bearer "
     const val CHECKFORFIRSTTIME = "first"
     const val ACTIVITY_COACHMARKS = "activity_coachmarks"
@@ -59,9 +73,12 @@ object Constants {
     const val CURRENT_NOTIFICATION_COUNT = "notification_count"
     const val PACKAGE_NAME = "package_name"
     const val MESSAGE = "message"
+    const val COLOR = "color"
     const val ID_TYPE = "aadharback"
     const val IS_BOTTOM_FIRST_TIME = "aadharback"
     const val PANCARDIMAGE = "pancardverified"
+    const val BANKDOCIMAGE = "bankdocverified"
+    const val PROFILEPICIMAGE = "profilepicverified"
     const val INSTALLED_APP_APPROVED = "installed_app_approved"
     const val NOTIFICATION_ASKED = "notification_asked"
     const val TEST_USER = "test_user"
@@ -155,6 +172,8 @@ object Constants {
     const val ISBANKPRIMARYACCOUNT = "primary_account"
     const val IS_VERIFICATION_STATUS_AADHAR = "verification_status_aadhar"
     const val IS_VERIFICATION_STATUS_PAN = "verification_status_pan"
+    const val IS_VERIFICATION_STATUS_BANK_DOC = "verification_status_bank_doc"
+    const val IS_VERIFICATION_STATUS_PROFILE_PIC = "verification_status_profile_pic"
     const val IS_VERIFICATION_STATUS_PROFILE = "verification_status_profile"
 
     // DYNAMIC_LANGUAGE_STRING
@@ -166,12 +185,15 @@ object Constants {
     const val hindi_sub_string_en = "I prefer talking in Hindi"
     val next_string_en: CharSequence = "Next"
     const val language_selection_hi = "भाषा का चयन करें"
+    const val language_selection_te = "భాషను ఎంచుకోండి"
     const val select_language_string_sub_string_hi = "आप इसे बाद में \nसेटिंग्स . से बदल सकते हैं"
+    const val select_language_string_sub_string_te = "మీరు దీన్ని సెట్టింగ్‌ల నుండి \n తర్వాత మార్చవచ్చు"
     const val english_string_hi = "अंग्रेज़ी"
     const val english_string_sub_string_hi = "मुझे अंग्रेजी में बात करना पसंद है"
     const val hindi_string_hi = "हिंदी"
     const val hindi_sub_string_hi = "मुझे हिंदी में बात करना पसंद है"
     val next_string_hi: CharSequence = "अगला"
+    val next_string_te: CharSequence = "తరువాత"
     const val TENURE_BACK = "tenure_back"
 
     const val AUTHENTICATION_FAILED = "Authentication failed"
@@ -249,7 +271,7 @@ object Constants {
     const val ACCOUNT_NUMBER: String = "accountNumber"
     const val ACCOUNT_NAME: String = "accountName"
 
-    //ViewFragment
+    //BankDetailsViewFragment
     const val BANK_EDIT_TAPPED:String = "bank_edit_tapped"
 
     //BottomSheetEarn
@@ -287,15 +309,10 @@ object Constants {
 
     //CaroselEffectSlider
     const val POSITION:String = "position"
-    const val BANNER_TAPPED:String = "banner_tapped"
-    const val LANDINGURL_PROFILE:String = "Profile"
-    const val LANDINGURL_EARN:String = "Earn"
-    const val LANDINGURL_HOME:String = "Home"
-    const val LANDINGURL_LOAN:String = "Loan"
-    const val LANDINGURL_NOTIFICATIONS:String = "Notifications"
-    const val LANDINGURL_INSURE:String = "Insure"
-    const val LANDINGURL_REFERRAL:String = "referral"
-    const val LANDINGURL_SAVING_CALCULATOR:String = "savingCalculator"
+    const val BANNER_TAPPED:String = "dynamic_banner_tapped"
+    const val ENTRY_POINT_TAPPED:String = "entry_point_tapped"
+    const val HOME_PAGE_VIDEO_PLAYED:String = "home_page_video_played"
+    const val EXPLORE_MORE_CLICKED:String = "explore_more_clicked"
     const val BANK:String = "bank"
     const val TRANSACTION_ID:String = "transactionId"
     const val CASHOUT_PURPOSE_VIEWED:String = "cashout_purpose_viewed"
@@ -330,6 +347,7 @@ object Constants {
     const val RECEIVED:String = "received"
     const val MILESTONE_VIEWED:String = "milestone_viewed"
     const val MITRA_BALANCE:String = "mitra_balance"
+    const val WEEKLY_EARNINGS:String = "weekly_earnings"
     const val STATUS:String = "status"
     const val COMPANY_NAME1:String = "companyName1"
     const val DATA_OF_JOINING1:String = "dateOfJoining1"
@@ -392,6 +410,7 @@ object Constants {
     const val DOWNLOAD = "download"
     const val LOGOUT = "logout"
     const val UPLOAD = "upload"
+    const val UPLOAD_JOB_SEEKER = "upload_job_seeker"
     const val VERIFYBANK = "verify_bank"
     const val PROFILE_PIC = "profile_pic"
     const val BANK_DOC_UPLOAD = "bank_doc_upload"
@@ -399,7 +418,7 @@ object Constants {
 
     //EnterOtpActivity
     const val MOBILE_NUMBER:String = "mobileNumber"
-    const val MOBILE_NUMBER2:String = "mobile_number"
+    const val MOBILE_NUMBER_plus91:String = "mobile_number"
     const val OTP:String = "otp"
     const val LOGIN:String = "login"
 
@@ -446,6 +465,8 @@ object Constants {
 
     //ReferralHomeFragment
     const val REFERRAL_HOME_VIEWED:String  ="referral_home_viewed"
+    const val SHARE_REFERRAL_CODE_TEXT = "share_referral_code_text"
+    const val SHARE_REFERRAL_CODE_TEXT_REMOTE_CONFIG = "share_referral_code_text_remote_config"
 
     //viewModel
     const val HEADING:String = "heading"
@@ -500,6 +521,7 @@ object Constants {
 
     //history
     const val TXN_HISTORY_CREDIT_VIEWED:String = "txn_history_credit_viewed"
+    const val TXN_HISTORY_VIEWED:String = "txn_history_viewed"
     const val FAILED:String = "Failed"
     const val FAILEDCAPS:String = "FAILED"
     const val TXN_HISTORY_FAILED:String = "txn_history_failed"
@@ -508,13 +530,60 @@ object Constants {
     const val DEBIT:String = "debit"
     const val DEBITCAPS:String = "DEBIT"
 
+    // LANDING URL For DynamicBanner,DynamicEntry, Configurable App Nudge and Push Notification
+    const val LANDINGURL_HOME:String = "home"
+    const val LANDINGURL_LOAN:String = "loan"
+    const val LANDINGURL_NOTIFICATIONS:String = "notifications"
+    const val LANDINGURL_INSURE:String = "insurance"
+    const val LANDINGURL_REFERRAL:String = "referral"
+    const val LANDINGURL_SAVING_CALCULATOR:String = "savingCalculator"
+    const val LANDINGURL_RATECARD: String = "rateCard"
+    const val LANDINGURL_CROSSUTILS: String = "crossUtil"
+    const val LANDINGURL_UPLODDOCUMENT: String = "uploadDocuments"
+    const val LANDINGURL_ADDBANK: String = "addBank"
+    const val LANDINGURL_FAQS: String = "FAQs"
+    const val LANDINGURL_WEEKLY_EARNING: String = "weeklyEarnings"
+    const val LANDINGURL_WEEKLY_EARNING_GOALS : String = "weeklyGoals"
+    const val LANDINGURL_WEEKLY_EARNING_GRAPHS : String = "weeklyGraphs"
+    const val LANDINGURL_MPL : String = "mitraPayLater"
+    const val LANDINGURL_MPL_AVAILED : String = "mitraPayLaterAvailed"
 
+    // JSE Firebase Events
+    const val NO_ENTERED_OTP_VERIFIED_JSE_FA: String = "jse_number_entered_and_otp_verified"
+    const val BANK_ACCOUNT_ADDED_JSE_FA: String = "jse_added_bank_account"
+    const val DOC_UPLOADED_JSE_FA: String = "jse_doc_uploaded"
+
+    val navigateRoute = arrayOf(
+        NavigationRespLogic(R.id.weekly_earnings_fragment, LANDINGURL_WEEKLY_EARNING),
+        NavigationRespLogic(R.id.nav_cross_util_fragment, LANDINGURL_CROSSUTILS),
+        NavigationRespLogic(R.id.nav_rate_card_new, LANDINGURL_RATECARD),
+        NavigationRespLogic(R.id.nav_upload_fragment, LANDINGURL_UPLODDOCUMENT),
+        NavigationRespLogic(R.id.nav_fragment_add_bank, LANDINGURL_ADDBANK),
+        NavigationRespLogic(R.id.nav_home_fragment, LANDINGURL_HOME),
+        NavigationRespLogic(R.id.nav_loan_application_fragment, LANDINGURL_LOAN),
+        NavigationRespLogic(R.id.nav_fragment_notification, LANDINGURL_NOTIFICATIONS),
+        NavigationRespLogic(R.id.nav_insurance_fragment, LANDINGURL_INSURE),
+        NavigationRespLogic(R.id.nav_fragment_graph, LANDINGURL_WEEKLY_EARNING_GRAPHS),
+        NavigationRespLogic(R.id.nav_referral_home_fragment, LANDINGURL_REFERRAL),
+        NavigationRespLogic(R.id.nav_fragment_weekly_goal, LANDINGURL_WEEKLY_EARNING_GOALS),
+        NavigationRespLogic(R.id.nav_selected_plan_fragment, LANDINGURL_SAVING_CALCULATOR),
+        NavigationRespLogic(R.id.nav_mpl_fragment_onbaording, LANDINGURL_MPL),
+        NavigationRespLogic(R.id.nav_home_fragment, LANDINGURL_MPL_AVAILED),
+    )
+
+    const val REFERRAL_START = "referral_started"
+    const val JOINED_MITRA = "joined_mitra"
+    const val FIRST_TRIP_DONE = "joined_mitra"
+    const val BONUS_EARNED = "bonus_earned"
+    const val REFERRAL_COMPLETED = "referral_completed"
 
     // code check
     //cashout
     const val user_prev_state = "0"
-
     const val BASE_URL = "https://stg-api.mitra.vahan.co"
 //    const val BASE_URL = "https://api.mitra.vahan.co"
+
+    const val FE_BASE_URL = "https://stg-mitra.vahan.co"  //comment this for staging
+//    const val FE_BASE_URL = "https://mitra.vahan.co"
 
 }

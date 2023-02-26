@@ -35,8 +35,18 @@
                 android:id="@+id/english_lg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:text="@string/english"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold">
+
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/telugu_lg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/telugu"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold">

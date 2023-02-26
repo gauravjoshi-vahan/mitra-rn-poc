@@ -8,8 +8,11 @@ import android.os.StrictMode.VmPolicy
 import android.util.Log
 import android.widget.Toast
 import com.blitzllama.androidSDK.BlitzLlamaSDK
+import com.datatheorem.android.trustkit.TrustKit
+import com.facebook.react.ReactApplication
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.microsoft.codepush.react.CodePush
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.MoEngage
 import com.moengage.core.config.NotificationConfig
@@ -27,6 +30,8 @@ import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.LocaleManager
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import dagger.hilt.android.HiltAndroidApp
+import java.util.*
+
 
 @HiltAndroidApp
 class BaseApplication : Application() {
@@ -49,6 +54,7 @@ class BaseApplication : Application() {
         trustKitInitialized()
     }
 
+
     private fun trustKitInitialized() {
 //        TrustKit.initializeWithNetworkSecurityConfiguration(this)  //comment for stg
     }
@@ -58,8 +64,8 @@ class BaseApplication : Application() {
     }
 
     private fun setupUXCAM() {
-        val rootBeer = RootBeer(applicationContext)
-      //  check(!rootBeer.isRooted)
+       val rootBeer = RootBeer(applicationContext)
+//        check(!rootBeer.isRooted)
         UXCam.startWithKey("g5afbnf7766lao2")
     }
 
@@ -150,6 +156,7 @@ class BaseApplication : Application() {
         values[Constants.CHROME_URL] = ""
         values[Constants.FEEDBACK_TRIGGERS] = ""
         values[Constants.FRESHCHAT_ENABLE_CONDITION] = ""
+        values[Constants.SHARE_REFERRAL_CODE_TEXT] = ""
         mFirebaseRemoteConfig?.setDefaultsAsync(values)
         getUpdates()
     }
@@ -157,6 +164,11 @@ class BaseApplication : Application() {
     private fun getUpdates() {
         mFirebaseRemoteConfig?.fetchAndActivate()?.addOnCompleteListener {
             try {
+                PrefrenceUtils.insertData(
+                    this,
+                    Constants.SHARE_REFERRAL_CODE_TEXT_REMOTE_CONFIG,
+                    mFirebaseRemoteConfig?.getString(Constants.SHARE_REFERRAL_CODE_TEXT)
+                )
                 PrefrenceUtils.insertData(
                     this,
                     Constants.UPDATE_CONDITIONS_REMOTE_CONFIG,

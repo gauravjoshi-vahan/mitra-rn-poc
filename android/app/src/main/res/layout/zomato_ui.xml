@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:fillViewport="true"
+        android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:id="@+id/rlContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_back_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:padding="@dimen/dimen_4dp"
+                android:src="@drawable/ic_back_arrow_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_rate_card_back" />
+
+            <TextView
+                android:id="@+id/tv_rate_card_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/rate_card"
+                android:textColor="@color/black_v2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_back_button"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_spinner_container"
+            android:layout_below="@+id/cl_back_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_week_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_19dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:text="Monday - Sunday"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_12dp" />
+
+            <TextView
+                android:id="@+id/tv_weekly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_6dp"
+                android:layout_marginTop="@dimen/dimen_22dp"
+                android:layout_toEndOf="@+id/tv_week_name"
+                android:background="@drawable/view_border_grey_filled"
+
+                android:paddingStart="@dimen/dimen_8dp"
+                android:paddingTop="@dimen/dimen_2dp"
+                android:paddingEnd="@dimen/dimen_8dp"
+                android:paddingBottom="@dimen/dimen_2dp"
+                android:text="@string/weekly"
+                android:textColor="@color/grey2"
+                android:textSize="@dimen/dimen_12dp" />
+
+            &lt;!&ndash;            <ImageView&ndash;&gt;
+            &lt;!&ndash;                android:id="@+id/iv_arrow_down"&ndash;&gt;
+            &lt;!&ndash;                android:layout_width="@dimen/dimen_11dp"&ndash;&gt;
+            &lt;!&ndash;                android:layout_height="@dimen/dimen_11dp"&ndash;&gt;
+            &lt;!&ndash;                android:layout_alignParentEnd="true"&ndash;&gt;
+            &lt;!&ndash;                android:layout_marginTop="@dimen/dimen_28dp"&ndash;&gt;
+            &lt;!&ndash;                android:layout_marginEnd="@dimen/dimen_21dp"&ndash;&gt;
+            &lt;!&ndash;                android:src="@drawable/arrow_down_float"&ndash;&gt;
+            &lt;!&ndash;                app:tint="@color/grey2" />&ndash;&gt;
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dimen_28dp"
+                android:layout_marginEnd="@dimen/dimen_21dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="@dimen/dimen_14dp"
+                    android:layout_height="@dimen/dimen_10dp"
+                    android:clickable="true"
+                    android:background="@drawable/arrow_down_float"
+                    android:backgroundTint="@color/grey2"
+                    android:dropDownVerticalOffset="-15dp"
+                    android:spinnerMode="dropdown"
+                    android:focusable="true" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_selected_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_25dp"
+                android:layout_marginEnd="6dp"
+                android:layout_toStartOf="@+id/linearLayout"
+
+                tools:text="@string/sfx"
+                android:textColor="@color/black_v2"
+                android:textSize="@dimen/dimen_12dp" />
+
+            <ImageView
+                android:id="@+id/iv_selected_company_logo"
+                android:layout_width="@dimen/dimen_22dp"
+                android:layout_height="@dimen/dimen_22dp"
+                android:layout_marginTop="@dimen/dimen_23dp"
+                android:layout_marginEnd="@dimen/dimen_10dp"
+                android:layout_toStartOf="@+id/tv_selected_company_name" />
+
+        </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/rlOrderPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:background="@color/unread_notification_background"
+            android:paddingEnd="@dimen/dimen_16dp"
+            android:paddingStart="@dimen/dimen_20dp"
+            android:paddingBottom="@dimen/dimen_10dp">
+            <TextView
+                android:id="@+id/tvOrderPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_pay"
+                android:textSize="@dimen/dimen_14dp"
+                android:fontFamily="@font/opensansbold"
+                android:textStyle="bold"
+                android:textColor="@color/black_v2"/>
+            <TextView
+                android:id="@+id/tvEarningsPerDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/earnings_per_pay"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/dimen_8dp"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/opensanssemibold"
+                android:textColor="@color/grey"/>
+
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrderPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            tools:itemCount="2"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/zomato_order_pay_item"
+            android:layout_below="@id/rlOrderPay"/>
+        <RelativeLayout
+            android:id="@+id/rlDailyMilestoneIncentives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:layout_below="@id/rvOrderPay"
+            android:background="@color/border_text_color"
+            android:paddingEnd="@dimen/dimen_16dp"
+            android:paddingStart="@dimen/dimen_20dp"
+            android:paddingBottom="@dimen/dimen_10dp">
+            <ImageView
+                android:id="@+id/ivCompanyIcon"
+                android:layout_width="@dimen/dimen_22dp"
+                android:layout_height="@dimen/dimen_22dp"
+                android:src="@drawable/ic_zomato"/>
+            <TextView
+                android:id="@+id/tvDailyMilestoneIncentives"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ivCompanyIcon"
+                android:layout_marginStart="@dimen/dimen_6dp"
+                android:text="Daily Milestone Incentives"
+                android:textSize="@dimen/dimen_14dp"
+                android:fontFamily="@font/opensansbold"
+                android:textStyle="bold"
+                android:textColor="@color/black_v2"/>
+
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDailyMilestoneIncentives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            tools:itemCount="2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/zomato_order_pay_item"
+            android:layout_below="@id/rlDailyMilestoneIncentives"/>
+
+        <LinearLayout
+            android:id="@+id/llWeeks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rvDailyMilestoneIncentives"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:weightSum="2"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/llWeek1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvWeekKey1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensansbold"
+                        android:gravity="center"
+                        android:text="@string/all"
+                        android:textColor="@color/black_v2"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llWeek2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvWeekKey2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/opensansbold"
+                        android:gravity="center"
+                        android:text="@string/money_out"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <View
+                        android:id="@+id/view_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_orange_bg" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:gravity="center">
+
+                    <View
+                        android:id="@+id/view_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_grey_bg"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <View
+                        android:id="@+id/view_three"
+                        android:layout_width="46dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:background="#F60202"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivWeeklyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_60dp"
+            android:layout_below="@id/llWeeks"/>
+    </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.blitzllama.androidSDK.BlitzLlamaSDK;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
@@ -39,19 +40,18 @@ import com.moengage.inapp.MoEInAppHelper;
 import com.vahan.mitra_playstore.R;
 import com.vahan.mitra_playstore.databinding.FragmentHistoryBinding;
 import com.vahan.mitra_playstore.interfaces.SortAndFilterCallback;
-import com.vahan.mitra_playstore.model.CashOutModel;
 import com.vahan.mitra_playstore.models.FeedbackTriggersModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsFilterConstraintsModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsModelJava;
 import com.vahan.mitra_playstore.models.kotlin.EarnDataModel;
 import com.vahan.mitra_playstore.network.SharedViewModel;
 import com.vahan.mitra_playstore.utils.Constants;
+import com.vahan.mitra_playstore.utils.ExtensionKt;
 import com.vahan.mitra_playstore.utils.PrefrenceUtils;
 import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetCashOutPurpose;
 import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetCashoutHold;
 import com.vahan.mitra_playstore.view.bottomsheet.BottomSheetV2;
 import com.vahan.mitra_playstore.view.bottomsheet.FeedbackBottomsheet;
-import com.vahan.mitra_playstore.view.earn.view.ui.HomeFragment;
 import com.vahan.mitra_playstore.view.earn.viewModel.EarnViewModel;
 import com.vahan.mitra_playstore.view.history.adapter.CompleteHistoryDetailsAdapter;
 import com.vahan.mitra_playstore.view.history.adapter.FilterListAdapter;
@@ -61,6 +61,7 @@ import com.vahan.mitra_playstore.view.history.adapter.SortListAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.cert.Extension;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -182,6 +183,8 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(View.VISIBLE);
             binding.cashLayout.setVisibility(View.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
 
                 if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "en")) {
                     try {
@@ -190,9 +193,16 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                         e.printStackTrace();
                     }
                 }
-                else {
+                else if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "hi")) {
                     try {
                         binding.cashOutConfigTxt.setText(objEC.getString("hi_msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        binding.cashOutConfigTxt.setText(objEC.getString("te_msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -201,48 +211,41 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
         }
         else if (Objects.equals(user.getCashoutEligibilityStatus(), "E")) {
             if(Boolean.TRUE.equals(Objects.requireNonNull(cashOutDetails.getHoldDetails()).isHold())) {
-                binding.setPriceExpHold.setText(cashOutDetails.getAmountEligibleLabel());
+                binding.setPriceExpHold.setText(cashOutDetails.getHoldDetails().getLiabilitySum().toString());
                 binding.cashoutCardRoot.setVisibility(View.GONE);
                 binding.cashoutCardHoldRoot.setVisibility(View.VISIBLE);
+                binding.llHold.setVisibility(View.VISIBLE);
+                binding.cashoutCardHoldRoot.setVisibility(View.VISIBLE);
+                binding.tvCashoutAvailable.setText("Pending deposit");
                 binding.ivIconHold.setImageResource(R.drawable.ic_cashout_hold);
                 binding.cashOutHoldTxt.setText(getString(R.string.cashout_on_hold));
                 binding.cashOutHoldTxtDesc.setText(cashOutDetails.getHoldDetails().getCompanyName()+ " "+cashOutDetails.getHoldDetails().getHoldMessage());
             }else{
                 binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+                binding.cashoutCardRoot.setVisibility(View.GONE);
+                binding.llHold.setVisibility(View.GONE);
                 if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "en")) {
                     try {
                         binding.cashOutConfigTxt.setText(objE.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } else {
+                } else if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "hi")) {
                     try {
                         binding.cashOutConfigTxt.setText(objE.getString("hi_msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+                else  {
+                    try {
+                        binding.cashOutConfigTxt.setText(objE.getString("te_msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 binding.cashoutTxt.setVisibility(View.GONE);
                 if (Boolean.TRUE.equals(cashOutDetails.getEnabled()) && Objects.requireNonNull(cashOutDetails.getAmountEligible()) >= Objects.requireNonNull(cashOutDetails.getMinAmountEligible())) {
-//                val properties = Properties()
-//                val attribute:HashMap<String, Any> =HashMap()
-//                properties.addAttribute(Constants.ELIGIBLE_AMOUNT,
-//                        dataModel !!.cashoutDetails ?.amountEligible ?:0.0)
-//                properties.addAttribute(Constants.CASHED_FEE_PERCENT,
-//                        dataModel !!.cashoutDetails ?.cashoutFeePercentage ?:0.0)
-//                properties.addAttribute(Constants.CASHED_FIXED_FEE,
-//                        dataModel !!.cashoutDetails ?.cashoutFixedFee ?:0)
-//                // CHECK VALUE IS NOT EMPTY...
-//                attribute[Constants.ELIGIBLE_AMOUNT] =
-//                        dataModel !!.cashoutDetails ?.amountEligible ?:0.0
-//                attribute[Constants.CASHED_FEE_PERCENT] =
-//                        dataModel !!.cashoutDetails ?.cashoutFeePercentage ?:0.0
-//                attribute[Constants.CASHED_FIXED_FEE] =
-//                        dataModel !!.cashoutDetails ?.cashoutFixedFee ?:0
-//                requireContext().captureAllEvents(requireContext(),
-//                        Constants.CASHOUT_ELIGIBLE_VIEWED,
-//                        attribute,
-//                        properties)
                     binding.cashLayout.setVisibility(View.VISIBLE);
                     binding.cashLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -326,15 +329,24 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(View.VISIBLE);
             binding.cashLayout.setVisibility(View.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
             if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "en")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEW.getString("msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "hi")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEW.getString("hi_msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    binding.cashOutConfigTxt.setText(objEW.getString("te_msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -350,15 +362,24 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(View.VISIBLE);
             binding.cashLayout.setVisibility(View.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
             if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "en")) {
                 try {
                     binding.cashOutConfigTxt.setText(objNE.getString("msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }else if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "hi")) {
                 try {
                     binding.cashOutConfigTxt.setText(objNE.getString("hi_msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    binding.cashOutConfigTxt.setText(objNE.getString("te_msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -393,15 +414,25 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(ViewPager.VISIBLE);
             binding.cashLayoutExp.setVisibility(ViewPager.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
             if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "en")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEC.getString("msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }
+            else if (Objects.equals(PrefrenceUtils.retriveLangData(getContext(), Constants.LANGUAGE), "hi")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEC.getString("hi_msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                try {
+                    binding.cashOutConfigTxt.setText(objEC.getString("te_msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -409,10 +440,13 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
         }
         else if (Objects.equals(cashoutAdditionalData.getCashoutEligibilityStatus(), "E")) {
             if(Boolean.TRUE.equals(Objects.requireNonNull(cashOutDetails.getHoldDetails()).isHold())) {
-                binding.setPriceExpHold.setText(cashOutDetails.getAmountEligibleLabel());
+                binding.setPriceExpHold.setText(Objects.requireNonNull(cashOutDetails.getHoldDetails().getLiabilitySum()).toString());
                 binding.cashoutCardRoot.setVisibility(View.GONE);
                 binding.cashoutCardHoldRoot.setVisibility(View.VISIBLE);
                 binding.ivIconHold.setImageResource(R.drawable.ic_cashout_hold);
+                binding.llHold.setVisibility(View.VISIBLE);
+                binding.cashoutCardRoot.setVisibility(View.GONE);
+                binding.tvCashoutAvailable.setText("Pending deposit");
                 binding.cashOutHoldTxt.setText(getString(R.string.cashout_on_hold));
                 binding.cashOutHoldTxtDesc.setText(cashOutDetails.getHoldDetails().getCompanyName() + " " + cashOutDetails.getHoldDetails().getHoldMessage());
             }else{
@@ -438,10 +472,11 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                 binding.cashoutProgressBar.setProgressDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.item_progress));
                 if (Objects.equals(PrefrenceUtils.retriveLangData(getActivity(), Constants.LANGUAGE), "en")) {
                     binding.tvCashoutDesc.setText("Your Cashout Limit is " + cashoutAdditionalData.getCashoutPercentage() + "%");
-                } else {
+                } else if (Objects.equals(PrefrenceUtils.retriveLangData(getActivity(), Constants.LANGUAGE), "hi")) {
                     binding.tvCashoutDesc.setText("आपकी कैशआउट सीमा " + cashoutAdditionalData.getCashoutPercentage() + "% है");
+                }else {
+                    binding.tvCashoutDesc.setText("మీ క్యాష్అవుట్ పరిమితి" +cashoutAdditionalData.getCashoutPercentage()+ "%");
                 }
-
 
                 if (Objects.equals(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE), "en")) {
                     if (Objects.equals(Boolean.TRUE, cashoutAdditionalData.getOrderReachToNextLevel()) && Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
@@ -462,7 +497,7 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                     } else if (!Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && !Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
                         binding.cashOutConfigTxtDetailExp.setText("You are now eligible for maximum cashout!");
                     }
-                } else {
+                } else if (Objects.equals(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE), "hi")) {
                     if (Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
                         binding.cashOutConfigTxtDetailExp.setText(cashoutAdditionalData.getOrderRequiredToReachToNextLevel() + " ट्रिप " +
                                 cashoutAdditionalData.getDaysRequiredTOReachToNextLevel() +
@@ -474,33 +509,40 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                     } else if (!Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
                         binding.cashOutConfigTxtDetailExp.setText(cashoutAdditionalData.getCashoutNextLevelPercentage() + "% कैशआउट अनलॉक करने के लिए मित्रा में " + cashoutAdditionalData.getDaysRequiredTOReachToNextLevel() + " और दिन काम करना जारी रखें ");
                     }
+                } else {
+                    if (Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
+                        binding.cashOutConfigTxtDetailExp.setText(cashoutAdditionalData.getOrderRequiredToReachToNextLevel() + "ట్రిప్పులను"
+                                + cashoutAdditionalData.getDaysRequiredTOReachToNextLevel() + "రోజులలో పూర్తి చేయండి" + cashoutAdditionalData.getCashoutNextLevelPercentage() +" % క్యాష్\u200Cఅవుట్\u200C పొందడం కోసం");
+                    } else if (Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && !Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
+                        binding.cashOutConfigTxtDetailExp.setText(cashoutAdditionalData.getCashoutNextLevelPercentage() +"% క్యాష్‌అవుట్‌ని అన్‌లాక్ చేయడానికి మిత్రాతో" + cashoutAdditionalData.getDaysRequiredTOReachToNextLevel() + "రోజులు పని కొనసాగించండి");
+                    } else if (!Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && !Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
+                        binding.cashOutConfigTxtDetailExp.setText("మీరు ఇప్పుడు గరిష్ట క్యాష్\u200Cఅవుట్\u200Cకి అర్హులు!");
+                    } else if (!Boolean.TRUE.equals(cashoutAdditionalData.getOrderReachToNextLevel()) && Boolean.TRUE.equals(cashoutAdditionalData.getDaysReachToNextLevel())) {
+                        binding.cashOutConfigTxtDetailExp.setText(cashoutAdditionalData.getCashoutNextLevelPercentage() +"% క్యాష్‌అవుట్‌ని అన్‌లాక్ చేయడానికి మిత్రాతో" + cashoutAdditionalData.getDaysRequiredTOReachToNextLevel() + "రోజులు పని కొనసాగించండి");
+                    }
                 }
 
                 if (Boolean.TRUE.equals(cashOutDetails.getEnabled()) && Objects.requireNonNull(cashOutDetails.getAmountEligible()) >= Objects.requireNonNull(cashOutDetails.getMinAmountEligible())) {
                     binding.cashLayoutExp.setVisibility(View.VISIBLE);
-
-                    binding.cashLayoutExp.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //setInstrumentationOnCLick(dataModel !!, "Cashout Levels Flow")
-                            new BottomSheetCashOutPurpose(
-                                    requireActivity(),
-                                    cashoutAdditionalData.getUserLevel(),
-                                    Objects.requireNonNull(cashOutDetails.getAmountEligibleLabel()),
-                                    null,
-                                    HistoryFragment.this,
-                                    cashOutDetails.getAmountEligible(),
-                                    Objects.requireNonNull(cashOutDetails.getCashoutFixedFee()),
-                                    cashOutDetails.isCashoutFeeEnabled(),
-                                    Objects.requireNonNull(cashOutDetails.getCashoutFeePercentage()),
-                                    cashoutAdditionalData.getOrderRequiredToReachToNextLevel(),
-                                    cashoutAdditionalData.getDaysRequiredTOReachToNextLevel(),
-                                    cashoutAdditionalData.getCashoutEligibilityStatus(),
-                                    cashoutAdditionalData.getOrderReachToNextLevel(),
-                                    cashoutAdditionalData.getDaysReachToNextLevel(),
-                                    cashoutAdditionalData.getCashoutNextLevelPercentage()
-                            ).show();
-                        }
+                    binding.cashLayoutExp.setOnClickListener(view -> {
+                        //setInstrumentationOnCLick(dataModel !!, "Cashout Levels Flow")
+                        new BottomSheetCashOutPurpose(
+                                requireActivity(),
+                                cashoutAdditionalData.getUserLevel(),
+                                Objects.requireNonNull(cashOutDetails.getAmountEligibleLabel()),
+                                null,
+                                HistoryFragment.this,
+                                cashOutDetails.getAmountEligible(),
+                                Objects.requireNonNull(cashOutDetails.getCashoutFixedFee()),
+                                cashOutDetails.isCashoutFeeEnabled(),
+                                Objects.requireNonNull(cashOutDetails.getCashoutFeePercentage()),
+                                cashoutAdditionalData.getOrderRequiredToReachToNextLevel(),
+                                cashoutAdditionalData.getDaysRequiredTOReachToNextLevel(),
+                                cashoutAdditionalData.getCashoutEligibilityStatus(),
+                                cashoutAdditionalData.getOrderReachToNextLevel(),
+                                cashoutAdditionalData.getDaysReachToNextLevel(),
+                                cashoutAdditionalData.getCashoutNextLevelPercentage()
+                        ).show();
                     });
                 } else if (Boolean.FALSE.equals(cashOutDetails.getEnabled()) && Objects.requireNonNull(cashOutDetails.getAmountEligible()) >= Objects.requireNonNull(cashOutDetails.getMinAmountEligible())) {
                     binding.imgGreyExp.setVisibility(View.VISIBLE);
@@ -564,15 +606,23 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(View.VISIBLE);
             binding.cashLayout.setVisibility(View.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
             if (Objects.equals(PrefrenceUtils.retriveLangData(getActivity(), Constants.LANGUAGE), "en")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEW.getString("msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (Objects.equals(PrefrenceUtils.retriveLangData(getActivity(), Constants.LANGUAGE), "hi")) {
                 try {
                     binding.cashOutConfigTxt.setText(objEW.getString("hi_msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    binding.cashOutConfigTxt.setText(objEW.getString("te_msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -589,15 +639,23 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             binding.cashoutTxt.setVisibility(View.VISIBLE);
             binding.cashLayoutExp.setVisibility(View.GONE);
             binding.cashoutCardHoldRoot.setVisibility(View.GONE);
+            binding.llHold.setVisibility(View.GONE);
+            binding.cashoutCardRoot.setVisibility(View.VISIBLE);
             if (Objects.equals(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE), "en")) {
                 try {
                     binding.cashOutConfigTxt.setText(objNE.getString("msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (Objects.equals(PrefrenceUtils.retriveLangData(requireActivity(), Constants.LANGUAGE), "hi")) {
                 try {
                     binding.cashOutConfigTxt.setText(objNE.getString("hi_msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    binding.cashOutConfigTxt.setText(objNE.getString("te_msg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -636,8 +694,10 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                         cashOutDetails.getHoldDetails().getCompanyName(),
                         cashOutDetails.getHoldDetails().getCompanyIcon(),
                         cashOutDetails.getHoldDetails().getHoldMessage(),
-                        cashOutDetails.getAmountEligibleLabel()
-            ).show();
+                        cashOutDetails.getAmountEligibleLabel(),
+                        cashOutDetails.getHoldDetails().getLiabilitySum(),
+                        cashOutDetails.getHoldDetails().getAmountLiabilityLabel(),
+                        cashOutDetails.getHoldDetails().getHoldPayoutSinceWeek()).show();
             }
         });
         binding.cashoutTxt.setOnClickListener(new View.OnClickListener() {
@@ -987,8 +1047,10 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
         Bundle bundle = new Bundle();
         MoEInAppHelper.getInstance().showInApp(requireActivity());
         Properties properties = new Properties();
-        MoEHelper.getInstance(requireActivity()).trackEvent("txn_history_viewed", properties);
-        fa.logEvent("txn_history_viewed", bundle);
+        MoEHelper.getInstance(requireActivity()).trackEvent(Constants.TXN_HISTORY_VIEWED, properties);
+        fa.logEvent(Constants.TXN_HISTORY_VIEWED, bundle);
+        startBlitzSurvey();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -996,7 +1058,7 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
                     for (int i = 0; i < trigger.getTrigger().size(); i++) {
                         if (!PrefrenceUtils.retriveDataInBoolean(getContext(), Constants.TXN_HISTORY)) {
                             if (PrefrenceUtils.retriveDataInBoolean(getContext(), Constants.ISFEEDBACKSESSION)) {
-                                if (trigger.getTrigger().get(i).getTrigger_event().equalsIgnoreCase("txn_history_viewed")) {
+                                if (trigger.getTrigger().get(i).getTrigger_event().equalsIgnoreCase(Constants.TXN_HISTORY_VIEWED)) {
                                     new FeedbackBottomsheet(requireContext(), "txn").show();
                                     PrefrenceUtils.insertDataInBoolean(requireContext(), Constants.ISFEEDBACKSESSION, false);
                                 }
@@ -1012,6 +1074,17 @@ public class HistoryFragment extends Fragment implements SortAndFilterCallback {
             }
         }, 3000);
 
+    }
+
+    private void startBlitzSurvey() {
+        if (PrefrenceUtils.retriveLangData(getActivity(), Constants.LANGUAGE).equals("en")) {
+            BlitzLlamaSDK.getSdkManager(getActivity()).setSurveyLanguage("en");
+        } else {
+            BlitzLlamaSDK.getSdkManager(getActivity()).setSurveyLanguage("hi");
+        }
+//
+//    Toast.makeText(context, "CLICKED", Toast.LENGTH_SHORT).show()
+        BlitzLlamaSDK.getSdkManager(getActivity()).triggerEvent(Constants.TXN_HISTORY_VIEWED);
     }
 
     private void getRemoteConfigDataForUpdate() {

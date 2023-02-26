@@ -1,16 +1,27 @@
 package com.vahan.mitra_playstore.utils
 
+
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
 import com.blitzllama.androidSDK.BlitzLlamaSDK
 import com.bumptech.glide.RequestBuilder
+import com.freshchat.consumer.sdk.FaqOptions
 import com.freshchat.consumer.sdk.Freshchat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -21,16 +32,17 @@ import com.moengage.inapp.MoEInAppHelper
 import com.uxcam.UXCam
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
+import com.vahan.mitra_playstore.models.kotlin.NavigationRespLogic
+import com.vahan.mitra_playstore.view.ExperimentActivity
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.HashMap
 
 
-fun Context.captureEvents(context: Context,eventName : String, properties : HashMap<String, Any>){
+fun Context.captureEvents(context: Context, eventName: String, properties: HashMap<String, Any>) {
     val propertiesOne = Properties()
     val fa = FirebaseAnalytics.getInstance(context)
     val bundle = Bundle()
@@ -44,9 +56,7 @@ fun Context.roundOff2digit(amount: Double): String {
     return df.format(amount)
 }
 
-
-
-fun Context.dateConversionToString(pattern: String, date: String, conversation : String): String {
+fun Context.dateConversionToString(pattern: String, date: String, conversation: String): String {
     val formatter: DateTimeFormatter =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH)
@@ -57,8 +67,6 @@ fun Context.dateConversionToString(pattern: String, date: String, conversation :
     val formatterB = DateTimeFormatter.ofPattern(conversation)
     return date.format(formatterB)
 }
-
-
 
 @SuppressLint("SimpleDateFormat")
 fun Context.timeConversionForCurrentDate(patten: String): Date? {
@@ -74,7 +82,7 @@ fun captureAllEvents(
     eventName: String,
     items: HashMap<String, Any>,
     properties: Properties
-){
+) {
     val fa = FirebaseAnalytics.getInstance(context)
     val bundle = Bundle()
     Freshchat.trackEvent(context, eventName, items)
@@ -83,7 +91,40 @@ fun captureAllEvents(
     fa.logEvent(eventName, bundle)
 }
 
- fun Context.setImage(context: Context,url: String, imageView: ImageView) {
+fun captureAllJSEEvents(
+    context: Context,
+    eventName: String,
+    items: HashMap<String, Any>,
+    properties: Properties
+) {
+    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.US)
+    val currentDateTime = sdf.format(Date())
+    val fa = FirebaseAnalytics.getInstance(context)
+    val bundle = Bundle()
+    if(PrefrenceUtils.retriveData(context, Constants.PHONENUMBER) !== ""){
+        properties.addAttribute(
+            "phone_number",
+            PrefrenceUtils.retriveData(context, Constants.PHONENUMBER)
+        )
+    }
+    Log.d("HA PN", "initView Ext: ${PrefrenceUtils.retriveData(context, Constants.PHONENUMBER)}")
+    properties.addAttribute("userId", PrefrenceUtils.retriveData(context, Constants.USERID).toString())
+    properties.addAttribute("timestamp", currentDateTime)
+    items["phone_number"] = PrefrenceUtils.retriveData(context, Constants.PHONENUMBER)
+    items["userId"] = PrefrenceUtils.retriveData(context, Constants.USERID).toString()
+    items["timestamp"] = currentDateTime
+    Freshchat.trackEvent(context, eventName, items)
+    MoEInAppHelper.getInstance().showInApp(context)
+    MoEHelper.getInstance(context).trackEvent(eventName, properties)
+    fa.logEvent(eventName, bundle)
+}
+
+fun captureAllFAEvents(context: Context, eventName: String, bundle: Bundle) {
+    val fa = FirebaseAnalytics.getInstance(context)
+    fa.logEvent(eventName, bundle)
+}
+
+fun Context.setImage(context: Context, url: String, imageView: ImageView) {
     val requestBuilder: RequestBuilder<PictureDrawable> = GlideApp.with(context)
         .`as`(PictureDrawable::class.java)
         .placeholder(R.drawable.dialog_icon)
@@ -93,7 +134,8 @@ fun captureAllEvents(
     requestBuilder.load(uri).into(imageView)
 }
 
-fun Context.startBlitzSurvey(context : Context,eventName : String){
+// when Product team need to run Survey on any feature then this method is called
+fun Context.startBlitzSurvey(context: Context, eventName: String) {
     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
         BlitzLlamaSDK.getSdkManager(context).setSurveyLanguage("en")
     } else {
@@ -103,12 +145,12 @@ fun Context.startBlitzSurvey(context : Context,eventName : String){
     BlitzLlamaSDK.getSdkManager(context).triggerEvent(eventName)
 }
 
-fun Context.setupScreen(automaticScreenTaggingName : Boolean, screenName : String){
+fun Context.setupScreen(automaticScreenTaggingName: Boolean, screenName: String) {
     UXCam.setAutomaticScreenNameTagging(false)
     UXCam.tagScreenName("Earn Fragment")
 }
 
-fun Context.setFreshChatSessions(context : Context, dataModel : EarnDataModel) : String {
+fun Context.setFreshChatSessions(context: Context, dataModel: EarnDataModel): String {
     var token = ""
     val freshchatUser = Freshchat.getInstance(context).user
     freshchatUser.firstName = dataModel.user?.name
@@ -132,7 +174,7 @@ fun Context.setFreshChatSessions(context : Context, dataModel : EarnDataModel) :
     return token
 }
 
-fun Context.setBlitzLamaSurvey(context: Context, dataModel: EarnDataModel?, eventName : String) {
+fun Context.setBlitzLamaSurvey(context: Context, dataModel: EarnDataModel?, eventName: String) {
     BlitzLlamaSDK.getSdkManager(context).createUser(dataModel?.user?.id)
     BlitzLlamaSDK.getSdkManager(context).setUserName(dataModel?.user?.name)
     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
@@ -143,7 +185,7 @@ fun Context.setBlitzLamaSurvey(context: Context, dataModel: EarnDataModel?, even
     BlitzLlamaSDK.getSdkManager(context).triggerEvent(eventName)
 }
 
- fun Context.insertPreferencesData(context: Context, dataModel: EarnDataModel) {
+fun Context.insertPreferencesData(context: Context, dataModel: EarnDataModel) {
     PrefrenceUtils.insertData(
         context,
         Constants.INSURANCE_ELIGIBILITY,
@@ -161,7 +203,7 @@ fun Context.setBlitzLamaSurvey(context: Context, dataModel: EarnDataModel?, even
     )
 }
 
-fun Context.setMoengageUserDetails(dataModel: EarnDataModel,context: Context){
+fun Context.setMoengageUserDetails(dataModel: EarnDataModel, context: Context) {
     MoEHelper.getInstance(context).setNumber(dataModel.user!!.phoneNumber)
     MoEHelper.getInstance(context).setFullName(dataModel.user!!.name!!)
     MoEHelper.getInstance(context).setFirstName(dataModel.user!!.name!!)
@@ -377,3 +419,297 @@ fun Context.setCustomMoengageGenericType(dataModel: EarnDataModel?, context: Con
 
 
 }
+
+fun Context.redirectionBasedOnAction(
+    landingUrl: String,
+    context: Context,
+    container: ViewGroup?,
+    navController: NavController?,
+    actionTriggered: String,
+    graph: NavGraph?
+) {
+    if (actionTriggered == "BANNER") {
+        if (landingUrl == "") {
+            Toast.makeText(
+                context,
+                context.getString(R.string.link_not_found),
+                Toast.LENGTH_LONG
+            ).show()
+        }else{
+            checkForChromeUrl(landingUrl, context,container,navController,actionTriggered,graph)
+        }
+    }
+    if (actionTriggered == "NOTIFICATION"){
+        if (landingUrl == "") {
+            graph!!.startDestination = R.id.nav_home_fragment
+            navController!!.graph = graph
+            navController.navigate(R.id.nav_home_fragment)
+        }else{
+            checkForChromeUrl(landingUrl, context,container,navController,actionTriggered,graph)
+        }
+    }
+    if (actionTriggered == "FRAGMENTS"){
+        if (landingUrl != "") {
+            checkForChromeUrl(landingUrl, context,container,navController,actionTriggered,graph)
+        }
+    }
+
+}
+
+// Direct Open inside the App
+private fun checkForInsideApp(
+    landingUrl: String,
+    context: Context,
+    container: ViewGroup?,
+    navController: NavController?,
+    actionTriggered: String,
+    graph: NavGraph?
+) {
+    // Setting data for navigation
+    val navRoute = setDataForNavigation()
+    // For Freschat Calling SDK
+    if (landingUrl == Constants.LANDINGURL_FAQS) {
+        faqOpener(context)
+    } else {
+        for (i in 0 until navRoute.size) {
+            if (landingUrl == navRoute[i].eventTriggered) {
+                if (actionTriggered == "BANNER" ){
+                    Navigation.findNavController(container!!)
+                        .navigate(navRoute[i].landingUrl!!)
+                    break
+                } else if (actionTriggered == "FRAGMENTS"){
+                    graph!!.startDestination = R.id.nav_home_fragment
+                    navController!!.graph = graph
+                    navController.navigate(navRoute[i].landingUrl!!)
+                }
+                else if(actionTriggered == "NOTIFICATION"){
+                    graph!!.startDestination = navRoute[i].landingUrl!!
+                    navController!!.graph = graph
+                    navController.navigate(navRoute[i].landingUrl!!)
+                    break
+                }
+            }else {
+                if (PrefrenceUtils.retriveDataInBoolean(context, Constants.CHECKFORPAYROLL)) {
+                     if(actionTriggered == "NOTIFICATION"){
+                         for(i in 0 until navRoute.size){
+                             if (landingUrl == navRoute[i].eventTriggered) {
+                                 graph!!.startDestination = navRoute[i].landingUrl!!
+                                 navController!!.graph = graph
+                                 navController.navigate(navRoute[i].landingUrl!!)
+                                 break
+                             }else{
+                                 graph!!.startDestination = navRoute[i].landingUrl!!
+                                 navController!!.graph = graph
+                                 navController.navigate(R.id.nav_home_fragment)
+                                 break
+                             }
+                         }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun Context.checkNotificationForPayroll(type: String): Boolean {
+    for (i in 0 until Constants.navigateRoute.size) {
+        if (Constants.navigateRoute[i].eventTriggered == type) {
+            return true
+        }
+    }
+    return false
+}
+
+
+private fun checkForInAppUrl(
+    landingUrl: String,
+    context: Context,
+    container: ViewGroup?,
+    navController: NavController?,
+    actionTriggered: String,
+    graph: NavGraph?
+) {
+    if (landingUrl.contains("{userId}") || landingUrl.contains("{phoneNumber}")) {
+        val updatedUrl = generateUrl(landingUrl, context)
+        context.startActivity(
+            Intent(context, ExperimentActivity::class.java)
+                .putExtra(
+                    "link",
+                    updatedUrl
+                )
+        )
+    } else if (landingUrl.contains("http") || landingUrl.contains("https")) {
+        context.startActivity(
+            Intent(context, ExperimentActivity::class.java)
+                .putExtra(
+                    "link",
+                    landingUrl
+                )
+        )
+    } else {
+        checkForInsideApp(landingUrl, context, container, navController, actionTriggered, graph)
+    }
+}
+/*
+This condition checks if url contains userId
+then it should replace with generated UserId and concatenate with dynamic url
+*/
+
+fun generateUrl(landingUrl: String, context: Context): String {
+    var updatedUrl =
+        landingUrl.replace("{userId}", PrefrenceUtils.retriveData(context, Constants.USERID))
+    updatedUrl = updatedUrl.replace(
+        "{phoneNumber}",
+        PrefrenceUtils.retriveData(context, Constants.PHONENUMBER)
+    )
+    return updatedUrl
+}
+
+private fun checkForChromeUrl(
+    landingUrl: String,
+    context: Context,
+    container: ViewGroup?,
+    navController: NavController?,
+    actionTriggered: String,
+    graph: NavGraph?
+) {
+    if (
+        landingUrl.startsWith("tel:") ||
+        landingUrl.startsWith("whatsapp:") ||
+        landingUrl.startsWith("mailto")
+    ) {
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(landingUrl))
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        i.setPackage("com.android.chrome")
+        try {
+            context.startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            // Chrome is probably not installed
+            // Try with the decontextult browser
+            i.setPackage(null)
+            context.startActivity(i)
+        }
+
+    }else if (landingUrl.contains("play.google.com")){
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(landingUrl))
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        i.setPackage("com.android.chrome")
+        try {
+            context.startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            // Chrome is probably not installed
+            // Try with the decontextult browser
+            i.setPackage(null)
+            context.startActivity(i)
+        }
+    }
+    else{
+        checkForInAppUrl(landingUrl, context,container,navController,actionTriggered,graph)
+    }
+}
+
+private fun faqOpener(context: Context) {
+    val tags: MutableList<String> = ArrayList()
+    tags.add("newfaq")
+    val faqOptions = FaqOptions()
+        .showFaqCategoriesAsGrid(false)
+        .showContactUsOnAppBar(true)
+        .showContactUsOnFaqScreens(false)
+        .showContactUsOnFaqNotHelpful(false)
+        .filterByTags(
+            tags,
+            "Test 2",
+            FaqOptions.FilterType.CATEGORY
+        ) //tags, filtered screen title, type
+    Freshchat.showFAQs(context, faqOptions)
+}
+
+private fun setDataForNavigation(): ArrayList<NavigationRespLogic> {
+    var navigationRoute = ArrayList<NavigationRespLogic>()
+    for (i in 0 until Constants.navigateRoute.size) {
+        navigationRoute.add(Constants.navigateRoute[i])
+    }
+    return navigationRoute
+
+}
+
+fun Context.drawableToBitmap(drawable: Drawable): Bitmap? {
+    var bitmap: Bitmap? = null
+    if (drawable is BitmapDrawable) {
+        if (drawable.bitmap != null) {
+            return drawable.bitmap
+        }
+    }
+    bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+        Bitmap.createBitmap(
+            1,
+            1,
+            Bitmap.Config.ARGB_8888
+        ) // Single color bitmap will be created of 1x1 pixel
+    } else {
+        Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+    }
+    val canvas = Canvas(bitmap)
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
+    drawable.draw(canvas)
+    return bitmap
+}
+
+fun Context.insertImage(
+    cr: ContentResolver,
+    source: Bitmap?,
+    title: String,
+    description: String
+): String? {
+
+    val sdf = SimpleDateFormat("MM-dd-yyyy-hh.mm.ss.SSS.a", Locale.US)
+    val date = sdf.format(Date())
+
+    val values = ContentValues()
+    values.put(MediaStore.Images.Media.TITLE, title)
+    values.put(MediaStore.Images.Media.DISPLAY_NAME, title + date)
+    values.put(MediaStore.Images.Media.DESCRIPTION, description + date)
+    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+    // Add the date meta data to ensure the image is added at the front of the gallery
+    values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+    values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
+
+    var url: Uri? = null
+    var stringUrl: String? = null    /* value to be returned */
+
+    try {
+        url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
+        if (source != null) {
+            val imageOut = cr.openOutputStream(url!!)
+            try {
+                source.compress(Bitmap.CompressFormat.JPEG, 50, imageOut)
+            } finally {
+                imageOut!!.close()
+            }
+
+
+        } else {
+            cr.delete(url!!, null, null)
+            url = null
+        }
+    } catch (e: Exception) {
+        if (url != null) {
+            cr.delete(url, null, null)
+            url = null
+        }
+    }
+
+    if (url != null) {
+        stringUrl = url.toString()
+    }
+
+    return stringUrl
+}
+
+

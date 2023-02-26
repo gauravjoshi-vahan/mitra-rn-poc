@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestBuilder
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.RateCardTripsDoneItemBinding
-import com.vahan.mitra_playstore.models.kotlin.EarnDataModel
 import com.vahan.mitra_playstore.utils.GlideApp
 import com.vahan.mitra_playstore.utils.SvgSoftwareLayerSetter
+import com.vahan.mitra_playstore.view.ratecard.models.RateCardDetailsDTO
 
 class WeeklyIncentivesAdapter (
     private val context: Context,
-    private val data: EarnDataModel.IncentiveStructures,
+    private val data: RateCardDetailsDTO,
     private var pos: Int
   //  var listA: List<String> = listOf<String>()
 
@@ -46,34 +46,34 @@ class WeeklyIncentivesAdapter (
         @SuppressLint("RecyclerView") position: Int
     ){
         holder.binding.apply {
-            tvXTripsToEarnY.text = data.incentiveList[pos].messageLabel
-            if(data.incentiveList[pos].spinnerKey=="Mitra"){
+            tvXTripsToEarnY.text = data.incentiveList?.get(pos)!!.messageLabel
+            if(data.incentiveList[pos]?.spinnerKey=="Mitra"){
 
                 ivAdd.visibility=View.VISIBLE
                 ivCompanyLogo2.visibility = View.VISIBLE
                 tvTripsCompleted2.visibility = View.VISIBLE
 
-                data.incentiveList[pos].companies?.get(1)?.let { it.companyIcon?.let { it1 ->
+                data.incentiveList[pos]?.companies?.get(1)?.let { it.companyIcon?.let { it1 ->
                     setImage(it1,ivCompanyLogo2)
                 } }
 
-                data.incentiveList[pos].companies?.get(0)?.let { it.companyIcon?.let { it1 ->
+                data.incentiveList[pos]?.companies?.get(0)?.let { it.companyIcon?.let { it1 ->
                     setImage(it1,ivCompanyLogo)
                 } }
-                tvTripsCompleted.text = data.incentiveList[pos].milestones[position].companyTargets?.get(0)?.target.toString() + " "+
-                        data.incentiveList[pos].milestones[position].companyTargets?.get(0)?.unit.toString()
-                tvAmtEarned.text =context.resources.getString(R.string.rupee)+" "+ data.incentiveList[pos].milestones[position].amount.toString()
+                tvTripsCompleted.text = data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(0)?.target.toString() + " "+
+                        data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(0)?.unit.toString()
+                tvAmtEarned.text =context.resources.getString(R.string.rupee)+" "+ data.incentiveList[pos]?.milestones?.get(position)?.amount.toString()
 
-                tvTripsCompleted2.text = data.incentiveList[pos].milestones[position].companyTargets?.get(1)?.target.toString() + " "+
-                        data.incentiveList[pos].milestones[position].companyTargets?.get(1)?.unit.toString()
+                tvTripsCompleted2.text = data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(1)?.target.toString() + " "+
+                        data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(1)?.unit.toString()
 
-                if(data.incentiveList[pos].milestones[position].achieved=="COMPLETED"){
+                if(data.incentiveList[pos]?.milestones?.get(position)?.achieved=="COMPLETED"){
                     ivCash1.visibility = View.VISIBLE
                 }
-                if(data.incentiveList[pos].milestones[position].achieved=="PENDING"){
+                if(data.incentiveList[pos]?.milestones?.get(position)?.achieved=="PENDING"){
                     ivCash1.visibility = View.GONE
                 }
-                if(data.incentiveList[pos].milestones[position].achieved=="IN_PROGRESS"){
+                if(data.incentiveList[pos]?.milestones?.get(position)?.achieved=="IN_PROGRESS"){
 
                     ll1.visibility = View.VISIBLE
                     ivCash1.visibility = View.GONE
@@ -87,15 +87,15 @@ class WeeklyIncentivesAdapter (
                 ivCompanyLogo2.visibility = View.GONE
                 tvTripsCompleted2.visibility = View.GONE
 
-                data.incentiveList[pos].companies?.get(0)?.let { it.companyIcon?.let { it1 ->
+                data.incentiveList[pos]?.companies?.get(0)?.let { it.companyIcon?.let { it1 ->
                     setImage(it1,ivCompanyLogo)
                 } }
 
-                tvTripsCompleted.text = data.incentiveList[pos].milestones[position].companyTargets?.get(0)?.target.toString() + " "+
-                        data.incentiveList[pos].milestones[position].companyTargets?.get(0)?.unit.toString()
-                tvAmtEarned.text =context.resources.getString(R.string.rupee)+" "+ data.incentiveList[pos].milestones[position].amount.toString()
+                tvTripsCompleted.text = data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(0)?.target.toString() + " "+
+                        data.incentiveList[pos]?.milestones?.get(position)?.companyTargets?.get(0)?.unit.toString()
+                tvAmtEarned.text =context.resources.getString(R.string.rupee)+" "+ data.incentiveList[pos]?.milestones?.get(position)?.amount.toString()
 
-                if(data.incentiveList[pos].milestones[position].achieved=="IN_PROGRESS"){
+                if(data.incentiveList[pos]?.milestones?.get(position)?.achieved=="IN_PROGRESS"){
 
                     ll1.visibility = View.VISIBLE
                     ivCash1.visibility = View.INVISIBLE
@@ -129,6 +129,6 @@ class WeeklyIncentivesAdapter (
 
 
     override fun getItemCount(): Int {
-        return data.incentiveList[pos].milestones.size
+        return data.incentiveList?.get(pos)?.milestones?.size?:0
     }
 }

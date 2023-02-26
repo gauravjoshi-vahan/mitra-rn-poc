@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+    <RelativeLayout
+        android:id="@+id/cl3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_base_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_19dp"
+            android:text="Base Pay"
+            android:layout_marginTop="@dimen/dimen_12dp"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/dimen_14dp"
+            android:fontFamily="@font/opensanssemibold" />
+
+        <TextView
+            android:id="@+id/per_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:fontFamily="@font/opensanssemibold"
+            android:text="per order"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/light_color_heading"
+            android:textSize="@dimen/dimen_12dp" />
+
+                <TextView
+                    android:id="@+id/per_order_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="42"
+                    android:textColor="@color/black_v2"
+                    android:textSize="16sp"
+                    android:layout_toStartOf="@+id/per_order"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_6dp"
+                    android:fontFamily="@font/opensansbold"
+                    android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_base_pay_amt_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹"
+            android:layout_toStartOf="@+id/per_order_value"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black_v2"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensansbold"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/base_pay_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensansbold"
+            android:textStyle="bold"
+            android:text="for each order delivered"
+            android:textColor="@color/grey"
+            android:textSize="9sp"
+            android:layout_marginBottom="@dimen/dimen_14dp"
+            android:layout_marginTop="@dimen/dimen_6dp"
+            android:layout_marginStart="@dimen/dimen_19dp"
+            android:layout_below="@+id/tv_base_pay"/>
+
+    </RelativeLayout>
+</layout>

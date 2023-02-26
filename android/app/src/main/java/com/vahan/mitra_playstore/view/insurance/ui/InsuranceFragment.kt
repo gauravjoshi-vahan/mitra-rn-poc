@@ -84,9 +84,14 @@ class InsuranceFragment : Fragment() {
             ) {
                 binding.tvCommingSoon.text = model.ec.title
                 binding.tvDescComingSon.text = model.ec.desc
-            } else {
+            } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                    .equals("hi", ignoreCase = true)
+            ) {
                 binding.tvCommingSoon.text = model.ec.titleHi
                 binding.tvDescComingSon.text = model.ec.hiDesc
+            } else{
+                binding.tvCommingSoon.text = model.ec.titleTe
+                binding.tvDescComingSon.text = model.ec.teDesc
             }
             if (model.ec.button == 1) {
                 binding.userStoreInsure.visibility = View.VISIBLE
@@ -94,8 +99,12 @@ class InsuranceFragment : Fragment() {
                         .equals("en", ignoreCase = true)
                 ) {
                     binding.btnInterested.text = model.ec.buttonText
-                } else {
+                } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ) {
                     binding.btnInterested.text = model.ec.buttonTextHi
+                }else {
+                    binding.btnInterested.text = model.ec.buttonTextTe
                 }
             } else {
                 binding.userStoreInsure.visibility = View.GONE
@@ -111,9 +120,14 @@ class InsuranceFragment : Fragment() {
             ) {
                 binding.tvCommingSoon.text = model.ew.title
                 binding.tvDescComingSon.text = model.ew.desc
-            } else {
+            } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                    .equals("hi", ignoreCase = true)
+            ) {
                 binding.tvCommingSoon.text = model.ew.titleHi
                 binding.tvDescComingSon.text = model.ew.descHi
+            }else {
+                binding.tvCommingSoon.text = model.ew.titleTe
+                binding.tvDescComingSon.text = model.ew.titleTe
             }
             if (model.ew.button == 1) {
                 binding.userStoreInsure.visibility = View.VISIBLE
@@ -121,8 +135,12 @@ class InsuranceFragment : Fragment() {
                         .equals("en", ignoreCase = true)
                 ) {
                     binding.btnInterested.text = model.ew.buttonText
-                } else {
+                } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ) {
                     binding.btnInterested.text = model.ew.buttonTextHi
+                }else {
+                    binding.btnInterested.text = model.ew.buttonTextTe
                 }
             } else {
                 binding.userStoreInsure.visibility = View.GONE
@@ -141,8 +159,12 @@ class InsuranceFragment : Fragment() {
                         .equals("en", ignoreCase = true)
                 ) {
                     binding.btnInterested.text = model.ne.buttonText
-                } else {
+                } else if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE)
+                        .equals("hi", ignoreCase = true)
+                ){
                     binding.btnInterested.text = model.ne.buttonTextHi
+                }else{
+                    binding.btnInterested.text = model.ne.buttonTextTe
                 }
             } else {
                 binding.userStoreInsure.visibility = View.GONE

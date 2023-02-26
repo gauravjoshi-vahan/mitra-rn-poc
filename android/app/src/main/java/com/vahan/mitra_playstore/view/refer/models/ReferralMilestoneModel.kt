@@ -1,35 +1,51 @@
 package com.vahan.mitra_playstore.view.refer.models
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
+import androidx.annotation.Keep
 
-@JsonClass(generateAdapter = true)
+@Keep
 data class ReferralMilestoneModel(
-    @Json(name = "latestReferralStageNumber")
+    @SerializedName("latestReferralStageNumber")
     val latestReferralStageNumber: String?,
-    @Json(name = "numberOfDaysUntilExpiry")
+    @SerializedName("numberOfDaysUntilExpiry")
     val numberOfDaysUntilExpiry: String?,
-    @Json(name = "referralStages")
+    @SerializedName("payoutDetails")
+    val payoutDetails: PayoutDetails?,
+    @SerializedName("referralStages")
     val referralStages: List<ReferralStage?>?,
-    @Json(name = "referredPhoneNumber")
+    @SerializedName("referredPhoneNumber")
     val referredPhoneNumber: String?,
-    @Json(name = "totalAmountEarned")
+    @SerializedName("totalAmountEarned")
     val totalAmountEarned: String?,
-    @Json(name = "totalNumberOfTrips")
+    @SerializedName("totalNumberOfTrips")
     val totalNumberOfTrips: String?,
-    @Json(name = "totalReferralStages")
+    @SerializedName("totalReferralStages")
     val totalReferralStages: String?
 ) {
-    @JsonClass(generateAdapter = true)
-    data class ReferralStage(
-        @Json(name = "info")
-        val info: String?,
-        @Json(name = "label")
+    @Keep
+    data class PayoutDetails(
+        @SerializedName("label")
         val label: String?,
-        @Json(name = "stage")
-        val stage: String?,
-        @Json(name = "stageCompletedAt")
+        @SerializedName("link")
+        val link: String?,
+        @SerializedName("isEnabled")
+        val isEnabled: Boolean?
+    )
+
+    @Keep
+    data class ReferralStage(
+        @SerializedName("groupKey")
+        val groupKey: String?,
+        @SerializedName("info")
+        val info: String?,
+        @SerializedName("key")
+        val key: String?,
+        @SerializedName("label")
+        val label: String?,
+        @SerializedName("stage")
+        val stage: Int?,
+        @SerializedName("stageCompletedAt")
         val stageCompletedAt: String?
     )
 }

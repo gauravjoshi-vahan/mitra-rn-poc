@@ -8,13 +8,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_ALL_DOWNLOADS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:remove="android:maxSdkVersion" />
@@ -28,21 +28,23 @@
         android:name="android.hardware.camera.autofocus"
         android:required="true" />
 
-<!--    Add this for prod-->
-<!--    android:networkSecurityConfig="@xml/network_security_config"-->
+    <!--    android:networkSecurityConfig="@xml/network_security_config"-->
     <application
         android:name=".view.BaseApplication"
-        android:usesCleartextTraffic="true"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_descriptor"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/ic_register_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mitra_android"
         tools:remove="android:appComponentFactory"
+        tools:replace="android:allowBackup"
         tools:targetApi="s">
+
         <meta-data
             android:name="blitz_api_key"
             android:value="key_Bm7b3o2IMpAuxIh" />
@@ -77,8 +79,12 @@
 
         <activity
             android:name=".view.HomeActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:fitsSystemWindows="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -99,14 +105,14 @@
                     android:pathPrefix="/knowledgeCentre"
                     android:scheme="https" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
 
                 <!-- below line is to set the action to our intent to view -->
                 <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <!-- on below line we are adding a category to make our app browsable -->
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <!--
                     on below line we are specifying the host name and
                         the scheme type from which we will be calling our app
@@ -122,9 +128,10 @@
         <activity
             android:name=".view.MainActivity"
             android:exported="true"
+            android:fitsSystemWindows="true"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.AuthenticationActivity"
             android:screenOrientation="portrait" />
@@ -143,9 +150,14 @@
         <activity
             android:name=".view.ExperimentActivity"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.NotificationViewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.GenericWelcomeActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -192,8 +204,7 @@
         <activity
             android:name=".view.ReactActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
             android:name=".utils.CustomProvider"

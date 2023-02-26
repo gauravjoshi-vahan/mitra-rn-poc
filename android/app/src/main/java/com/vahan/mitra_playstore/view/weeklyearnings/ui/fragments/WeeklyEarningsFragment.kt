@@ -181,6 +181,10 @@ class WeeklyEarningsFragment : Fragment() {
             attribute,
             properties
         )
+        requireContext().startBlitzSurvey(
+            requireContext(),
+            Constants.WEEKLY_PAYOUT_VIEWED
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -11,78 +11,79 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:forceDarkAllowed="false"
         tools:context=".MainActivity">
-
+        <!--Upload Doc container-->
         <LinearLayout
-            android:id="@+id/container_header"
+            android:id="@+id/rl_place_holder_document"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/top_snake_bar_color"
+            android:paddingTop="@dimen/dimen_12dp"
+            android:paddingBottom="@dimen/dimen_12dp"
             android:visibility="gone"
-            android:weightSum="6">
+            android:clickable="false"
+            android:weightSum="4">
+
+            <ImageView
+                android:id="@+id/nudge_icon"
+                android:layout_width="@dimen/dimen_12dp"
+                android:layout_height="@dimen/dimen_11dp"
+                android:src="@drawable/ic_alert_12"
+                android:scaleType="centerInside"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:layout_marginStart="@dimen/dimen_20dp"/>
+            <TextView
+                android:id="@+id/document_pending_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ellipsize="end"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensanssemibold"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_8dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/placeholder_color"
+                android:textSize="12sp"
+                tools:text="Upload Document" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:padding="8dp">
-
-                <ImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_profile"
-                    android:scaleType="centerInside" />
+                android:layout_gravity="end"
+                android:layout_weight="2"
+                android:gravity="end">
 
                 <TextView
-                    android:id="@+id/tv_topbar_heading"
-                    android:layout_width="match_parent"
+                    android:id="@+id/document_navigation_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/opensansregular"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/dimen_20dp"
+                    android:paddingEnd="@dimen/dimen_6dp"
+                    android:text="@string/update_now_home"
+                    android:textSize="@dimen/dimen_10dp" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="start"
-                    android:text="@string/my_earning"
-                    android:textColor="@color/black_v2"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_marginEnd="13dp"
+                    android:visibility="visible"
+                    android:src="@drawable/ic_forward_v2"
+                    app:tint="@color/black_v2" />
+
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:padding="8dp">
 
-                <ImageView
-                    android:id="@+id/notification_view_v2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@null"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_notification_v2" />
-
-                <ImageView
-                    android:id="@+id/profile_page"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:backgroundTint="@null"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_profile"
-                    android:visibility="gone" />
-            </RelativeLayout>
         </LinearLayout>
+
 
         <fragment
             android:id="@+id/nav_fragment_container"
@@ -90,12 +91,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation"
-            android:layout_below="@+id/container_header"
+            android:layout_below="@+id/rl_place_holder_document"
             android:layout_marginTop="-3dp"
-            android:layout_marginBottom="3dp"
-            app:defaultNavHost="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:navGraph="@navigation/mobile_navigation" />
+            android:layout_marginBottom="3dp"/>
 
         <FrameLayout
             android:id="@+id/bottom_navigation"

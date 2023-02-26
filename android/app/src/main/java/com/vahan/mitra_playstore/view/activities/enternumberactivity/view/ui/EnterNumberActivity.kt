@@ -23,16 +23,14 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.moengage.core.Properties
 import com.moengage.firebase.MoEFireBaseHelper
 import com.uxcam.UXCam
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.ActivityRegistrationBinding
 import com.vahan.mitra_playstore.models.kotlin.SendOtp
 import com.vahan.mitra_playstore.models.kotlin.ValidateReferralRequestModel
-import com.vahan.mitra_playstore.utils.ApiState
-import com.vahan.mitra_playstore.utils.AppSignatureHashHelper
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.PrefrenceUtils
+import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.BaseActivity
 import com.vahan.mitra_playstore.view.EnterOtpActivity
 import com.vahan.mitra_playstore.view.SalaryViewActivity
@@ -62,7 +60,6 @@ class EnterNumberActivity : BaseActivity() {
         initView()
         getAppHashKey()
         clickListener()
-
     }
 
     private fun getAppHashKey() {
@@ -107,21 +104,26 @@ class EnterNumberActivity : BaseActivity() {
     }
 
     private fun getDynamicLink() {
-        FirebaseDynamicLinks.getInstance()
-            .getDynamicLink(intent)
-            .addOnSuccessListener {
+        FirebaseDynamicLinks.getInstance().getDynamicLink(intent).addOnSuccessListener {
                 // Get deep link from result (may be null if no link is found)
                 var deepLink: Uri? = null
                 if (it != null) {
                     deepLink = it.link
-                    Log.d("EnterNumberActivity", "getDynamicLink: $deepLink")
-                    val separator = "%3D"
-                    val sepPos: Int = deepLink.toString().indexOf(separator)
-                    if (sepPos == -1) {
-                        println("")
+                    if (deepLink.toString().contains("#")) {
+                        Log.d("EnterNumberActivity", "getDynamicLink: $deepLink")
+                        val separator = "%3D"
+                        val sepPos: Int = deepLink.toString().indexOf(separator)
+                        if (sepPos == -1) {
+                            println("")
+                        }
+                        binding.edtReferralCode.setText(
+                            deepLink.toString().substring(sepPos + separator.length)
+                        )
+                    } else {
+                        binding.edtReferralCode.setText("")
                     }
-                    binding.edtReferralCode.setText(deepLink.toString().substring(sepPos + separator.length))
-                }else{
+
+                } else {
                     binding.edtReferralCode.setText("")
                 }
             }
@@ -247,6 +249,21 @@ class EnterNumberActivity : BaseActivity() {
         dialogLoader?.show()
         val number = SendOtp("", "")
         number.phoneNumber = binding.edtVerifyNumber.text.toString()
+        PrefrenceUtils.insertData(
+            this,
+            Constants.PHONENUMBER,
+            number.phoneNumber
+        )
+
+        Log.d("HA PN", "initView ENA: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+        val attribute = HashMap<String, Any>()
+        val properties = Properties()
+        captureAllJSEEvents(
+            this,
+            "jse_phone_number_submitted",
+            attribute,
+            properties
+        )
         PrefrenceUtils.insertData(this, Constants.HASHKEY, hashKey)
         lifecycleScope.launchWhenStarted {
             enterNumberViewModel.sendOTP(number).collect {
@@ -318,6 +335,7 @@ class EnterNumberActivity : BaseActivity() {
         values[Constants.CHROME_URL] = ""
         values[Constants.FEEDBACK_TRIGGERS] = ""
         values[Constants.FRESHCHAT_ENABLE_CONDITION] = ""
+        values[Constants.SHARE_REFERRAL_CODE_TEXT] = ""
         mFirebaseRemoteConfig?.setDefaultsAsync(values)
         getUpdates()
     }
@@ -325,6 +343,11 @@ class EnterNumberActivity : BaseActivity() {
     private fun getUpdates() {
         mFirebaseRemoteConfig?.fetchAndActivate()?.addOnCompleteListener() {
             try {
+                PrefrenceUtils.insertData(
+                    this,
+                    Constants.SHARE_REFERRAL_CODE_TEXT_REMOTE_CONFIG,
+                    mFirebaseRemoteConfig?.getString(Constants.SHARE_REFERRAL_CODE_TEXT)
+                )
                 PrefrenceUtils.insertData(
                     this,
                     Constants.UPDATE_CONDITIONS_REMOTE_CONFIG,

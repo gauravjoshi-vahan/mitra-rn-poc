@@ -1,4 +1,6 @@
 package com.vahan.mitra_playstore.di
+import com.datatheorem.android.trustkit.TrustKit
+import com.datatheorem.android.trustkit.pinning.OkHttp3Helper
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vahan.mitra_playstore.network.kotlin.ApiNetwork
@@ -14,6 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import javax.net.ssl.HttpsURLConnection
 
 @Module
 @InstallIn(SingletonComponent::class)

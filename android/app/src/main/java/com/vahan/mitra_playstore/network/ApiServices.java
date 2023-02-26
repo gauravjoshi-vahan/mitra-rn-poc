@@ -2,7 +2,6 @@ package com.vahan.mitra_playstore.network;
 
 
 import com.google.gson.JsonObject;
-import com.vahan.mitra_playstore.models.PayslipDataModel;
 import com.vahan.mitra_playstore.model.TranscInfoModel;
 import com.vahan.mitra_playstore.model.cashoutClass;
 import com.vahan.mitra_playstore.models.BannerListDataModel;
@@ -10,28 +9,36 @@ import com.vahan.mitra_playstore.models.BreakupModel;
 import com.vahan.mitra_playstore.models.CheckCorrectIFSCModel;
 import com.vahan.mitra_playstore.models.EarnDataModelJava;
 import com.vahan.mitra_playstore.models.GetBankDetailsModel;
-import com.vahan.mitra_playstore.models.kotlin.GetPurPosesAndAmountModel;
 import com.vahan.mitra_playstore.models.InsuranceModel;
 import com.vahan.mitra_playstore.models.LoanList;
 import com.vahan.mitra_playstore.models.LoginModel;
+import com.vahan.mitra_playstore.models.PayslipDataModel;
 import com.vahan.mitra_playstore.models.PostLoanApiInfoModel;
 import com.vahan.mitra_playstore.models.PostLoanApiModel;
 import com.vahan.mitra_playstore.models.PostLoanApplyModel;
 import com.vahan.mitra_playstore.models.SendOtp;
 import com.vahan.mitra_playstore.models.TransactionDetailsFilterConstraintsModel;
 import com.vahan.mitra_playstore.models.TransactionDetailsModelJava;
+import com.vahan.mitra_playstore.models.UploadDocDTO;
 import com.vahan.mitra_playstore.models.UserResponse;
 import com.vahan.mitra_playstore.models.VerificationResponseModel;
 import com.vahan.mitra_playstore.models.VerifyModel;
+import com.vahan.mitra_playstore.models.kotlin.GetPurPosesAndAmountModel;
 import com.vahan.mitra_playstore.utils.Constants;
+import com.vahan.mitra_playstore.view.earn.model.NudgesModel;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMDocUploadDTO;
+import com.vahan.mitra_playstore.view.jobsmarketplace.docupload.datamodels.JMPostDocDTO;
 import com.vahan.mitra_playstore.view.supporttickets.datamodels.SupportTicketDTO;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -42,6 +49,10 @@ public interface ApiServices {
 
     @POST("/auth/login")
     Call<LoginModel> login(@Body JsonObject otp);
+
+    @Multipart
+    @POST("/upload")
+    Call<UploadDocDTO> upload(@Part MultipartBody.Part file);
 
     @POST("/user-documents/verify")
     Call<VerificationResponseModel> verifyAadharCard(@Body JsonObject source);
@@ -122,4 +133,13 @@ public interface ApiServices {
 
     @GET("/api/v2/search/tickets")
     Call<SupportTicketDTO> callFreshDeskAPI(@Query("query") String queryText);
+
+    @GET("/ss/api/v1/nudgeDetails")
+    Call<NudgesModel> getNudges();
+
+    @GET("jobseeker/documents")
+    Call<JMDocUploadDTO> getJMUploadDocs(@Query("siId") String siId);
+
+    @POST("jobseeker/documents")
+    Call<JMPostDocDTO> postJMUploadDocs(@Body JsonObject jsonObject);
 }

@@ -65,6 +65,212 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/profilePicCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:cardUseCompatPadding="true"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <RelativeLayout
+                            android:id="@+id/jsProfilePicParent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/jsProfilePicContainer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="12dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:text="@string/profile_pic"
+                                        android:textColor="@color/black_v2"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:id="@+id/profilePic"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_profile_pic_upload" />
+                                    <ImageView
+                                        android:visibility="invisible"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="100dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/ic_pandcard_3x" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+
+                                            android:text="@string/status"
+                                            android:textColor="@color/black_v2"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/successProfilePic"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_bg_success"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:visibility="gone"
+                                            android:text="@string/success"
+                                            android:textColor="@color/green"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/waitingProfilePic"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_waiting"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="4dp"
+                                            android:paddingTop="6dp"
+                                            android:visibility="gone"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/waiting"
+                                            android:textColor="@color/tv_waiting_bg"
+                                            android:textSize="10sp"
+                                            tools:ignore="SmallSp" />
+
+                                        <TextView
+                                            android:id="@+id/missingProfilePic"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/ic_missing"
+                                            android:fontFamily="sans-serif"
+                                            android:gravity="center"
+                                            android:paddingStart="8dp"
+                                            android:paddingTop="6dp"
+                                            android:paddingEnd="4dp"
+                                            android:paddingBottom="6dp"
+                                            android:text="@string/missing"
+                                            android:textColor="@color/tv_missing_bg"
+                                            android:textSize="10sp"
+                                            app:drawableStartCompat="@drawable/ic_alert_icon"
+                                            tools:ignore="SmallSp" />
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:id="@+id/profileUploadImg"
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_upload" />
+
+                                    <ImageView
+                                        android:layout_width="117dp"
+                                        android:layout_height="64dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_verifed_case"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/profileBtnView"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/jsProfilePicContainer"
+                                android:layout_alignParentBottom="true"
+                                android:background="#FEF1EB">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/view_now"
+                                    android:textColor="@color/default_200"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/uploadProfilePic"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/jsProfilePicContainer"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/default_200">
+                                <ProgressBar
+                                    android:id="@+id/prog_upload_text_View_profilePic"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:visibility="gone"
+                                    app:indicatorColor="@color/black"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <TextView
+                                    android:id="@+id/upload_text_View_profilePic"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="center"
+                                    android:text="@string/upload_now"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -259,6 +465,7 @@
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -460,6 +667,7 @@
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

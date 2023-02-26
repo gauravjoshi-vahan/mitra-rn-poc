@@ -63,8 +63,10 @@ public class HelpAndSettingAdapter extends RecyclerView.Adapter<HelpAndSettingAd
         if (PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE).equalsIgnoreCase("en")) {
             holder.tvKey.setText(otherSettingModels.get(position).getKey());
             Log.d("hey", "onBindViewHolder: "+otherSettingModels.get(position).getKey());
-        } else {
+        } else if(PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE).equalsIgnoreCase("hi")) {
             holder.tvKey.setText(otherSettingModels.get(position).getHiKey());
+        }else{
+            holder.tvKey.setText(otherSettingModels.get(position).getTeKey());
         }
         holder.tvStatus.setText(otherSettingModels.get(position).getStatus());
     }
@@ -178,30 +180,33 @@ public class HelpAndSettingAdapter extends RecyclerView.Adapter<HelpAndSettingAd
         if (Objects.equals(PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE), "en")) {
             language = "en";
             rGLanguageChange.check(R.id.english_lg);
-        } else {
+        } else if (Objects.equals(PrefrenceUtils.retriveLangData(activity, Constants.LANGUAGE), "hi")){
             language = "hi";
             rGLanguageChange.check(R.id.hindi_lg);
+        }else {
+            language = "te";
+            rGLanguageChange.check(R.id.telugu_lg);
         }
        // if(!Objects.equals(language, "")) tvStatus.setText(language);
 
 
-        rGLanguageChange.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int btn = group.getCheckedRadioButtonId();
-                switch (btn) {
-                    case R.id.hindi_lg:
-                        language = "hi";
-                        languageHeader = "hindi";
-                        Freshchat.notifyAppLocaleChange(activity);
-                        break;
-                    case R.id.english_lg:
-                        language = "en";
-                        languageHeader = "english";
-                        Freshchat.notifyAppLocaleChange(activity);
-                        break;
-                }
+        rGLanguageChange.setOnCheckedChangeListener((group, checkedId) -> {
+            int btn = group.getCheckedRadioButtonId();
+            switch (btn) {
+                case R.id.hindi_lg:
+                    language = "hi";
+                    languageHeader = "hindi";
+                    Freshchat.notifyAppLocaleChange(activity);
+                    break;
+                case R.id.english_lg:
+                    language = "en";
+                    languageHeader = "english";
+                    Freshchat.notifyAppLocaleChange(activity);
+                    break;
+                case R.id.telugu_lg:
+                    language = "te";
+                    languageHeader = "telugu";
+                    Freshchat.notifyAppLocaleChange(activity);
             }
         });
         builder.setView(view);
@@ -211,32 +216,27 @@ public class HelpAndSettingAdapter extends RecyclerView.Adapter<HelpAndSettingAd
             alertDialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
 
         alertDialog.show();
-        btnLanguageChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (Objects.equals(PrefrenceUtils.retriveLangData(
+        btnLanguageChange.setOnClickListener(view1 -> {
+            try {
+                if (Objects.equals(PrefrenceUtils.retriveLangData(
+                        activity, Constants.LANGUAGE), language)
+            ) {
+                    alertDialog.dismiss();
+                } else if (!language.equals("")) {
+                   // setInstrumentation();
+                    setLocaleLanguage(language);
+                    PrefrenceUtils.insertDataLang(activity, Constants.LANGUAGE, language);
+                    PrefrenceUtils.insertDataLang(
                             activity,
-                            Constants.LANGUAGE
-                    ), language)
-                ) {
-                        alertDialog.dismiss();
-                    } else if (!language.equals("")) {
-                       // setInstrumentation();
-                        setLocaleLanguage(language);
-                        PrefrenceUtils.insertDataLang(activity, Constants.LANGUAGE, language);
-                        PrefrenceUtils.insertDataLang(
-                                activity,
-                                Constants.LANGUAGE_API_RESP,
-                                languageHeader);
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        activity.finish();
+                            Constants.LANGUAGE_API_RESP,
+                            languageHeader);
+                    activity.startActivity(new Intent(activity, MainActivity.class));
+                    activity.finish();
 
-                    }
-                    Toast.makeText(activity,(R.string.please_select_the_language), Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    Toast.makeText(activity,(R.string.please_select_the_language), Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(activity,(R.string.please_select_the_language), Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Toast.makeText(activity,(R.string.please_select_the_language), Toast.LENGTH_SHORT).show();
             }
         });
     }

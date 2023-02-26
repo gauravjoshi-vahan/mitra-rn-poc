@@ -92,7 +92,7 @@ class PaymentSucessfulFragment : Fragment() {
             } else {
                 binding.cashoutExpFlow.visibility = View.GONE
             }
-        } else {
+        } else if (PrefrenceUtils.retriveLangData(requireContext(), Constants.LANGUAGE).equals("hi")) {
             if (orderReachToNextLevel1 && daysReachToNextLevel) {
                 binding.tvTextOne.visibility = View.VISIBLE
                 binding.textOnePlus.visibility = View.VISIBLE
@@ -115,6 +115,32 @@ class PaymentSucessfulFragment : Fragment() {
                 binding.tvActiveDays.text = "$tripsReachToNextLevel और दिनों तक सक्रिय रहें"
                 if (percentage != 0)
                     binding.tvPercentage.text = "$percentage% प्रतिशत अनलॉक करने के लिए"
+            } else {
+                binding.cashoutExpFlow.visibility = View.GONE
+            }
+        }else {
+            if (orderReachToNextLevel1 && daysReachToNextLevel) {
+                binding.tvTextOne.visibility = View.VISIBLE
+                binding.textOnePlus.visibility = View.VISIBLE
+                binding.tvActiveDays.visibility = View.VISIBLE
+                binding.tvTextOne.text = "మరో $orderReachToNextLevel ట్రిప్ లను పూర్తి చేయండి"
+                binding.tvActiveDays.text = "మరో $tripsReachToNextLevel రోజులు యాక్టివ్\u200Cగా ఉండండి"
+                if (percentage != 0)
+                    binding.tvPercentage.text = "$percentage% प्रतिशत अनलॉक करने के लिए"
+            } else if (orderReachToNextLevel1 && !daysReachToNextLevel) {
+                binding.tvTextOne.visibility = View.VISIBLE
+                binding.tvActiveDays.visibility = View.GONE
+                binding.textOnePlus.visibility = View.GONE
+                binding.tvTextOne.text = "$orderReachToNextLevel और यात्राएं पूरी करें"
+                if (percentage != 0)
+                    binding.tvPercentage.text = "మరో $tripsReachToNextLevel రోజులు యాక్టివ్\u200Cగా ఉండండి"
+            } else if (!orderReachToNextLevel1 && daysReachToNextLevel) {
+                binding.tvTextOne.visibility = View.GONE
+                binding.textOnePlus.visibility = View.GONE
+                binding.tvActiveDays.visibility = View.VISIBLE
+                binding.tvActiveDays.text = "మరో $tripsReachToNextLevel రోజులు యాక్టివ్\u200Cగా ఉండండి"
+                if (percentage != 0)
+                    binding.tvPercentage.text = "క్యాష్అవుట్ $percentage% అన్\u200Cలాక్ చేయండి"
             } else {
                 binding.cashoutExpFlow.visibility = View.GONE
             }

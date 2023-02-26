@@ -18,6 +18,8 @@ data class ReferralHomeNewRespModel(
     val referralsInProgress: Int?,
     @Json(name = "totalAmountEarnedForReferrals")
     val totalAmountEarnedForReferrals: Int?,
+    @Json(name = "referralMessage")
+    val referralMessage: String?,
     @Json(name = "totalEarnableAmountPerSuccessfulReferral")
     val totalEarnableAmountPerSuccessfulReferral: Int?
 ) {

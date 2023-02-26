@@ -53,6 +53,13 @@
             android:clickable="false"
             android:saveEnabled="false" />
 
+        <FrameLayout
+            android:layout_below="@+id/bac_button_container"
+            android:id="@+id/customViewForFullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/apply_layout"
             android:layout_width="match_parent"

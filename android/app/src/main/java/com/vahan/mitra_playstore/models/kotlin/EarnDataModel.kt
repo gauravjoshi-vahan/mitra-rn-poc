@@ -1,16 +1,11 @@
 package com.vahan.mitra_playstore.models.kotlin
 
-import android.os.Build
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
-import androidx.annotation.RequiresApi
-import androidx.core.view.ViewParentCompat
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.io.Serializable
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
@@ -54,6 +49,9 @@ data class EarnDataModel(
     @SerializedName("attendanceDetails")
     @Expose
     val attendanceDetails: @RawValue AttendanceDetails?,
+    @SerializedName("mplDetails")
+    @Expose
+    val mplDetails: @RawValue MplDetails?
 ):Parcelable {
     @Parcelize
     data class User(
@@ -281,9 +279,19 @@ data class EarnDataModel(
         @SerializedName("holdStatus")
         @Expose
         val holdStatus: String?,
+        @SerializedName("liabilitySum")
+        @Expose
+        val liabilitySum: Double?,
+        @SerializedName("amountLiabilityLabel")
+        @Expose
+        val amountLiabilityLabel: String?,
         @SerializedName("holdMessage")
         @Expose
         val holdMessage: String?,
+        @SerializedName("holdPayoutSinceWeek")
+        @Expose
+        val holdPayoutSinceWeek: String?
+
     ): Parcelable
 
     @Parcelize
@@ -624,5 +632,46 @@ data class EarnDataModel(
             @JsonClass(generateAdapter = true)
             class AttendanceDetails
         }
+    }
+
+    @Keep
+    @JsonClass(generateAdapter = true)
+    data class MplDetails(
+        @SerializedName("enabled")
+        val enabled: Boolean?,
+        @SerializedName("maxMPLCreditAmountInPaisa")
+        val maxMPLCreditAmountInPaisa: Int?,
+        @SerializedName("minMPLAmountInPaisa")
+        val minMPLAmountInPaisa: Int?,
+        @SerializedName("mplCreditFixedFeeInPaisa")
+        val mplCreditFixedFeeInPaisa: Int?,
+        @SerializedName("mplCycle")
+        val mplCycle: MplCycle?,
+        @SerializedName("mplEligibilityStatus")
+        val mplEligibilityStatus: String?,
+        @SerializedName("mplUiDetails")
+        val mplUiDetails: MplUiDetails?,
+        @SerializedName("walletBalanceInPaisa")
+        val walletBalanceInPaisa: Int?
+    ) {
+        @Keep
+        data class MplCycle(
+            @SerializedName("endDate")
+            val endDate: String?,
+            @SerializedName("startDate")
+            val startDate: String?
+        )
+
+        @Keep
+        data class MplUiDetails(
+            @SerializedName("ctaText")
+            val ctaText: String?,
+            @SerializedName("description")
+            val description: String?,
+            @SerializedName("svgIcon")
+            val svgIcon: String?,
+            @SerializedName("title")
+            val title: String?
+        )
     }
 }

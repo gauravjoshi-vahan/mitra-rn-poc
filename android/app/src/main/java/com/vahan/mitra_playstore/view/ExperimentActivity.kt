@@ -1,9 +1,11 @@
 package com.vahan.mitra_playstore.view
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -194,12 +196,6 @@ class ExperimentActivity : AppCompatActivity() {
                 errorResponse: WebResourceResponse,
             ) {
                 super.onReceivedHttpError(view, request, errorResponse)
-                if (onlyonce[0]) {
-                    onlyonce[0] = false
-                    if (finalUrl != null) {
-                        binding.webView.loadUrl(finalUrl)
-                    }
-                }
             }
 
             override fun onPageStarted(view: WebView, url: String, favIcon: Bitmap?) {
@@ -218,6 +214,25 @@ class ExperimentActivity : AppCompatActivity() {
         }
         if (modify_url != null) {
             binding.webView.loadUrl(modify_url)
+        }
+        binding.webView.webChromeClient = object : WebChromeClient() {
+            override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                super.onShowCustomView(view, callback)
+                binding.webView.visibility = View.GONE
+                binding.customViewForFullscreen.visibility = View.VISIBLE
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                binding.customViewForFullscreen.addView(view)
+            }
+
+            @SuppressLint("SourceLockedOrientationActivity")
+            override fun onHideCustomView() {
+                super.onHideCustomView()
+                binding.webView.visibility = View.VISIBLE
+                binding.customViewForFullscreen.visibility = View.GONE
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
+
+            override fun onPermissionRequest(request: PermissionRequest) {}
         }
     }
 

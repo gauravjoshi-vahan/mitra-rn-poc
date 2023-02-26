@@ -4,5 +4,6 @@ data class Purpose(
     val key : String,
     val icon : String,
     val value: String,
-    val valueHi : String
+    val valueHi : String,
+    val valueTe : String
 )

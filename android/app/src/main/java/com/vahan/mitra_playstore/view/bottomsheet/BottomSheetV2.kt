@@ -61,11 +61,17 @@ class BottomSheetV2(
                     this.text = "Cashout ${price.subSequence(0, price.indexOf("."))}"
                 }
 
-            } else {
+            } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
                 if (!price.contains(".")) {
                     this.text = "कैशआउट $price"
                 } else {
                     this.text = "कैशआउट ${price.subSequence(0, price.indexOf("."))}"
+                }
+            }else{
+                if (!price.contains(".")) {
+                    this.text = "క్యాష్అవుట్ $price"
+                } else {
+                    this.text = "క్యాష్అవుట్ ${price.subSequence(0, price.indexOf("."))}"
                 }
             }
         }
@@ -118,11 +124,16 @@ class BottomSheetV2(
                                     "Cashout amount is nothing but a portion of your earnings available before scheduled payout date. If you opt to recieve this amount, the same will be deducted from your Mitra balance.\n" +
                                             "\n" +
                                             "You will be charged " + cashoutFeePercentage + "% extra for availing Cashout!"
-                            } else {
+                            } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE)
+                                    .equals("hi")){
                                 trnCndText?.text =
                                     "कैशआउट राशि और कुछ नहीं बल्कि निर्धारित भुगतान तिथि से पहले उपलब्ध आपकी आय का एक हिस्सा है। यदि आप इस राशि को प्राप्त करने का विकल्प चुनते हैं, तो यह राशि आपके मित्र शेष से काट ली जाएगी।\n" +
                                             "\n" +
                                             "कैशआउट का लाभ उठाने के लिए आपसे " + cashoutFeePercentage + "% अतिरिक्त शुल्क लिया जाएगा!"
+                            } else {
+                                trnCndText?.text = "క్యాష్అవుట్ అమౌంట్ అనేది షెడ్యూల్ చేయబడిన చెల్లింపు తేదీకి ముందు లభించే మీ సంపాదనలో కొంత భాగం తప్ప మరొకటి కాదు. మీరు ఈ మొత్తాన్ని స్వీకరించాలని ఎంచుకుంటే, అది మీ మిత్ర బ్యాలెన్స్ నుండి తీసివేయబడుతుంది.\n" +
+                                        "\n" +
+                                        "మీరు క్యాష్అవుట్ పొందడం కోసం" + cashoutFeePercentage + "% అదనపు ఛార్జీ విధించబడుతుంది!"
                             }
                         } else {
                             if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE)
@@ -132,11 +143,17 @@ class BottomSheetV2(
                                     "Cashout amount is nothing but a portion of your earnings available before scheduled payout date. If you opt to recieve this amount, the same will be deducted from your Mitra balance.\n" +
                                             "\n" +
                                             "You will be charged $cashoutFixedFee extra for availing Cashout!"
-                            } else {
+                            } else if(PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE)
+                                    .equals("hi")) {
                                 trnCndText?.text =
                                     "कैशआउट राशि और कुछ नहीं बल्कि निर्धारित भुगतान तिथि से पहले उपलब्ध आपकी आय का एक हिस्सा है। यदि आप इस राशि को प्राप्त करने का विकल्प चुनते हैं, तो यह राशि आपके मित्र शेष से काट ली जाएगी।\n" +
                                             "\n" +
                                             "कैशआउट का लाभ उठाने के लिए आपसे " + cashoutFixedFee + "% अतिरिक्त शुल्क लिया जाएगा!"
+                            } else{
+                                trnCndText?.text =
+                                    "క్యాష్అవుట్ అమౌంట్ అనేది షెడ్యూల్ చేయబడిన చెల్లింపు తేదీకి ముందు లభించే మీ సంపాదనలో కొంత భాగం తప్ప మరొకటి కాదు. మీరు ఈ మొత్తాన్ని స్వీకరించాలని ఎంచుకుంటే, అది మీ మిత్ర బ్యాలెన్స్ నుండి తీసివేయబడుతుంది. \n" +
+                                            "\n" +
+                                            "మీరు క్యాష్అవుట్ పొందడం కోసం" + cashoutFeePercentage + "% అదనపు ఛార్జీ విధించబడుతుంది!"
                             }
                         }
 
@@ -156,14 +173,18 @@ class BottomSheetV2(
                 if (cashoutFeePercentage > 0) {
                     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
                         transc_id_charges.text = "$cashoutFeePercentage% FEE APPLICABLE"
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
                         transc_id_charges.text = "$cashoutFeePercentage% शुल्क लागू"
+                    }else{
+                        transc_id_charges.text = "$cashoutFeePercentage% ఫీజు వర్తిస్తుంది"
                     }
                 } else {
                     if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("en")) {
                         transc_id_charges.text = "₹$cashoutFixedFee FEE APPLICABLE"
-                    } else {
+                    } else if (PrefrenceUtils.retriveLangData(context, Constants.LANGUAGE).equals("hi")) {
                         transc_id_charges.text = "₹$cashoutFixedFee शुल्क लागू"
+                    } else{
+                        transc_id_charges.text = "₹$cashoutFixedFee ీజు వర్తిస్తుంది"
                     }
                 }
             }

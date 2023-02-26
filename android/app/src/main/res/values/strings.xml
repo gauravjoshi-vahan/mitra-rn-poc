@@ -24,7 +24,7 @@
     <string name="didn_otp">Didn’t receive OTP?</string>
     <string name="account_details">Account Details</string>
     <string name="account_number">Account Number</string>
-    <string name="re_enter_account_number">Re-enter account Number</string>
+    <string name="re_enter_account_number" translatable="false">Re-enter account Number</string>
     <string name="ifsc">IFSC</string>
     <string name="your_name_as_per_bank_account">Your name as per bank account</string>
     <string name="this_information_will_be_securely_stored_with_us_as_per_mitra_s_terms_of_service_and_privacy_policy">This information will be securely stored with us as per Mitra’s Terms of Service and Privacy Policy</string>
@@ -53,6 +53,7 @@
 
     <string name="privacy_policy"><u>Privacy Policy</u></string>
     <string name="app_version_1_3">App version 1.3</string>
+    <string name="app_version" translatable="false">App version</string>
     <string name="send_otp">Send Otp</string>
     <string name="download">Download</string>
     <string name="share">Share</string>
@@ -103,7 +104,7 @@
     <string name="aadhaar_card_back_tv">Aadhar Card Back</string>
     <string name="validation_message">Please enter 10 digit number</string>
     <string name="term_and_condition_link">https://vahan.ai/terms-of-use.html</string>
-    <string name="number_heading_text">Enter OTP recived on +91</string>
+    <string name="number_heading_text" translatable="false">Enter OTP recived on +91</string>
 
 
     <!--    V2 Text-->
@@ -154,7 +155,7 @@
 
     <string name="state_bank_of_india_8033">State Bank of India .... 8033</string>
     <string name="savings_account">Savings Account</string>
-    <string name="savings_plan">Start Saving Plan</string>
+    <string name="savings_plan" translatable="false">Start Saving Plan</string>
     <string name="bottom_sheet_v1_tv">What is a Cashout and how to get it?</string>
     <string name="bottom_sheet_v1_sub_tv">You would soon be able to cashout your earnings instantly without waiting for the end of the pay cycle!</string>
     <string name="eligibility_tv">Eligibility</string>
@@ -177,7 +178,7 @@
     <string name="skip_all">Skip all</string>
     <string name="next">Next</string>
     <string name="while_we_verify_your_bank_account_details">While we verify your bank account details</string>
-    <string name="delete_document">Delete document?</string>
+    <string name="delete_document" translatable="false">Delete document?</string>
     <string name="you_are_trying_to_delete_a_document_that_has_been_verified_by_mitra">You are trying to delete a document that has been verified by Mitra.</string>
     <string name="cancel">Cancel</string>
     <string name="yes_delete">Yes Delete</string>
@@ -239,11 +240,12 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="uploaded_documents">Uploaded Documents</string>
     <string name="documents_missing">DOCUMENTS MISSING !!</string>
-    <string name="documents_bank_details_missing">DOCUMENTS AND BANK DETAILS MISSING !!</string>
+    <string name="documents_bank_details_missing" translatable="false">DOCUMENTS AND BANK DETAILS MISSING !!</string>
     <string name="not_verified">NOT VERIFIED</string>
 
     <string name="waiting">WAITING!</string>
     <string name="missing">MISSING!</string>
+    <string name="uploading">Upload in progress</string>
     <string name="view_now">View Now</string>
     <string name="upload_now">Upload Now</string>
     <string name="pan_card">Pan Card</string>
@@ -256,7 +258,7 @@
     <string name="upload_driving_license">Upload Driving License</string>
     <string name="upload_driving_license_desc">Please upload your Driving License photo. If you need help uploading the same:</string>
     <string name="take_photo_or_upload">Take Photo or Upload</string>
-    <string name="delete">Delete</string>
+    <string name="delete" translatable="false">Delete</string>
     <string name="front">Front</string>
     <string name="back">Back</string>
     <string name="save">Save</string>
@@ -308,7 +310,7 @@
     <string name="transaction_on">TRANSACTION ON</string>
     <string name="tenure_of">Select tenure for the loan of</string>
     <string name="select_tenure">Select Tenure</string>
-    <string name="emi">Emi</string>
+    <string name="emi" translatable="false">Emi</string>
     <string name="every_month">every month</string>
     <string name="my_loans">My Loans</string>
     <string name="hi_fixed">हिंदी</string>
@@ -649,11 +651,11 @@
     <string name="no_referral_rewards">No Referrals</string>
     <string name="you_have_not_invited_any_of_your_friends_yet">You have not invited any of your friends yet</string>
     <string name="your_friend_will_be_contacted_soon">Your friend will be contacted soon</string>
-    <string name="friend">Friend already referred by you or someone else earlier</string>
+    <string name="friend" translatable="false">Friend already referred by you or someone else earlier</string>
     <string name="tell_your_friend">Tell your friend to take more trips</string>
     <string name="amount_earned">Amount Earned</string>
     <string name="r_started">Referral Started</string>
-    <string name="j_mitra">Joined Mitra</string>
+    <string name="j_mitra">Join Mitra</string>
     <string name="f_t_done">First Trip Done</string>
     <string name="r_b_earned">Referral Bonus Earned</string>
     <string name="i_sent">Thanks for referring</string>
@@ -733,7 +735,7 @@
     <string name="cashout_failed_please_try_again_later">Cashout failed, please try again later!</string>
     <string name="data_not_available">Data Not Available</string>
     <string name="you_have_already_availed_the_service">You have already availed the service</string>
-    <string name="documents_missing_">Documents missing!</string>
+    <string name="documents_missing_" translatable="false">Documents missing!</string>
     <string name="upload_document_">Upload Aadhaar &amp; PAN Card</string>
     <string name="bank_details_missing">Bank Details missing!</string>
     <string name="bank_details_missing2">BANK DETAILS MISSING!!</string>
@@ -802,7 +804,7 @@
     <string name="earn_money_upto_2100_for_every_milestone_that_your_friend_will_be_completing_in_the_first_15_days">Earn money upto ₹2100 for every milestone that your friend will be completing in the first 15 days</string>
     <string name="invite_your_friend_and_get_them_onboarded">Invite your friend and get them onboarded</string>
     <string name="your_friend_starts_taking_trips">Your friend starts taking trips</string>
-    <string name="get_bonus_for_the_trips_completed_in_15_days">Get bonus for the trips completed in 15 days</string>
+    <string name="get_bonus_for_the_trips_completed_in_15_days" translatable="false">Get bonus for the trips completed in 15 days</string>
     <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="you_will_get_bonus_for_the_trips_your_friend_completes_in_the_first_15_days">You will get bonus for the trips your friend completes in the first 15 days.</string>
     <string name="your_bonus_amount">Your Bonus amount</string>
@@ -831,7 +833,7 @@
     <string name="referral_started">Referral Started</string>
     <string name="_1_july_2022">1 July 2022</string>
     <string name="invitation_sent">Invitation Sent</string>
-    <string name="first_trip_done">First Trip Done</string>
+    <string name="first_trip_done" translatable="false">First Trip Done</string>
     <string name="amount_you_will_earn2">Amount you will earn</string>
     <string name="plus_rupee_100">+ ₹100</string>
     <string name="plus_rupee_200">+ ₹200</string>
@@ -905,7 +907,7 @@
     <string name="take_more_rides_and_unlock_70">Take more rides and Unlock 70% !</string>
     <string name="tnc_txt2">" apply"</string>
     <string name="continue_txt">CONTINUE</string>
-    <string name="app_version">App version</string>
+
     <string name="work_for_mutliple_companies_together_with_mitra_earn_extra_money"><![CDATA[Work for mutliple companies together with Mitra & Earn Extra money]]></string>
     <string name="know_your_slot_timings_and_open_you_client_app_directly_from_here">Know your slot timings and Open\nyou client app directly from here!</string>
     <string name="ok_got_it">Ok, Got it</string>
@@ -924,7 +926,7 @@
     <string name="_900">₹ 900</string>
     <string name="payment_type">Payment Type</string>
     <string name="online">Online</string>
-    <string name="first_mile_1_5_km">First Mile - 1.5 KM</string>
+    <string name="first_mile_1_5_km" translatable="false">First Mile - 1.5 KM</string>
     <string name="trip_time_7_03_am">Trip Time 7:03 AM</string>
     <string name="utr_no" translatable="false">UTR NUMBER : </string>
     <string name="ticket_history">Ticket History</string>
@@ -953,18 +955,19 @@
     <string name="view_bank_details">View Bank Details</string>
     <string name="two_missings">2 Documents Missing!</string>
     <string name="one_missings">1 Documents Missing!</string>
-    <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string name="help_amp_support" translatable="false"><![CDATA[Help & Support]]></string>
     <string name="faqs">FAQs</string>
     <string name="chat_with_us">Chat with us</string>
     <string name="talk_to_us">Talk to us</string>
     <string name="complaint_status">Complaint Status</string>
     <string name="or">Or</string>
     <string name="share_code"><u>Share Referral Code</u></string>
-    <string name="generic_text_check_in">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check in</b></string>
-    <string name="generic_text_check_out">Hello! Your payout will be on hold, mark your attendance with Mitra now! <u>Check Out</u></string>
-    <string name="cashout_on_hold">Cashout on hold</string>
-    <string name="available_cashout">Available Cashout</string>
+    <string name="generic_text_check_in" translatable="false">Hello! Your payout will be on hold, mark your attendance with Mitra now! <b>Check in</b></string>
+    <string name="generic_text_check_out" translatable="false">Hello! Your payout will be on hold, mark your attendance with Mitra now! <u>Check Out</u></string>
+    <string name="cashout_on_hold" translatable="false">Cashout on hold</string>
+    <string name="available_cashout" translatable="false">Available Cashout</string>
 
+    <string name="profile_pic">Profile picture</string>
     <string name="profile_img_upload_success">Profile picture set successfully!</string>
     <string name="deposit_pending_cash">Deposit Pending Cash</string>
     <string name="to_enable_cashout">to enable Cashout</string>
@@ -973,7 +976,7 @@
     <string name="zepto_cash_deposit_pending">Zepto cash deposit pending</string>
     <string name="add_a_referral_code">Add a referral code</string>
     <string name="referral_code">Referral Code</string>
-    <string name="thanks_for_your_interest_n_we_will_reach_out_to_you_shortly"><b>Thanks for your Interest</b> \n we will reach out to you shortly</string>
+    <string name="thanks_for_your_interest_n_we_will_reach_out_to_you_shortly" translatable="false"><b>Thanks for your Interest</b> \n we will reach out to you shortly</string>
 
     <string name="profile_pic_page_header_txt">Upload Profile Pic</string>
     <string name="bank_doc_upload_page_header_txt">Upload Bank Docs</string>
@@ -984,7 +987,49 @@
     <string name="click_to_upload">Click to upload</string>
     <string name="invalid_image_type">Image type not valid</string>
     <string name="img_upload_success">Image uploaded successfully!</string>
-
-
+    <string name="telugu_sub" translatable="false">నేను ఆంగ్లంలో మాట్లాడటానికి ఇష్టపడతాను</string>
+    <string name="telugu">Telugu</string>
+    <string name="by">by</string>
+    <string name="inviting_your_friends_to_mitra">inviting your friends to Mitra!</string>
+    <string name="upto">upto</string>
+    <string name="referral_code_colon">Referral Code:</string>
+    <string name="b67gtyd" translatable="false">B67GTYD</string>
+    <string name="upload_rc">Upload Registration Certificate</string>
+    <string name="please_upload_uour_rc">Please upload your RC photos. If you need help uploading the same:</string>
+    <string name="upload_bank_doc">Upload Bank Passbook or Cancelled Cheque</string>
+    <string name="please_upload_uour_bank_doc">Please upload your Bank Passbook or Cancelled Cheque photos. If you need help uploading the same:</string>
+    <string name="proceed">Proceed</string>
+    <string name="order_pay">Order Pay</string>
+    <string name="orders">Orders</string>
+    <string name="mitra_bonus">Mitra Bonus</string>
+    <string name="mpl_faq_text"><ul>  <li>Withdraw Mitra Pay Later amount any time to your bank account.</li>\n<li> A small fee of ₹5 will be charged.</li>\n<li> Mitra Pay Later gets auto deducted from your next weeks earnings. </li>\n<li> You can use Mitra Pay Later only one time.</li></ul></string>
+    <string name="watch_video_on_how_mitra_bonus_works">Watch video on how mitra bonus works</string>
+    <string name="get_a_job_now">Get a job now!</string>
+    <string name="i_accept_the_terms_conditions_and_allow_mitra_pay_later_to_be_deducted_from_next_week_s_earnings"><![CDATA[I accept the Terms & Conditions and allow Mitra Pay Later to be deducted from next week’s earnings.]]></string>
+    <string name="mitra_pay_later">Mitra Pay Later</string>
+    <string name="mitra_pay_later_amount">Mitra Pay Later Amount</string>
+    <string name="_1000" translatable="false">₹1000</string>
+    <string name="your_max_withdrawal_amount">Your max. withdrawal amount</string>
+    <string name="transfer_amount">Transfer amount</string>
+    <string name="recommended">Recommended</string>
+    <string name="_400" translatable="false">₹ 400</string>
+    <string name="__600" translatable="false">₹ 600</string>
+    <string name="_800" translatable="false">₹ 800</string>
+    <string name="transfer_1_600">Transfer ₹ 1,600</string>
+    <string name="mpl_onboarding_starter_title1">Get extra money from\nMitra Pay Later </string>
+    <string name="mpl_onboarding_starter_title2">Transfer to\nBank Account instantly</string>
+    <string name="mpl_onboarding_starter_title3">Easily Auto Pay\nNext Week.</string>
+    <string name="mpl_onboarding_starter_title_desc1">You can easily get more money in the your bank account from Mitra Pay Later with a small fee of Rs.5</string>
+    <string name="mpl_onboarding_starter_title_desc2">Get money transferred immediately\nto your bank account.</string>
+    <string name="mpl_onboarding_starter_title_desc3">Pay the used amount easily in\nwith your earnings the next week. </string>
+    <string name="mitra_pay_later_amount_transferred">Mitra Pay Later\nAmount Transferred!</string>
+    <string name="_5_fee_added">+₹5  Fee Added</string>
+    <string name="mitra_joining_bonus">Mitra Joining Bonus</string>
+    <string name="re_payment_emi_tenure">Re-Payment/EMI Tenure</string>
+    <string name="transferring_amount">Transferring amount</string>
+    <string name="choose_tenure">Choose Tenure</string>
+    <string name="shifts_completed">Shifts completed</string>
+<!--    <string name="codepush_deployment_key_prod" translatable="false">Z2i5Ui43ujK_E-cMwslJQ0eV64VN2Iv0y0ZQE</string>-->
+<!--    <string name="codepush_deployment_key_stg" translatable="false">Nt4hZizIsRxyN9N9AHMLkdpyd0TKoQTR854VR</string>-->
 
 </resources>

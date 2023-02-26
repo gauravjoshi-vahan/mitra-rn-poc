@@ -2,17 +2,13 @@ package com.vahan.mitra_playstore.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
-import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Process
+//import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
-import com.vahan.mitra_playstore.view.BaseApplication
 import com.vahan.mitra_playstore.view.MainActivity
-import com.vahan.mitra_playstore.view.SplashActivity
-
-import java.lang.Exception
 import kotlin.system.exitProcess
 
 class ExceptionHandlingActivity(private val activity: Activity, private val context: Context) :
@@ -20,8 +16,8 @@ class ExceptionHandlingActivity(private val activity: Activity, private val cont
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         try {
-            //FirebaseCrashlytics.getInstance().recordException(throwable);
-            //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+//            FirebaseCrashlytics.getInstance().recordException(throwable);
+//            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
@@ -55,6 +51,6 @@ class ExceptionHandlingActivity(private val activity: Activity, private val cont
     }
 
     init {
-        //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+//        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
     }
 }

@@ -178,7 +178,7 @@ class EarningHistoryFragment : Fragment() {
         earningHistory.clear()
         entries.clear()
         labels.clear()
-        binding.weeklyEarning.text = PrefrenceUtils.retriveData(requireContext(),Constants.WEEKLY_EARNING)
+        binding.weeklyEarning.text = PrefrenceUtils.retriveData(requireContext(),Constants.LANDINGURL_WEEKLY_EARNING)
         for(i in 0 until data.earningsHistory!!.size){
             if(selectedMonth == data.earningsHistory[i]!!.month){
                 for(j in 0 until data.earningsHistory[i]!!.data!!.size){

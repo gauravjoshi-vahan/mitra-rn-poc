@@ -22,6 +22,7 @@ public class CustomPushMessageListener extends PushMessageListener {
         Log.d("MoeENgage", "onNonMoEngageMessageReceived: " + payload);
         PrefrenceUtils.insertData(BaseApplication.getContext(), Constants.CLICKED_ACTION, payload.getString("click_action"));
         PrefrenceUtils.insertData(BaseApplication.getContext(), Constants.LINK, payload.getString("link"));
+        PrefrenceUtils.insertData(BaseApplication.getContext(), Constants.REFERRAL_NUMBERS, payload.getString("phone_number"));
         PrefrenceUtils.insertData(BaseApplication.getContext(), Constants.NOTIFICATION_ID, payload.getString("click_action"));
 //        displayNotification(payload.getString("gcm_title"), payload.getString("gcm_alert"), context);
     }

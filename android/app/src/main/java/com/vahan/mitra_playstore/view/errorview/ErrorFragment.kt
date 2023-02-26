@@ -1,6 +1,7 @@
 package com.vahan.mitra_playstore.view.errorview
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,11 +23,14 @@ import com.vahan.mitra_playstore.databinding.FragmentErrorBinding
 import com.vahan.mitra_playstore.models.kotlin.Transaction
 import com.vahan.mitra_playstore.network.SharedViewModel
 import com.vahan.mitra_playstore.utils.ApiState
+import com.vahan.mitra_playstore.utils.Constants
+import com.vahan.mitra_playstore.utils.PrefrenceUtils
+import com.vahan.mitra_playstore.view.HomeActivity
 import com.vahan.mitra_playstore.view.earn.viewModel.EarnViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class  ErrorFragment : Fragment() {
+class ErrorFragment : Fragment() {
 
     private lateinit var binding: FragmentErrorBinding
     private lateinit var viewSharedViewModel: SharedViewModel
@@ -49,7 +53,15 @@ class  ErrorFragment : Fragment() {
         initLoader()
         binding.tvBackToHome.setOnClickListener {
             dialogLoader.show()
-            getTransactionDetails(1, 20, "")
+            if (PrefrenceUtils.retriveDataInBoolean(requireContext(), Constants.CHECKFORPAYROLL)) {
+                getTransactionDetails(1, 20, "")
+            } else {
+                requireContext().startActivity(
+                    Intent(
+                        requireContext(), HomeActivity::class.java
+                    ).putExtra("link", Constants.REDIRECTION_URL)
+                )
+            }
         }
     }
 
@@ -60,7 +72,7 @@ class  ErrorFragment : Fragment() {
             viewEarnViewModel.getTransactionDetails(transaction).collect {
                 when (it) {
                     ApiState.Loading -> {
-                       dialogLoader.show()
+                        dialogLoader.show()
                     }
                     is ApiState.Success -> {
                         if (dialogLoader.isShowing) {
@@ -72,9 +84,11 @@ class  ErrorFragment : Fragment() {
                         if (dialogLoader.isShowing) {
                             dialogLoader.dismiss()
                         }
-                        Toast.makeText(requireContext(),
+                        Toast.makeText(
+                            requireContext(),
                             getString(R.string.please_try_after_sometime),
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                 }
@@ -89,8 +103,10 @@ class  ErrorFragment : Fragment() {
         dialogLoader.setCancelable(false)
         dialogLoader.setContentView(R.layout.layout_loader)
         val imageViewAnimation: ImageView = dialogLoader.findViewById<ImageView>(R.id.animate_icon)
-        val rotate = RotateAnimation(0F, 180F, Animation.RELATIVE_TO_SELF,
-            0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        val rotate = RotateAnimation(
+            0F, 180F, Animation.RELATIVE_TO_SELF,
+            0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+        )
         rotate.duration = 2000
         rotate.interpolator = LinearInterpolator()
         imageViewAnimation.startAnimation(rotate)

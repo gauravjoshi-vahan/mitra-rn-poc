@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -62,6 +64,7 @@ class ReferralInviteFriendsFragment : Fragment() {
     private lateinit var viewReferralStatusModel: ReferralStatusViewModel
     private val listOf: ArrayList<String> = ArrayList()
     private lateinit var fa: FirebaseAnalytics
+    @RequiresApi(Build.VERSION_CODES.N)
     val data: NavigableSet<ContactModel> = TreeSet(Comparator.comparing(ContactModel::phNo))
 
     // Compile the ReGex
@@ -69,6 +72,7 @@ class ReferralInviteFriendsFragment : Fragment() {
     val regexStr = "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}$"
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,6 +88,7 @@ class ReferralInviteFriendsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n")
     private fun initViews() {
         fa = FirebaseAnalytics.getInstance(requireActivity())
@@ -137,6 +142,7 @@ class ReferralInviteFriendsFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun setupPermissions() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -149,6 +155,7 @@ class ReferralInviteFriendsFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun getContact() {
 
         val asyncJob = lifecycleScope.async(Dispatchers.IO) {
@@ -281,6 +288,7 @@ class ReferralInviteFriendsFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun fetchContacts(): NavigableSet<ContactModel> {
         val cr = requireActivity().contentResolver
         val cursor = cr.query(
@@ -327,6 +335,7 @@ class ReferralInviteFriendsFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray

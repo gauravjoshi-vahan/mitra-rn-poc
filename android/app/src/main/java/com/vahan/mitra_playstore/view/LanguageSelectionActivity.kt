@@ -29,9 +29,6 @@ class LanguageSelectionActivity : AppCompatActivity() {
         // Inflate the layout for this fragment
         // binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_language_selection)
-        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandlingActivity(this, this))
-        if (intent.getBooleanExtra(Constants.CRASH, false)) {
-        }
         initView()
     }
 
@@ -53,6 +50,13 @@ class LanguageSelectionActivity : AppCompatActivity() {
             binding.llTwoHindi.setBackgroundColor(
                 ContextCompat
                     .getColor(this@LanguageSelectionActivity, R.color.white)
+            )
+            binding.llThreeTelugu.setBackgroundColor(
+                ContextCompat
+                    .getColor(
+                        this@LanguageSelectionActivity,
+                        R.color.white
+                    )
             )
             PrefrenceUtils.insertDataLang(this@LanguageSelectionActivity, Constants.LANGUAGE, "en")
             PrefrenceUtils.insertDataLang(
@@ -77,6 +81,13 @@ class LanguageSelectionActivity : AppCompatActivity() {
                         R.color.unread_notification_background
                     )
             )
+            binding.llThreeTelugu.setBackgroundColor(
+                ContextCompat
+                    .getColor(
+                        this@LanguageSelectionActivity,
+                        R.color.white
+                    )
+            )
             PrefrenceUtils.insertDataLang(this@LanguageSelectionActivity, Constants.LANGUAGE, "hi")
             PrefrenceUtils.insertDataLang(
                 this@LanguageSelectionActivity,
@@ -85,6 +96,35 @@ class LanguageSelectionActivity : AppCompatActivity() {
             )
             setLocaleLanguage("hi")
             changeLanguageHindi()
+        }
+
+        binding.llThreeTelugu.setOnClickListener {
+            binding.llOneEnglish.setBackgroundColor(
+                ContextCompat
+                    .getColor(this@LanguageSelectionActivity, R.color.white)
+            )
+            binding.llTwoHindi.setBackgroundColor(
+                ContextCompat
+                    .getColor(
+                        this@LanguageSelectionActivity,
+                        R.color.white
+                    )
+            )
+           binding.llThreeTelugu.setBackgroundColor(
+            ContextCompat
+                .getColor(
+                    this@LanguageSelectionActivity,
+                    R.color.unread_notification_background
+                )
+            )
+            PrefrenceUtils.insertDataLang(this@LanguageSelectionActivity, Constants.LANGUAGE, "te")
+            PrefrenceUtils.insertDataLang(
+                this@LanguageSelectionActivity,
+                Constants.LANGUAGE_API_RESP,
+                "telugu"
+            )
+            setLocaleLanguage("te")
+            changeLanguageTelugu()
         }
 
         binding.saveButton.setOnClickListener {
@@ -126,6 +166,12 @@ class LanguageSelectionActivity : AppCompatActivity() {
         binding.langTvHeading.text = Constants.language_selection_hi
         binding.langTvSubHeading.text = Constants.select_language_string_sub_string_hi
         binding.saveButton.text = Constants.next_string_hi
+    }
+
+    private fun changeLanguageTelugu() {
+        binding.langTvHeading.text = Constants.language_selection_te
+        binding.langTvSubHeading.text = Constants.select_language_string_sub_string_te
+        binding.saveButton.text = Constants.next_string_te
     }
 
     private fun setLocaleLanguage(lang: String) {

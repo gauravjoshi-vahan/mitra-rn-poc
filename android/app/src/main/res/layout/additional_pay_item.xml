@@ -1,0 +1,88 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:background="@drawable/grey_filled_bg">
+
+        <TextView
+            android:id="@+id/tv_additional_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Additional Shift Incentive"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_12sp"/>
+
+        <TextView
+            android:id="@+id/tv_amount_guarantee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$3000"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_16sp"/>
+
+        <TextView
+            android:id="@+id/tv_per_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_amount_guarantee"
+            tools:text="per order"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/font_10sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tv_additional_title"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_7dp"
+                tools:text="If Completed"
+                android:fontFamily="@font/opensansregular"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/font_10sp" />
+
+            <TextView
+                android:id="@+id/tv_html_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                tools:text="html content"
+                android:layout_below="@+id/tv_key"
+                android:fontFamily="@font/opensanssemibold"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/font_10sp" />
+
+            <TextView
+                android:id="@+id/tv_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                tools:text="html content"
+                android:layout_below="@+id/tv_html_content"
+                android:fontFamily="@font/opensansbold"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/font_8sp" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+</layout>

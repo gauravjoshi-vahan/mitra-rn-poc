@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <data>
+        
+    </data>
+    
+    <RelativeLayout
+        android:id="@+id/rlContainer"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="@dimen/dimen_82dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:src="@drawable/referral_invited_bg"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/ivThumbnail">
+
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mitra_bonus"
+                android:textSize="@dimen/dimen_14dp"
+                android:textColor="@color/black_v2"
+                android:fontFamily="@font/opensansbold"
+                android:layout_marginStart="@dimen/dimen_17dp"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/ivKnowDetails"
+            android:layout_width="@dimen/dimen_12dp"
+            android:layout_height="@dimen/dimen_8dp"
+            android:src="@drawable/ic_greater_than_grey"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+
+        
+    </RelativeLayout>
+
+    
+
+</layout>

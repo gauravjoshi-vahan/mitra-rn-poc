@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="101+"
+            android:textSize="@dimen/dimen_12dp"
+            android:fontFamily="@font/poppinsbold"
+            android:textColor="@color/grey"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_20dp"/>
+
+        <ImageView
+            android:id="@+id/ivTick"
+            android:layout_width="@dimen/dimen_10dp"
+            android:layout_height="@dimen/dimen_10dp"
+            android:src="@drawable/ic_grey_tick"
+            android:layout_toStartOf="@+id/tvAmt"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_12dp"/>
+
+        <TextView
+            android:id="@+id/tvAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹2"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/dimen_14dp"
+            android:fontFamily="@font/poppinsbold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dimen_7dp"
+            android:layout_marginEnd="@dimen/dimen_22dp"/>
+
+    </RelativeLayout>
+
+</layout>

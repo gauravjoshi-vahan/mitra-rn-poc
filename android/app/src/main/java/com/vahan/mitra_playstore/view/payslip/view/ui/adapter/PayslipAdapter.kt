@@ -23,6 +23,7 @@ import com.vahan.mitra_playstore.models.kotlin.PayslipDTO
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.GlideApp
 import com.vahan.mitra_playstore.utils.SvgSoftwareLayerSetter
+import com.vahan.mitra_playstore.utils.startBlitzSurvey
 
 
 class PayslipAdapter(
@@ -72,6 +73,10 @@ class PayslipAdapter(
                 val properties = Properties()
                 MoEHelper.getInstance(context).trackEvent(Constants.PAYSLIP_VIEWED, properties)
                 BlitzLlamaSDK.getSdkManager(context).triggerEvent(Constants.PAYSLIP_VIEWED)
+                context.startBlitzSurvey(
+                    context,
+                    Constants.PAYSLIP_VIEWED
+                )
 
                 if (paySlip!![position].paySlipUrl != null) {
                     val bundle = Bundle()

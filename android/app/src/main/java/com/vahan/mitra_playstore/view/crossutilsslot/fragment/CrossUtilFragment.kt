@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import com.moengage.core.Properties
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FragmentCrossUtilBinding
 import com.vahan.mitra_playstore.interfaces.SlotTimeClickListener
@@ -64,15 +65,21 @@ class CrossUtilFragment : Fragment(), SlotTimeClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
     }
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun initView() {
         initLoader()
         viewEarnViewModel = ViewModelProvider(this)[EarnViewModel::class.java]
-
         fetchAttendance()
         clickListener()
+        captureAllEvents(
+            requireContext(),
+            "viewed_upcoming_slots",
+            HashMap<String, Any>(),
+            Properties()
+        )
     }
 
     private fun fetchAttendance() {

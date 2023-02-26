@@ -44,9 +44,7 @@
                             <TextView
                                 android:id="@+id/txt_title"
                                 android:layout_width="0dp"
-                                android:layout_marginTop="@dimen/dimen_6dp"
                                 android:layout_height="wrap_content"
-
                                 android:text="Trips taken in 15 days"
                                 android:textColor="@color/grey"
                                 android:textSize="10sp"
@@ -93,7 +91,6 @@
                                 android:id="@+id/txt_title_bottom"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-
                                 android:text="Amount you will earn"
                                 android:textColor="@color/grey"
                                 android:textSize="10sp"
@@ -107,7 +104,6 @@
                                 android:id="@+id/txt_title2_bottom"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-
                                 android:text="@string/app_name"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
@@ -118,542 +114,530 @@
                                 app:layout_constraintStart_toEndOf="@+id/txt_title_bottom"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal"
+                                android:weightSum="10"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                // no. of trips  = 10 || 30
+                                <LinearLayout
+                                    android:id="@+id/seekbar_55"
+                                    android:layout_width="0dp"
+                                    android:layout_height="60dp"
+                                    android:layout_weight="6"
+                                    android:translationX="-10dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:id="@+id/view_color_two"
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_55"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_above="@+id/ic_vespa_two"
+                                            android:text="23"
+                                            android:textColor="@color/default_200"/>
+
+                                        <ImageView
+                                            android:id="@+id/ic_vespa_two"
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible"/>
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200"
+                                        android:visibility="gone" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 11-15 || 31-40
+                                <LinearLayout
+                                    android:id="@+id/seekbar_70"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6.8"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_70"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="23"
+                                            android:layout_marginTop="@dimen/dimen_4dp"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 16-19 || 41-49
+                                <LinearLayout
+                                    android:id="@+id/seekbar_71"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="7.2"
+                                    android:translationX="-4dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_71"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="23"
+                                            android:layout_marginTop="@dimen/dimen_4dp"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+                                            android:id="@+id/iv2"
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 20 || 50
+                                <LinearLayout
+                                    android:id="@+id/seekbar_80"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="8"
+                                    android:translationX="-4dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_85"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="23"
+                                            android:layout_marginTop="3dp"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 21-25 || 51-75
+                                <LinearLayout
+                                    android:id="@+id/seekbar_92"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="8.8"
+                                    android:translationX="-4dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_92"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="3dp"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:text="23"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 26-29 || 76-99
+                                <LinearLayout
+                                    android:id="@+id/seekbar_93"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="9.2"
+                                    android:translationX="-4dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_93"
+                                            android:layout_width="wrap_content"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="3dp"
+                                            android:text="23"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+                                // no. of trips  = 30 || 100
+                                <LinearLayout
+                                    android:id="@+id/seekbar_100"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="10"
+                                    android:translationX="-4dp"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:src="@color/default_200" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center">
+
+                                        <TextView
+                                            android:id="@+id/text_100"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="23"
+                                            android:layout_marginTop="3dp"
+                                            android:textSize="@dimen/dimen_10dp"
+                                            android:textColor="@color/default_200" />
+
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:src="@drawable/ic_vespa"
+                                            android:visibility="visible" />
+
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@color/default_200" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal"
+                                android:weightSum="10">
+
+                                <LinearLayout
+                                    android:id="@+id/linearLayout1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:gravity="end"
+                                    android:visibility="visible"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/max_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:gravity="center"
+                                            android:text="10"
+                                            android:textSize="12sp" />
+
+
+                                        <ImageView
+                                            android:id="@+id/dot_40"
+                                            android:layout_width="8dp"
+                                            android:layout_height="8dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/ic_ellipse_grey" />
+
+                                        <TextView
+                                            android:id="@+id/value_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:gravity="center"
+                                            android:text="+ ₹100"
+                                            android:textSize="12sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/linearLayout"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:gravity="end"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:layout_gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/max_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:textSize="12sp"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:text="20" />
+
+
+                                        <ImageView
+                                            android:id="@+id/dot_70"
+                                            android:layout_width="8dp"
+                                            android:layout_height="8dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/ic_ellipse_grey" />
+
+                                        <TextView
+                                            android:id="@+id/value_2"
+                                            android:textSize="12sp"
+                                            android:gravity="center"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="+ ₹200" />
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/linearLayout3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_weight="2"
+                                    android:gravity="end"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.5"
+                                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/max_3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:textSize="12sp"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:text="30" />
+
+
+                                        <ImageView
+                                            android:id="@+id/dot_100"
+                                            android:layout_width="8dp"
+                                            android:layout_height="8dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/ic_ellipse_grey" />
+
+                                        <TextView
+                                            android:id="@+id/value_3"
+                                            android:textSize="12sp"
+                                            android:gravity="center"
+                                            android:layout_gravity="center"
+                                            android:fontFamily="@font/poppinslight"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="+ ₹300" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </RelativeLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:layout_marginTop="-10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-
-
-                        // no. of trips  = 10 || 30
-                        <LinearLayout
-                            android:id="@+id/seekbar_55"
-                            android:layout_width="0dp"
-                            android:layout_height="60dp"
-                            android:layout_weight="6"
-                            android:translationX="-10dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:id="@+id/view_color_two"
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_55"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_above="@+id/ic_vespa_two"
-                                    android:text="23"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-                                    android:id="@+id/ic_vespa_two"
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200"
-                                android:visibility="gone" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 11-15 || 31-40
-                        <LinearLayout
-                            android:id="@+id/seekbar_70"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="6.8"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_70"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="23"
-                                    android:layout_marginTop="@dimen/dimen_4dp"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 16-19 || 41-49
-                        <LinearLayout
-                            android:id="@+id/seekbar_71"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="7.2"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_71"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="23"
-                                    android:layout_marginTop="@dimen/dimen_4dp"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-                                    android:id="@+id/iv2"
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 20 || 50
-                        <LinearLayout
-                            android:id="@+id/seekbar_80"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="8"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_85"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="23"
-                                    android:layout_marginTop="3dp"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 21-25 || 51-75
-                        <LinearLayout
-                            android:id="@+id/seekbar_92"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="8.8"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_92"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:text="23"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 26-29 || 76-99
-                        <LinearLayout
-                            android:id="@+id/seekbar_93"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="9.2"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_93"
-                                    android:layout_width="wrap_content"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:text="23"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-                        // no. of trips  = 30 || 100
-                        <LinearLayout
-                            android:id="@+id/seekbar_100"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="10"
-                            android:translationX="-4dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <ImageView
-
-                                android:layout_width="0dp"
-                                android:layout_height="2dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@color/default_200" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="50dp"
-                                android:layout_gravity="center">
-
-                                <TextView
-                                    android:id="@+id/text_100"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="23"
-                                    android:layout_marginTop="3dp"
-                                    android:textSize="@dimen/dimen_10dp"
-                                    android:textColor="@color/default_200" />
-
-
-                                <ImageView
-
-                                    android:layout_width="15dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:src="@drawable/ic_vespa"
-                                    android:visibility="visible" />
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@color/default_200" />
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="6"
-                            android:gravity="end"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toTopOf="parent">
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/max_1"
-                                    android:textSize="12sp"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="10" />
-
-
-                                <ImageView
-                                    android:id="@+id/dot_40"
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_ellipse_grey" />
-
-                                <TextView
-                                    android:id="@+id/value_1"
-                                    android:textSize="12sp"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="+ ₹100" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="end"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/max_2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:textSize="12sp"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:text="20" />
-
-
-                                <ImageView
-                                    android:id="@+id/dot_70"
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_ellipse_grey" />
-
-                                <TextView
-                                    android:id="@+id/value_2"
-                                    android:textSize="12sp"
-                                    android:gravity="center"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="+ ₹200" />
-
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_weight="2"
-                            android:gravity="end"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                            app:layout_constraintTop_toTopOf="parent">
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/max_3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:textSize="12sp"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:text="30" />
-
-
-                                <ImageView
-                                    android:id="@+id/dot_100"
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_ellipse_grey" />
-
-                                <TextView
-                                    android:id="@+id/value_3"
-                                    android:textSize="12sp"
-                                    android:gravity="center"
-                                    android:layout_gravity="center"
-                                    android:fontFamily="@font/poppinslight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="+ ₹300" />
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-                    </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
-
-
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
-
 </layout>

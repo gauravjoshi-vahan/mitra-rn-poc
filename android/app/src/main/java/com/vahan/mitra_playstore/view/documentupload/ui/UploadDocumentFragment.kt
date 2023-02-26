@@ -49,6 +49,7 @@ class UploadDocumentFragment : Fragment() {
     private val cachePan: String? = null
     private var isAadhaarDocumentUpload = false
     private var isPanCardDocumentUpload = false
+    private var isProfilePicDocumentUpload = false
 
 
     override fun onCreateView(
@@ -73,12 +74,16 @@ class UploadDocumentFragment : Fragment() {
     }
 
     private fun initView() {
+        checkForProfilePic()
         checkForAadhar()
         checkForPan()
         checkForDL()
-        if (global_check == "Navigation") {
-            initLoader(requireContext())
-            profileApi()
+//        if (global_check == "Navigation") {
+        initLoader(requireContext())
+        profileApi()
+//        }
+        if (global_check == "is_job_seeker") {
+            binding?.profilePicCard?.visibility = View.VISIBLE
         }
         UXCam.setAutomaticScreenNameTagging(false)
         UXCam.tagScreenName("DocumentUpload Fragment")
@@ -99,6 +104,25 @@ class UploadDocumentFragment : Fragment() {
             )
             CoroutineScope(Dispatchers.IO).launch {
                 callApi("DRIVING_LICENSE")
+            }
+
+        }
+    }
+
+    private fun checkForProfilePic() {
+        if (viewModel.profilePicImagePath.isNotEmpty()) {
+            // Dat Fetch
+            binding?.uploadProfilePic?.isEnabled = false
+            binding?.uploadProfilePic?.isFocusable = false
+            binding?.uploadProfilePic?.isClickable = false
+            binding?.uploadProfilePic?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.light_color_heading
+                )
+            )
+            CoroutineScope(Dispatchers.IO).launch {
+                callApi("PROFILE_PIC")
             }
 
         }
@@ -176,6 +200,7 @@ class UploadDocumentFragment : Fragment() {
                 }
                 else -> {
                     dialogLoader.dismiss()
+                    var imageUrlProfilePic: String?
                     var imageUrlPan: String?
                     var imageUrlBackAadhaar: String?
                     var imageUrlFrontAadhaar: String?
@@ -206,6 +231,19 @@ class UploadDocumentFragment : Fragment() {
                                     isAadhaarDocumentUpload = true
                                 }
                                 if (earnDataModel.documents[i].type.equals(
+                                        "PROFILE PIC",
+                                        ignoreCase = true
+                                    )
+                                ) {
+                                    imageUrlProfilePic = earnDataModel.documents[i].imageUrl
+                                    PrefrenceUtils.insertData(
+                                        requireActivity(),
+                                        Constants.PROFILEPICIMAGE,
+                                        imageUrlProfilePic
+                                    )
+                                    isProfilePicDocumentUpload = true
+                                }
+                                if (earnDataModel.documents[i].type.equals(
                                         "PAN Image",
                                         ignoreCase = true
                                     )
@@ -231,11 +269,17 @@ class UploadDocumentFragment : Fragment() {
                                 ""
                             )
                             PrefrenceUtils.insertData(requireActivity(), Constants.PANCARDIMAGE, "")
+                            PrefrenceUtils.insertData(
+                                requireActivity(),
+                                Constants.PROFILEPICIMAGE,
+                                ""
+                            )
                         }
                     } else {
                         PrefrenceUtils.insertData(requireActivity(), Constants.AADHARCARDBACK, "")
                         PrefrenceUtils.insertData(requireActivity(), Constants.AADHARCARDFRONT, "")
                         PrefrenceUtils.insertData(requireActivity(), Constants.PANCARDIMAGE, "")
+                        PrefrenceUtils.insertData(requireActivity(), Constants.PROFILEPICIMAGE, "")
                     }
                     updateUi()
                 }
@@ -245,7 +289,7 @@ class UploadDocumentFragment : Fragment() {
 
     private fun clickListener() {
         binding?.ivBackButton?.setOnClickListener {
-            if (global_check == "Navigation") {
+            if (global_check == "Navigation" || global_check == "is_job_seeker") {
                 requireContext().startActivity(
                     Intent(
                         requireContext(),
@@ -256,6 +300,9 @@ class UploadDocumentFragment : Fragment() {
                 checkFinalStatus()
             }
             requireActivity().onBackPressed()
+        }
+        binding?.uploadProfilePic?.setOnClickListener {
+            clickActionForUploadProfilePic()
         }
         binding?.uploadPanCard?.setOnClickListener {
             clickActionForUploadPan()
@@ -421,6 +468,31 @@ class UploadDocumentFragment : Fragment() {
 
     }
 
+    private fun clickActionForUploadProfilePic() {
+        if (viewModel.profilePicImagePath.isNotEmpty()) {
+            // Dat Fetch
+            binding?.uploadProfilePic?.isEnabled = false
+            binding?.uploadProfilePic?.isFocusable = false
+            binding?.uploadProfilePic?.isClickable = false
+            binding?.uploadProfilePic?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.light_color_heading
+                )
+            )
+            CoroutineScope(Dispatchers.IO).launch {
+                callApi("PROFILE_PIC")
+            }
+
+        } else {
+            val bundle = Bundle()
+            bundle.putString(Constants.ID_TYPE, "PROFILE_PIC")
+            findNavController(
+                this@UploadDocumentFragment
+            ).navigate(R.id.action_nav_upload_fragment_to_nav_view_fragment, bundle)
+        }
+    }
+
     private fun clickActionForUploadPan() {
         if (viewModel.imagePath.isNotEmpty()) {
             // Dat Fetch
@@ -465,16 +537,16 @@ class UploadDocumentFragment : Fragment() {
         val viewSharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         if (type == "AADHAAR_CARD") {
             lifecycleScope.launchWhenStarted {
-                viewSharedViewModel.uploadImageFile(
+                viewSharedViewModel.newUploadImageFile(
                     requireContext(), Constants.TOKENCONSTANT
                             + PrefrenceUtils.retriveData(requireContext(), Constants.API_TOKEN),
                     viewModel.bitmapDataAADHARFRONT!!, "FrontAadhar"
                 )
                     ?.observe(requireActivity()) { data ->
-                        if (data.isNotEmpty()) {
-                            frontUrl = data
+                        if (data.fileURL?.isNotEmpty() == true) {
+                            frontUrl = data.fileURL!!
                             if (viewModel.backAdhaarCard.isNotEmpty())
-                                viewSharedViewModel.uploadImageFile(
+                                viewSharedViewModel.newUploadImageFile(
                                     requireContext(),
                                     Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(
                                         requireContext(),
@@ -483,8 +555,8 @@ class UploadDocumentFragment : Fragment() {
                                     viewModel.bitmapDataAADHARBACK, "backAadhaarCard"
                                 )
                                     .observe(requireActivity()) { data ->
-                                        if (data.isNotEmpty()) {
-                                            backUrl = data
+                                        if (data.fileURL?.isNotEmpty() == true) {
+                                            backUrl = data.fileURL!!
                                             if (frontUrl.isNotEmpty() && backUrl.isNotEmpty()) {
                                                 uploadFile(
                                                     "AADHAAR_CARD",
@@ -514,11 +586,44 @@ class UploadDocumentFragment : Fragment() {
                         }
                     }
             }
+        } else if (type == "PROFILE_PIC") {
+            lifecycleScope.launchWhenStarted {
+                val imageFile = viewModel.profilePicImagePath
+                if (imageFile.isNotEmpty()) {
+                    viewSharedViewModel.newUploadImageFile(
+                        requireContext(),
+                        Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(
+                            requireContext(),
+                            Constants.API_TOKEN
+                        ),
+                        viewModel.bitmapDataProfilePic!!,
+                        "ProfilePic"
+                    )?.observe(requireActivity()) { data ->
+                        if(data.fileURL?.isNotEmpty() == true){
+                            PrefrenceUtils.insertData(requireContext(), Constants.PROFILEPICIMAGE, data.fileURL)
+                            if (binding?.root != null)
+                                binding?.profileUploadImg?.let { it1 ->
+                                    Glide.with(requireContext()).load(R.drawable.for_verify).into(
+                                        it1
+                                    )
+                                }
+                            binding?.uploadProfilePic?.isEnabled = false
+                            binding?.uploadProfilePic?.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.light_color_heading
+                                )
+                            )
+                            uploadFile("PROFILE_PIC", viewSharedViewModel, data.fileURL!!, "")
+                        }
+                    }
+                }
+            }
         } else if (type == "PAN_CARD") {
             lifecycleScope.launchWhenStarted {
                 val imageFile = viewModel.imagePath
                 if (imageFile.isNotEmpty()) {
-                    viewSharedViewModel.uploadImageFile(
+                    viewSharedViewModel.newUploadImageFile(
                         requireContext(),
                         Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(
                             requireContext(),
@@ -527,7 +632,7 @@ class UploadDocumentFragment : Fragment() {
                         viewModel.bitmapDataPAN!!,
                         "PanCard"
                     )?.observe(requireActivity()) { data ->
-                        PrefrenceUtils.insertData(requireContext(), Constants.PANCARDIMAGE, data)
+                        PrefrenceUtils.insertData(requireContext(), Constants.PANCARDIMAGE, data.fileURL)
                         if (binding?.root != null)
                             binding?.panUploadImg?.let { it1 ->
                                 Glide.with(requireContext()).load(R.drawable.for_verify).into(
@@ -541,23 +646,23 @@ class UploadDocumentFragment : Fragment() {
                                 R.color.light_color_heading
                             )
                         )
-                        uploadFile("PAN_CARD", viewSharedViewModel, data, "")
+                        uploadFile("PAN_CARD", viewSharedViewModel, data.fileURL.toString(), "")
                     }
                 }
             }
         } else {
             lifecycleScope.launchWhenStarted {
                 if (viewModel.frontDLCard.isNotEmpty() && viewModel.frontDLCard.isNotEmpty()) {
-                    viewSharedViewModel.uploadImageFile(
+                    viewSharedViewModel.newUploadImageFile(
                         requireContext(), Constants.TOKENCONSTANT
                                 + PrefrenceUtils.retriveData(requireContext(), Constants.API_TOKEN),
                         viewModel.bitmapDataDLFront!!,
                         "DLFront"
                     )?.observe(requireActivity()) { data ->
-                        if (data.isNotEmpty()) {
-                            frontUrl = data
+                        if (data.fileURL?.isNotEmpty() == true) {
+                            frontUrl = data.fileURL.toString()
                             if (viewModel.backDLCard.isNotEmpty())
-                                viewSharedViewModel.uploadImageFile(
+                                viewSharedViewModel.newUploadImageFile(
                                     requireContext(),
                                     Constants.TOKENCONSTANT + PrefrenceUtils.retriveData(
                                         requireContext(),
@@ -566,8 +671,8 @@ class UploadDocumentFragment : Fragment() {
                                     viewModel.bitmapDataDLBack, "DLBack"
                                 )
                                     .observe(requireActivity()) { data ->
-                                        if (data.isNotEmpty()) {
-                                            backUrl = data
+                                        if (data.fileURL?.isNotEmpty() == true) {
+                                            backUrl = data.fileURL.toString()
                                             if (frontUrl.isNotEmpty() && backUrl.isNotEmpty()) {
                                                 uploadFile(
                                                     "DRIVING_LICENSE",
@@ -610,6 +715,10 @@ class UploadDocumentFragment : Fragment() {
     ) {
         val verifyModel = JsonObject()
         when (idType) {
+            "PROFILE_PIC" -> {
+                verifyModel.addProperty(Constants.IMAGE_URL, data)
+                verifyModel.addProperty(Constants.TYPE, "passportPhoto")
+            }
             "AADHAAR_CARD" -> {
                 verifyModel.addProperty(Constants.IMAGE_URL, data)
                 verifyModel.addProperty(Constants.OTHER_SIDE_IMAGE_URL, backUrl)
@@ -724,6 +833,102 @@ class UploadDocumentFragment : Fragment() {
                         )
                         binding?.tvMissingAadharFront?.setBackgroundResource(R.drawable.ic_missing)
                     }
+                } else if (idType == "PROFILE_PIC") {
+                    binding?.uploadProfilePic?.isEnabled = true
+                    binding?.uploadProfilePic?.isFocusable = true
+                    binding?.uploadProfilePic?.isClickable = true
+                    binding?.uploadProfilePic?.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_200
+                        )
+                    )
+                    if (it.isValid !== null && it.isValid) {
+                        binding?.profileUploadImg?.let { it1 ->
+                            Glide.with(requireContext()).load(R.drawable.upload_doc).into(
+                                it1
+                            )
+                        }
+//                        binding?.uploadPanCard?.isEnabled = true
+//                        binding?.uploadPanCard?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.default_200))
+                        PrefrenceUtils.insertDataInBoolean(
+                            activity,
+                            Constants.IS_VERIFICATION_STATUS_PROFILE_PIC,
+                            true
+                        )
+                        binding?.uploadProfilePic?.visibility = View.GONE
+                        binding?.profileBtnView?.visibility = View.VISIBLE
+                        binding?.missingProfilePic?.text = "Success"
+                        binding?.missingProfilePic?.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            0,
+                            0
+                        )
+
+                        binding?.missingProfilePic?.setBackgroundResource(R.drawable.green_rect)
+                        binding?.missingProfilePic?.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.green
+                            )
+                        )
+                    } else {
+                        viewModel.profilePicImagePath = ""
+                        Toast.makeText(
+                            requireContext(),
+                            context?.getString(R.string.validation_failed_please_try_again_later),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        binding?.profileUploadImg?.let { it1 ->
+                            Glide.with(requireContext()).load(R.drawable.ic_upload).into(
+                                it1
+                            )
+                        }
+//                        binding?.uploadPanCard?.isEnabled = false
+                        binding?.uploadProfilePic?.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.light_color_heading
+                            )
+                        )
+                        PrefrenceUtils.insertDataInBoolean(
+                            activity,
+                            Constants.IS_VERIFICATION_STATUS_PROFILE_PIC,
+                            false
+                        )
+
+                        PrefrenceUtils.insertData(
+                            activity,
+                            Constants.PROFILEPICIMAGE,
+                            ""
+                        )
+
+                        binding?.uploadProfilePic?.visibility = View.VISIBLE
+                        binding?.profileBtnView?.visibility = View.GONE
+                        binding?.uploadProfilePic?.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.tv_missing_bg
+                            )
+                        )
+//                        binding?.tvMissingAadharFront?.setCompoundDrawablesWithIntrinsicBounds(
+//                            R.drawable.ic_alert_icon,
+//                            0,
+//                            0,
+//                            0
+//                        )
+                        binding?.missingProfilePic?.text = "Failed"
+                        binding?.missingProfilePic?.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.default_200
+                            )
+                        )
+                        binding?.missingProfilePic?.setBackgroundResource(R.drawable.ic_missing)
+                    }
+
                 } else if (idType == "PAN_CARD") {
                     binding?.uploadPanCard?.isEnabled = true
                     binding?.uploadPanCard?.isFocusable = true
@@ -936,6 +1141,8 @@ class UploadDocumentFragment : Fragment() {
             PrefrenceUtils.retriveData(requireContext(), Constants.AADHARCARDFRONT)
         val cacheAadharCardBack =
             PrefrenceUtils.retriveData(requireContext(), Constants.AADHARCARDBACK)
+        val cacheProfilePic =
+            PrefrenceUtils.retriveData(requireContext(), Constants.PROFILEPICIMAGE)
         val cachePanCard = PrefrenceUtils.retriveData(requireContext(), Constants.PANCARDIMAGE)
         val cacheDLFront = PrefrenceUtils.retriveData(requireContext(), Constants.DL_FRONT_IMG)
         val cacheDLBack = PrefrenceUtils.retriveData(requireContext(), Constants.DL_BACK_IMG)
@@ -972,6 +1179,41 @@ class UploadDocumentFragment : Fragment() {
                 }
 //                binding?.uploadAdhaar?.isEnabled = true
 //                binding?.uploadAdhaar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.default_200))
+
+            }
+        }
+        if (cacheProfilePic.isNotEmpty() || viewModel.profilePicImagePath.isNotEmpty()) {
+            if (viewModel.profilePicImagePath.isNotEmpty()) {
+                // setUI..
+                binding?.profilePic?.let {
+                    Glide.with(requireContext()).load(viewModel.profilePicImagePath).into(it)
+                }
+            } else if (cacheProfilePic.isNotEmpty()) {
+                binding?.profilePic?.let {
+                    Glide.with(requireContext()).load(cacheProfilePic).into(it)
+                }
+                binding?.profileUploadImg?.let { it1 ->
+                    Glide.with(requireContext()).load(R.drawable.upload_doc).into(it1)
+                }
+//                binding?.uploadPanCard?.isEnabled = true
+//                binding?.uploadPanCard?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.default_200))
+                binding?.uploadProfilePic?.visibility = View.GONE
+                binding?.profileBtnView?.visibility = View.VISIBLE
+                binding?.uploadProfilePic?.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.purple_200_fade
+                    )
+                )
+                binding?.missingProfilePic?.text = context?.getString(R.string._success)
+                binding?.missingProfilePic?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                binding?.missingProfilePic?.setBackgroundResource(R.drawable.green_rect)
+                binding?.missingProfilePic?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.green
+                    )
+                )
 
             }
         }

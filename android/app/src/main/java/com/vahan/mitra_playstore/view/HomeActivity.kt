@@ -1,10 +1,13 @@
 package com.vahan.mitra_playstore.view
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -17,26 +20,27 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.blitzllama.androidSDK.BlitzLlamaSDK
 import com.freshchat.consumer.sdk.Freshchat
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.Properties
 import com.uxcam.UXCam
+import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.ActivityHomeBinding
 import com.vahan.mitra_playstore.models.ChromeModel
+import com.vahan.mitra_playstore.models.UserResponse
 import com.vahan.mitra_playstore.models.WebViewModifyModel
 import com.vahan.mitra_playstore.network.SharedViewModel
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.view.activities.enternumberactivity.view.ui.EnterNumberActivity
-import kotlinx.coroutines.launch
 
 
 class HomeActivity : BaseActivity() {
@@ -44,20 +48,27 @@ class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     private var fa: FirebaseAnalytics? = null
     private lateinit var viewModel: SharedViewModel
-    private var webModelModify: WebViewModifyModel? = null
+    lateinit var webModelModify: WebViewModifyModel
     private var mFirebaseRemoteConfig: FirebaseRemoteConfig? = null
     private var urlhanlder: String? = null
     private var webModelChrome: ChromeModel? = null
+    private var audioRequest: PermissionRequest? = null
+    private val MY_PERMISSIONS_REQUEST_RECORD_AUDIO = 101
     override fun onCreate(
         savedInstanceState: Bundle?,
     ) {
         super.onCreate(savedInstanceState)
         fa = FirebaseAnalytics.getInstance(this)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+        Thread.setDefaultUncaughtExceptionHandler(
+            ExceptionHandlingActivity(
+                this@HomeActivity, this
+            )
+        )
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-        getDynamicLink()
-        getUserData()
+        initView()
+
     }
 
     private fun getUserData() {
@@ -69,24 +80,31 @@ class HomeActivity : BaseActivity() {
                     if (userResponse.success == true) {
                         PrefrenceUtils.insertData(this, Constants.USERTYPE, userResponse.userType)
                         PrefrenceUtils.insertData(
-                            this,
-                            Constants.REDIRECTION_URL,
-                            userResponse.redirectURL
+                            this, Constants.REDIRECTION_URL, userResponse.redirectURL
+//                            Constants.REDIRECTION_URL_STRING
                         )
                         when {
                             userResponse.userType.equals(Constants.NON_PAYROLL) -> {
                                 //show popup
                                 //load redirect url after user presses ok in popup
                                 // New lead -------> non-payroll user (using redirect url)
-                                userResponse.redirectURL?.let { showDialogNonPayroll(it) }
+                                PrefrenceUtils.insertData(
+                                    this, Constants.REDIRECTION_URL, userResponse.redirectURL
+                                )
+                                userResponse.redirectURL?.let {
+//                                    showDialogNonPayroll(it)
+                                    setInstrumentationUserTranscViewedClicked(Constants.NON_PAYROLL)
+                                    openWebView(userResponse.redirectURL)
+                                }
                             }
                             userResponse.userType.equals(Constants.PAYROLL) -> {
                                 //show popup
                                 //send to mainActivity---(either new lead->payroll or non-payroll->payroll)
                                 PrefrenceUtils.insertDataInBoolean(
-                                    this,
-                                    Constants.CHECKFORPAYROLL,
-                                    true
+                                    MainActivity.context, Constants.CHECKFORFIRSTTIME, true
+                                )
+                                PrefrenceUtils.insertDataInBoolean(
+                                    this, Constants.CHECKFORPAYROLL, true
                                 )
                                 userResponse.redirectURL?.let { showDialogPayroll(it) }
                             }
@@ -96,31 +114,12 @@ class HomeActivity : BaseActivity() {
 
                 }
             }
-        } else if (PrefrenceUtils.retriveData(this, Constants.USERTYPE).equals(Constants.NON_PAYROLL)) {
+        } else if (PrefrenceUtils.retriveData(this, Constants.USERTYPE)
+                .equals(Constants.NON_PAYROLL)
+        ) {
             viewSharedViewModel.userData.observe(this) { userResponse ->
                 try {
-                    if (userResponse.success == true) {
-                        PrefrenceUtils.insertData(this, Constants.USERTYPE, userResponse.userType)
-                        PrefrenceUtils.insertData(
-                            this,
-                            Constants.REDIRECTION_URL,
-                            userResponse.redirectURL
-                        )
-                        when {
-                            userResponse.userType.equals(Constants.PAYROLL) -> {
-                                //show popup
-                                //send to mainActivity---(either new lead->payroll or non-payroll->payroll)
-                                PrefrenceUtils.insertDataInBoolean(
-                                    this,
-                                    Constants.CHECKFORPAYROLL,
-                                    true
-                                )
-                                userResponse.redirectURL?.let {
-                                    showDialogPayroll(it)
-                                }
-                            }
-                        }
-                    }
+                    redirectToJobsMarketplace(userResponse)
                 } catch (e: Exception) {
 
                 }
@@ -128,69 +127,99 @@ class HomeActivity : BaseActivity() {
         }
     }
 
+    private fun redirectToJobsMarketplace(userResponse: UserResponse) {
+        if (userResponse.success == true) {
+            PrefrenceUtils.insertData(this, Constants.USERTYPE, userResponse.userType)
+            var redirectionUrlVal = userResponse.redirectURL
+            if (!PrefrenceUtils.retriveDataInBoolean(
+                    context, Constants.CHECKFORFIRSTTIMESLOTSCREEN
+                )
+            ) {
+                if (PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL)
+                        .startsWith("https")
+                ) {
+                    redirectionUrlVal = PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL)
+                }
+            }
+            PrefrenceUtils.insertData(
+                this, Constants.REDIRECTION_URL, redirectionUrlVal
+//                            Constants.REDIRECTION_URL_STRING
+            )
+            when {
+                userResponse.userType.equals(Constants.PAYROLL) -> {
+                    //show popup
+                    //send to mainActivity---(either new lead->payroll or non-payroll->payroll)
+                    PrefrenceUtils.insertDataInBoolean(
+                        this, Constants.CHECKFORPAYROLL, true
+                    )
+                    userResponse.redirectURL?.let {
+                        showDialogPayroll(it)
+                    }
+                }
+            }
+        }
+    }
+
     private fun initView() {
+        getUserData()
+        Log.d("HA PN", "initView: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+        PrefrenceUtils.insertDataInBoolean(MainActivity.context, Constants.CHECKFORFIRSTTIME, false)
         webModelChrome = Gson().fromJson(
             PrefrenceUtils.retriveData(
-                this,
-                Constants.CHROME_URL_REMOTE_CONFIG
+                this, Constants.CHROME_URL_REMOTE_CONFIG
             ), ChromeModel::class.java
         )
         webModelModify = Gson().fromJson(
             PrefrenceUtils.retriveData(
-                this,
-                Constants.WEBVIEW_HANDLER_REMOTE_CONFIG_HOME_PAGE
+                this, Constants.WEBVIEW_HANDLER_REMOTE_CONFIG_HOME_PAGE
             ), WebViewModifyModel::class.java
         )
 
         // If User is new_lead_referral ---> Redirection Link open in native App
-        if(PrefrenceUtils.retriveData(this@HomeActivity,Constants.REDIRECTION_URL).equals(Constants.NEW_LEAD_REFERRAL)){
+        if (PrefrenceUtils.retriveData(this@HomeActivity, Constants.REDIRECTION_URL)
+                .equals(Constants.NEW_LEAD_REFERRAL)
+        ) {
             binding.incLayoutOne.containerOne.visibility = View.GONE
             binding.incLayoutTwo.containerOne.visibility = View.VISIBLE
-        }else{
+        } else {
             // If User is New LEAD or Non Payroll ---> Redirection Link open in web app
             binding.incLayoutOne.containerOne.visibility = View.VISIBLE
             binding.incLayoutTwo.containerOne.visibility = View.GONE
-            openWebView(PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL))
+            if (intent.hasExtra(Constants.TYPE)) {
+                // NOTIFICATION CHECK
+                if (intent.getStringExtra(Constants.TYPE) != "") {
+                    webModelModify.webviewHandler!!.forEach {
+                        if (intent.getStringExtra(Constants.TYPE)
+                                .equals(Constants.REFERRAL_NON_PAYROLL)
+                        ) {
+                            redirectToHome(it.destination, it.url)
+                        } else {
+                            startActivity(Intent(this@HomeActivity, HomeActivity::class.java))
+                            finish()
+                            return@forEach
+                        }
+                    }
+                } else {
+                    openWebView(PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL))
+                }
+            } else {
+                openWebView(PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL))
+            }
         }
 
     }
 
 
-    private fun  getDynamicLink() {
-        FirebaseDynamicLinks.getInstance().getDynamicLink(intent)
-            .addOnSuccessListener {
-                //  var deepLink: Uri? = null
-                if (intent.data != null) {
-                    //deepLink = pendingDynamicLinkData.link
-                    lifecycleScope.launch {
-                        if (PrefrenceUtils.retriveData(
-                                this@HomeActivity,
-                                Constants.API_TOKEN
-                            ) == ""
-                        ) {
-                            startActivity(
-                                Intent(this@HomeActivity, EnterNumberActivity::class.java)
-                                    .putExtra(Constants.LINK, intent.data.toString())
-
-                            )
-                            finish()
-
-                        } else {
-                            openWebView(intent.data.toString())
-                        }
-                    }
-
-                } else {
-                    initView()
-                }
-            }
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     private fun openWebView(url: String?) {
+        Log.d(
+            "Views", "openWebView: ${PrefrenceUtils.retriveData(this, Constants.REDIRECTION_URL)}"
+        )
         val properties = Properties()
         properties.addAttribute(Constants.REDIRECTION_URL, url)
-        properties.addAttribute(Constants.TYPE, PrefrenceUtils.retriveData(this, Constants.USERTYPE))
+        properties.addAttribute(
+            Constants.TYPE, PrefrenceUtils.retriveData(this, Constants.USERTYPE)
+        )
         MoEHelper.getInstance(this).trackEvent(Constants.WEBVIEW_OPENED, properties)
         binding.incLayoutOne.pgBar.visibility = View.VISIBLE
         val webSettings = binding.incLayoutOne.webView.settings
@@ -204,8 +233,7 @@ class HomeActivity : BaseActivity() {
         binding.incLayoutOne.webView.visibility = View.VISIBLE
         binding.incLayoutOne.webView.setDownloadListener { _, _, _, _, _ ->
             Log.d(
-                "WebView",
-                "onDownloadStart"
+                "WebView", "onDownloadStart"
             )
         }
         val onlyonce = arrayOf(true)
@@ -239,6 +267,24 @@ class HomeActivity : BaseActivity() {
                                 startActivity(intent)
                                 return true
                             }
+                            url.startsWith("https://play.google.com") -> {
+                                val packageName =
+                                    url.substringAfter("?id=").substringBefore("&", "")
+                                val playstoreURL =
+                                    "https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=${packageName}&ddl=1&pcampaignid=web_ddl_1"
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playstoreURL))
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.setPackage("com.android.chrome")
+                                return try {
+                                    startActivity(intent)
+                                    true
+                                } catch (ex: ActivityNotFoundException) {
+                                    // Chrome browser presumably not installed and open Kindle Browser
+                                    intent.setPackage("com.amazon.cloud9")
+                                    startActivity(intent)
+                                    true
+                                }
+                            }
                             //Instrumentation need to added
                             webModelChrome?.urls!![i].chromeUrl.equals(url) -> {
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -257,37 +303,82 @@ class HomeActivity : BaseActivity() {
                         }
                     }
                 } catch (e: Exception) {
+                    fa?.logEvent("web_model_chrome_error", Bundle())
+                    Toast.makeText(
+                        this@HomeActivity, e.message, Toast.LENGTH_SHORT
+                    ).show()
+                }
+                try {
+                    for (i in 0 until webModelModify?.webviewHandler?.size!!) {
+                        val urlValBefore = url.substringBefore("?", "")
+                        var urlValAfter = ""
+                        if (url.contains("applicationId")) {
+                            urlValAfter = getJobSeekerID(url)
+                        }
+                        val completeUrl = constructRedirectionUrl(url)
+//                        Constants.FE_BASE_URL + "/application-status?applicationId=$urlValAfter"
+//                        Log.d("URL_FROM_PWA", url)
+//                        Log.d("URL_FORMED_IN_APP", completeUrl)
+
+                        PrefrenceUtils.insertData(
+                            context, Constants.REDIRECTION_URL, completeUrl
+                        )
+                        PrefrenceUtils.insertData(
+                            context, Constants.JOB_SEEKER_ID, urlValAfter
+                        )
+                        if (webModelModify?.webviewHandler?.get(i)?.url.equals(urlValBefore)) {
+                            if (webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.LOGOUT
+                                )
+                            ) {
+                                logoutFunction()
+                                return true
+                            } else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.UPLOAD
+                                ) || webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.UPLOAD_JOB_SEEKER
+                                ) || webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.REFERRAL_NON_PAYROLL
+                                )
+                            ) {
+                                redirectToHome(
+                                    webModelModify?.webviewHandler?.get(i)?.destination,
+                                    webModelModify?.webviewHandler?.get(i)?.url
+                                )
+                                PrefrenceUtils.insertData(
+                                    context, Constants.JOB_SEEKER_REDIRECTION_URL, url
+                                )
+                                return true
+                            } else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.VERIFYBANK
+                                )
+                            ) {
+                                redirectToHome(
+                                    webModelModify?.webviewHandler?.get(i)?.destination,
+                                    webModelModify?.webviewHandler?.get(i)?.url
+                                )
+                                return true
+                            } else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.PROFILE_PIC
+                                ) || webModelModify?.webviewHandler?.get(i)?.destination.equals(
+                                    Constants.BANK_DOC_UPLOAD
+                                )
+                            ) {
+                                redirectToHome(
+                                    webModelModify?.webviewHandler?.get(i)?.destination,
+                                    webModelModify?.webviewHandler?.get(i)?.url
+                                )
+                                return true
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    fa?.logEvent("web_model_modify_error", Bundle())
                     Toast.makeText(
                         this@HomeActivity,
                         getString(R.string.please_try_after_sometime),
                         Toast.LENGTH_SHORT
                     ).show()
-                }
-                for (i in 0 until webModelModify?.webviewHandler?.size!!) {
-                    if (webModelModify?.webviewHandler?.get(i)?.url.equals(url)) {
-                        if (webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.DOWNLOAD)) {
-                            val intent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(webModelModify?.webviewHandler?.get(i)!!.downloadLink)
-                            )
-                            view.context.startActivity(intent)
-                            return true
-                        } else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.LOGOUT)) {
-                            logoutFunction()
-                            return true
-                        } else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.UPLOAD)) {
-                            redirectToHome(webModelModify?.webviewHandler?.get(i)?.destination)
-                            return true
-                        }
-                        else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.VERIFYBANK)) {
-                            redirectToHome(webModelModify?.webviewHandler?.get(i)?.destination)
-                            return true
-                        }
-                        else if (webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.PROFILE_PIC) || webModelModify?.webviewHandler?.get(i)?.destination.equals(Constants.BANK_DOC_UPLOAD)) {
-                            redirectToHome(webModelModify?.webviewHandler?.get(i)?.destination)
-                            return true
-                        }
-                    }
                 }
                 return false
             }
@@ -311,7 +402,7 @@ class HomeActivity : BaseActivity() {
                 if (onlyonce[0]) {
                     onlyonce[0] = false
                     if (finalUrl != null) {
-                        binding.incLayoutOne.webView.loadUrl(finalUrl)
+//                        binding.incLayoutOne.webView.loadUrl(finalUrl)
                     }
                 }
             }
@@ -331,20 +422,144 @@ class HomeActivity : BaseActivity() {
             }
         }
         if (url != null) {
-            binding.incLayoutOne.webView.loadUrl(url)
+            var urlToLoad = url
+            if (urlToLoad.contains("additional-details")) {
+                urlToLoad = if (urlToLoad.contains("?")) {
+                    "$url&appVersion=${BuildConfig.VERSION_CODE}"
+                } else {
+                    "$url?appVersion=${BuildConfig.VERSION_CODE}"
+                }
+            }
+            binding.incLayoutOne.webView.loadUrl(urlToLoad)
+        }
+
+        binding.incLayoutOne.webView.webChromeClient = object : WebChromeClient() {
+            override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                super.onShowCustomView(view, callback)
+                binding.incLayoutOne.webView.visibility = View.GONE
+                binding.incLayoutOne.customViewForFullscreen.visibility = View.VISIBLE
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                binding.incLayoutOne.customViewForFullscreen.addView(view)
+            }
+
+            @SuppressLint("SourceLockedOrientationActivity")
+            override fun onHideCustomView() {
+                super.onHideCustomView()
+                binding.incLayoutOne.webView.visibility = View.VISIBLE
+                binding.incLayoutOne.customViewForFullscreen.visibility = View.GONE
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            }
+
+            override fun onPermissionRequest(request: PermissionRequest) {
+                audioRequest = request
+                for (permission in request.resources) {
+                    when (permission) {
+                        "android.webkit.resource.AUDIO_CAPTURE" -> {
+                            askForPermission(
+                                request.origin.toString(),
+                                Manifest.permission.RECORD_AUDIO,
+                                MY_PERMISSIONS_REQUEST_RECORD_AUDIO
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
-    private fun redirectToHome(destination: String?) {
+    fun constructRedirectionUrl(url: String): String {
+//        val url = "https://jsonplaceholder.typicode.com/photos/1?siId=3fb1d400-57e7-40af-84e7-15c8618174eb?userId=2efb99f6-bfcf-48e5-a9f6-4a45476ad7a0&entryVia=application-status"
+        var queryParams = url.substringAfter("?", "")
+        if (url.contains("entryVia")) {
+            queryParams = queryParams.substringBeforeLast('&', "")
+        }
+        val path = url.substringAfterLast("&", "").substringAfterLast('=', "")
+        Log.d("CONSTRUCTED_URL", "params: $queryParams : path $path")
+        var completeUrl = Constants.FE_BASE_URL
+        if (path !== "") {
+            completeUrl = "$completeUrl/$path"
+        }
+        if (queryParams != "") {
+            completeUrl = "$completeUrl?$queryParams"
+        }
+        Log.d("COMPLETED_URL", completeUrl)
+        return completeUrl
+    }
+
+    fun getJobSeekerID(url: String): String {
+        var urlValAfterAppId = url.substringAfter("applicationId=", "")
+        if (urlValAfterAppId.contains("?") || urlValAfterAppId.contains("&")) {
+            urlValAfterAppId = if (urlValAfterAppId.contains("?")) {
+                url.substringAfter("applicationId=", "").substringBefore("?")
+            } else {
+                url.substringAfter("applicationId=", "").substringBefore("&")
+            }
+        }
+        return urlValAfterAppId
+    }
+
+    fun askForPermission(origin: String, permission: String, requestCode: Int) {
+        Log.d("WebView", "inside askForPermission for" + origin + "with" + permission)
+        if (ContextCompat.checkSelfPermission(
+                applicationContext, permission
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this@HomeActivity, permission
+                )
+            ) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(
+                    this@HomeActivity, arrayOf(permission), requestCode
+                )
+            }
+        } else {
+            audioRequest?.grant(audioRequest?.resources)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String?>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_RECORD_AUDIO -> {
+                Log.d("WebView", "PERMISSION FOR AUDIO")
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    audioRequest?.grant(audioRequest!!.resources)
+//                    audioRequest.webView.loadUrl("<your url>")
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+        }
+    }
+
+    private fun redirectToHome(destination: String?, url: String?) {
+        Log.d("HA PN", "initView RTH: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
         startActivity(
             Intent(
-                this@HomeActivity,
-                MainActivity::class.java
-            ).putExtra("Navigation", destination)
+                this@HomeActivity, ReactActivity::class.java
+            ).putExtra("Navigation", destination).putExtra("link", url)
         )
         overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
         finishAffinity()
     }
+
 
     private fun setInstrumentationWebView(type: String) {
         val bundle = Bundle()
@@ -473,20 +688,20 @@ class HomeActivity : BaseActivity() {
 
     }
 
-    private fun logoutFunction() = AlertDialog.Builder(this)
-        .setTitle(this.getString(R.string.alert_logout))
-        .setMessage(this.getString(R.string.alert_logout_message))
-        .setCancelable(true)
-        .setNegativeButton(
-            this.getString(R.string.alert_no)
-        ) { dialog: DialogInterface, _: Int -> dialog.cancel() }
-        .setPositiveButton(
-            this.getString(R.string.alert_yes)
-        ) { _: DialogInterface?, _: Int ->
-            PrefrenceUtils.logoutUser(this)
-            startActivity(Intent(this, EnterNumberActivity::class.java))
-            finishAffinity()
-        }
-        .create()
-        .show()
+    private fun logoutFunction() =
+        AlertDialog.Builder(this).setTitle(this.getString(R.string.alert_logout))
+            .setMessage(this.getString(R.string.alert_logout_message)).setCancelable(true)
+            .setNegativeButton(
+                this.getString(R.string.alert_no)
+            ) { dialog: DialogInterface, _: Int -> dialog.cancel() }.setPositiveButton(
+                this.getString(R.string.alert_yes)
+            ) { _: DialogInterface?, _: Int ->
+                Log.d(
+                    "HA PN",
+                    "initView LO: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}"
+                )
+                PrefrenceUtils.logoutUser(this)
+                startActivity(Intent(this, EnterNumberActivity::class.java))
+                finishAffinity()
+            }.create().show()
 }

@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.blitzllama.androidSDK.BlitzLlamaSDK
-import com.freshchat.consumer.sdk.FaqOptions
 import com.freshchat.consumer.sdk.Freshchat
 import com.freshchat.consumer.sdk.FreshchatConfig
 import com.google.android.gms.tasks.OnCompleteListener
@@ -21,7 +19,6 @@ import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.ActivitySplashBinding
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
-import com.vahan.mitra_playstore.workmanager.WorkerScheduler
 import java.util.*
 
 
@@ -33,11 +30,12 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         timeCheckEvent()
-        intialiseFireBase()
+        initialiseFireBase()
         /** This static boolean variable is used re-initialized the sessions when app is killed (In Earn-Fragment) **/
         Constants.checkSessionSoftUpdate = true
         setFreshChat()
         initHandler()
+        Log.d("DATA1234", "onCreate: ${System.getProperty("http.agent")}")
     }
 
     private fun setFreshChat() {
@@ -79,11 +77,16 @@ class SplashActivity : BaseActivity() {
              *  Check user come from Notification
              *  with given click Action
              */
+            Log.d("CLICK", "initHandler: "+PrefrenceUtils.retriveData(this, Constants.CLICKED_ACTION))
             if (!PrefrenceUtils.retriveData(this, Constants.CLICKED_ACTION).equals("")) {
                 handleIntents(
                     PrefrenceUtils.retriveData(
                         this@SplashActivity,
                         Constants.CLICKED_ACTION
+                    ),
+                    PrefrenceUtils.retriveData(
+                        this@SplashActivity,
+                        Constants.REFERRAL_NUMBERS
                     )
                 )
             }
@@ -101,7 +104,8 @@ class SplashActivity : BaseActivity() {
                     }
                 }
                 Handler(mainLooper).postDelayed({
-                    startActivity(Intent(this@SplashActivity, AuthenticationActivity::class.java))
+                    Log.d("FUNNEL_ONE ", "handleIntents: ENTERS2")
+                    startActivity(Intent(this@SplashActivity, AuthenticationActivity::class.java).putExtra(Constants.TYPE,""))
                     overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
                     finish()
                 }, 3000)
@@ -114,7 +118,8 @@ class SplashActivity : BaseActivity() {
          */
         else {
             Handler(mainLooper).postDelayed({
-                startActivity(Intent(this@SplashActivity, LanguageSelectionActivity::class.java))
+//                startActivity(Intent(this@SplashActivity, LanguageSelectionActivity::class.java))
+                startActivity(Intent(this@SplashActivity, GenericWelcomeActivity::class.java))
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
                 finish()
             }, 3000)
@@ -123,84 +128,24 @@ class SplashActivity : BaseActivity() {
     }
 
     // Background flow
-    private fun handleIntents(type: String) {
-        when (type) {
-            Constants.HOME -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                startActivity(Intent(this, MainActivity::class.java).putExtra(Constants.TYPE, type))
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
-                finish()
-            }
-            Constants.PROFILE -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                PrefrenceUtils.insertData(this, Constants.LINK, "")
-            }
-            Constants.BORROW -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                startActivity(
-                    Intent(this, MainActivity::class.java)
-                        .putExtra(Constants.TYPE, type)
-                )
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
-                finish()
-            }
+    private fun handleIntents(type: String, clickAction: String) {
+        Log.d("CLICKONE", "initHandler: "+PrefrenceUtils.retriveData(this, type))
+        PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, type)
+        startActivity(Intent(this, AuthenticationActivity::class.java).putExtra(Constants.TYPE, type))
+        overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
+        finish()
+   // check user is payroll or not if yes move forward and check the screen
 
-            // Adding a new Entry Trigger for Push Notification
-            Constants.CHATBOT -> {
-                val tags: MutableList<String> = ArrayList()
-                tags.add("newFaq")
-                val faqOptions = FaqOptions()
-                    .showFaqCategoriesAsGrid(false)
-                    .showContactUsOnAppBar(false)
-                    .showContactUsOnFaqScreens(true)
-                    .showContactUsOnFaqNotHelpful(true)
-                    .filterContactUsByTags(tags, "Test 2") //tags, filtered screen title
-                Freshchat.showFAQs(this, faqOptions)
-            }
-            Constants.INSURE -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                startActivity(
-                    Intent(this, MainActivity::class.java)
-                        .putExtra(Constants.TYPE, type)
-                )
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
-                finish()
-            }
-            Constants.BANK_ACCOUNT -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                PrefrenceUtils.insertData(this, Constants.LINK, "")
-            }
-            Constants.DOCUMENT -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                PrefrenceUtils.insertData(this, Constants.LINK, "")
-            }
-            Constants.WEBVIEW -> {
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                startActivity(
-                    Intent(this, NotificationViewActivity::class.java)
-                        .putExtra(Constants.TYPE, type)
-                        .putExtra(Constants.LINK, PrefrenceUtils.retriveData(this, Constants.LINK))
-                )
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
-            }
-            Constants.REFERRAL ->{
-                PrefrenceUtils.insertData(this, Constants.CLICKED_ACTION, "")
-                startActivity(Intent(this, MainActivity::class.java).putExtra(Constants.TYPE, type))
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
-            }
-
-        }
     }
 
     @SuppressLint("StringFormatInvalid")
-    private fun intialiseFireBase() {
+    private fun initialiseFireBase() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
             // Get new FCM registration token
             val token = task.result
-            Log.d("FCMTOKEN", token)
             MoEFireBaseHelper.getInstance().passPushToken(applicationContext, token)
             PrefrenceUtils.insertData(this, Constants.DEVICE_ID, token)
         })

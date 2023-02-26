@@ -18,7 +18,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -27,35 +26,39 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.uxcam.UXCam
-import com.vahan.mitra_playstore.view.bottomsheet.UploadDeleteDocDialog
-import com.vahan.mitra_playstore.view.bottomsheet.UploadDocBottomSheet
 import com.vahan.mitra_playstore.R
 import com.vahan.mitra_playstore.databinding.FragmentUploadScreenBinding
 import com.vahan.mitra_playstore.utils.Constants
+import com.vahan.mitra_playstore.utils.FileUtils
 import com.vahan.mitra_playstore.utils.UriUtils
 import com.vahan.mitra_playstore.view.BaseApplication
+import com.vahan.mitra_playstore.view.bottomsheet.UploadDeleteDocDialog
+import com.vahan.mitra_playstore.view.bottomsheet.UploadDocBottomSheet
 import com.vahan.mitra_playstore.view.documentupload.viewmodel.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 import java.util.*
 
 
 class UploadScreenFragment : Fragment() {
+    private val PROFILEPIC = "PROFILE_PIC"
     private val PAN_CARD = "PANCARD"
     private val ADHAR_CARD_F = "AADHAAR_CARD_F"
     private val ADHAR_CARD_B = "AADHAAR_CARD_B"
     private val DL_CARD_F = "DRIVING_LICENCE_CARD_F"
     private val DL_CARD_B = "DRIVING_LICENCE_CARD_B"
+    private val RC_CARD_F = "VEHICLE_RC_F"
+    private val RC_CARD_B = "VEHICLE_RC_B"
     private var idType = ""
+    private var is_job_seeker_upload_docs = ""
     lateinit var binding: FragmentUploadScreenBinding
     lateinit var viewModel: UploadViewModels
     var isFrontAdhaarCard = true
     var isFrontDrivingLicense = true
+    var isFrontRc = true
     private var receivedUriKey: Uri? = null
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private var REQUEST_CODE_Image = 45
@@ -67,6 +70,10 @@ class UploadScreenFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.TakePicture()) { sucess ->
             if (sucess) {
                 when (getScreenType()) {
+                    PROFILEPIC -> {
+                        viewModel.profilePicImagePath = tempImagePath
+                        viewModel.createBitMap(tempImageUri!!, PROFILE_PIC)
+                    }
                     PAN_CARD -> {
                         viewModel.imagePath = tempImagePath
                         viewModel.createBitMap(tempImageUri!!, PAN)
@@ -86,6 +93,14 @@ class UploadScreenFragment : Fragment() {
                     DL_CARD_B -> {
                         viewModel.backDLCard = tempImagePath
                         viewModel.createBitMap(tempImageUri!!, BACK_DL)
+                    }
+                    RC_CARD_F -> {
+                        viewModel.frontRC = tempImagePath
+                        viewModel.createBitMap(tempImageUri!!, FRONT_RC)
+                    }
+                    RC_CARD_B -> {
+                        viewModel.backRC = tempImagePath
+                        viewModel.createBitMap(tempImageUri!!, BACK_RC)
                     }
 
                 }
@@ -108,11 +123,14 @@ class UploadScreenFragment : Fragment() {
                 val fileexist = File(receivedUriKey!!.path).exists()
                 if (fileexist) {
                     when (getScreenType()) {
+                        PROFILEPIC -> setImage(viewModel.profilePicImagePath)
                         PAN_CARD -> setImage(viewModel.imagePath)
                         ADHAR_CARD_B -> setImage(viewModel.backAdhaarCard)
                         ADHAR_CARD_F -> setImage(viewModel.frontAdhaarCard)
                         DL_CARD_F -> setImage(viewModel.frontDLCard)
                         DL_CARD_B -> setImage(viewModel.backDLCard)
+                        RC_CARD_F -> setImage(viewModel.frontRC)
+                        RC_CARD_B -> setImage(viewModel.backRC)
                     }
                     isImageAvaileble()
                 } else
@@ -187,18 +205,32 @@ class UploadScreenFragment : Fragment() {
         bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, outStream)
         outStream.flush()
         outStream.close()
-        MediaScannerConnection.scanFile(appContext, arrayOf(file.absolutePath),
-            null, null)
-        return FileProvider.getUriForFile(appContext!!, "${appContext.packageName}.provider",
-            file)
+        MediaScannerConnection.scanFile(
+            appContext, arrayOf(file.absolutePath),
+            null, null
+        )
+        return FileProvider.getUriForFile(
+            appContext!!, "${appContext.packageName}.provider",
+            file
+        )
     }
-
 
     private var takePictureFromGalary =
         registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let {
-                val path = UriUtils.getPath(requireContext(), it)
+                var path = ""
+
+                path = if (it.toString().contains("com.google")) {
+                    UriUtils.getPath(requireContext(), it)
+                } else {
+                    FileUtils.getRealPath(requireContext(), it)
+                }
+//                    UriUtils.getPath(requireContext(), it)
                 when (getScreenType()) {
+                    PROFILEPIC -> {
+                        viewModel.createBitMap(it, PROFILE_PIC)
+                        viewModel.profilePicImagePath = path
+                    }
                     PAN_CARD -> {
                         viewModel.createBitMap(it, PAN)
                         viewModel.imagePath = path
@@ -208,16 +240,24 @@ class UploadScreenFragment : Fragment() {
                         viewModel.backAdhaarCard = path
                     }
                     ADHAR_CARD_F -> {
-                        viewModel.createBitMap(it, FRONT_AADHAR)
                         viewModel.frontAdhaarCard = path
+                        viewModel.createBitMap(it, FRONT_AADHAR)
                     }
                     DL_CARD_F -> {
-                        viewModel.createBitMap(it, FRONT_DL)
                         viewModel.frontDLCard = path
+                        viewModel.createBitMap(it, FRONT_DL)
                     }
                     DL_CARD_B -> {
                         viewModel.createBitMap(it, BACK_DL)
                         viewModel.backDLCard = path
+                    }
+                    RC_CARD_F -> {
+                        viewModel.createBitMap(it, FRONT_RC)
+                        viewModel.frontRC = path
+                    }
+                    RC_CARD_B -> {
+                        viewModel.createBitMap(it, BACK_RC)
+                        viewModel.backRC = path
                     }
                 }
                 setImage(path)
@@ -226,8 +266,18 @@ class UploadScreenFragment : Fragment() {
             }
 
             if (it != null) {
-                val path = UriUtils.getPath(requireContext(), it)
+                var path = ""
+                path = if (it.toString().contains("com.google")) {
+                    UriUtils.getPath(requireContext(), it)
+                } else {
+                    FileUtils.getRealPath(requireContext(), it)
+                }
+//                UriUtils.getPath(requireContext(), it)
                 when (getScreenType()) {
+                    PROFILEPIC -> {
+                        viewModel.createBitMap(it, PROFILE_PIC)
+                        viewModel.profilePicImagePath = path
+                    }
                     PAN_CARD -> {
                         viewModel.createBitMap(it, PAN)
                         viewModel.imagePath = path
@@ -247,6 +297,14 @@ class UploadScreenFragment : Fragment() {
                     DL_CARD_B -> {
                         viewModel.createBitMap(it, BACK_DL)
                         viewModel.backDLCard = path
+                    }
+                    RC_CARD_F -> {
+                        viewModel.createBitMap(it, FRONT_RC)
+                        viewModel.frontRC = path
+                    }
+                    RC_CARD_B -> {
+                        viewModel.createBitMap(it, BACK_RC)
+                        viewModel.backRC = path
                     }
                 }
                 setImage(path)
@@ -257,20 +315,27 @@ class UploadScreenFragment : Fragment() {
 
     fun getScreenType(): String {
         var type = ""
-        type = if (idType=="AADHAAR_CARD") {
+        type = if (idType == "AADHAAR_CARD") {
             if (isFrontAdhaarCard) {
                 ADHAR_CARD_F
             } else {
                 ADHAR_CARD_B
             }
-        } else if (idType == "DRIVING_LICENSE"){
-            if (isFrontDrivingLicense){
+        } else if (idType == "DRIVING_LICENSE") {
+            if (isFrontDrivingLicense) {
                 DL_CARD_F
-            }else{
+            } else {
                 DL_CARD_B
             }
-        }
-        else {
+        } else if (idType == "VEHICLE_RC") {
+            if (isFrontRc) {
+                RC_CARD_F
+            } else {
+                RC_CARD_B
+            }
+        } else if (idType == "PROFILE_PIC") {
+            PROFILEPIC
+        } else {
             PAN_CARD
         }
         return type
@@ -278,11 +343,35 @@ class UploadScreenFragment : Fragment() {
 
     fun deleteImage() {
         when (getScreenType()) {
-            PAN_CARD -> viewModel.imagePath = ""
-            ADHAR_CARD_B -> viewModel.backAdhaarCard = ""
-            ADHAR_CARD_F -> viewModel.frontAdhaarCard = ""
-            DL_CARD_F -> viewModel.frontDLCard = ""
-            DL_CARD_B -> viewModel.backDLCard = ""
+            PROFILEPIC -> viewModel.profilePicImagePath = ""
+            PAN_CARD -> {
+                viewModel.imagePath = ""
+                setupPlaceholderImg("front")
+            }
+            ADHAR_CARD_B -> {
+                viewModel.backAdhaarCard = ""
+                setupPlaceholderImg("back")
+            }
+            ADHAR_CARD_F -> {
+                viewModel.frontAdhaarCard = ""
+                setupPlaceholderImg("front")
+            }
+            DL_CARD_F -> {
+                viewModel.frontDLCard = ""
+                setupPlaceholderImg("front")
+            }
+            DL_CARD_B -> {
+                viewModel.backDLCard = ""
+                setupPlaceholderImg("back")
+            }
+            RC_CARD_F -> {
+                viewModel.frontRC = ""
+                setupPlaceholderImg("front")
+            }
+            RC_CARD_B -> {
+                viewModel.backRC = ""
+                setupPlaceholderImg("back")
+            }
         }
         Glide.with(requireContext()).load("").into(binding.docAttachImage)
         binding.afterPhotoClick.visibility = View.GONE
@@ -295,6 +384,7 @@ class UploadScreenFragment : Fragment() {
     ): View {
         arguments.apply {
             idType = this?.getString(Constants.ID_TYPE) ?: ""
+            is_job_seeker_upload_docs = this?.getString("navigation_to") ?: ""
         }
         FragmentUploadScreenBinding.inflate(inflater, container, false).run {
             binding = this
@@ -308,11 +398,96 @@ class UploadScreenFragment : Fragment() {
         viewModel.frontAdhaarCard = ""
         viewModel.backAdhaarCard = ""
         viewModel.imagePath = ""
+        viewModel.profilePicImagePath = ""
         viewModel.frontDLCard = ""
         viewModel.backDLCard = ""
+        viewModel.frontRC = ""
+        viewModel.backRC = ""
         initViews()
         UXCam.setAutomaticScreenNameTagging(false)
         UXCam.tagScreenName("UploadScreen Fragment")
+        if (is_job_seeker_upload_docs == "job_seeker_upload_docs") {
+            binding.placeholderImg.visibility = View.VISIBLE
+            binding.cameraIcon.visibility = View.GONE
+            setupPlaceholderImg("front")
+        }
+    }
+
+    private fun setupPlaceholderImg(side: String) {
+        if (is_job_seeker_upload_docs == "job_seeker_upload_docs") {
+            if (side == "front") {
+                when (idType) {
+                    "AADHAAR_CARD" -> {
+                        if (viewModel.frontAdhaarCard.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_front_aadhar)
+                        }
+                    }
+                    "PAN_CARD" -> {
+                        if (viewModel.imagePath.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_pandcard_3x)
+                        }
+                    }
+//            "PROFILE_PIC" -> {
+//                binding.placeholderImg.setImageResource(R.drawable.ic_front_aadhar)
+//            }
+                    "VEHICLE_RC" -> {
+                        if (viewModel.frontRC.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_rc_front)
+                        }
+                    }
+                    else -> {
+                        if (viewModel.frontDLCard.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_dl_4x)
+                        }
+                    }
+                }
+            } else {
+                when (idType) {
+                    "AADHAAR_CARD" -> {
+                        if (viewModel.backAdhaarCard.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_aadhar_back)
+                        }
+                    }
+//                "PAN_CARD" -> {
+//                    binding.placeholderImg.setImageResource(R.drawable.ic_pandcard_3x)
+//                }
+//            "PROFILE_PIC" -> {
+//                binding.placeholderImg.setImageResource(R.drawable.ic_front_aadhar)
+//            }
+                    "VEHICLE_RC" -> {
+                        if (viewModel.backRC.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.ic_rc_back)
+                        }
+                    }
+                    else -> {
+                        if (viewModel.backDLCard.isNotEmpty()) {
+                            binding.placeholderImg.visibility = View.GONE
+                        } else {
+                            binding.placeholderImg.visibility = View.VISIBLE
+                            binding.placeholderImg.setImageResource(R.drawable.driving_back)
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -330,6 +505,19 @@ class UploadScreenFragment : Fragment() {
                 binding.txtUploadTitle.text = context?.getString(R.string.upload_pan_card)
                 binding.txtUploadDes.text =
                     context?.getString(R.string.please_upload_your_pan_card_photo_if_you_need_help_uploading_the_same)
+            }
+            "PROFILE_PIC" -> {
+                binding.aadhaarLayout.visibility = View.GONE
+                binding.txtUploadTitle.text =
+                    context?.getString(R.string.profile_pic_page_header_txt)
+                binding.txtUploadDes.text =
+                    context?.getString(R.string.profile_pic_page_header_txt)
+            }
+            "VEHICLE_RC" -> {
+                binding.aadhaarLayout.visibility = View.VISIBLE
+                binding.txtUploadTitle.text = context?.getString(R.string.upload_rc)
+                binding.txtUploadDes.text =
+                    context?.getString(R.string.please_upload_uour_rc)
             }
             else -> {
                 binding.aadhaarLayout.visibility = View.VISIBLE
@@ -349,13 +537,21 @@ class UploadScreenFragment : Fragment() {
 
     private fun isImageAvaileble(): Boolean {
         val type = false
-        if (idType == "AADHAAR_CARD" || idType == "DRIVING_LICENSE") {
+        if (idType == "AADHAAR_CARD" || idType == "DRIVING_LICENSE" || idType == "VEHICLE_RC") {
             if (viewModel.backAdhaarCard.isNotEmpty() && viewModel.frontAdhaarCard.isNotEmpty()) {
                 showSaveButton()
-            } else if(viewModel.backDLCard.isNotEmpty() && viewModel.frontDLCard.isNotEmpty()){
+            } else if (viewModel.backDLCard.isNotEmpty() && viewModel.frontDLCard.isNotEmpty()) {
                 showSaveButton()
+            } else if (viewModel.backRC.isNotEmpty() && viewModel.frontRC.isNotEmpty()) {
+                showSaveButton()
+            } else {
+                hideSaveButton()
             }
-            else {
+        } else if (idType == "PROFILE_PIC") {
+            if (viewModel.profilePicImagePath.isNotEmpty()) {
+                var path = viewModel.profilePicImagePath
+                showSaveButton()
+            } else {
                 hideSaveButton()
             }
         } else {
@@ -439,18 +635,24 @@ class UploadScreenFragment : Fragment() {
         binding.changeBack.setOnClickListener {
             // NEED TO CHECK LOGIC
             changeAdhaarCard(false)
+            setupPlaceholderImg("back")
             isFrontAdhaarCard = false
             isFrontDrivingLicense = false
+            isFrontRc = false
             if (viewModel.backAdhaarCard.isNotEmpty()) {
                 binding.afterPhotoClick.visibility = View.VISIBLE
                 binding.beforePhotoClick.visibility = View.GONE
-                Glide.with(requireContext()).load(viewModel.backAdhaarCard).into(binding.docAttachImage)
-            } else if (viewModel.backDLCard.isNotEmpty()){
+                Glide.with(requireContext()).load(viewModel.backAdhaarCard)
+                    .into(binding.docAttachImage)
+            } else if (viewModel.backDLCard.isNotEmpty()) {
                 binding.afterPhotoClick.visibility = View.VISIBLE
                 binding.beforePhotoClick.visibility = View.GONE
                 Glide.with(requireContext()).load(viewModel.backDLCard).into(binding.docAttachImage)
-            }
-            else {
+            } else if (viewModel.backRC.isNotEmpty()) {
+                binding.afterPhotoClick.visibility = View.VISIBLE
+                binding.beforePhotoClick.visibility = View.GONE
+                Glide.with(requireContext()).load(viewModel.backRC).into(binding.docAttachImage)
+            } else {
                 binding.beforePhotoClick.visibility = View.VISIBLE
                 binding.afterPhotoClick.visibility = View.GONE
 
@@ -458,8 +660,10 @@ class UploadScreenFragment : Fragment() {
         }
         binding.changeFront.setOnClickListener {
             changeAdhaarCard(true)
+            setupPlaceholderImg("front")
             isFrontAdhaarCard = true
             isFrontDrivingLicense = true
+            isFrontRc = true
             if (viewModel.frontAdhaarCard.isNotEmpty()) {
                 binding.afterPhotoClick.visibility = View.VISIBLE
                 binding.beforePhotoClick.visibility = View.GONE
@@ -475,14 +679,24 @@ class UploadScreenFragment : Fragment() {
                     .load(viewModel.frontDLCard)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.docAttachImage)
-            }
-            else {
+            } else if (viewModel.frontRC.isNotEmpty()) {
+                binding.afterPhotoClick.visibility = View.VISIBLE
+                binding.beforePhotoClick.visibility = View.GONE
+                Log.d("UPLOAD_SCREEN_DOCUMENT", "clickListners: ${viewModel.frontDLCard}")
+                Glide.with(requireContext())
+                    .load(viewModel.frontRC)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.docAttachImage)
+            } else {
                 binding.beforePhotoClick.visibility = View.VISIBLE
                 binding.afterPhotoClick.visibility = View.GONE
             }
         }
         binding.saveButton.setOnClickListener {
-            requireActivity().onBackPressed()
+            if (is_job_seeker_upload_docs == "job_seeker_upload_docs") {
+                findNavController().navigate(R.id.nav_fragment_jobsmarketplace_upload)
+            } else
+                requireActivity().onBackPressed()
         }
     }
 
@@ -490,8 +704,8 @@ class UploadScreenFragment : Fragment() {
     fun setImage(url: String) {
         binding.afterPhotoClick.visibility = View.VISIBLE
         binding.beforePhotoClick.visibility = View.GONE
-        Glide.with(requireContext()).load(url).into(binding.docAttachImage)
-
+        binding.placeholderImg.visibility = View.GONE
+        Glide.with(requireContext()).load(url).dontAnimate().into(binding.docAttachImage)
     }
 
     private fun givePermission() {

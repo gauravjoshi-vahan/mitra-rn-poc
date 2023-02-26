@@ -30,6 +30,7 @@ import com.vahan.mitra_playstore.utils.ApiState
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.interfaces.ReferralMilestoneOnClick
+import com.vahan.mitra_playstore.utils.startBlitzSurvey
 import com.vahan.mitra_playstore.view.refer.view.adapter.ReferContactListNewAdapter
 import com.vahan.mitra_playstore.view.refer.view.customdialog.RecentReferralDialog
 import com.vahan.mitra_playstore.view.refer.models.*
@@ -219,6 +220,11 @@ class ReferralStatusFragment : Fragment(), ReferralMilestoneOnClick {
         MoEHelper.getInstance(requireActivity()).trackEvent(Constants.REFERRAL_STATUS_VIEWED, properties)
         UXCam.logEvent(Constants.REFERRAL_STATUS_VIEWED, data)
         Freshchat.trackEvent(requireContext(), Constants.REFERRAL_STATUS_VIEWED, attribute)
+
+        requireContext().startBlitzSurvey(
+            requireContext(),
+            Constants.REFERRAL_STATUS_VIEWED
+        )
     }
 
     override fun onResume() {

@@ -1,5 +1,6 @@
 package com.vahan.mitra_playstore.view
 
+//import com.google.firebase.crashlytics.FirebaseCrashlytics
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -13,9 +14,13 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -24,7 +29,6 @@ import com.freshchat.consumer.sdk.Freshchat
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.JsonObject
 import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.Properties
@@ -34,9 +38,7 @@ import com.vahan.mitra_playstore.databinding.ActivityEnterOtpBinding
 import com.vahan.mitra_playstore.models.LoginModel
 import com.vahan.mitra_playstore.network.SharedViewModel
 import com.vahan.mitra_playstore.services.SmsReceiver
-import com.vahan.mitra_playstore.utils.Constants
-import com.vahan.mitra_playstore.utils.PrefrenceUtils
-import com.vahan.mitra_playstore.utils.captureAllEvents
+import com.vahan.mitra_playstore.utils.*
 import com.vahan.mitra_playstore.view.activities.enternumberactivity.view.ui.EnterNumberActivity
 import java.util.concurrent.TimeUnit
 
@@ -51,7 +53,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
     var otp2Count = 0
     var otp3Count = 0
     var otp4Count = 0
-    var count =0
+    var count = 0
 
     private var editTexts: Array<EditText>? = null
     private val format = "%02d:%02d"
@@ -66,6 +68,14 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
     private fun initView() {
         auth = FirebaseAuth.getInstance()
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val attribute = HashMap<String, Any>()
+        val properties = Properties()
+        captureAllJSEEvents(
+            this,
+            "jse_otp_sent",
+            attribute,
+            properties
+        )
         startSMSListener()
         startEnableResendCounter()
         initLoader(this)
@@ -76,22 +86,22 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
 
         binding.edtVerifyOtp0.onTextChanged { s, i ->
 
-            if(i==1){
+            if (i == 1) {
                 binding.edtVerifyOtp1.requestFocus()
             }
         }
         binding.edtVerifyOtp1.onTextChanged { s, i ->
-            if(i==1){
+            if (i == 1) {
                 binding.edtVerifyOtp2.requestFocus()
             }
         }
         binding.edtVerifyOtp2.onTextChanged { s, i ->
-            if(i==1){
+            if (i == 1) {
                 binding.edtVerifyOtp3.requestFocus()
             }
-            if(binding.edtVerifyOtp3.text.isEmpty() && i==2){
+            if (binding.edtVerifyOtp3.text.isEmpty() && i == 2) {
                 binding.edtVerifyOtp3.requestFocus()
-            }else{
+            } else {
 
             }
         }
@@ -103,7 +113,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                 count += 1
                 if (count > 2) {
                     binding.edtVerifyOtp2.requestFocus()
-                    count=0
+                    count = 0
                 }
             }
             false
@@ -115,7 +125,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                 otp3Count += 1
                 if (otp3Count > 2) {
                     binding.edtVerifyOtp1.requestFocus()
-                    otp3Count=0
+                    otp3Count = 0
                 }
             }
             false
@@ -127,7 +137,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                 otp2Count += 1
                 if (otp2Count > 2) {
                     binding.edtVerifyOtp0.requestFocus()
-                    otp2Count=0
+                    otp2Count = 0
                 }
             }
             false
@@ -135,14 +145,14 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
 
     }
 
-    fun EditText.onTextChanged(onTextChanged: (String,Int) -> Unit) {
+    fun EditText.onTextChanged(onTextChanged: (String, Int) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d("beforeText", "beforeTextChanged: "+start+" "+after)
+                Log.d("beforeText", "beforeTextChanged: " + start + " " + after)
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                onTextChanged.invoke(s.toString(),count)
+                onTextChanged.invoke(s.toString(), count)
             }
 
             override fun afterTextChanged(editable: Editable?) {
@@ -150,7 +160,6 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
             }
         })
     }
-
 
 
     private fun pinTextWatcher() {
@@ -206,10 +215,14 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
             ) {
                 binding.tvHeading.text =
                     getString(R.string.number_heading_tv) + intent.getStringExtra(Constants.MOBILE_NUMBER)
-            } else {
+            } else if (PrefrenceUtils.retriveLangData(this, Constants.LANGUAGE)
+                    .equals("hi", ignoreCase = false)
+            ) {
                 binding.tvHeading.text =
                     "कृपया +91 ${intent.getStringExtra(Constants.MOBILE_NUMBER)} पर भेजे गए 4 अंकों का OTP कोड दर्ज करे"
-
+            } else {
+                binding.tvHeading.text =
+                    "దయచేసి +91 ${intent.getStringExtra(Constants.MOBILE_NUMBER)} కు పంపిన 4 అంకెల Otp కోడ్\u200Cను నమోదు చేయండి"
             }
         }
     }
@@ -270,9 +283,22 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
             otpManually =
                 binding.edtVerifyOtp0.text.toString() + binding.edtVerifyOtp1.text.toString() + binding.edtVerifyOtp2.text.toString() + binding.edtVerifyOtp3.text.toString()
             if (otpManually!!.length < 0 || otpManually!!.length < 4) {
-                Toast.makeText(this, getString(R.string.please_enter_4_digit_otp), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.please_enter_4_digit_otp),
+                    Toast.LENGTH_SHORT
+                ).show()
 
             } else {
+                showLoginBtnLoader()
+                val attribute = HashMap<String, Any>()
+                val properties = Properties()
+                captureAllJSEEvents(
+                    this,
+                    "jse_otp_received",
+                    attribute,
+                    properties
+                )
                 verifyUserwithOTP(otpManually!!, numberForAPiCall!!)
                 // getUserData("8178253375")
             }
@@ -281,6 +307,14 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
         }
         if (binding.resendOtp.isEnabled) {
             binding.resendOtp.setOnClickListener {
+                val attribute = HashMap<String, Any>()
+                val properties = Properties()
+                captureAllJSEEvents(
+                    this,
+                    "jse_resend_otp_clicked",
+                    attribute,
+                    properties
+                )
                 startSMSListener()
                 sendOtp(numberForAPiCall!!)
             }
@@ -290,6 +324,31 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
             startActivity(Intent(this, EnterNumberActivity::class.java))
             finish()
         }
+    }
+
+    private fun showLoginBtnLoader() {
+        binding.loginInProgress.visibility = View.VISIBLE
+        val rotate = RotateAnimation(
+            0F,
+            180F,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f
+        )
+        rotate.duration = 4000
+        rotate.interpolator = LinearInterpolator()
+        binding.loginButton.background =
+            ContextCompat.getDrawable(this, R.drawable.btn_disabled_background);
+//        binding.loginBtnTxt.setTextColor(ContextCompat.getColor(this, R.color.white));
+        binding.loginInProgress.startAnimation(rotate)
+    }
+
+    private fun hideLoginBtnLoader() {
+        binding.loginButton.background = ContextCompat.getDrawable(this, R.drawable.button_border);
+        binding.loginBtnTxt.setTextColor(ContextCompat.getColor(this, R.color.white));
+        binding.loginInProgress.visibility = View.GONE
+        binding.loginInProgress.clearAnimation()
     }
 
     private fun sendOtp(numberForAPiCall: String) {
@@ -329,7 +388,14 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
     override fun onOTPReceived(otp: String?) {
         runOnUiThread {
             if (otp != null) {
-
+                val attribute = HashMap<String, Any>()
+                val properties = Properties()
+                captureAllJSEEvents(
+                    this,
+                    "jse_otp_received",
+                    attribute,
+                    properties
+                )
                 try {
                     //  val otpValue = otp.split(" ")[1].substring(otp.split(" ")[1].length - 4, otp.split(" ")[1].length)
                     val otpValue = otp.substring(3, 7)
@@ -363,9 +429,29 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
         val jsonObject = JsonObject()
         jsonObject.addProperty(Constants.PHONE_NUMBER, numberForAPiCall)
         jsonObject.addProperty(Constants.OTP, otpValue)
-        jsonObject.addProperty(Constants.REFERRAL_CODE, intent.getStringExtra(Constants.REFERRAL_CODE))
+        jsonObject.addProperty(
+            Constants.REFERRAL_CODE,
+            intent.getStringExtra(Constants.REFERRAL_CODE)
+        )
         viewSharedViewModel.login(jsonObject).observe(this) {
             if (it.success!!) {
+                mFirebaseAnalytics.logEvent("jse_number_entered_and_otp_verified", Bundle())
+                val attribute = HashMap<String, Any>()
+                val properties = Properties()
+                captureAllJSEEvents(
+                    this,
+                    "jse_otp_submitted_by_user",
+                    attribute,
+                    properties
+                )
+                captureAllJSEEvents(
+                    this,
+                    "jse_number_entered_and_otp_verified",
+                    attribute,
+                    properties
+                )
+//                mFirebaseAnalytics.logEvent("jse_number_entered_and_otp_verified", Bundle())
+                captureAllFAEvents(this, Constants.NO_ENTERED_OTP_VERIFIED_JSE_FA, Bundle())
                 authenticateWithFireBase(
                     it.cookie?.firebaseToken!!,
                     it.cookie?.accessToken!!,
@@ -374,6 +460,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                     it
                 )
             } else {
+                hideLoginBtnLoader()
                 //bringing focus on on edit text
                 binding.edtVerifyOtp3.requestFocus()
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -400,7 +487,9 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
             loginModel.id
         )
         if (!loginModel.userType.equals("", ignoreCase = true)) {
-            MoEHelper.getInstance(this).setUserAttribute(Constants.USERT_TYPE, loginModel.userType!!)
+            PrefrenceUtils.insertData(this, Constants.USERT_TYPE, loginModel.userType!!)
+            MoEHelper.getInstance(this)
+                .setUserAttribute(Constants.USERT_TYPE, loginModel.userType!!)
             UXCam.setUserProperty(Constants.USERT_TYPE, loginModel.userType!!)
             BlitzLlamaSDK.getSdkManager(this)
                 .setUserAttribute(Constants.USERT_TYPE, loginModel.userType!!, Constants.STRING)
@@ -422,7 +511,8 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                     PrefrenceUtils.insertData(context, Constants.USERTYPE, userType)
                     PrefrenceUtils.insertData(
                         this, Constants.API_TOKEN,
-                        accessToken)
+                        accessToken
+                    )
                     PrefrenceUtils.insertDataInBoolean(
                         this, Constants.CHECKFORFIRSTTIME, true
                     )
@@ -431,6 +521,16 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                     )
                     PrefrenceUtils.insertDataInBoolean(
                         this, Constants.CHECKFORFIRSTTIMESLOTSCREEN, true
+                    )
+
+                    hideLoginBtnLoader()
+                    val attribute = HashMap<String, Any>()
+                    val properties = Properties()
+                    captureAllJSEEvents(
+                        this,
+                        "jse_otp_submitted_successfully",
+                        attribute,
+                        properties
                     )
                     val bundle = Bundle()
                     bundle.putString(
@@ -454,13 +554,20 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                     }
                     when (userType) {
                         Constants.PAYROLL -> {
-                            PrefrenceUtils.insertDataInBoolean(this, Constants.CHECKFORPAYROLL, true)
+                            PrefrenceUtils.insertDataInBoolean(
+                                this,
+                                Constants.CHECKFORPAYROLL,
+                                true
+                            )
                             if (intent.getStringExtra(Constants.LINK) != null) {
                                 startActivity(
                                     Intent
                                         (
                                         this, HomeActivity::class.java
-                                    ).putExtra(Constants.LINK, intent.getStringExtra(Constants.LINK))
+                                    ).putExtra(
+                                        Constants.LINK,
+                                        intent.getStringExtra(Constants.LINK)
+                                    )
                                 )
                                 overridePendingTransition(
                                     R.anim.slide_out_bottom,
@@ -470,7 +577,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                                 startActivity(
                                     Intent
                                         (
-                                        this, MainActivity::class.java
+                                        this, LanguageSelectionActivity::class.java
                                     )
                                 )
                                 overridePendingTransition(
@@ -482,19 +589,31 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                             finishAffinity()
                         }
                         Constants.NON_PAYROLL -> {
-                            PrefrenceUtils.insertDataInBoolean(this, Constants.CHECKFORPAYROLL, false)
+                            PrefrenceUtils.insertDataInBoolean(
+                                this,
+                                Constants.CHECKFORPAYROLL,
+                                false
+                            )
                             PrefrenceUtils.insertData(this, Constants.REDIRECTION_URL, redirectURL)
+                            //Replace ReactActivity with HomeActivity here todo
                             startActivity(
                                 Intent(
                                     this@EnterOtpActivity,
                                     HomeActivity::class.java
                                 ).putExtra(Constants.LINK, intent.getStringExtra(Constants.LINK))
                             )
-                            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
+                            overridePendingTransition(
+                                R.anim.slide_out_bottom,
+                                R.anim.slide_in_bottom
+                            )
                             finishAffinity()
                         }
                         Constants.NEW_LEAD -> {
-                            PrefrenceUtils.insertDataInBoolean(this, Constants.CHECKFORPAYROLL, false)
+                            PrefrenceUtils.insertDataInBoolean(
+                                this,
+                                Constants.CHECKFORPAYROLL,
+                                false
+                            )
                             PrefrenceUtils.insertData(this, Constants.REDIRECTION_URL, redirectURL)
                             startActivity(
                                 Intent(
@@ -502,14 +621,21 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                                     HomeActivity::class.java
                                 ).putExtra("link", intent.getStringExtra(Constants.LINK))
                             )
-                            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
+                            overridePendingTransition(
+                                R.anim.slide_out_bottom,
+                                R.anim.slide_in_bottom
+                            )
                             finishAffinity()
                         }
 
                         // ADDING A NEW REFERRAL TYPE FOR NEW LEAD REFERRAL
                         Constants.NEW_LEAD_REFERRAL_TYPE -> {
                             setInstrumentationNewLeadInit()
-                            PrefrenceUtils.insertDataInBoolean(this, Constants.CHECKFORPAYROLL, false)
+                            PrefrenceUtils.insertDataInBoolean(
+                                this,
+                                Constants.CHECKFORPAYROLL,
+                                false
+                            )
                             PrefrenceUtils.insertData(this, Constants.REDIRECTION_URL, redirectURL)
                             startActivity(
                                 Intent(
@@ -517,16 +643,21 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
                                     HomeActivity::class.java
                                 ).putExtra("link", intent.getStringExtra(Constants.LINK))
                             )
-                            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom)
+                            overridePendingTransition(
+                                R.anim.slide_out_bottom,
+                                R.anim.slide_in_bottom
+                            )
                             finishAffinity()
                         }
                     }
                     binding.loginButton.isEnabled = false
                     binding.loginButton.isClickable = false
                 } else {
+                    hideLoginBtnLoader()
                     Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener {
+                hideLoginBtnLoader()
                 Toast.makeText(this, "" + it.message, Toast.LENGTH_SHORT).show()
             }
     }
@@ -552,7 +683,7 @@ class EnterOtpActivity : BaseActivity(), SmsReceiver.OTPReceiveListener {
     private fun setInstrumentationNewLeadInit() {
         val properties = Properties()
         val attribute = HashMap<String, Any>()
-        captureAllEvents(this@EnterOtpActivity,"application_initiated",attribute,properties)
+        captureAllEvents(this@EnterOtpActivity, "application_initiated", attribute, properties)
     }
 
     override fun onDestroy() {

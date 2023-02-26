@@ -14,30 +14,26 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import android.provider.Settings
-import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
-import android.provider.SyncStateContract.Helpers.update
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import com.facebook.react.ReactInstanceManager
-import com.facebook.react.ReactNativeHost
+import androidx.navigation.*
+import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.snackbar.Snackbar
@@ -55,13 +51,15 @@ import com.moe.pushlibrary.MoEHelper
 import com.moengage.core.Properties
 import com.vahan.mitra_playstore.BuildConfig
 import com.vahan.mitra_playstore.R
+import com.vahan.mitra_playstore.activityViewModel.ActivityViewModel
 import com.vahan.mitra_playstore.databinding.ActivityMainBinding
 import com.vahan.mitra_playstore.models.*
 import com.vahan.mitra_playstore.services.LocationService
 import com.vahan.mitra_playstore.utils.Constants
 import com.vahan.mitra_playstore.utils.PrefrenceUtils
 import com.vahan.mitra_playstore.utils.captureAllEvents
-import com.vahan.mitra_playstore.view.activities.enternumberactivity.view.ui.EnterNumberActivity
+import com.vahan.mitra_playstore.utils.redirectionBasedOnAction
+import com.vahan.mitra_playstore.view.earn.model.NudgesModel
 import com.vahan.mitra_playstore.workmanager.WorkerScheduler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -69,47 +67,43 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+/** Updated By Prakhar
+ *  Date : 1 Dec 2022
+ *  We added a nudge Info as a common source for all fragments
+ *  Communicate using an Activity Viewmodel
+ */
+
+
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
-    // var coachmarkListener: CoachmarkListener? = null
+    private lateinit var graph: NavGraph
+    lateinit var chat: ImageView
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private var gettingTextFromNotification: GettingTextFromNotification? = null
     private var db: FirebaseFirestore? = null
     private val MyContactRequestCode = 1
     private var navController: NavController? = null
-    private var isSms = false
-    private var isReadContact = false
-    private var DAYS_FOR_FLEXIBLE_UPDATE = 7
-
+    private val activityViewModel: ActivityViewModel by viewModels()
     private var closePopup = false
     private var isReadContactAvail = false
     private var isInstalledAppAvail = false
     val handler = Handler(Looper.getMainLooper())
-    private var installedApp = LinkedHashMap<String, String>()
-    private val smsInfo: LinkedHashMap<String, HashMap<String, String>> = LinkedHashMap()
-    private val listOfNotification: MutableList<LocalInfoMessNotiModel> = ArrayList()
     private val listOfAppInstall: MutableList<LocalInfoAppInstallModel> = ArrayList()
     private val listOfAllContacts: MutableList<LocalInfoContactsModel> = ArrayList()
     private val listOfAllSMS: MutableList<LocaInfoSMSModel> = ArrayList()
-    private var readContacts = LinkedHashMap<String, String>()
-    private val dataSMS: LinkedHashMap<String, HashMap<String, HashMap<String, String>>> =
-        LinkedHashMap()
-    private val dataNotification: HashMap<String, List<LocalInfoMessNotiModel>> =
-        HashMap()
-    private val dataSmsCollection: HashMap<String, List<LocaInfoSMSModel>> =
-        HashMap()
-    private val dataAppInstallColletion: HashMap<String, List<LocalInfoAppInstallModel>> =
-        HashMap()
-    private val dataAllContactsColletion: HashMap<String, List<LocalInfoContactsModel>> =
-        HashMap()
+    private val dataSmsCollection: HashMap<String, List<LocaInfoSMSModel>> = HashMap()
+    private val dataAppInstallColletion: HashMap<String, List<LocalInfoAppInstallModel>> = HashMap()
+    private val dataAllContactsColletion: HashMap<String, List<LocalInfoContactsModel>> = HashMap()
     var isBackFromUpload = false
-    var isActivityCoachMarkShown = false
     private var broadcastReceiver: BroadcastReceiver? = null
     private lateinit var updateAvailableConditionsModel: UpdateAvailableConditions
     private var fa: FirebaseAnalytics? = null
     private var forceCheck: Int = 1
     private var checkSmsCount = 2000
+    private var nudgeResp: NudgesModel? = null
+    private var webModelChrome: ChromeModel? = null
 
     @JvmField
     var loanStatusCheck = ""
@@ -132,24 +126,33 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-//        Thread.setDefaultUncaughtExceptionHandler(
-//            ExceptionHandlingActivity(
-//                this@MainActivity,
-//                this
-//            )
-//        )
-        //  coachmarkListener = context as CoachmarkListener
+        initView()
+    }
 
+    private fun initView() {
         fa = FirebaseAnalytics.getInstance(this)
         if (intent.getBooleanExtra(Constants.CRASH, false)) {
         }
-        navController = Navigation.findNavController(this, R.id.nav_fragment_container)
+        Log.d("HA PN", "initView MAIV: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
         db = FirebaseFirestore.getInstance()
+        setDefaultNavGraphProgmatically()
         gettingTextFromNotification()
         openFragmentAccordingToNotification()
         checkForRemoteConfigPermission()
         getDataForUpdate()
+        apiNudges()
         clickListener()
+        getLocationService()
+    }
+
+    private fun setDefaultNavGraphProgmatically() {
+        val navHost = supportFragmentManager.findFragmentById(R.id.nav_fragment_container) as NavHostFragment?
+        navController = navHost!!.navController
+        val navInflater = navController!!.navInflater
+        graph = navInflater.inflate(R.navigation.mobile_navigation)
+    }
+
+    private fun getLocationService() {
         val permissionLocation =
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
@@ -158,14 +161,20 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         }
     }
 
+    private fun apiNudges() {
+        activityViewModel.nudgeModel.observe(this) {
+            nudgeResp = it
+            setData()
+        }
+    }
+
+
     private fun checkSession(updateAvailableConditionsModel: UpdateAvailableConditions) {
         if (PrefrenceUtils.retriveDataInBoolean(this, Constants.CHECKFORFIRSTTIME)) {
             Constants.checkSessionSoftUpdate = false
-
         } else {
             checkForAutoUpdate(updateAvailableConditionsModel)
         }
-
     }
 
     private fun checkForAutoUpdate(dataModel: UpdateAvailableConditions) {
@@ -193,75 +202,57 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         ctDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         ctDialog.setContentView(R.layout.force_update_layout)
         ctDialog.findViewById<View>(R.id.btn_download).setOnClickListener {
-            appUpdateManager
-                .appUpdateInfo
-                .addOnSuccessListener { appUpdateInfo ->
-                    // If the update is downloaded but not installed,
-                    // notify the user to complete the update.
-                    if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                        popupSnackbarForCompleteUpdate()
-                    }
-
-                    //Check if Immediate update is required
-                    try {
-                        if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                            // If an in-app update is already running, resume the update.
-                            appUpdateManager.startUpdateFlowForResult(
-                                appUpdateInfo,
-                                AppUpdateType.IMMEDIATE,
-                                this,
-                                APP_UPDATE_REQUEST_CODE
-                            )
-                        } else {
-                            Toast.makeText(
-                                this, getString(R.string.failure)
-                                        + it, Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    } catch (e: IntentSender.SendIntentException) {
-                        e.printStackTrace()
-                    }
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this, getString(R.string.failure)
-                                + it, Toast.LENGTH_LONG
-                    ).show()
-                }
+            updatePopUp()
         }
         ctDialog.setCanceledOnTouchOutside(cancellable)
         ctDialog.setCancelable(cancellable)
         ctDialog.show()
     }
 
+    private fun updatePopUp() {
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                // If the update is downloaded but not installed,
+                // notify the user to complete the update.
+                if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                    popupSnackbarForCompleteUpdate()
+                }
+                //Check if Immediate update is required
+                try {
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                        // If an in-app update is already running, resume the update.
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo, AppUpdateType.IMMEDIATE,
+                            this, APP_UPDATE_REQUEST_CODE
+                        )
+                    } else {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.failure) + appUpdateInfo,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } catch (e: IntentSender.SendIntentException) {
+                    e.printStackTrace()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(
+                    this, getString(R.string.failure)
+                            + it, Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
     private fun getDataForUpdate() {
-        updateAvailableConditionsModel = Gson()
-            .fromJson(
-                PrefrenceUtils.retriveData(
-                    this,
-                    Constants.UPDATE_CONDITIONS_REMOTE_CONFIG
-                ),
-                UpdateAvailableConditions::class.java
-            )
+        updateAvailableConditionsModel = Gson().fromJson(
+            PrefrenceUtils.retriveData(
+                this, Constants.UPDATE_CONDITIONS_REMOTE_CONFIG
+            ),
+            UpdateAvailableConditions::class.java
+        )
         forceCheck = updateAvailableConditionsModel.forceUpdate!!
         checkSession(updateAvailableConditionsModel)
-
-        // logout user after app update
-        if (!PrefrenceUtils.retriveDataInBooleanIsUpdate(
-                this,
-                Constants.CHECKFORVERSIONUPDATE
-            )
-        ) {
-            if (isFirstInstall(this)) {
-            } else {
-                startActivity(Intent(this, EnterNumberActivity::class.java))
-                finishAffinity()
-                PrefrenceUtils.insertDataInBooleanIsUpdate(
-                    this,
-                    Constants.CHECKFORVERSIONUPDATE,
-                    true
-                )
-            }
-        }
     }
 
     fun startCoachMarks() {
@@ -318,11 +309,7 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                 override fun onSequenceFinish() {
                     //      PrefrenceUtils.insertDataInBoolean(context, Constants.ACTIVITY_COACHMARKS, true)
                     //     coachmarkListener?.coachmarkCallback()
-                    PrefrenceUtils.insertDataInBoolean(
-                        context,
-                        Constants.CHECKFORFIRSTTIME,
-                        false
-                    )
+                    PrefrenceUtils.insertDataInBoolean(context, Constants.CHECKFORFIRSTTIME, false)
 
                 }
 
@@ -365,56 +352,108 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
     }
 
     private fun clickListener() {
+        binding.rlPlaceHolderDocument.setOnClickListener {
+            // Navigation Using From the Nudge
+            setLogicForNudgeBanner()
+
+        }
+
+
         binding.bottomHomeContainer.setOnClickListener {
+            //  binding.bacButtonContainer.visibility = View.VISIBLE
             setFragment(
                 Constants.HOME_FRAGMENT, 0
             )
         }
         binding.bottomEarningsIcon.setOnClickListener {
+            //  binding.bacButtonContainer.visibility = View.GONE
             val properties = Properties()
             val attribute = HashMap<String, Any>()
             captureAllEvents(this, Constants.WEEKLY_PAGE_PAYOUT_CLICKED, attribute, properties)
-            setFragment(
-                Constants.WEEKLY_EARNINGS_FRAGMENT, 1
-            )
+            setFragment(Constants.WEEKLY_EARNINGS_FRAGMENT, 1)
         }
         binding.earningsBottomIcon.setOnClickListener {
-            setFragment(
-                Constants.WEEKLY_EARNINGS_FRAGMENT, 1
-            )
+            //   binding.bacButtonContainer.visibility = View.GONE
+            setFragment(Constants.WEEKLY_EARNINGS_FRAGMENT, 1)
         }
 
     }
 
+    private fun setLogicForNudgeBanner() {
+        binding.rlPlaceHolderDocument.isClickable = false
+        val attribute = HashMap<String, Any>()
+        val properties = com.moengage.core.Properties()
+        properties.addAttribute("cta_link", nudgeResp?.nudgeDetails?.ctaLink!!)
+        attribute["cta_link"] = nudgeResp?.nudgeDetails?.ctaLink!!
+        captureAllEvents(
+            this,
+            "nudge1_cta_clicked",
+            attribute,
+            properties
+        )
+        this.redirectionBasedOnAction(
+            nudgeResp?.nudgeDetails?.ctaLink?:"",
+            this,
+            null,
+            navController!!,
+            "FRAGMENTS",
+            graph
+        )
+    }
+
+
     private fun openFragmentAccordingToNotification() {
         if (intent.hasExtra(Constants.TYPE)) {
-            openingFragmentAccordingTwoType(intent.getStringExtra(Constants.TYPE))
-        } else if (intent.hasExtra("Navigation")) {
+            if(intent.getStringExtra(Constants.TYPE)!="") {
+                Log.d("HA PN", "initView MAOFATN1: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+                openingFragmentAccordingTwoType(intent.getStringExtra(Constants.TYPE), "")
+            }else{
+                Log.d("HA PN", "initView MAOFATN2: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+                checkRedirectionForNonPayroll()
+            }
+        }else{
+            Log.d("HA PN", "initView MAOFATN2ELSE1: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+            PrefrenceUtils.insertData(this@MainActivity, Constants.CLICKED_ACTION, "")
+            PrefrenceUtils.insertData(this@MainActivity, Constants.REFERRAL_NUMBERS, "")
+            Log.d("HA PN", "initView MAOFATN2ELSE2: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+            checkRedirectionForNonPayroll()
+        }
+    }
+
+    private fun checkRedirectionForNonPayroll() {
+        Log.d("HA PN", "initView MACRFNP: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+        if (intent.hasExtra("Navigation")) {
+            graph.startDestination = R.id.nav_home_fragment
+            navController!!.graph = graph
             binding.tvHomeBottom.setTextColor(getColor(R.color.text_heading))
             binding.homeBottomIcon.setBackgroundResource(R.drawable.ic_home_highlight)
             binding.vIconHome.visibility = View.VISIBLE
             binding.bottomHomeContainer.isEnabled = false
             binding.bottomEarningsIcon.isEnabled = true
-//            binding.bottomNavigation.visibility = View.GONE
-            val navString = intent.getStringExtra("Navigation")
-            if (intent.getStringExtra("Navigation") == Constants.UPLOAD) {
+            binding.bottomNavigation.visibility = View.GONE
+            if (intent.getStringExtra("Navigation") == Constants.UPLOAD || intent.getStringExtra("Navigation") == Constants.UPLOAD_JOB_SEEKER) {
                 val bundle = Bundle()
-                bundle.putString("nav", "Navigation")
+                if (intent.getStringExtra("Navigation") == Constants.UPLOAD)
+                    bundle.putString("nav", "Navigation")
+                else
+                    bundle.putString("nav", "is_job_seeker")
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
-                navController!!.navigate(R.id.nav_upload_fragment, bundle, navBuilder.build())
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
+//                navController!!.navigate(R.id.nav_upload_fragment, bundle, navBuilder.build())
+
+                Log.d("HA PN", "initView MA: ${PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)}")
+                navController!!.navigate(R.id.nav_fragment_jobsmarketplace_upload, bundle, navBuilder.build())
+                //               navController!!.navigate(R.id.nav_referral_home_fragment, bundle, navBuilder.build())
+                // testing purpose
             } else if (intent.getStringExtra("Navigation") == Constants.VERIFYBANK) {
                 val bundle = Bundle()
                 bundle.putString("nav", "Navigation")
+                // flow for only non-payroll users
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
-                navController!!.navigate(R.id.nav_fragment_add, bundle, navBuilder.build())
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
+                navController!!.navigate(R.id.nav_fragment_add_bank, bundle, navBuilder.build())
             } else if (intent.getStringExtra("Navigation") == Constants.PROFILE_PIC || intent.getStringExtra(
                     "Navigation"
                 ) == Constants.BANK_DOC_UPLOAD
@@ -426,18 +465,23 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                 else
                     bundle.putString("type", Constants.BANK_DOC_UPLOAD)
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
-                binding.bottomNavigation.visibility = View.GONE
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
                 navController!!.navigate(
-                    R.id.nav_fragment_generic_image_mode,
+                    R.id.nav_fragment_image_profile_upload,
                     bundle,
                     navBuilder.build()
                 )
+            } else if (intent.getStringExtra("Navigation") == Constants.REFERRAL_NON_PAYROLL){
+                val bundle = Bundle()
+                bundle.putString("nav", "Navigation")
+                val navBuilder = NavOptions.Builder()
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
+                navController!!.navigate(R.id.nav_referral_home_fragment,bundle, navBuilder.build())
             }
-        } else {
+        }
+        else {
             defaultFragmentOpen()
         }
     }
@@ -450,14 +494,17 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
     }
 
     private fun defaultFragmentOpen() {
+        graph.startDestination = R.id.nav_home_fragment
+        navController!!.graph = graph
         navController!!.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
-            Log.d("test", destination.id.toString() + " " + R.id.nav_upload_fragment)
             when (destination.id) {
                 R.id.nav_home_fragment -> {
+                    //   binding.bacButtonContainer.visibility = View.VISIBLE
                     binding.bottomNavigation.visibility = View.VISIBLE
                     defaultIconLoads()
                 }
                 R.id.nav_upload_fragment -> {
+                    //  binding.bacButtonContainer.visibility = View.GONE
                     bottomNavSelect(0)
                     if (R.id.nav_fragment_payment_sucessful == destination.id) {
                         binding.bottomNavigation.visibility = View.GONE
@@ -472,14 +519,16 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                         binding.bottomNavigation.visibility = View.VISIBLE
                     }
                 }
-                R.id.nav_fragment_add -> {
+                R.id.nav_fragment_add_bank -> {
+                    //    binding.bacButtonContainer.visibility = View.GONE
                     bottomNavSelect(0)
-                    if (R.id.nav_fragment_add == destination.id) {
+                    if (R.id.nav_fragment_add_bank == destination.id) {
                         if (intent.hasExtra("Navigation"))
                             binding.bottomNavigation.visibility = View.GONE
                     }
                 }
                 R.id.nav_fragment_addBank_view -> {
+                    //    binding.bacButtonContainer.visibility = View.GONE
                     bottomNavSelect(0)
                     if (R.id.nav_fragment_addBank_view == destination.id) {
                         if (intent.hasExtra("Navigation"))
@@ -487,15 +536,16 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                     }
                 }
 
-                R.id.nav_fragment_generic_image_mode -> {
+                R.id.nav_fragment_image_profile_upload -> {
+                    //    binding.bacButtonContainer.visibility = View.GONE
                     bottomNavSelect(0)
-                    if (R.id.nav_fragment_generic_image_mode == destination.id) {
+                    if (R.id.nav_fragment_image_profile_upload == destination.id) {
                         if (intent.hasExtra("Navigation"))
                             binding.bottomNavigation.visibility = View.GONE
                     }
                 }
-
                 else -> {
+                    //    binding.bacButtonContainer.visibility = View.GONE
                     when (destination.id) {
                         R.id.weekly_earnings_fragment -> {
                             bottomNavSelect(1)
@@ -521,7 +571,7 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                         R.id.nav_fragment_addBank_view -> {
                             bottomNavSelect(0)
                         }
-                        R.id.nav_fragment_add -> {
+                        R.id.nav_fragment_add_bank -> {
                             bottomNavSelect(0)
                         }
                         R.id.nav_loan_application_fragment -> {
@@ -552,7 +602,7 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                         bottomNavSelect(0)
                         if (intent.hasExtra("Navigation"))
                             binding.bottomNavigation.visibility = View.GONE
-                    } else if (R.id.nav_fragment_add == destination.id) {
+                    } else if (R.id.nav_fragment_add_bank == destination.id) {
                         bottomNavSelect(0)
                         if (intent.hasExtra("Navigation"))
                             binding.bottomNavigation.visibility = View.GONE
@@ -633,10 +683,16 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
     }
 
     override fun onBackPressed() {
-        when (val destination = navController!!.currentDestination!!.id) {
-            R.id.nav_home_fragment -> {}
-            R.id.nav_upload_fragment -> if (isBackFromUpload) {
-                isBackFromUpload = false
+        when (navController!!.currentDestination!!.id) {
+            R.id.nav_fragment_jobsmarketplace_upload -> {
+                startActivity(
+                    Intent(
+                        this,
+                        HomeActivity::class.java
+                    ).putExtra("link", Constants.REDIRECTION_URL)
+                )
+            }
+            R.id.nav_upload_fragment, R.id.nav_fragment_image_profile_upload,R.id.nav_referral_home_fragment -> {
                 if (intent.hasExtra("Navigation")) {
                     startActivity(
                         Intent(
@@ -645,43 +701,46 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                         ).putExtra("link", Constants.REDIRECTION_URL)
                     )
                 } else {
-                    androidx.appcompat.app.AlertDialog.Builder(this)
-                        .setTitle(R.string.reminder_string)
-                        .setMessage(R.string.reminder_substring)
-                        .setPositiveButton(R.string.ok) { _: DialogInterface?, _: Int ->
-                            Constants.checkRefreshAccount = true
-                            super@MainActivity.onBackPressed()
-                        }.setCancelable(false).show()
+                    navController!!.navigate(R.id.nav_home_fragment)
                 }
-            } else if (intent.hasExtra("Navigation")) {
+            }
+            R.id.nav_fragment_add_bank -> {
+                if (isBackFromUpload) {
+                    isBackFromUpload = false
+                    if (intent.hasExtra("Navigation")) {
+                        startActivity(
+                            Intent(
+                                this,
+                                HomeActivity::class.java
+                            ).putExtra("link", Constants.REDIRECTION_URL)
+                        )
+                    } else {
+                        androidx.appcompat.app.AlertDialog.Builder(this)
+                            .setTitle(R.string.reminder_string)
+                            .setMessage(R.string.reminder_substring)
+                            .setPositiveButton(R.string.ok) { _: DialogInterface?, _: Int ->
+                                Constants.checkRefreshAccount = true
+                                navController!!.navigate(R.id.nav_home_fragment)
+                            }.setCancelable(false).show()
+                    }
+                }
+            }
+            R.id.nav_fragment_rate_card_zepto -> {
                 startActivity(
                     Intent(
                         this,
-                        HomeActivity::class.java
+                        MainActivity::class.java
                     ).putExtra("link", Constants.REDIRECTION_URL)
                 )
-            } else {
-                super@MainActivity.onBackPressed()
             }
             else -> {
-                when (destination) {
-                    R.id.nav_profile_fragment -> {
-                        bottomNavSelect(0)
-                    }
-                    R.id.nav_borrow_fragment -> {
-                        bottomNavSelect(0)
-                    }
-                    R.id.nav_insurance_fragment -> {
-                        bottomNavSelect(0)
-                    }
-                    R.id.nav_referral_home_fragment -> {
-                        bottomNavSelect(0)
-                    }
-                    else -> {
-                        bottomNavSelect(0)
-                    }
-                }
-                navController!!.popBackStack()
+                bottomNavSelect(0)
+                if (!PrefrenceUtils.retriveData(this@MainActivity, Constants.CLICKED_ACTION)
+                        .equals("")
+                ) {
+                    navController!!.navigate(R.id.nav_home_fragment)
+                } else
+                    navController!!.popBackStack()
             }
         }
     }
@@ -703,21 +762,18 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         }
     }
 
-    private fun openingFragmentAccordingTwoType(type: String?) {
-        when {
-            type.equals(Constants.HOME, ignoreCase = true) -> {
-                setFragment(Constants.HOME_FRAGMENT, 0)
-            }
-            type.equals(Constants.BORROW, ignoreCase = true) -> {
-                setFragment(Constants.LOAN_BORROW_FRAGMENT, 1)
-            }
-            type.equals(Constants.LANDINGURL_REFERRAL, ignoreCase = true) -> {
-                setFragment(Constants.REFERRAL_HOME, 5)
-            }
-            else -> {
-                defaultFragmentOpen()
-            }
-        }
+    private fun openingFragmentAccordingTwoType(type: String?, action: String?) {
+        PrefrenceUtils.insertData(this@MainActivity, Constants.CLICKED_ACTION, "")
+        PrefrenceUtils.insertData(this@MainActivity, Constants.REFERRAL_NUMBERS, "")
+        bottomNavSelect(0)
+        this.redirectionBasedOnAction(
+            type?:"",
+            this@MainActivity,
+            null,
+            navController,
+            "NOTIFICATION",
+            graph
+        )
     }
 
     fun setFragment(selectedFragment: String, position: Int) {
@@ -737,10 +793,8 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                 binding.bottomEarningsIcon.isEnabled = true
                 binding.bottomNavigation.visibility = View.VISIBLE
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
                 navController!!.navigate(R.id.nav_home_fragment, null, navBuilder.build())
             }
             1 -> {
@@ -754,15 +808,9 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                 binding.vIconHome.visibility = View.GONE
                 binding.bottomNavigation.visibility = View.VISIBLE
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
-                navController!!.navigate(
-                    R.id.weekly_earnings_fragment,
-                    null,
-                    navBuilder.build()
-                )
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
+                navController!!.navigate(R.id.weekly_earnings_fragment, null, navBuilder.build())
             }
             5 -> {
                 binding.tvEarningsBottom.setTextColor(getColor(R.color.text_heading))
@@ -775,15 +823,9 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                 binding.vIconHome.visibility = View.GONE
                 binding.bottomNavigation.visibility = View.VISIBLE
                 val navBuilder = NavOptions.Builder()
-                navBuilder.setEnterAnim(R.anim.enter_animation)
-                    .setExitAnim(R.anim.exit_animation)
-                    .setPopEnterAnim(R.anim.enter_animation)
-                    .setPopExitAnim(R.anim.exit_animation)
-                navController!!.navigate(
-                    R.id.nav_referral_home_fragment,
-                    null,
-                    navBuilder.build()
-                )
+                navBuilder.setEnterAnim(R.anim.enter_animation).setExitAnim(R.anim.exit_animation)
+                    .setPopEnterAnim(R.anim.enter_animation).setPopExitAnim(R.anim.exit_animation)
+                navController!!.navigate(R.id.nav_referral_home_fragment, null, navBuilder.build())
             }
         }
     }
@@ -989,7 +1031,7 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
                         // Event Fired...
                         val properties = Properties()
                         properties.addAttribute(
-                            Constants.MOBILE_NUMBER2,
+                            Constants.MOBILE_NUMBER_plus91,
                             PrefrenceUtils.retriveData(this, Constants.PHONENUMBER)
                         )
                         MoEHelper.getInstance(this)
@@ -1154,7 +1196,6 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
         }
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
@@ -1200,6 +1241,55 @@ class MainActivity : BaseActivity(), CoroutineScope by MainScope() {
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
         return simpleDateFormat.format(Date(currentTimeMillis))
+    }
+
+    // Fetch Data and update into MainActivity
+    private fun setData() {
+        if (nudgeResp?.nudgeDetails?.text != null) {
+            binding.rlPlaceHolderDocument.visibility = View.VISIBLE
+            Glide
+                .with(this@MainActivity)
+                .load(nudgeResp?.nudgeDetails?.icon)
+                .placeholder(R.drawable.ic_app_icon)
+                .into(binding.nudgeIcon)
+
+            binding.documentPendingText.text = nudgeResp?.nudgeDetails?.text
+
+            binding.documentPendingText.setTextColor(Color.parseColor(nudgeResp!!.nudgeDetails!!.textColor!!))
+            binding.documentNavigationText.setTextColor(
+                Color.parseColor(
+                    nudgeResp!!.nudgeDetails!!.ctaTextColor ?: "#FFFFF"
+                )
+            )
+            binding.rlPlaceHolderDocument.setBackgroundColor(Color.parseColor(nudgeResp!!.nudgeDetails!!.bgColor!!))
+            binding.documentNavigationText.text = nudgeResp?.nudgeDetails?.ctaText
+            binding.ivArrow.setColorFilter(
+                Color.parseColor(
+                    nudgeResp!!.nudgeDetails!!.ctaTextColor ?: "#FFFFF"
+                )
+            )
+            // add a notEmpty Check
+            if (nudgeResp?.nudgeDetails?.ctaLink != null
+                && nudgeResp?.nudgeDetails?.ctaLink!!.isNotEmpty()
+            ) {
+                binding.ivArrow.visibility = View.VISIBLE
+            } else {
+                binding.ivArrow.visibility = View.GONE
+            }
+        } else {
+            binding.rlPlaceHolderDocument.visibility = View.GONE
+        }
+    }
+
+    fun isEnabledContainer(visible: Boolean) {
+        binding.rlPlaceHolderDocument.isClickable = visible
+    }
+
+    fun checkIsEnable(): Boolean {
+        if (binding.rlPlaceHolderDocument.isClickable) {
+            return true
+        }
+        return false
     }
 }
 

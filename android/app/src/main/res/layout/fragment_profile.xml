@@ -220,10 +220,10 @@
 
                     <ImageView
                         android:id="@+id/iv_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="29dp"
+                        android:layout_height="29dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_transc_29" />
+                        android:src="@drawable/ic_transaction_his" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -259,11 +259,11 @@
 
                     <ImageView
                         android:id="@+id/iv_payslip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="29dp"
+                        android:layout_height="29dp"
                         android:layout_gravity="center"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_payslip" />
+                        android:src="@drawable/ic_payout" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -306,10 +306,10 @@
 
                         <ImageView
                             android:id="@+id/iv_referral"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_referral" />
+                            android:src="@drawable/ic_refer" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -357,7 +357,7 @@
                             android:layout_width="29dp"
                             android:layout_height="29dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_upload_slots" />
+                            android:src="@drawable/ic_upcoming_calander" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -382,104 +382,6 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/very_light_grey" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/loan_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/ripple_effect"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/iv_loan"
-                            android:layout_width="19dp"
-                            android:layout_height="19dp"
-                            android:scaleType="centerCrop"
-                            android:layout_marginEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_loan_light" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-
-                            android:text="@string/loan_tv_v2"
-                            android:textColor="@color/black_v2"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|end"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_forward_v2" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/very_light_grey" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/insurance_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/ripple_effect"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/iv_insurance"
-                            android:layout_width="19dp"
-                            android:layout_height="19dp"
-                            android:layout_marginEnd="@dimen/dimen_10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_insurance_light_v2" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-
-                            android:text="@string/insurance_tv_v2"
-                            android:textColor="@color/black_v2"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|end"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_forward_v2" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
                         android:layout_marginTop="15dp"
                         android:background="@color/very_light_grey" />
                 </LinearLayout>
@@ -535,61 +437,61 @@
                     android:background="@color/light_color_heading"
                     android:visibility="gone" />
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/iv_container_language"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="24dp"-->
-<!--                    android:background="@drawable/ripple_effect"-->
-<!--                    android:clickable="true"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:visibility="visible"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/personal_detail_tv">-->
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/iv_container_language"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="24dp"-->
+                <!--                    android:background="@drawable/ripple_effect"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:gravity="center_vertical"-->
+                <!--                    android:visibility="visible"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/personal_detail_tv">-->
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/iv_language"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:src="@drawable/ic_langauge" />-->
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/iv_language"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:src="@drawable/ic_langauge" />-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/tvlanguage"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:ellipsize="end"-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tvlanguage"-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:layout_marginStart="10dp"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:ellipsize="end"-->
 
-<!--                        android:maxLines="1"-->
-<!--                        android:text="@string/language"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="14sp" />-->
+                <!--                        android:maxLines="1"-->
+                <!--                        android:text="@string/language"-->
+                <!--                        android:textColor="@color/black"-->
+                <!--                        android:textSize="14sp" />-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/language_selected"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:drawablePadding="4dp"-->
-<!--                        android:text="@string/language_selection"-->
-<!--                        android:textColor="@color/default_200"-->
-<!--                        android:textSize="10sp"-->
-<!--                        android:visibility="gone" />-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/language_selected"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="8dp"-->
+                <!--                        android:layout_marginEnd="8dp"-->
+                <!--                        android:drawablePadding="4dp"-->
+                <!--                        android:text="@string/language_selection"-->
+                <!--                        android:textColor="@color/default_200"-->
+                <!--                        android:textSize="10sp"-->
+                <!--                        android:visibility="gone" />-->
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imgArrowIconLang"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:src="@drawable/ic_forward_v2" />-->
-<!--                </LinearLayout>-->
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/imgArrowIconLang"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:src="@drawable/ic_forward_v2" />-->
+                <!--                </LinearLayout>-->
 
-<!--                <View-->
-<!--                    android:id="@+id/view4lang"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:background="@color/very_light_grey" />-->
+                <!--                <View-->
+                <!--                    android:id="@+id/view4lang"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:background="@color/very_light_grey" />-->
 
 
                 <LinearLayout
@@ -628,24 +530,12 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:drawablePadding="4dp"
+                        android:text="@string/document_missing"
                         android:textColor="@color/default_200"
                         android:textSize="10sp"
                         android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_alert_12" />
 
-                    <TextView
-                        android:id="@+id/tv_document_left_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="@dimen/dimen_8dp"
-                        android:layout_toStartOf="@+id/imgArrowIcon"
-                        android:fontFamily="@font/opensansregular"
-                        android:text="1 Missing!"
-                        android:visibility="gone"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/dimen_10dp"
-                        android:textColor="@color/light_pink" />
 
 
 
@@ -697,9 +587,9 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:drawablePadding="4dp"
+                        android:text="@string/bank_details_missing2"
                         android:textColor="@color/default_200"
                         android:textSize="10sp"
-                        android:text="@string/bank_details_missing2"
                         android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_alert_12" />
 
@@ -745,7 +635,7 @@
                     android:layout_marginTop="@dimen/dimen_20dp"
                     android:textColor="@color/grey_text"
                     android:textSize="@dimen/dimen_16sp"
-                    tools:text="APP VERSION"/>
+                    tools:text="APP VERSION" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

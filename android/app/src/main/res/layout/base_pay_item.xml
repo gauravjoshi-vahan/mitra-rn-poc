@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16dp"
+        android:background="@drawable/basepay_bg">
+
+        <TextView
+            android:id="@+id/tv_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Base Pay"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_14sp" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$25"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/black_v2"
+            android:textSize="@dimen/font_14sp" />
+
+        <TextView
+            android:id="@+id/tv_per_order"
+            android:layout_below="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="per order"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensanssemibold"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/font_10sp" />
+
+        <TextView
+            android:id="@+id/tv_each_order"
+            android:layout_below="@+id/tv_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="for each order pay"
+            android:fontFamily="@font/opensansbold"
+            android:textColor="@color/grey2"
+            android:textSize="@dimen/font_10sp" />
+
+        <View
+            android:id="@+id/v_below_line"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_below="@+id/tv_each_order"
+            android:layout_height="@dimen/dimen_1dp"
+            android:background="@color/base_pay_FDDBCD" />
+
+        <TextView
+            android:id="@+id/tv_credited_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_below_line"
+            android:textSize="@dimen/font_8sp"
+            android:textColor="@color/grey14"
+            android:fontFamily="@font/opensansbold"
+            android:layout_marginTop="@dimen/dimen_6dp"
+            tools:text="Credited on Daily Business" />
+
+
+    </RelativeLayout>
+</layout>

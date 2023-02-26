@@ -1,4 +1,4 @@
-package com.vahan.mitra_playstore.model
+package com.vahan.mitra_playstore.models
 
 
 import com.google.gson.annotations.SerializedName
@@ -19,7 +19,9 @@ data class CashOutModel(
         @SerializedName("msg")
         val msg: String,
         @SerializedName("hi_msg")
-        val hiMsg: String
+        val hiMsg: String,
+        @SerializedName("te_msg")
+        val teMsg: String
     )
 
     data class EC(
@@ -28,7 +30,9 @@ data class CashOutModel(
         @SerializedName("msg")
         val msg: String,
         @SerializedName("hi_msg")
-        val hiMsg: String
+        val hiMsg: String,
+        @SerializedName("te_msg")
+        val teMsg: String
     )
 
     data class EW(
@@ -37,7 +41,9 @@ data class CashOutModel(
         @SerializedName("msg")
         val msg: String,
         @SerializedName("hi_msg")
-        val hiMsg: String
+        val hiMsg: String,
+        @SerializedName("te_msg")
+        val teMsg: String
     )
 
     data class NE(
@@ -46,6 +52,8 @@ data class CashOutModel(
         @SerializedName("msg")
         val msg: String,
         @SerializedName("hi_msg")
-        val hiMsg: String
+        val hiMsg: String,
+        @SerializedName("te_msg")
+        val teMsg: String
     )
 }

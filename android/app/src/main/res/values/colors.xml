@@ -3,6 +3,7 @@
 
 
     <color name="default_200">#D34714</color>
+    <color name="default_seekbar">#D34B18</color>
     <color name="purple_200_fade">#80D34714</color>
     <color name="gold_200_fade">#99C69A00</color>
     <color name="gold_200">#C69A00</color>
@@ -28,6 +29,24 @@
     <color name="pink">#F9DCDC</color>
     <color name="faded_grey">#A5A2F2</color>
     <color name="grey5">#EBEBEB</color>
+    <color name="grey6">#DDD3CA</color>
+    <color name="light_green_F2FFF8">#F2FFF8</color>
+    <color name="base_pay_FDDBCD">#FDDBCD</color>
+    <color name="base_pay_FFF1EB">#FFF1EB</color>
+
+    <color name="grey7">#919191</color>
+    <color name="grey8">#E0E0E0</color>
+    <color name="grey9">#F3F3F3</color>
+    <color name="grey10">#807E7E</color>
+    <color name="grey11">#676767</color>
+    <color name="grey12">#6A6A6A</color>
+    <color name="grey13">#E2E2E2</color>
+    <color name="grey14">#8D8D8D</color>
+    <color name="grey979797">#979797</color>
+    <color name="greyD6D6D6">#D6D6D6</color>
+    <color name="grey333333">#333333</color>
+    <color name="light_pink2">#FFF7F4</color>
+    <color name="light_pink3">#FFE8E1</color>
 
     <color name="black_default">#000000</color>
     <color name="in_force_color">#69B50D</color>
@@ -46,13 +65,17 @@
     <color name="black_color">#8c8c8c</color>
     <color name="card_color">#EFF1F4</color>
     <color name="image_background">#1D5AE0</color>
+    <color name="blue047E87">#047E87</color>
+    <color name="blueEEFBFC">#EEFBFC</color>
     <color name="black_heading_text">#292929</color>
+    <color name="grey565656">#565656</color>
     <color name="disable_text">#ADADAD</color>
     <color name="ic_update_color">#D347141A</color>
     <color name="grey_text">#B7B7B7</color>
     <color name="light_grey">#E6E6E6</color>
     <color name="grey3">#666666</color>
     <color name="grey4">#CCCCCC</color>
+    <color name="grey8F8F8F">#8F8F8F</color>
     <color name="very_light_grey">#DDDDDD</color>
     <color name="light_yellow">#EFE6C7</color>
     <color name="light_blue">#BED8FF</color>

@@ -36,9 +36,12 @@ class HelpAndSupportFragment : Fragment() {
         if(PrefrenceUtils.retriveLangData(activity,Constants.LANGUAGE).equals("en")){
             binding.callUsOnTv.text = "Call us on " + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG) + " any time between 10 AM - 6 PM, Monday to Friday."
             binding.callBtnTv.text = "Call Mitra at "   + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG)
-        }else{
+        }else if(PrefrenceUtils.retriveLangData(activity,Constants.LANGUAGE).equals("hi")){
             binding.callUsOnTv.text = "हमें कॉल करें " + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG) + " सोमवार से शुक्रवार सुबह 10 बजे से शाम 6 बजे के बीच कभी भी।"
             binding.callBtnTv.text = "मित्रा को कॉल करें " + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG)
+        }else{
+            binding.callUsOnTv.text = "సోమవారం నుండి శుక్రవారం వరకు 10 AM - 6 PM మధ్య ఎప్పుడైనా"  + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG) + "లో మాకు కాల్ చేయండి."
+            binding.callBtnTv.text = "మిత్రకు కాల్ చేయండి " + PrefrenceUtils.retriveData(requireContext(), Constants.SUPPORT_NUMBER_REMOTE_CONFIG)
         }
         binding.ivBackButton.setOnClickListener { requireActivity().onBackPressed() }
         binding.callBtn.setOnClickListener {

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -65,15 +66,18 @@ class AuthenticationActivity : AppCompatActivity() {
                     Constants.CHECKFORPAYROLL
                 )
             ) {
-                startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java))
+                Log.d("FUNNEL_ONE ", "handleIntents: ENTERA")
+                Log.d("FUNNEL_ONE ", "handleIntents: ${intent.getStringExtra(Constants.TYPE)}")
+                startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java)
+                    .putExtra(Constants.TYPE, intent.getStringExtra(Constants.TYPE)))
                 finish()
             } else {
+                Log.d("CLICKTWO", "initHandler: "+PrefrenceUtils.retriveData(this, intent.getStringExtra(Constants.TYPE)))
                 startActivity(
                     Intent(
                         this@AuthenticationActivity,
                         HomeActivity::class.java
-                    )
-                )
+                    ).putExtra(Constants.TYPE, intent.getStringExtra(Constants.TYPE)))
                 finish()
             }
         }
@@ -103,15 +107,18 @@ class AuthenticationActivity : AppCompatActivity() {
                             Constants.CHECKFORPAYROLL
                         )
                     ) {
-                        startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java))
+                        Log.d("FUNNEL_ONE ", "handleIntents: ENTERA")
+                        Log.d("FUNNEL_ONE ", "handleIntents: ${intent.getStringExtra(Constants.TYPE)}")
+                        startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java)
+                            .putExtra(Constants.TYPE, intent.getStringExtra(Constants.TYPE)))
                         finish()
                     } else {
+                        Log.d("CLICKTWO", "initHandler: "+PrefrenceUtils.retriveData(this@AuthenticationActivity, intent.getStringExtra(Constants.TYPE)))
                         startActivity(
                             Intent(
                                 this@AuthenticationActivity,
                                 HomeActivity::class.java
-                            )
-                        )
+                            ).putExtra(Constants.TYPE, intent.getStringExtra(Constants.TYPE)))
                         finish()
                     }
                 }

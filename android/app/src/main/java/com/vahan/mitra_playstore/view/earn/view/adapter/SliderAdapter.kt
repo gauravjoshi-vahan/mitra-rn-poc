@@ -52,7 +52,7 @@ class SliderAdapter(
         cardViewContainer.setOnClickListener { view: View? ->
             if (imagesList[position].type.contains(Constants.BANK)) {
                 Navigation.findNavController(imageLayout.findViewById(R.id.tv_heading))
-                    .navigate(R.id.nav_fragment_add)
+                    .navigate(R.id.nav_fragment_add_bank)
             } else {
                 Navigation.findNavController(imageLayout.findViewById(R.id.tv_heading))
                     .navigate(R.id.nav_upload_fragment)
